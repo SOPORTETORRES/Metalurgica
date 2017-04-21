@@ -125,7 +125,7 @@ namespace Metalurgica.Controls
                     DataTable dataTable = listaDataSet.DataSet.Tables[0];
                     if (dataTable.Rows.Count > 0)
                     {
-                        lPesoEtiqueta = int.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                        lPesoEtiqueta = lcom.Val (dataTable.Rows[0]["PesoPaquete"].ToString ());
                         lDiam = int.Parse(dataTable.Rows[0]["Diametro"].ToString());
                         lKilosSaldo = lKilosSolicitados - (lKilosProducidos + lPesoEtiqueta);
 

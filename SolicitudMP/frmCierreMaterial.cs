@@ -111,7 +111,27 @@ namespace Metalurgica
                                 //if (!inet_msg.Trim().ToUpper().Equals("OK"))
                                 //    inet_msg = "ERROR NO EXISTE STOCK DEL MATERIAL";
 
-                                //1) Se registra el cierre del producto.
+                                // 1.- Se Integra con INET
+                                DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
+                                lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
+                                lDts.Tables.Add(lTblFinal);
+
+                                lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                                lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+
+                                inet_msg = buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                                if (inet_msg.Trim().ToUpper().Equals("OK"))
+                                {
+                                    counter++;
+                                    if (email_msg.Equals(""))
+                                    {
+                                        email_msg += "Producto(s):" + newLine + newLine;
+                                        email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
+                                    }
+                                    email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
+                                }
+                                // 2.-  Se Registra el cierre del Producto
+
                                 solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
                                 solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
                                 solicitud_Material_Detalle.Usuario_Cierre = Program.currentUser.Login;
@@ -124,33 +144,44 @@ namespace Metalurgica
                                 if (solicitud_Material_Detalle.MensajeError.Equals(""))
                                 {
                                     //2) Cargamos el Objeto de INET       
-                                    DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-                                lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
-                                lDts.Tables.Add(lTblFinal);
+                                    //    DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
+                                    //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
+                                    //lDts.Tables.Add(lTblFinal);
 
-                                lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-                                lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+                                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                                    //lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
 
                                     //lObjINET = lPX.ObtenerObjetoINETPorProducto(solicitud_Material_Detalle.Producto.ToString(), lCantidad.ToString(), lFechaMov, lGlosa1, lGlosa2);
                                     //lRespuestaWS_INET = InvocarWS_INET_V1(lObjINET);
                                     //// Invocamos el WS de INET
                                     //// Comunicacion con el WS INET.
-                                   inet_msg = buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
-                                    if (inet_msg.Trim().ToUpper().Equals("OK"))
-                                    {
-                                        counter++;
-                                        if (email_msg.Equals(""))
-                                        {
-                                            email_msg += "Producto(s):" + newLine + newLine;
-                                            email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
-                                        }
-                                        email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
-                                    }
+
                                     row.Cells[0].Value = false;
                                 }
                                 else
                                     MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+      
+
+
+                                //3) Notificacion de los productos cerrados correctamente por email.
+                                if (counter > 0)
+                                    EnvioCorreo(email_msg);
+
+
+                                //1) Se registra el cierre del producto.
+                                //    solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
+                                //solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
+                                //solicitud_Material_Detalle.Usuario_Cierre = Program.currentUser.Login;
+                                ////solicitud_Material_Detalle.Fecha_Cierre = "";
+                                //solicitud_Material_Detalle.Tipo = row.Cells[COLUMNNAME_TIPO].Value.ToString().Substring(0, 1);
+                                //solicitud_Material_Detalle.Cantidad = Convert.ToInt32(row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString());
+                                //solicitud_Material_Detalle.Inet_Msg = inet_msg;
+
+                                //solicitud_Material_Detalle = wsOperacion.GuardarCierreMaterial(solicitud_Material_Detalle, inet_msg, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
+                                //if (solicitud_Material_Detalle.MensajeError.Equals(""))
+
                             }
                         }
                     }
@@ -169,12 +200,6 @@ namespace Metalurgica
 
                     //inet_msg = Microsoft.VisualBasic.Interaction.InputBox("Ingrese la accion resultante del WS (ok/error)", this.Text, "OK", -1, -1);
                                 
-
-                    //3) Notificacion de los productos cerrados correctamente por email.
-                    if (counter > 0)
-                        EnvioCorreo(email_msg);
-
-                    //tlbNuevo_Click(sender, e);
                     tlbActualizar.PerformClick();
                     MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
