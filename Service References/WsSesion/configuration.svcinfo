@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.BasicHttpBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;WS_SesionSoap&quot; /&gt;" bindingType="basicHttpBinding" name="WS_SesionSoap" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;WS_SesionSoap&quot; contract=&quot;WsSesion.WS_SesionSoap&quot; name=&quot;WS_SesionSoap&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx&quot; binding=&quot;basicHttpBinding&quot; bindingConfiguration=&quot;WS_SesionSoap&quot; contract=&quot;WsSesion.WS_SesionSoap&quot; name=&quot;WS_SesionSoap&quot; /&gt;" contractName="WsSesion.WS_SesionSoap" name="WS_SesionSoap" />
+  </endpoints>
+</configurationSnapshot>

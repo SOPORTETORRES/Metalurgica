@@ -1,0 +1,2653 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Coladas
+</name>
+</assembly>
+<members>
+<member name="T:Coladas.My.Resources.Resources">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:Coladas.My.Resources.Resources.ResourceManager">
+<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member>
+<member name="P:Coladas.My.Resources.Resources.Culture">
+<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Ws_To">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.#ctor">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDatosControlCargaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDatosProtocoloDimCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ActualizaOrdenPorViajeCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObrasPorUsuarioCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.CreaDatosEn_TOCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.Crea_IT_ViajeEN_TOCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabaImagenCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.EnviaNotificacionesEnviaMsgDeNotificacionCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerNroGuiaInetCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerCantidadDesdeInetCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerTblDetallePreItCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarImagenFormaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarImagenFormaOriginalCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabaLogImpresionCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ExistePiezaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDatosCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerParametroCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdPCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerResumenPiezasDigitadasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerUsuarioCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerUsuarioTOSOLCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabaPiezaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.Pasa_a_MM_ConIdFormaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerImgCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerImagenOriginalCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabaHdCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerObrasVigentesCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerTipoFormaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerTodasLasFormasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerVariabilidadTipoFormasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDiametrosCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsSectorFiguraUbicacionCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoB_V2Completed">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoBCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ClonarPiezasTipoBCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ModificacionEncabezados_HDCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.CargaPiezasOCCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObrasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.EliminaColadaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.CalcularNroPaquetesCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.RegistraErrorCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarOCCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarColadaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarCotasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerColadasIgresadasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.Obtener_entregasOCCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.Obtener_OC_IgresadasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarActaEntregaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.EliminaActaEntregaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerActaEntregaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObras_V2Completed">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoParaDelCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezaTipoB_PorIdCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezasParaModCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDatosHdPorIdPiezaTipoBCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.SP_GeneraDetallePaquetesPiezaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerParametrosTextoImgCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerResumenItsCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ResumenImpresionEtiquetasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ResumenItsPara_PLCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ResumenItsPara_LaminasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.MarcaPiezasComoImpresasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.MarcaPiezasComoLaminasImpresasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerTipoDeObraCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConLamCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezasConProblemasImgCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerCotas_PorIdPiezaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerImg_PorIdPiezaCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECHCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECH_Desde_DbCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDiametrosPorViajeCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.OCCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.GrabarEntregasOCCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerKilosEntregadosPorItemCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_NewCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDiametros_SaldosViajeCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerTrazabilidadColadasCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetBECHCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_SaldosViajeCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPLCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDespCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDesp_ConSaldosCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConSaldosCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerDtsPL_BECHCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.ObtenerPesoBechtellCompleted">
+<remarks/>
+</member>
+<member name="E:Coladas.Px_WS.Ws_To.DelPiezaTipoBCompleted">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosControlCarga(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosControlCargaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosControlCargaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosProtocoloDim(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosProtocoloDimAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosProtocoloDimAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ActualizaOrdenPorViaje(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ActualizaOrdenPorViajeAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ActualizaOrdenPorViajeAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObrasPorUsuario(System.Data.DataSet,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObrasPorUsuarioAsync(System.Data.DataSet,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObrasPorUsuarioAsync(System.Data.DataSet,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CreaDatosEn_TO(System.Int32,System.String,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CreaDatosEn_TOAsync(System.Int32,System.String,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CreaDatosEn_TOAsync(System.Int32,System.String,System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Crea_IT_ViajeEN_TO(System.Int32,System.Int32,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Crea_IT_ViajeEN_TOAsync(System.Int32,System.Int32,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Crea_IT_ViajeEN_TOAsync(System.Int32,System.Int32,System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaImagen(System.String,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaImagenAsync(System.String,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaImagenAsync(System.String,System.Byte[],System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EnviaNotificacionesEnviaMsgDeNotificacion(System.String,System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EnviaNotificacionesEnviaMsgDeNotificacionAsync(System.String,System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EnviaNotificacionesEnviaMsgDeNotificacionAsync(System.String,System.String,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerNroGuiaInet(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerNroGuiaInetAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerNroGuiaInetAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCantidadDesdeInet(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCantidadDesdeInetAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCantidadDesdeInetAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTblDetallePreIt(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTblDetallePreItAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTblDetallePreItAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenForma(System.String,System.Byte[],System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenFormaAsync(System.String,System.Byte[],System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenFormaAsync(System.String,System.Byte[],System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenFormaOriginal(System.String,System.Byte[],System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenFormaOriginalAsync(System.String,System.Byte[],System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarImagenFormaOriginalAsync(System.String,System.Byte[],System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaLogImpresion(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaLogImpresionAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaLogImpresionAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ExistePieza(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ExistePiezaAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ExistePiezaAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatos(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametro(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametroAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametroAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorId(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdP(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdPAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerHojaDespiecePorIdPAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenPiezasDigitadas(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenPiezasDigitadasAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenPiezasDigitadasAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuario(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuarioAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuarioAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuarioTOSOL(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuarioTOSOLAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerUsuarioTOSOLAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaPieza(Coladas.Px_WS.Tipo_Pieza,System.String,Coladas.Px_WS.Tipo_Hd)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaPiezaAsync(Coladas.Px_WS.Tipo_Pieza,System.String,Coladas.Px_WS.Tipo_Hd)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaPiezaAsync(Coladas.Px_WS.Tipo_Pieza,System.String,Coladas.Px_WS.Tipo_Hd,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Pasa_a_MM_ConIdForma(System.String,System.String,System.Double)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Pasa_a_MM_ConIdFormaAsync(System.String,System.String,System.Double)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Pasa_a_MM_ConIdFormaAsync(System.String,System.String,System.Double,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImg(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImgAsync(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImgAsync(System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImagenOriginal(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImagenOriginalAsync(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImagenOriginalAsync(System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaHd(Coladas.Px_WS.Tipo_Hd)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaHdAsync(Coladas.Px_WS.Tipo_Hd)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabaHdAsync(Coladas.Px_WS.Tipo_Hd,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerObrasVigentes(Coladas.Px_WS.Tipo_Obra)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerObrasVigentesAsync(Coladas.Px_WS.Tipo_Obra)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerObrasVigentesAsync(Coladas.Px_WS.Tipo_Obra,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoForma(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoFormaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoFormaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTodasLasFormas">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTodasLasFormasAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTodasLasFormasAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerVariabilidadTipoFormas">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerVariabilidadTipoFormasAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerVariabilidadTipoFormasAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametros">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametrosAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametrosAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsSectorFiguraUbicacion(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsSectorFiguraUbicacionAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsSectorFiguraUbicacionAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoB_V2(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoB_V2Async(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoB_V2Async(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoB(System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoBAsync(System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPieasTipoBAsync(System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ClonarPiezasTipoB(Coladas.Px_WS.Tipo_Hd,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ClonarPiezasTipoBAsync(Coladas.Px_WS.Tipo_Hd,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ClonarPiezasTipoBAsync(Coladas.Px_WS.Tipo_Hd,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ModificacionEncabezados_HD(Coladas.Px_WS.Tipo_Hd,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ModificacionEncabezados_HDAsync(Coladas.Px_WS.Tipo_Hd,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ModificacionEncabezados_HDAsync(Coladas.Px_WS.Tipo_Hd,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CargaPiezasOC(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CargaPiezasOCAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CargaPiezasOCAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObras(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObrasAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObrasAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaColada(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaColadaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaColadaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CalcularNroPaquetes(Coladas.Px_WS.TipoMov,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CalcularNroPaquetesAsync(Coladas.Px_WS.TipoMov,System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CalcularNroPaquetesAsync(Coladas.Px_WS.TipoMov,System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.RegistraError(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.RegistraErrorAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.RegistraErrorAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarOC(Coladas.Px_WS.TipoOC)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarOCAsync(Coladas.Px_WS.TipoOC)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarOCAsync(Coladas.Px_WS.TipoOC,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarColada(Coladas.Px_WS.TipoColada)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarColadaAsync(Coladas.Px_WS.TipoColada)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarColadaAsync(Coladas.Px_WS.TipoColada,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarCotas(Coladas.Px_WS.TipoDetalleCotas,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarCotasAsync(Coladas.Px_WS.TipoDetalleCotas,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarCotasAsync(Coladas.Px_WS.TipoDetalleCotas,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerColadasIgresadas">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerColadasIgresadasAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerColadasIgresadasAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_entregasOC(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_entregasOCAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_entregasOCAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_OC_Igresadas(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_OC_IgresadasAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.Obtener_OC_IgresadasAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarActaEntrega(Coladas.Px_WS.TipoActaEntrega)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarActaEntregaAsync(Coladas.Px_WS.TipoActaEntrega)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarActaEntregaAsync(Coladas.Px_WS.TipoActaEntrega,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaActaEntrega(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaActaEntregaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.EliminaActaEntregaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerActaEntrega(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerActaEntregaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerActaEntregaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObras_V2(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObras_V2Async(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsCmbObras_V2Async(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoParaDel(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoParaDelAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoParaDelAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezaTipoB_PorId(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezaTipoB_PorIdAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezaTipoB_PorIdAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasParaMod(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasParaModAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasParaModAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosHdPorIdPiezaTipoB(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosHdPorIdPiezaTipoBAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDatosHdPorIdPiezaTipoBAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlano(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasPorPlanoAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.SP_GeneraDetallePaquetesPieza(Coladas.Px_WS.TipoDetallePaquetesPieza)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.SP_GeneraDetallePaquetesPiezaAsync(Coladas.Px_WS.TipoDetallePaquetesPieza)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.SP_GeneraDetallePaquetesPiezaAsync(Coladas.Px_WS.TipoDetallePaquetesPieza,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametrosTextoImg">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametrosTextoImgAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerParametrosTextoImgAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenIts">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenItsAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerResumenItsAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenImpresionEtiquetas(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenImpresionEtiquetasAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenImpresionEtiquetasAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_PL(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_PLAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_PLAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_Laminas(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_LaminasAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ResumenItsPara_LaminasAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoImpresas(System.String,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoImpresasAsync(System.String,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoImpresasAsync(System.String,System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoLaminasImpresas(System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoLaminasImpresasAsync(System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.MarcaPiezasComoLaminasImpresasAsync(System.String,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoDeObra(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoDeObraAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTipoDeObraAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConLam(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConLamAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConLamAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasConProblemasImg">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasConProblemasImgAsync">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezasConProblemasImgAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCotas_PorIdPieza(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCotas_PorIdPiezaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerCotas_PorIdPiezaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImg_PorIdPieza(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImg_PorIdPiezaAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerImg_PorIdPiezaAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECH(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECHAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECHAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECH_Desde_Db(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECH_Desde_DbAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPiezas_BELTECH_Desde_DbAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametrosPorViaje(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametrosPorViajeAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametrosPorViajeAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.OC(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.OCAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.OCAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarEntregasOC(Coladas.Px_WS.TipoEntregas_OC)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarEntregasOCAsync(Coladas.Px_WS.TipoEntregas_OC)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.GrabarEntregasOCAsync(Coladas.Px_WS.TipoEntregas_OC,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerKilosEntregadosPorItem(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerKilosEntregadosPorItemAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerKilosEntregadosPorItemAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_New(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_NewAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_NewAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametros_SaldosViaje(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametros_SaldosViajeAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDiametros_SaldosViajeAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTrazabilidadColadas(System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTrazabilidadColadasAsync(System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerTrazabilidadColadasAsync(System.Data.DataSet,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetBECH(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetBECHAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDetBECHAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_SaldosViaje(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_SaldosViajeAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConDet_SaldosViajeAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPLAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPLAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDesp(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDespAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDespAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDesp_ConSaldos(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDesp_ConSaldosAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ViajeDesp_ConSaldosAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConSaldos(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConSaldosAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_ConSaldosAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_BECH(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_BECHAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerDtsPL_BECHAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPesoBechtell(System.String,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPesoBechtellAsync(System.String,System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.ObtenerPesoBechtellAsync(System.String,System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.DelPiezaTipoB(System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.DelPiezaTipoBAsync(System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.DelPiezaTipoBAsync(System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Coladas.Px_WS.Ws_To.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Tipo_Hd">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Fecha">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Sector">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.OC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Obra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Figura">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Plano">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.EstadoOp">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.IdObra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.Error">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Hd.UserMod">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoEntregas_OC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.Item_OC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.KilosActa">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.KilosOC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.KilosEntregados">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.PesoAsignado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.Nrocolada">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.SaldoOC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.Diametro">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.CodViaje">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoEntregas_OC.IdObra">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.PiezaTipoB">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.EtiquetaLateral">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.CantEtiq">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.PesoEtiq">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.FiguraB">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.PiezasXEtiq">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.NroPaquetes">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Obra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Figura">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Nivel">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Elemento">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Plano">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Peso">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Paquete">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Cantidad">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Diametro">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Largo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Marca">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.CodigoIt">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Pieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.ValoresVar">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Orden">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.IdDetallePieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.NroPiezasVAR">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Imagen">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.Colada">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.IdForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.PiezaTipoB.FueImpresa">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoDetallePaquetesPieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.Id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.IdPieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.IdMov">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.NroPaq">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.TotalPaq">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.NroPiezas">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.KgsPaquete">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.Estado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.OPCION">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.Err">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetallePaquetesPieza.Etiqueta">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoActaEntrega">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.CodViaje">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.OC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.Archivo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.IdColada">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.NroActa">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoActaEntrega.TotalKgs">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoColada">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.Id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.Diametro">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.Largo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.NroColada">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.Procedencia">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.NroGuiaDespacho">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoColada.Kilos">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoOC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.Item_OC">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.IdObra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.Peso">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.Descripcion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoOC.Diametro">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoMov">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.idPiezaTipoB">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.IdObra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Plano">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Marca">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.PiezasTotales">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Asignadas">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.PesoAsignado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Saldo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.PesoSaldo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.NroPaquetes">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.PiezasXPaquete">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.KilosTotales">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Fecha">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Usuario">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Estado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Tipo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Imagen">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Factor">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.Errores">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoMov.CodViaje">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoDetalleForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.EsAngulo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.IdForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.Punto">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.CoordenadaX_Pto">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.CoordenadaY_Pto">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleForma.ValorPto">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.ColorPalette">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.MarshalByRefObject">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.Image">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Image.Tag">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Image.Palette">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoForma.Img">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoForma.IdForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoForma.PathImg">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoForma.DetalleForma">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.Tipo_Obra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Nombre">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Dir">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Encargado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Fono">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.TipoObra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Vigente">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.FechaCreacion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.UsuarioCrea">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Error">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Obs">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.MovilSup">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.NroContrato">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Oc">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.PesoMax">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.PesoMaxIT">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.SiglaObra">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Cliente">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Rut">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Sucursal">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.CentroCosto">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Codigo_INET">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.CodigoGuia_INET">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.EstadoAlta">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Superficie">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.TipoObra2">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Vehiculo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.CondicionVenta">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.CodigoParaFacturar">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.TipoDocumento">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.Empresa">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Obra.ObraRelacionada">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.TipoDetalleCotas">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.Id">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.IdPieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.IdForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.TipoPieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.A">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.B">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.C">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.D">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.E">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.F">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.G">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.H">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.I">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.J">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.K">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.L">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.M">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.N">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.TipoDetalleCotas.UserMod">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.Tipo_Pieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.IdPieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Cotas">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Correlativo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.EsVariable">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Error">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Pieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.IdForma">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Marca">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Cantidad">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Diametro">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Largo">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.TotalKilos">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Estado">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.IdImagen">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.DetallePieza">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.FechaCreacion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Id_Hd">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.IdIt">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.PathImg">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.LargoDes">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.UserMod">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.CodViaje">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Origen">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.Plano">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.NroPiezasVar">
+<comentarios/>
+</member>
+<member name="P:Coladas.Px_WS.Tipo_Pieza.NroCotasVar">
+<comentarios/>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ObsCuadroProgramacionDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ResumenDespDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetalleDespDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetallePLDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.LaminaDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.CabeceraDetDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.BECHTELDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ObsCuadroProgramacionRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ResumenDespRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetalleDespRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetallePLRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.LaminaRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.CabeceraDetRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.BECHTELRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ObsCuadroProgramacionRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.ResumenDespRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetalleDespRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.DetallePLRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.LaminaRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.CabeceraDetRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.Dts_PL.BECHTELRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosControlCargaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosControlCargaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDatosControlCargaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosProtocoloDimCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosProtocoloDimCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDatosProtocoloDimCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ActualizaOrdenPorViajeCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ActualizaOrdenPorViajeCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ActualizaOrdenPorViajeCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObrasPorUsuarioCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObrasPorUsuarioCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObrasPorUsuarioCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CreaDatosEn_TOCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CreaDatosEn_TOCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.CreaDatosEn_TOCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Crea_IT_ViajeEN_TOCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Crea_IT_ViajeEN_TOCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.Crea_IT_ViajeEN_TOCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaImagenCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaImagenCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabaImagenCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EnviaNotificacionesEnviaMsgDeNotificacionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EnviaNotificacionesEnviaMsgDeNotificacionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.EnviaNotificacionesEnviaMsgDeNotificacionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerNroGuiaInetCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerNroGuiaInetCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerNroGuiaInetCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerCantidadDesdeInetCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerCantidadDesdeInetCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerCantidadDesdeInetCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTblDetallePreItCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTblDetallePreItCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerTblDetallePreItCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarImagenFormaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarImagenFormaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarImagenFormaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarImagenFormaOriginalCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarImagenFormaOriginalCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarImagenFormaOriginalCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaLogImpresionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaLogImpresionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabaLogImpresionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ExistePiezaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ExistePiezaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ExistePiezaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDatosCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerParametroCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerParametroCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerParametroCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerHojaDespiecePorIdCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerHojaDespiecePorIdCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerHojaDespiecePorIdCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerHojaDespiecePorIdPCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerHojaDespiecePorIdPCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerHojaDespiecePorIdPCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerResumenPiezasDigitadasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerResumenPiezasDigitadasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerResumenPiezasDigitadasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerUsuarioCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerUsuarioCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerUsuarioCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerUsuarioTOSOLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerUsuarioTOSOLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerUsuarioTOSOLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaPiezaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaPiezaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabaPiezaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Pasa_a_MM_ConIdFormaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Pasa_a_MM_ConIdFormaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.Pasa_a_MM_ConIdFormaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImgCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImgCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerImgCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImagenOriginalCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImagenOriginalCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerImagenOriginalCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaHdCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabaHdCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabaHdCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerObrasVigentesCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerObrasVigentesCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerObrasVigentesCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTipoFormaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTipoFormaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerTipoFormaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTodasLasFormasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTodasLasFormasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerTodasLasFormasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerVariabilidadTipoFormasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerVariabilidadTipoFormasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerVariabilidadTipoFormasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametrosCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametrosCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDiametrosCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsSectorFiguraUbicacionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsSectorFiguraUbicacionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsSectorFiguraUbicacionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPieasTipoB_V2CompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPieasTipoB_V2CompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPieasTipoB_V2CompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPieasTipoBCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPieasTipoBCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPieasTipoBCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ClonarPiezasTipoBCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ClonarPiezasTipoBCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ClonarPiezasTipoBCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ModificacionEncabezados_HDCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ModificacionEncabezados_HDCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ModificacionEncabezados_HDCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CargaPiezasOCCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CargaPiezasOCCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.CargaPiezasOCCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsCmbObrasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsCmbObrasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsCmbObrasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EliminaColadaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EliminaColadaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.EliminaColadaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CalcularNroPaquetesCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.CalcularNroPaquetesCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.CalcularNroPaquetesCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.RegistraErrorCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.RegistraErrorCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.RegistraErrorCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarOCCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarOCCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarOCCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarColadaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarColadaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarColadaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarCotasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarCotasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarCotasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerColadasIgresadasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerColadasIgresadasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerColadasIgresadasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Obtener_entregasOCCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Obtener_entregasOCCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.Obtener_entregasOCCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Obtener_OC_IgresadasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.Obtener_OC_IgresadasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.Obtener_OC_IgresadasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarActaEntregaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarActaEntregaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarActaEntregaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EliminaActaEntregaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.EliminaActaEntregaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.EliminaActaEntregaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerActaEntregaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerActaEntregaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerActaEntregaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsCmbObras_V2CompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsCmbObras_V2CompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsCmbObras_V2CompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasPorPlanoParaDelCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasPorPlanoParaDelCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezasPorPlanoParaDelCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezaTipoB_PorIdCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezaTipoB_PorIdCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezaTipoB_PorIdCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasParaModCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasParaModCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezasParaModCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosHdPorIdPiezaTipoBCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDatosHdPorIdPiezaTipoBCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDatosHdPorIdPiezaTipoBCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasPorPlanoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasPorPlanoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezasPorPlanoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.SP_GeneraDetallePaquetesPiezaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.SP_GeneraDetallePaquetesPiezaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.SP_GeneraDetallePaquetesPiezaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerParametrosTextoImgCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerParametrosTextoImgCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerParametrosTextoImgCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerResumenItsCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerResumenItsCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerResumenItsCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenImpresionEtiquetasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenImpresionEtiquetasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ResumenImpresionEtiquetasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenItsPara_PLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenItsPara_PLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ResumenItsPara_PLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenItsPara_LaminasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ResumenItsPara_LaminasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ResumenItsPara_LaminasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.MarcaPiezasComoImpresasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.MarcaPiezasComoImpresasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.MarcaPiezasComoImpresasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.MarcaPiezasComoLaminasImpresasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.MarcaPiezasComoLaminasImpresasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.MarcaPiezasComoLaminasImpresasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTipoDeObraCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTipoDeObraCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerTipoDeObraCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConLamCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConLamCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConLamCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasConProblemasImgCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezasConProblemasImgCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezasConProblemasImgCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerCotas_PorIdPiezaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerCotas_PorIdPiezaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerCotas_PorIdPiezaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImg_PorIdPiezaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerImg_PorIdPiezaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerImg_PorIdPiezaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezas_BELTECHCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezas_BELTECHCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezas_BELTECHCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezas_BELTECH_Desde_DbCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPiezas_BELTECH_Desde_DbCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPiezas_BELTECH_Desde_DbCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametrosPorViajeCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametrosPorViajeCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDiametrosPorViajeCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.OCCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.OCCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.OCCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarEntregasOCCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.GrabarEntregasOCCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.GrabarEntregasOCCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerKilosEntregadosPorItemCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerKilosEntregadosPorItemCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerKilosEntregadosPorItemCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDetCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDetCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConDetCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDet_NewCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDet_NewCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConDet_NewCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametros_SaldosViajeCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDiametros_SaldosViajeCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDiametros_SaldosViajeCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTrazabilidadColadasCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerTrazabilidadColadasCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerTrazabilidadColadasCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDetBECHCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDetBECHCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConDetBECHCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDet_SaldosViajeCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConDet_SaldosViajeCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConDet_SaldosViajeCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ViajeDespCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ViajeDespCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ViajeDespCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ViajeDesp_ConSaldosCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ViajeDesp_ConSaldosCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ViajeDesp_ConSaldosCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConSaldosCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_ConSaldosCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_ConSaldosCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_BECHCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerDtsPL_BECHCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerDtsPL_BECHCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPesoBechtellCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.ObtenerPesoBechtellCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.ObtenerPesoBechtellCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.DelPiezaTipoBCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Coladas.Px_WS.DelPiezaTipoBCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Coladas.Px_WS.DelPiezaTipoBCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

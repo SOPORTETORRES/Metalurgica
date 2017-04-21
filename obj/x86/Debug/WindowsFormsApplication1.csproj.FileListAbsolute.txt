@@ -1,0 +1,32 @@
+C:\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResGen.read.1.tlog
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResGen.write.1.tlog
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+C:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+C:\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+H:\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+H:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+H:\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmRecepcionColada.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResGen.read.1.tlog
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\ResGen.write.1.tlog
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmImpresionEtiquetaColada.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmDespachoBodegaMP.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmDespachoCamion.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmVbDespacho.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmDespachoBodegaAcopio.resources
+D:\Gerardo\Proyectos\rbecerra\Metalurgica\20121015\WebSite1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.frmProduccion.resources
+D:\Gerardo\Google Drive\Proyectos\rbecerra\Metalurgica\Metalurgica\bin\Debug\WindowsFormsApplication1.exe.config
+D:\Gerardo\Google Drive\Proyectos\rbecerra\Metalurgica\Metalurgica\obj\x86\Debug\WindowsFormsApplication1.exe
+D:\Gerardo\Google Drive\Proyectos\rbecerra\Metalurgica\Metalurgica\obj\x86\Debug\WindowsFormsApplication1.pdb

@@ -1,0 +1,1342 @@
+﻿using System;
+using System.IO ;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Metalurgica.Models;
+using System.Xml.Serialization;
+using CommonLibrary2;
+using Metalurgica.Informes;
+using System.Configuration;
+
+namespace Metalurgica
+{
+    public partial class Frm_IntegracionINET : Form
+    {
+        private string  mViajesCargados=  "";
+    private int  mIdObra  = 0;
+    private int mIdDespachoCamion = 0;
+    private int mKilosCargados  = 0;
+    private int mTotalCosto  = 0;
+    private string  mMOVNUMDOC  = "0";
+    
+    private string mMsgEjecucionWs = "";
+    private bool  mWSIntegracionGuiaOK  = true;
+    private bool  mWSEntradaStockOK = true;
+
+    private  string mCodigoINET="";
+    private string mCodigoGuiaINET="";
+    private int mprecioRef =0;
+    private int   mTotalNeto =0;
+    private int   mPrecioCostoKilo=0;
+    private string  mSucursal  = "";
+    private string  mCodigoBodega = "";
+    private string mCodigoBodegaEntrada = "";
+    private string  mCodigoSucursal_INET = "";
+    private string mTransportista  = "";
+    private string mpatenteCamion = "";
+    private string  mNombreObra  = "";
+    private string mRutObra = "";
+    private string mPatenteCamion = "";
+    private int mPrecioRef = 0;
+    //private int mPrecioCostoKilo = 0;
+    private bool mAgregaColumna = true;
+    private string  mIdObraSel = "";
+    private string mSucursalTO = "";
+
+
+        public Frm_IntegracionINET()
+        {
+            InitializeComponent();
+        }
+
+        private void Frm_IntegracionINET_Load(object sender, EventArgs e)
+        {
+            CargaCamiones();
+        }
+
+        public void AgregaColumnaCheck()
+        {
+
+
+            DataGridViewCheckBoxColumn colcheckBox = new DataGridViewCheckBoxColumn();
+            //        Dgt_Piezas.Columns.Insert(0, colcheckBox)
+            this.Dtg_Camiones .Columns.Insert(0, colcheckBox);
+            colcheckBox.HeaderText = "Sel";
+            colcheckBox.Name = "Sel";
+            colcheckBox.Width = 50;
+            mAgregaColumna = false;
+        }
+
+        private void CargaCamiones()
+    {
+        Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
+        DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();string lTmp="";
+        DataTable lTbl2 = new DataTable(); int j = 0; string lStrLlave = ""; string lPatente = "";
+        TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0; string lPar1="";
+        string lEmpresa = "";
+
+        //Create PROCEDURE [dbo].[SP_Consultas_FacturacionPorCamion]
+        //@Opcion INT,          //@Par1 Varchar(100),       //@Par2 Varchar(100),
+        //@Par3 Varchar(150),   //@Par4 Varchar(100),       //@Par5 Varchar(100),
+        //@Par6 Varchar(100),   //@Par7 Varchar(100)
+
+        mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
+        lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+
+
+        if (lEmpresa.ToUpper().Equals("TO"))
+        {
+            lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", mSucursalTO, "','','','','','',''");
+        }
+        else
+        {
+            lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 8,'", lEmpresa, "','','','','','',''");
+        }
+        
+        lDts=lPx .ObtenerDatos (lSql);
+        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+        {
+            lTbl = lDts.Tables[0].Copy();
+            Dtg_Camiones.DataSource = lTbl;
+
+              //'Prepara la carga del árbol
+              this.TR_Arbol.BeginUpdate();
+               TR_Arbol.Nodes.Clear();
+               for (i = 0; i < lTbl.Rows.Count ; i++)
+               { 
+                   lTmp=string .Concat(lTbl.Rows[i]["Fecha"].ToString() , " (" ,lTbl.Rows[i]["Kilos"].ToString() ,")");
+                   lNodo = new TreeNode(lTmp);
+                   lNodo.Name = "FECHA";
+                 //  lNodo = new TreeNode(lTmp);
+                   lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lTbl.Rows[i]["Fecha"].ToString(), "','", mSucursalTO, "','','','','',''");
+                    lDts=lPx .ObtenerDatos (lSql);
+                    if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                    {
+                        lTbl2 = lDts.Tables[0].Copy();
+                        lStrLlave = "";
+                        for (j = 0; j < lTbl2.Rows.Count ; j++)
+                        {
+                            lPatente = lTbl2.Rows[j]["Patente"].ToString();                            
+                            if (lStrLlave.IndexOf(lPatente) < 0)
+                            {                                
+                                lStrLlave = string.Concat(lStrLlave, lPatente, "|");
+                                lVista = new DataView(lTbl2, string.Concat ("Patente='" , lPatente , "'"), "", DataViewRowState.CurrentRows);
+                                if (lVista.Count > 0)
+                                {
+                                    for (k = 0; k < lVista.Count ; k++)
+                                    {
+                                        lKilos = lKilos + int.Parse(lVista[k]["Kilos"].ToString());                                        
+                                    }
+                                }
+                                lNodo2 = new TreeNode(string.Concat(lPatente, " (", lKilos.ToString(), ")"));
+                                lNodo2.Name = "Patente";
+                                if (lVista.Count > 0)
+                                {
+                                    for (k = 0; k < lVista.Count; k++)
+                                    {
+                                        lNodo2.Nodes.Add(string.Concat(lVista[k]["Codigo"].ToString(), " (",lVista[k]["Kilos"].ToString(),")" ));
+                                        
+                                        lNodo2.Nodes[0].ImageIndex = 0;
+                                    }
+                                }
+                                lNodo.Nodes.Add(lNodo2);
+                                lNodo.Nodes[0].ImageIndex = 2;
+                                lKilos = 0;
+                            }
+                        }                        
+                    }
+                    TR_Arbol.Nodes.Add(lNodo);
+                    TR_Arbol.Nodes[0].ImageIndex = 1;
+
+               }
+
+               TR_Arbol.EndUpdate();
+               TR_Arbol.CollapseAll ();
+        }
+    
+    }
+
+        private void TR_Arbol_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Name.ToUpper().Equals("FECHA"))
+                CargaDetalleNodo(e.Node.FullPath.ToString(), "F", mSucursalTO); 
+
+            if (e.Node.Name.ToUpper().Equals("PATENTE"))
+                CargaDetalleNodo(e.Node.FullPath.ToString(), "P", mSucursalTO); 
+
+        }
+
+        private void CargaDetalleNodo(string iTextNodo, string iTipo, string iSucursal)
+        {
+            string[] split = iTextNodo.Split(new Char[] { '\\' });
+            string lFecha = ""; string lPatente = ""; string[] lPartes = null;
+             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();   DataSet lDts = new DataSet(); 
+
+            string lSql = "";
+            Btn_INET.Enabled = false;
+            switch (iTipo)
+            {
+                case "P":
+                     lPartes = split[0].Split(new Char[] { '(' });
+                    lFecha = lPartes[0].ToString().Trim ();
+                     lPartes = split[1].Split(new Char[] { '(' });
+                    lPatente = lPartes[0].ToString().Trim();
+                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 3,'", lFecha, "','",lPatente,"','",iSucursal,"','','','',''");
+
+                    Btn_INET.Enabled = true;
+                    break;
+                case "F":
+                      lPartes = split[0].Split(new Char[] { '(' });
+                    lFecha = lPartes[0].ToString().Trim ();
+                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lFecha, "','','','','','',''");
+                    break;
+
+            }
+            if (lSql.Trim().Length > 0)
+            {
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {                    
+                    Dtg_Camiones.DataSource = lDts.Tables[0].Copy();
+                }
+            }
+           if (mAgregaColumna==true  )
+                AgregaColumnaCheck();
+
+
+           if (iTipo=="P")
+           {
+               //formateamos la grilla
+               Dtg_Camiones.Columns[0].Width = 60;
+               Dtg_Camiones.Columns[2].Width = 60;
+               Dtg_Camiones.Columns[3].Width = 250;
+               Dtg_Camiones.Columns[4].Width = 80;
+               Dtg_Camiones.Columns[5].Width = 60;
+           }
+
+
+            Tx_Fecha.Text = lFecha;
+            Tx_Patente.Text = lPatente;
+        }
+
+        private void Btn_INET_Click(object sender, EventArgs e)
+        {
+            int i = 0; string lSQl = ""; int lRespINET = 0; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); int j = 0;
+            
+           // PersisteRespuesta_INET(" <ACCION>ok</ACCION>   &amp;lt;SDT_RESPUESTA_MOVTOS.RESPUESTA_MOVTO&amp;gt;   &amp;lt;TMETIP&amp;gt;1&amp;lt;/TMETIP&amp;gt;   &amp;lt;TMECOD&amp;gt;30&amp;lt;/TMECOD&amp;gt;   &amp;lt;MOVSUCCOD&amp;gt;1&amp;lt;/MOVSUCCOD&amp;gt;   &amp;lt;MOVNUMDOC&amp;gt;223652&amp;lt;/MOVNUMDOC&amp;gt;   &amp;lt;MOVESTDOC&amp;gt;0&amp;lt;/MOVESTDOC&amp;gt;   &amp;lt;MOVESTDSC&amp;gt;Procesado&amp;lt;/MOVESTDSC&amp;gt;  &amp;lt;/SDT_RESPUESTA_MOVTOS.RESPUESTA_MOVTO&amp;gt; &amp;lt;/SDT_RESPUESTA_MOVTOS&amp;gt; </XML> </SDT_TRANSPORTE> </string>   <Xmlout>              <NUMERROR>0</NUMERROR>        <DESCERROR>  <NRO_DOC>0</NRO_DOC>  <CAJCOD>0</CAJCOD>  <DOCCOD>330</DOCCOD>  <ATENUMREA>24264</ATENUMREA>  <COD_ESTADO>0</COD_ESTADO>  <DSC_ESTADO>Pendiente</DSC_ESTADO>  <MOT_ESTADO/> </SDT_RESP_PROCESO> </DESCERROR>      </SDT_ERRORES_ERROR>    </Xmlout>  </ExecuteResponse>", "UT1122");
+
+            Integracion_INET.Tipo_InvocaWS lRes= new  Integracion_INET.Tipo_InvocaWS();  int TotalKgs = 0; int NroIT = 0;
+            string lDespachosCam = ""; string lViajes = ""; List<Tipo_GuiaOC> lListaOC = new List<Tipo_GuiaOC>();
+            Btn_INET.Enabled = false;
+            //lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text );
+            if (ValidaDatos() == true)
+            {
+                foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
+                {
+                    if (lRow.Cells[0].Value != null)
+                        if (lRow.Cells[0].Value.ToString() == "True")
+                        {
+                            TotalKgs = TotalKgs + int.Parse(lRow.Cells["Kilos"].Value.ToString());
+                            NroIT = NroIT + 1;
+                            //lDespachosCam = string.Concat(lDespachosCam, lRow.Cells["IdDespacho"].Value.ToString(), ",");
+                            //lViajes = string.Concat(lViajes, lRow.Cells["Codigo"].Value.ToString(), ",");
+                        }
+                }
+                if (MessageBox.Show(string.Concat("¿Esta Seguro que desea realizar la genera la guía de depacho por ", TotalKgs, " kilos,  para el camión ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (TotalKgs>0)   //(lDespachosCam.Length > 2)
+                    {
+                       lListaOC= ObtenerGuiasPorOC();
+                       for (i = 0; i < lListaOC.Count; i++)
+                       {
+                           lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
+                           lViajes = lListaOC[i].Viajes ;  //lViajes.Substring(0, lViajes.Length - 1);
+                           lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes);
+                           lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
+                           string[] lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
+                           for (j = 0; j < lPartes.Length; j++)
+                           {
+                               lIdDespacho = Obtener_IdDespacho(lPartes[j].ToString());
+                               lSQl = string.Concat(" Update viaje set IdRespuestaINET=", lRespINET, ", patente='", Tx_Patente.Text, "', IdDespachoCamion=", lIdDespacho);
+                               lSQl = string.Concat(lSQl, ", IdLogWsINET=", lRes.Id, " where Codigo='", lPartes[j].ToString(), "'");
+                               lDal.ObtenerDatos(lSQl);
+                           }
+                       }
+                       MessageBox.Show(string.Concat("Se han Creado ", lListaOC.Count, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);                       
+                    }
+                }
+
+            }           
+            Btn_INET.Enabled = true ;
+            CargaCamiones();
+        }
+
+        private string ObtenerIdDespachoCamion(string lViaje)
+        {
+            string lIdDesp = ""; int i = 0;
+
+            for (i = 0; i < Dtg_Camiones.RowCount; i++)
+            {
+                if (Dtg_Camiones.Rows[i].Cells["Codigo"].Value.ToString().Equals(lViaje) == true)
+                {
+                    lIdDesp = Dtg_Camiones.Rows[i].Cells["IdDespacho"].Value.ToString();                    
+                }
+            }
+
+            return lIdDesp;        
+        }
+
+
+        private List<Tipo_GuiaOC> ObtenerGuiasPorOC()
+        { 
+            List<Tipo_GuiaOC> lListas=new List<Tipo_GuiaOC>() ;
+            Tipo_GuiaOC lGuiaOC = new Tipo_GuiaOC(); string lsql = "";
+            Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            List<Tipo_GuiaOC> lListaFinal = new List<Tipo_GuiaOC>(); int i = 0;
+            foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
+            {
+                if (lRow.Cells[0].Value != null)
+                    if (lRow.Cells[0].Value.ToString() == "True")
+                    {
+             // ALTER PROCEDURE [dbo].[SP_Consultas_FacturacionPorCamion]
+                //@Opcion INT,              //@Par1 Varchar(50),
+                //@Par2 Varchar(50),        //@Par3 Varchar(50),
+                //@Par4 Varchar(50),        //@Par5 Varchar(50),
+                //@Par6 Varchar(50),        //@Par7 Varchar(50)
+                        lsql = string.Concat ("SP_Consultas_FacturacionPorCamion  5,'",lRow.Cells["Codigo"].Value .ToString() ,"',");
+                        lsql = string.Concat(lsql ,"'','','','','',''");
+                        lDts = lDal.ObtenerDatos(lsql);
+                        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                        {
+                            lGuiaOC = new Tipo_GuiaOC();
+                            lGuiaOC.IdIt = lDts.Tables[0].Rows[0]["IDIT"].ToString();
+                            lGuiaOC.OC  = lDts.Tables[0].Rows[0]["OC"].ToString();
+                            lGuiaOC.Viajes  = lDts.Tables[0].Rows[0]["Codigo"].ToString();
+                            if (lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString().Trim ().Length >1)
+                                    lGuiaOC.DespachosCamion = lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString();
+                            else
+                                lGuiaOC.DespachosCamion = ObtenerIdDespachoCamion(lDts.Tables[0].Rows[0]["Codigo"].ToString());
+
+                            lListas.Add(lGuiaOC);
+                        }
+                    }
+            }
+            //Revisamos las listas y solo dejamos las 
+            string lViajes = ""; string lDespachos = ""; string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
+
+            lTbl = CreaCampo(lTbl);
+            for (i = 0; i < lListas.Count ; i++)
+            {
+                lOC_Tmp = lListas[i].OC.ToString();
+                for (j = 0; j < lListas.Count; j++)                   
+                {
+                    if (lListas[j].OC.ToString().Trim ().Length >0)
+                    {
+                        if (lOC_Tmp.IndexOf(lListas[j].OC.ToString()) > -1)
+                        {
+                            lVista=new DataView (lTbl,string.Concat ("OC='",lListas[j].OC.ToString(),"'"),"",DataViewRowState.CurrentRows );
+                            if (lVista.Count == 0)
+                            {
+                                lFila = lTbl.NewRow();
+                                lFila["IdIt"] = lListas[j].IdIt;
+                                lFila["OC"] = lListas[j].OC;
+                                lFila["Viajes"] = lListas[j].Viajes;
+                                lFila["DespachoCamion"] = lListas[j].DespachosCamion;
+                                lTbl.Rows.Add(lFila);
+                                lListas[j].OC = "";
+                            }
+                            else
+                            {
+                                lVista[0]["IdIt"] = string.Concat (lVista[0]["IdIt"] , ",",lListas[j].IdIt);
+                                lVista[0]["Viajes"] = string.Concat(lVista[0]["Viajes"], ",", lListas[j].Viajes );
+                                lVista[0]["DespachoCamion"] = string.Concat(lVista[0]["DespachoCamion"], ",", lListas[j].DespachosCamion);
+                                lListas[j].OC = "";
+                            }
+                        }
+                    }                   
+                }
+            }
+
+            if (lTbl.Rows.Count > 0)
+            {
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    lGuiaOC = new Tipo_GuiaOC();
+                    lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString ();
+                    lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
+                    lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
+                    lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
+                    lListaFinal.Add(lGuiaOC);
+                }
+            }
+
+            return lListaFinal;        
+        }
+
+        private DataTable CreaCampo(DataTable iTbl)
+        {
+            iTbl.Columns.Add("OC");
+            iTbl.Columns.Add("IdIT");
+            iTbl.Columns.Add("Viajes");
+            iTbl.Columns.Add("DespachoCamion");
+
+            return iTbl;        
+        }
+
+        #region "Metodo de integración con INET"
+
+
+
+
+        private string Obtener_IdDespacho(string lviaje)
+        {
+            string lIdDesp = ""; int i = 0;
+
+            foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
+            {
+                if (lRow.Cells[0].Value != null)
+                    if (lRow.Cells[0].Value.ToString() == "True")
+                    {
+                        if (lRow.Cells["codigo"].Value.ToString().Equals(lviaje))
+                        {
+                            lIdDesp = lRow.Cells["IdDespacho"].Value.ToString();
+                        }
+                    }
+            }
+            return lIdDesp;
+        }
+
+
+        private int PersisteRespuesta_INET(string lRes, string lPatente)
+        {
+            int lRespuesta = 0; string lSql = ""; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient();
+            string lXmlRes = ""; int lInicio = 0; int lFin = 0; string lIdPersistenciaINET = "";
+            string TMETIP=""; string MOVSUCCOD=""; string TMECOD=""; string MOVNUMDOC=""; string DOCCOD="";
+            string ATENUMREA=""; string Obs=""; DataSet lDts = new DataSet() ;
+    //  ALTER  PROCEDURE [dbo].[SP_CRUD_RespuestaINET]  ")
+    //@Id int,                  //@Patente varchar(10),             //@TMETIP	int,     //@MOVSUCCOD  int,
+    //@TMECOD		int,        //@MOVNUMDOC	int,            //@DOCCOD		int,    //@ATENUMREA	int,
+    //@Obs		varchar(max),  //@OPCION INT
+            lXmlRes=lRes .Replace ("&amp;lt;","<") ;
+            lXmlRes = lXmlRes.Replace("&amp;gt;", ">");
+            try
+            {
+                lInicio = lXmlRes.IndexOf("<TMETIP>") + "<TMETIP>".Length; lFin = lXmlRes.IndexOf("</TMETIP>");
+                TMETIP = lXmlRes.Substring(lInicio, lFin - lInicio);
+                lInicio = lXmlRes.IndexOf("<MOVSUCCOD>") + "<MOVSUCCOD>".Length; lFin = lXmlRes.IndexOf("</MOVSUCCOD>");
+                MOVSUCCOD = lXmlRes.Substring(lInicio, lFin - lInicio);
+                lInicio = lXmlRes.IndexOf("<TMECOD>") + "<TMECOD>".Length; lFin = lXmlRes.IndexOf("</TMECOD>");
+                TMECOD = lXmlRes.Substring(lInicio, lFin - lInicio);
+                lInicio = lXmlRes.IndexOf("<MOVNUMDOC>") + "<MOVNUMDOC>".Length; lFin = lXmlRes.IndexOf("</MOVNUMDOC>");
+                MOVNUMDOC = lXmlRes.Substring(lInicio, lFin - lInicio);
+                lInicio = lXmlRes.IndexOf("<DOCCOD>") + "<DOCCOD>".Length; lFin = lXmlRes.IndexOf("</DOCCOD>");
+                DOCCOD = lXmlRes.Substring(lInicio, lFin - lInicio);
+                lInicio = lXmlRes.IndexOf("<ATENUMREA>") + "<ATENUMREA>".Length; lFin = lXmlRes.IndexOf("</ATENUMREA>");
+                ATENUMREA = lXmlRes.Substring(lInicio, lFin - lInicio);
+                //lSql = string.Concat (" SP_CRUD_RespuestaINET 0,'",lPatente,"','", 
+
+            }
+            catch (Exception exc)
+            {
+                Obs = exc.Message.ToString();
+            }
+            finally
+            { 
+                lSql=string.Concat ("SP_CRUD_RespuestaINET 0,'",lPatente,"','",TMETIP,"','",MOVSUCCOD,"','",TMECOD,"','",MOVNUMDOC,"','");
+                lSql=string.Concat (lSql ,DOCCOD,"','",ATENUMREA,"','",Obs,"',1");
+                lDts = lDal.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    lIdPersistenciaINET = lDts.Tables[0].Rows[0][0].ToString();
+                    lRespuesta = int.Parse(lIdPersistenciaINET);
+                }
+                    
+            }
+
+            //End Try
+           
+            return lRespuesta;
+        }
+
+
+        private bool ValidaDatos()
+        {
+            bool lRes = true; string IdObras = ""; int i = 0; string lTmp = "";
+
+            foreach (DataGridViewRow lRow in this.Dtg_Camiones .Rows)
+            {
+                if (lRow.Cells[0].Value != null)
+                    if (lRow.Cells[0].Value.ToString() == "True")                        
+                        {
+                            IdObras = string.Concat(IdObras,  lRow.Cells["IdObra"].Value.ToString(), "|");                            
+                        }                      
+            }
+            if (IdObras.Trim().Length > 1)
+            {
+                string[] lPartes = IdObras.Split(new Char[] { '|' });
+                for (i = 0; i < lPartes.Length; i++)
+                {
+                    if (i == 0)
+                    { lTmp = lPartes[i].ToString(); }
+                    else
+                    {
+                        if (lPartes[i].ToString().Trim().Length > 0)
+                            if (!lTmp.Equals(lPartes[i].ToString()))
+                            {
+                                lRes = false;
+                            }
+                    }
+                }
+                if (lRes == true)
+                    mIdObraSel = lTmp;
+                else
+                    MessageBox.Show("Debe Seleccionar solo los viajes de una misma Obra para generar la guía de despacho, Revisar.", "Generación de Guía", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Debe Seleccionar algún viaje para realizar la generación de la Guía de despacho, Revisar.", "Generación de Guía", MessageBoxButtons.OK);
+                lRes = false;
+            }
+
+
+            return lRes;
+        }
+
+
+
+          public string  ObtenerFechaActual(string  iTipoFormato )
+          {
+              string lRes ="";string lFecha=""; string lCar="";string vFecha = DateTime.Today.ToShortDateString();
+        //Dim lRes As String = "", lFecha As String = ""
+        //Dim vFecha As String = Now, lCar As String = ""
+               string[] lPartes = null;
+        //Dim lPartes() As String = Nothing
+        try
+        {
+            lRes = String.Format("{0:dd/MM/yyyy}", vFecha);
+            
+            switch (iTipoFormato)
+            {
+                case "E":
+                   lFecha = lRes.Substring(0, 10);
+                    break;
+                case "A":
+                    if (lRes.IndexOf("/") > 0) // Then
+                    {
+                        lPartes = lRes.Substring(0, 10).Split(new Char[] { '/' });  //(new Char[] { '|' });
+                        lFecha = String.Concat(lPartes[2].ToString(), "-", lPartes[1].ToString(), "-", lPartes[0].ToString());
+                    }
+                    if (lRes.IndexOf("-") > 0) // Then
+                    {
+                        lPartes = lRes.Substring(0, 10).Split(new Char[] { '-' }); ;
+                        lFecha = String.Concat(lPartes[2].ToString(), "-", lPartes[1].ToString(), "-", lPartes[0].ToString());
+                    }
+                    break;
+                //default:
+                //    Console.WriteLine("Default case");
+                //    break;
+            }
+
+
+        }
+        catch (Exception exc)
+        {
+            MessageBox.Show(string.Concat ("Error de fecha: " , exc.Message.ToString ()));
+        }
+        //End Try
+        //' MessageBox.Show("Retorno de la funcion ObtenerFechaActual con TipoFormato : " & iTipoFormato & " lRes=" & lFecha)
+        return lFecha;
+
+          }
+
+
+            public  string ObtenerHoraActual() 
+            {
+                string lRes = ""; string vFecha = DateTime.Today.ToShortDateString();
+                //Dim lRes As String = "",         //Dim vFecha As String = Now
+                //'lRes = String.Format("{0:HH:MM:SS}", vFecha)
+
+                lRes = vFecha.Substring (0, 8);
+               // lRes = Right(vFecha, 8);
+                return lRes;
+            }
+
+         private  Tipo_MovExistenciasDet   CargaObjMovExistenciaDet(string iCodProd , int  iTotalKgs , int  iPrecioCosto ,  int  iTotalCosto ) 
+         {
+        Tipo_MovExistenciasDet lObj=new Tipo_MovExistenciasDet ();
+
+        try
+        {
+            //'Secuencia del detalle
+            lObj.DMONUMSEC = "1";
+            lObj.PRDCOD = iCodProd ;// '"63OGP1";
+            lObj.PRDEXIPLA = "1109009";
+            lObj.DMOPLACOD = "1109008";
+            lObj.DMOCENCOD = "0";
+            lObj.DMOITECOD = "0";
+            lObj.DMOARECOD = "0";
+
+            lObj.DMOCAN = string.Concat(iTotalKgs.ToString(), ".0000");// '"15523.0000"  '--Kilos
+            lObj.DMOPREUNI = string.Concat(iPrecioCosto.ToString(), ".00");// ' "420.00"      'Precio Unitario COSTO
+            lObj.DMOVALTOT = string.Concat(mTotalCosto.ToString(), ".00") ;//' "6519660.00"   '--Total
+            lObj.INVMOV11 = "0.0000";
+            lObj.INVMOV12 = "0.00";
+            lObj.INVMOV13 = "0.00";
+            lObj.INVMOV14 = "0.0000";
+            lObj.INVMOV15 = "0.00";
+            lObj.INVMOV16 = "0.0000";
+            lObj.INVMOV17 = "0.0000";
+        }
+      catch (Exception exc)
+        {
+            lObj.ERR = exc.Message.ToString();
+      }
+        return lObj;
+         }
+
+        private  string   ObtenerCampo_MovNumDoc() 
+        {
+            string lSql=""; WsCrud .CrudSoapClient lDAL=new WsCrud.CrudSoapClient ();WsCrud .ListaDataSet lDts=new WsCrud.ListaDataSet ();
+            string  lMovNumDoc="";
+        //Dim lSql As String = "", lDAl As New WsCrud.CrudSoapClient, lDts As New WsCrud.ListaDataSet
+        //Dim lMovNumDoc As Integer = 0
+
+        //'       ALTER PROCEDURE [dbo].[SP_CRUD_LOG_WS_INET]
+        //'@Opcion INT,                           '@Id int,                           '@IdDespachoCamion int,
+        //'@PatenteCamion Varchar(50),            '@IdObra Int,                       '@XML_Enviado Varchar(max),
+        //'@XML_Respuesta Varchar(max),           '@URL_WS Varchar(100),              '@Origen Varchar(30),
+        //'@MOVNUMDOC int 
+
+        lSql = "exec SP_CRUD_LOG_WS_INET 2,0,0,'',0,'','','','',0,'' ";
+        lDts = lDAL.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0 ))
+            lMovNumDoc = lDts.DataSet.Tables[0].Rows[0][0].ToString();
+
+
+        return lMovNumDoc;
+        }
+
+        private Tipo_MovExistenciasAll  CargaObjMovExistenciaAll(string  iObs1 ) 
+        {
+            Tipo_MovExistenciasAll lObj=new Tipo_MovExistenciasAll ();
+        //Dim lObj As New MovExistenciasAll
+
+        //'<SDT_MOVEXISTENCIASALL xmlns=&quot;http://www.informat.cl/ws&quot;>
+        //'        <SDT_MOVEXISTENCIASALL.MOVIMIENTO>
+        //'	<TMETIP>1</TMETIP>
+        //'	<TMECOD>30</TMECOD>
+        //'	<TMEOTRMOD>1</TMEOTRMOD>
+        //'	<MOVSUCCOD>1</MOVSUCCOD>
+        //'	<MOVNUMDOC>99509</MOVNUMDOC>   --Que valor debe ir aqui??? 0
+        //'	<MOVFECDOC>2013-07-03</MOVFECDOC>
+        //'	<MOVFECDIG>2013-07-04</MOVFECDIG>
+        //'	<MOVHORDIG>02:15:36</MOVHORDIG>
+        //'	<MOVREFDOC>11019</MOVREFDOC>	--Opcional enviaremos 0
+        //'	<MOVBODCOD>105</MOVBODCOD>		--Bodega 105
+        //'	<MOVBODSUC>1</MOVBODSUC>		--Sucursal 1
+        //'	<MOVGLO1>Obra OGP-1</MOVGLO1>
+        //'	<MOVGLO2/>
+        //'	<MOVSIS>1</MOVSIS>
+        //'	<MOVULTSEC>1</MOVULTSEC>
+
+        //'      MessageBox.Show("Al Inicio CargaObjMovExistenciaAll")
+        try
+        {
+
+            //'Indica el tipo movimiento (1=Entrada,2=salida)
+            lObj.TMETIP = "1";  // 'Entrada a productos terminados
+            //'Indica el código del movimiento (T)
+            lObj.TMECOD = "30";
+            //'Código de sucursal (T)
+            lObj.MOVSUCCOD = mCodigoSucursal_INET;// '"1"    '1casa matriz stgo  2 calama
+            //'Numero de movimiento  debe ser un correlativo y se debe aumentar en uno actualmente va en 90001
+            //'      MessageBox.Show("Antes de ObtenerCampo_MovNumDoc.ToString ")
+            mMOVNUMDOC = ObtenerCampo_MovNumDoc();
+
+            lObj.MOVNUMDOC = mMOVNUMDOC.ToString () ;//   '"90002"
+            //'Fecha del movimiento (aaaa-mm-dd)
+            //'  MessageBox.Show("ANtes de ObtenerFechaActual ")
+            lObj.MOVFECDOC = ObtenerFechaActual("A") ; //'  "2013-08-19"
+            //'   MessageBox.Show("Fechas :" & lObj.MOVFECDOC)
+            //'Fecha de digitación del movimiento (aaaa-mm-dd)
+            lObj.MOVFECDIG = ObtenerFechaActual("A") ; //'  "2013-08-19"
+            //'Hora del movimiento (hh:mm:ss)
+            lObj.MOVHORDIG = ObtenerHoraActual();// ' "21:59:59"
+            //'código de bodega (T)
+            //'lObj.MOVBODCOD = "1"  '105 para santiag0  69 para calama
+            lObj.MOVBODCOD = mCodigoBodega;// ' "105"  '105 para santiag0  69 para calama
+
+            //'código de sucursal (T)
+            lObj.MOVBODSUC = mCodigoSucursal_INET;// '"1"  ' '1casa matriz stgo  2 calama
+            //'Glosa del movimiento (opcional)
+            lObj.MOVGLO1 = iObs1; //'"PRUEBAS DE INTEGRACION";
+            //'Glosa del movimiento (opcional)
+            lObj.MOVGLO2 = "";
+            //'Sistema (1=Existencias,4=importaciones),por defecto =1
+            lObj.MOVSIS = "1";
+            //'Cantidad de líneas del detalle
+            lObj.MOVULTSEC = "1";
+            //'Valor total sumando todas las líneas
+            lObj.MOVVALTOT = String.Concat(mTotalCosto, ".00"); // ' '"6519660.00"
+        }
+        catch (Exception exc)
+        {
+            lObj.ERR = exc.Message.ToString();
+        }
+        return lObj;
+        }
+
+
+        public string CreaXmlEntradaProductosTErminados_INET(Tipo_MovExistencias  iObj ) 
+        {
+            string lRes=""; Tipo_EntDoc lEntDoc=new Tipo_EntDoc (); int i=0;
+        //Dim lRes As String, lEntDoc As New Tipo_EntDoc, i As Integer = 0
+           Tipo_DetDoc lDetDoc=new Tipo_DetDoc (); Tipo_ResumenDoc lResumenDoc=new Tipo_ResumenDoc ();
+        //Dim lDetDoc As New Tipo_DetDoc, lResumenDoc As New Tipo_ResumenDoc
+            string lXML="";string lRes1="";string lXmlFinal="";
+        //Dim lXML As String = "", lRes1 As String = "", lXmlFinal As String = ""
+            // \"
+        //lRes = String.Concat("<SDT_TRANSPORTE xmlns=" & Chr(34) & "http://www.informat.cl/ws" & Chr(34) & ">" & vbCrLf
+            lRes = String.Concat("<SDT_TRANSPORTE xmlns=\"http://www.informat.cl/ws\">", Environment.NewLine);
+        lRes = String.Concat(lRes, "<ACCION>ins</ACCION> ", Environment.NewLine  );
+        lRes = String.Concat(lRes, " <XML>",  Environment.NewLine  );
+        lXML = String.Concat(lXML, "	<SDT_MOVEXISTENCIASALL xmlns=&quot;http://www.informat.cl/ws&quot;>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  <SDT_MOVEXISTENCIASALL.MOVIMIENTO> ", Environment.NewLine  );
+
+        lXML = String.Concat(lXML, "  	<TMETIP>", iObj.ExistenciasAll.TMETIP.ToString(), "</TMETIP> ", Environment.NewLine  );
+
+        lXML = String.Concat(lXML, "  	<TMECOD>", iObj.ExistenciasAll.TMECOD.ToString(), "</TMECOD> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVSUCCOD>", iObj.ExistenciasAll.MOVSUCCOD.ToString(), "</MOVSUCCOD> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVNUMDOC>", iObj.ExistenciasAll.MOVNUMDOC.ToString(), "</MOVNUMDOC> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVFECDOC>", iObj.ExistenciasAll.MOVFECDOC.ToString(), "</MOVFECDOC> ", Environment.NewLine  );
+        //'lXML = String.Concat(lXML, "  	<MOVFECDOC>", "2013-12-31", "</MOVFECDOC> ", vbCrLf)
+        lXML = String.Concat(lXML, "  	<MOVFECDIG>", iObj.ExistenciasAll.MOVFECDIG.ToString(), "</MOVFECDIG>  ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVHORDIG>", iObj.ExistenciasAll.MOVHORDIG.ToString(), "</MOVHORDIG>  ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVBODCOD>", iObj.ExistenciasAll.MOVBODCOD.ToString(), "</MOVBODCOD> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVBODSUC>", iObj.ExistenciasAll.MOVBODSUC.ToString(), "</MOVBODSUC> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVGLO1>", iObj.ExistenciasAll.MOVGLO1.ToString(), "</MOVGLO1> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVGLO2/> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVSIS>", iObj.ExistenciasAll.MOVSIS.ToString(), "</MOVSIS> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	<MOVULTSEC>", iObj.ExistenciasAll.MOVULTSEC.ToString(), "</MOVULTSEC>", Environment.NewLine  );
+
+        lXML = String.Concat(lXML, "  	<DETALLE>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <SDT_MOVEXISTENCIASALL.MOVIMIENTO.DET_MOVTO>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMONUMSEC>", iObj.ExistenciasDet.DMONUMSEC.ToString(), "</DMONUMSEC>", Environment.NewLine  );
+
+        lXML = String.Concat(lXML, "  	            <PRDCOD>", iObj.ExistenciasDet.PRDCOD.ToString(), "</PRDCOD>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <PRDEXIPLA>", iObj.ExistenciasDet.PRDEXIPLA.ToString(), "</PRDEXIPLA>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOPLACOD>", iObj.ExistenciasDet.DMOPLACOD.ToString(), "</DMOPLACOD>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOCENCOD>", iObj.ExistenciasDet.DMOCENCOD.ToString(), "</DMOCENCOD>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOITECOD>", iObj.ExistenciasDet.DMOITECOD.ToString(), "</DMOITECOD>", Environment.NewLine  );
+
+        lXML = String.Concat(lXML, "  	            <DMOARECOD>", iObj.ExistenciasDet.DMOARECOD.ToString(), "</DMOARECOD>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOCAN>", iObj.ExistenciasDet.DMOCAN.ToString(), "</DMOCAN>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOPREUNI>", iObj.ExistenciasDet.DMOPREUNI.ToString(), "</DMOPREUNI>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <DMOVALTOT>", iObj.ExistenciasDet.DMOVALTOT.ToString(), "</DMOVALTOT>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV11>", iObj.ExistenciasDet.INVMOV11.ToString(), "</INVMOV11>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV12>", iObj.ExistenciasDet.INVMOV12.ToString(), "</INVMOV12>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV13>", iObj.ExistenciasDet.INVMOV13.ToString(), "</INVMOV13>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV14>", iObj.ExistenciasDet.INVMOV14.ToString(), "</INVMOV14>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV15>", iObj.ExistenciasDet.INVMOV15.ToString(), "</INVMOV15>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV16>", iObj.ExistenciasDet.INVMOV16.ToString(), "</INVMOV16>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	            <INVMOV17>", iObj.ExistenciasDet.INVMOV17.ToString(), "</INVMOV17>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "  	  </SDT_MOVEXISTENCIASALL.MOVIMIENTO.DET_MOVTO>", Environment.NewLine  );
+        lXML = String.Concat(lXML, "</DETALLE> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "<MOVVALTOT>", iObj.ExistenciasAll.MOVVALTOT.ToString(), "</MOVVALTOT> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL.MOVIMIENTO> ", Environment.NewLine  );
+        lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL> ", Environment.NewLine  );
+
+        lRes1 = String.Concat(lRes1, "</XML>", Environment.NewLine  );
+        lRes1 = String.Concat(lRes1, "</SDT_TRANSPORTE>", Environment.NewLine  );
+
+        //'cambiamos los caracteres 
+        //'        NOTA: Se realizó un encoding al XML con transporte, por lo cual:
+        //'el signo < se reemplazó por &lt; 
+        //'el signo > se reemplazó por &gt;
+        lXML = lXML.Replace("<", "&lt;");
+        lXML = lXML.Replace(">", "&gt;");
+
+        lXmlFinal = string.Concat (lRes, lXML , lRes1);
+        return lXmlFinal;
+
+        }
+
+
+        public  Tipo_MovExistencias  CargaObjEntradaBodegaProdTerm_INET(string  iViajesCargados , int  iIdObra , int  iIdDespachoCamion ) 
+    {
+        Tipo_MovExistencias lRes=new Tipo_MovExistencias (); Tipo_MovExistenciasAll  lExAll=new Tipo_MovExistenciasAll ();
+        Tipo_MovExistenciasDet lExDet=new Tipo_MovExistenciasDet ();
+        //Dim lRes As New MovExistencias, lExAll As New MovExistenciasAll
+        //Dim lExDet As New MovExistenciasDet
+
+        //ObtenerDatosObra(iIdObra.ToString());
+
+
+        lExDet = CargaObjMovExistenciaDet(mCodigoINET, mKilosCargados, mPrecioCostoKilo, mTotalCosto);
+        lExAll = CargaObjMovExistenciaAll(mViajesCargados);
+
+        lRes.ExistenciasAll = lExAll;
+
+        lRes.ExistenciasDet = lExDet;
+
+        return lRes;
+
+        }
+
+
+         private Tipo_RefDoc  CargaObjRefDoc(string  iNombreObra , String iViajesCargados ) 
+         {
+             Tipo_RefDoc lRefDoc=new Tipo_RefDoc ();
+            //Dim lRefDoc As New Tipo_RefDoc
+
+            lRefDoc.ObsUno = string.Concat ("Pruebas de Facturacion por Camión ", iNombreObra);
+            lRefDoc.ObsDos = iViajesCargados;
+
+            return lRefDoc;
+         }
+
+
+           private Tipo_Cliente CargaObjCliente(string  iRut) 
+           {
+               Tipo_Cliente lCliente=new Tipo_Cliente ();Tipo_Identificacion lIdentificacion=new Tipo_Identificacion ();
+        //Dim lCliente As New Tipo_Cliente, lIdentificacion As New Tipo_Identificacion
+               Tipo_Facturacion lFacturacion=new Tipo_Facturacion ();Tipo_DireccionDespacho lDirDesp=new Tipo_DireccionDespacho ();
+        //Dim lFacturacion As New TipoFacturacion, lDirDesp As New Tipo_DireccionDespacho
+
+        //'Datos de la entidad Identificación el formato el sin puntos y con digito 
+        //'Ejemplo 12669191-2
+        lIdentificacion.IdCliente = iRut.Substring(0, iRut.Length - 2);   //' sin el digito Verificador
+        //'lIdentificacion.IdCliente = "70"
+        lIdentificacion.Secuencia = "0";
+        lCliente.Identificacion = lIdentificacion;
+
+        //'Estos datos iran en blanco ya que el cliente no es Nuevo, se deben ingresar solo para clientes
+        //' nuevos
+        lDirDesp.Direccion = "";
+        lDirDesp.Comuna = "";
+        lDirDesp.Ciudad = "";
+        lCliente.DirDespacho = lDirDesp;
+
+
+        //'Datos de la entidad FActuracion que son fijos
+        lFacturacion.Moneda = "1";
+        lFacturacion.Tasa = "1.0000";
+        lFacturacion.CondVenta = "2";
+        lFacturacion.Origen = "0";
+        lFacturacion.DocAGenerar = mCodigoGuiaINET;  //' "330"  '' se debe leer de la Obra 
+        lFacturacion.DocRef = "0";
+        lFacturacion.NroDoc = "0";
+        lFacturacion.Estado = "0";
+        lFacturacion.Bodega_Salida = mCodigoBodega; // ' 105 ' mBodegaSalida.ToString  '105 SAntiago 69 Calama      
+
+        if (mCodigoGuiaINET.Equals("330"))
+            lFacturacion.Bodega_Entrada = mCodigoBodegaEntrada; //"90"; //'mBodegaEntrada ' "90"  cuando es 330 y vacio para otro caso
+        else
+            lFacturacion.Bodega_Entrada = ""; //' "90"  cuando es 330 y vacio para otro caso
+        
+
+        lFacturacion.IdVendedor = "50234350";
+        lFacturacion.Sucursal_Cod = mCodigoSucursal_INET; // ' "1" ' mSucursalCod.ToString  '1 para casa Matriz y 2 Calama
+        lFacturacion.ListaPrecio_Cod = "0";
+        lFacturacion.Fecha_Atencion = ObtenerFechaActual("A"); //' "2013-06-01" ' ObtenerFechaActual()
+        lFacturacion.Fecha_Documento = ObtenerFechaActual("A"); //'"2013-06-01" '  ObtenerFechaActual()
+        lCliente.Facturacion = lFacturacion;
+        return lCliente;
+        }
+
+        private List< Tipo_Items>  CargaObjItem() 
+        {
+            Tipo_Items lItem =new Tipo_Items (); List< Tipo_Items>   lListaItems=new List<Tipo_Items> ();
+        //Dim lItem As New Tipo_Items, lListaItems As New List(Of Tipo_Items)
+            Tipo_Facturacion lFacturacion = new Tipo_Facturacion(); Tipo_DireccionDespacho lDirDesp = new Tipo_DireccionDespacho();
+        //Dim lFacturacion As New TipoFacturacion, lDirDesp As New Tipo_DireccionDespacho
+
+        lItem.NumItem = "1";
+        lItem.PrecioRef = mPrecioRef.ToString();// ' "460.0000"
+        lItem.Cantidad = String.Concat(mKilosCargados, ".0000"); // ' "292.0000"
+        lItem.Producto_Vta = mCodigoINET; // '"63OGP12"
+        mTotalNeto = mPrecioRef * mKilosCargados;
+        lItem.TotalDocLin = String.Concat(mTotalNeto, ".00"); //  ' "134320.00"
+
+        //' mTotalNeto = Val(lItem.TotalDocLin)
+
+        lListaItems.Add(lItem);
+        return lListaItems;
+        }
+
+
+          public Tipo_DocVentaExt CargaObjEntradaINET(string  iViajesCargados ,int  iIdObra , int  iIdDespachoCamion ) 
+          {
+              Tipo_DocVentaExt lRes =new Tipo_DocVentaExt (); Tipo_EntDoc lEntDoc=new Tipo_EntDoc ();
+        //Dim lRes As New Tipo_DocVentaExt, lEntDoc As New Tipo_EntDoc
+              Tipo_DetDoc lDetDoc=new Tipo_DetDoc (); Tipo_ResumenDoc  lResumenDoc=new Tipo_ResumenDoc ();
+        //Dim lDetDoc As New Tipo_DetDoc, lResumenDoc As New Tipo_ResumenDoc
+
+                 lEntDoc.RefDoc = CargaObjRefDoc(mNombreObra, iViajesCargados);
+                lEntDoc.Cliente = CargaObjCliente(mRutObra);
+                lRes.EntDoc = lEntDoc;
+
+                lDetDoc.Items = CargaObjItem();
+                lRes.DetDoc = lDetDoc.Items;
+                lRes.ResumenDoc = CargaObjResumenDoc(mTotalNeto);
+
+                return lRes;
+
+          }
+
+        private Tipo_ResumenDoc CargaObjResumenDoc(int  iTotal ) 
+        {
+        //Dim lRes As New Tipo_ResumenDoc, lIva As Integer = 0, lTotalGen As Integer = 0
+         Tipo_ResumenDoc lRes=new Tipo_ResumenDoc (); int  lIva=0; int  lTotalGen=0;
+
+        //'Datos de la entidad ResumenDoc 
+        lRes.TotalNeto = iTotal.ToString();//   '"6515100.00"
+        lRes.CodigoDescuento = "0";
+        lRes.TotalDescuento = "0.00";
+        lIva = (iTotal * 19) / 100;
+
+        lRes.TotalIVA = lIva.ToString () ;// '"1237869.00"
+        lRes.TotalOtrosImpuestos = "0.00";
+
+        lTotalGen = iTotal + lIva;
+        lRes.TotalDoc = lTotalGen.ToString (); // '"7752969.00"
+
+        return lRes;
+        }
+
+
+        public String  CreaXmlEntradaINET(Tipo_DocVentaExt  iObj ) 
+        {
+            string lRes="";Tipo_EntDoc lEntDoc=new Tipo_EntDoc (); int i=0;
+        //Dim lRes As String, lEntDoc As New Tipo_EntDoc, i As Integer = 0
+            Tipo_DetDoc lDetDoc=new Tipo_DetDoc ();Tipo_ResumenDoc  lResumenDoc=new Tipo_ResumenDoc ();
+        //Dim lDetDoc As New Tipo_DetDoc, lResumenDoc As New Tipo_ResumenDoc
+
+        //lRes = "<SDT_DocVentaExt xmlns="http://www.informat.cl/ws" & Chr(34) & ">" & vbCrLf
+        lRes = String.Concat("<SDT_DocVentaExt xmlns=\"http://www.informat.cl/ws\">", Environment.NewLine);
+        lRes = String.Concat(lRes, " <EncDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, " <RefDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <NroRefCliente>", iObj.EntDoc.RefDoc.NroRefCliente, " </NroRefCliente> ", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <Modulo>", iObj.EntDoc.RefDoc.Modulo, "</Modulo> ", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <ObsUno>", iObj.EntDoc.RefDoc.ObsUno, "</ObsUno>", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <ObsDos>", iObj.EntDoc.RefDoc.ObsDos, "</ObsDos>", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <ObsTre>", iObj.EntDoc.RefDoc.ObsTre, "</ObsTre>", Environment.NewLine);
+        lRes = String.Concat(lRes, "  <NroOrdCom>", iObj.EntDoc.RefDoc.NroOrdCom, "</NroOrdCom>", Environment.NewLine);
+        lRes = String.Concat(lRes, " </RefDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Cliente>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Identificacion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<IdCliente>", iObj.EntDoc.Cliente.Identificacion.IdCliente, "</IdCliente>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Secuencia>", iObj.EntDoc.Cliente.Identificacion.Secuencia, "</Secuencia>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</Identificacion>", Environment.NewLine);
+
+        lRes = String.Concat(lRes, "<DireccionDespacho>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Direccion>", iObj.EntDoc.Cliente.DirDespacho.Direccion, "</Direccion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Comuna>", iObj.EntDoc.Cliente.DirDespacho.Comuna, "</Comuna>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Ciudad>", iObj.EntDoc.Cliente.DirDespacho.Ciudad, "</Ciudad>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</DireccionDespacho>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Facturacion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Moneda>", iObj.EntDoc.Cliente.Facturacion.Moneda, "</Moneda>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Tasa>", iObj.EntDoc.Cliente.Facturacion.Tasa, "</Tasa>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<CondVenta>", iObj.EntDoc.Cliente.Facturacion.CondVenta, "</CondVenta>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Origen>", iObj.EntDoc.Cliente.Facturacion.Origen, "</Origen>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<DocAGenerar>", iObj.EntDoc.Cliente.Facturacion.DocAGenerar, "</DocAGenerar>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<NroDoc>", iObj.EntDoc.Cliente.Facturacion.NroDoc, "</NroDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Estado>", iObj.EntDoc.Cliente.Facturacion.Estado, "</Estado>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Bodega_Salida>", iObj.EntDoc.Cliente.Facturacion.Bodega_Salida, "</Bodega_Salida>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Bodega_Entrada>", iObj.EntDoc.Cliente.Facturacion.Bodega_Entrada, "</Bodega_Entrada>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<IdVendedor>", iObj.EntDoc.Cliente.Facturacion.IdVendedor, "</IdVendedor>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Sucursal_Cod>", iObj.EntDoc.Cliente.Facturacion.Sucursal_Cod, "</Sucursal_Cod>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<ListaPrecio_Cod>", iObj.EntDoc.Cliente.Facturacion.ListaPrecio_Cod, "</ListaPrecio_Cod>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Fecha_Atencion>", iObj.EntDoc.Cliente.Facturacion.Fecha_Atencion, "</Fecha_Atencion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Fecha_Documento>", iObj.EntDoc.Cliente.Facturacion.Fecha_Documento, "</Fecha_Documento>", Environment.NewLine);
+        //'SE AGREGA DATOS DEL TRANSPORTISTA Y PATENTE 
+        lRes = String.Concat(lRes, " <Facturacion_ext> ");
+        lRes = String.Concat(lRes, "        <SDT_DocVentaExt.EncDoc.Cliente.Facturacion.FacExt_Item>" , Environment.NewLine);
+        lRes = String.Concat(lRes, "                 <Facturacion_opcion>1</Facturacion_opcion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "                <Facturacion_datos>", mTransportista, "</Facturacion_datos>", Environment.NewLine);
+        lRes = String.Concat(lRes, "        </SDT_DocVentaExt.EncDoc.Cliente.Facturacion.FacExt_Item>", Environment.NewLine);
+        lRes = String.Concat(lRes, "       <SDT_DocVentaExt.EncDoc.Cliente.Facturacion.FacExt_Item>", Environment.NewLine);
+        lRes = String.Concat(lRes, "                <Facturacion_opcion>2</Facturacion_opcion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "                <Facturacion_datos>", mPatenteCamion, "</Facturacion_datos>", Environment.NewLine);
+        lRes = String.Concat(lRes, "        </SDT_DocVentaExt.EncDoc.Cliente.Facturacion.FacExt_Item>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</Facturacion_ext> ", Environment.NewLine);
+        lRes = String.Concat(lRes, "</Facturacion>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</Cliente>", Environment.NewLine);
+
+        lRes = String.Concat(lRes, "</EncDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<DetDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<Items>", Environment.NewLine);
+
+       for (i = 0; i< iObj.DetDoc.Count ;i++)
+       {
+           lRes = String.Concat(lRes, "<SDT_DocVentaExt.DetDoc.Item>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<NumItem>", iObj.DetDoc[i].NumItem, "</NumItem>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<Producto>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<Producto_Vta>", iObj.DetDoc[i].Producto_Vta, "</Producto_Vta>", Environment.NewLine);
+            lRes = String.Concat(lRes, "</Producto>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<PrecioRef>", iObj.DetDoc[i].PrecioRef, "</PrecioRef>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<Cantidad>", iObj.DetDoc[i].Cantidad, "</Cantidad>", Environment.NewLine);
+            lRes = String.Concat(lRes, "<TotalDocLin>", iObj.DetDoc[i].TotalDocLin, "</TotalDocLin>", Environment.NewLine);
+            lRes = String.Concat(lRes, "</SDT_DocVentaExt.DetDoc.Item>", Environment.NewLine);
+       }
+
+
+        lRes = String.Concat(lRes, "</Items>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</DetDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<ResumenDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<TotalNeto>", iObj.ResumenDoc.TotalNeto, "</TotalNeto>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<CodigoDescuento>", iObj.ResumenDoc.CodigoDescuento, "</CodigoDescuento>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<TotalDescuento>", iObj.ResumenDoc.TotalDescuento, "</TotalDescuento>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<TotalIVA>", iObj.ResumenDoc.TotalIVA, "</TotalIVA>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<TotalOtrosImpuestos>", iObj.ResumenDoc.TotalOtrosImpuestos, "</TotalOtrosImpuestos>", Environment.NewLine);
+        lRes = String.Concat(lRes, "<TotalDoc>", iObj.ResumenDoc.TotalDoc, "</TotalDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</ResumenDoc>", Environment.NewLine);
+        lRes = String.Concat(lRes, "</SDT_DocVentaExt>", Environment.NewLine);
+
+        return lRes;
+
+        }
+
+
+        private void ObtenerDatosObra(string iObra, string iDespachosCam)
+    {
+        string lSql="";WsCrud .CrudSoapClient lDal=new WsCrud.CrudSoapClient ();
+        WsCrud.ListaDataSet lDts = new WsCrud.ListaDataSet(); int i = 0;
+
+        //Dim lSql As String = "", lDAl As New WsCrud.CrudSoapClient, lDts As New WsCrud.ListaDataSet
+        //'CREATE PROCEDURE [dbo].[SP_CRUD_OBRA]
+        //'@Id int,                       '@Nombre varchar(100) ,                     '@Dir varchar(255) ,            
+        //'@Encargado nvarchar(50) ,      '@Telefono nvarchar(15) ,                   '@TipoObra nvarchar(1) , 
+        //'@Obs varchar(100),             '@Estado nvarchar(20) ,                     '@UsuarioCrea int , 
+        //'@MovilSup nvarchar(15) ,       '@NroContrato nvarchar(15) ,                '@OC nvarchar(15) ,
+        //'@PesoMaxObra real ,            '@PesoMaxIT int ,                           '@SiglaObra varchar(5) ,
+        //'@Cliente varchar(500) ,        '@Sucursal varchar(100) ,                   '@CentroCosto varchar(100) ,
+        //'@Codigo_INET varchar(100) ,    '@CodigoGuia_INET varchar(100),             '@RUT varchar(15),
+        //'@OPCION int 
+
+        lSql = string.Concat ("exec SP_CRUD_OBRA " , iObra , ",'','','','','','','',0,'','','',0,0,'','','','','','','','','','',2 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) &&   (lDts.DataSet.Tables.Count > 0 ))
+        {
+            mNombreObra = lDts.DataSet.Tables[0].Rows[0]["Nombre"].ToString();
+            mRutObra = lDts.DataSet.Tables[0].Rows[0]["Rutcliente"].ToString();
+            mCodigoINET = lDts.DataSet.Tables[0].Rows[0]["Codigo_INET"].ToString();// ' "63OGP12"
+            mCodigoGuiaINET = lDts.DataSet.Tables[0].Rows[0]["CodigoGuia_INET"].ToString();// ' "330 - 331 "
+        }
+        //' MessageBox.Show("Id Obra: " & iObra & " - CodigoINET: " & mCodigoINET)
+        //'Obtenemos el precio de referencia
+        //'CREATE PROCEDURE [dbo].[SP_CRUD_SERVICIOS_OBRA]
+        //'@Id int,        '@IdObra int,                  '@Servicio VARCHAR(50),   '@Importe int,   
+        //'@IdUsuario int, '@NombreUsuario VARCHAR(50),   '@OPCION INT 
+
+        string  lTmp  = "";
+        if (mSucursal.Equals("Stgo") == true) 
+            lTmp = "Santiago";
+        else
+            lTmp = "Calama";
+        
+
+        lSql =string.Concat ( "exec SP_CRUD_SERVICIOS_OBRA 0," , iObra , ",'" , lTmp , "',0,0,'','',3 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+             {
+            mPrecioRef = int.Parse (lDts.DataSet.Tables[0].Rows[0]["ImporteServicios"].ToString ());
+            mPrecioCostoKilo = int.Parse (lDts.DataSet.Tables[0].Rows[0]["PrecioCostoKg"].ToString ());
+             }
+
+        string[] lPartes = iDespachosCam.Split(new Char[] { ',' });
+        mKilosCargados = 0;
+
+        for (i = 0;i< lPartes.Length; i++)
+        {
+            if (lPartes[i].ToString().Length > 1)
+            {
+                mIdDespachoCamion = int.Parse(lPartes[i].ToString());
+                //'Leemos de la base de datos los kilos cargados en el camión  a partir del IdCamion en DespachoCamion
+                lSql = string.Concat("exec SP_DESPACHO_CAMION ", mIdDespachoCamion, ",'','','','','','','','','','','',12 ");
+                lDts = lDal.ListarAyudaSql(lSql);
+                if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+                {
+                    mKilosCargados = mKilosCargados+int.Parse(lDts.DataSet.Tables[0].Rows[0][0].ToString());
+                }
+            }
+        }
+     
+        mTotalCosto = mKilosCargados * mPrecioCostoKilo;
+
+       //Obtenemos el codigo de la bodega de Salida
+        lSql = string.Concat ( "exec SP_DESPACHO_CAMION 0,'','','','','','','','','CodigoBodega','" , mSucursal , "','',13 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+        {
+            mCodigoBodega = lDts.DataSet.Tables[0].Rows[0]["Par2"].ToString();
+        }
+
+        //Obtenemos el codigo de la bodega de Entrada
+        lSql = string.Concat("exec SP_DESPACHO_CAMION 0,'','','','','','','','','CodigoBodegaEntrada','", mSucursal, "','',13 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+        {
+            mCodigoBodegaEntrada = lDts.DataSet.Tables[0].Rows[0]["Par2"].ToString();
+        }
+        
+
+        string  lSucursal  = "";
+        if (mSucursal.ToUpper().ToString().Equals("STGO"))
+                {               lSucursal = "CasaMatriz";       }
+        if (mSucursal.ToUpper().ToString().Equals("CALAMA"))
+                { lSucursal = "Calama";         }
+
+        //'Leemos de la base de datos los kilos cargados en el camión  a partir del IdCamion en DespachoCamion
+        lSql = string.Concat ("exec SP_DESPACHO_CAMION 0,'','','','','','','','','CodigoSucursal','" , lSucursal , "','',13 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0)  &&  (lDts.DataSet.Tables.Count > 0))
+                    {  mCodigoSucursal_INET = lDts.DataSet.Tables[0].Rows[0]["Par2"].ToString() ; }
+
+        //'Leemos los datos del Transportista y patemte del camión  a partir del IdCamion en DespachoCamion
+        lSql = string.Concat ("exec SP_DESPACHO_CAMION " , mIdDespachoCamion , ",'','','','','','','','','','','',14 ");
+        lDts = lDal.ListarAyudaSql(lSql);
+        if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+        {
+            mTransportista = lDts.DataSet.Tables[0].Rows[0]["CAM_TRANSPORTISTA"].ToString();
+            mPatenteCamion = lDts.DataSet.Tables[0].Rows[0]["CAM_PATENTE"].ToString();
+        }
+
+        //'mSucursalCod = 2 '105
+        //'mBodegaSalida = 1 '69 ' 105
+
+    }
+
+
+         private Integracion_INET.Tipo_InvocaWS InvocaWS_INET(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes)
+        {
+            
+            Tipo_InvocaWS  lResultado = new Tipo_InvocaWS ();
+
+            Tipo_DocVentaExt lImputObj=new Tipo_DocVentaExt ();
+            string lEstadoProceso=""; bool lEstadoP1=false ;
+            bool lEstadoP2=false ; StringWriter  strDataXml =new StringWriter ();
+
+            Integracion_INET.Cls_LN lIntegra = new Integracion_INET.Cls_LN(); 
+
+        string lSql  = ""; WsCrud .CrudSoapClient  lDAl =new WsCrud.CrudSoapClient() ;
+            WsCrud .ListaDataSet lDts=new WsCrud.ListaDataSet ();
+
+        //try
+        //{
+
+            mIdObra = int.Parse (IdObra);
+            Registry registry = new Registry();
+            mSucursal = (string) registry.GetValue(Program.regeditKeyName, "Sucursal", "");
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+
+             if (lEmpresa .ToUpper ().Equals ("TOSOL"))
+                 return lIntegra.InvocaWS_INET_TOSOL(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
+             else
+                return lIntegra.InvocaWS_INET(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
+
+       
+        }
+
+        #endregion
+
+        private void IntegracionConINET(string iParametros)
+        {
+            //Dim lLog As New Cls_LN, lRes As Tipo_InvocaWS, lResultado As String = "", lViaje As String = ""
+            //Dim lPartes() As String = Tx_Parametros.Text.Split("|")
+
+            string lResultado = ""; string lViajes = ""; Models.Tipo_InvocaWS lRes = new Models.Tipo_InvocaWS();
+            string[] lPartes = iParametros.Split(new Char[] { '|' });
+            try
+            {
+                if (lPartes.Length > 0) 
+                {
+
+                    lViajes = lPartes[0].ToString();       
+                    if (lResultado.ToString().Length == 0) 
+                    {
+                        Application.DoEvents();
+                       
+                    }
+                }
+                    else 
+                {
+                        //TX_Estado.Text = ""
+                        //TX_Estado.Text = lResultado
+                }
+            
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        
+        }
+
+        private void Btn_Sel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Dtg_Camiones_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+
+        private void ImprimeInformeCarga(string iIdDespachos)
+        {
+
+            DtsInformes lDts = new DtsInformes();
+            Informes.Rpt_DetalleDespacho lReport = new Informes.Rpt_DetalleDespacho();
+            string lSql = ""; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lData = new DataSet();
+            int i = 0; DataTable lTbl = new DataTable(); int lTotalKgs = 0; string lBD = "";
+            string iEmpresa =  ConfigurationManager.AppSettings["Empresa"].ToString();
+
+
+            //Cargamos el detalle
+            lSql = "   select Codigo, isnull(round(SUM (d.KgsPaquete),0),0)  KilosCargados  ";
+            lSql = string.Concat(lSql, " from DESPACHO_CAMION  , PIEZA_PRODUCCION pp,DetallePaquetesPieza d, Piezas p, Viaje v ");
+            lSql = string.Concat(lSql, " where DES_CAM_ID  in (", iIdDespachos, ")   and PIE_DESPACHO_CAMION =DES_CAM_ID ");
+            lSql = string.Concat(lSql, " and pp.PIE_ESTADO ='O60' and d.Id=pp.PIE_ETIQUETA_PIEZA ");
+            lSql = string.Concat(lSql, " and p.Id =d.IdPieza and p.Estado <>'00'  and v.Id=d.idviaje  ");
+            lSql = string.Concat(lSql, " group by Codigo");
+            lData = lDal.ObtenerDatos(lSql);
+
+            Informes.DtsInformes lDtsRpt = new DtsInformes(); Informes.DtsInformes.DetalleDataTable lTblDet = new DtsInformes.DetalleDataTable();
+            DtsInformes.DetalleRow lFilaDet = null;
+            //im lDtsPL As New EstadosDePagos, lTblDet As New EstadosDePagos.DatosDataTable
+            for (i = 0; i < lData.Tables[0].Rows.Count; i++)
+            {
+                lFilaDet = lTblDet.NewDetalleRow();
+
+                lFilaDet["ViajesCargados"] = lData.Tables[0].Rows[i]["codigo"].ToString();
+                lFilaDet["Kilos"] = lData.Tables[0].Rows[i]["KilosCargados"].ToString();
+                lTotalKgs = lTotalKgs + int.Parse(lData.Tables[0].Rows[i]["KilosCargados"].ToString());
+                lTblDet.Rows.Add(lFilaDet);
+            }
+            lTblDet.TableName = "Detalle";
+            lDtsRpt.Merge(lTblDet);
+
+            //ahora la cabecera 
+            DtsInformes.CabeceraDataTable lTblCab = new DtsInformes.CabeceraDataTable();
+            DtsInformes.CabeceraRow  lFilaCab = null;
+            //
+            // Obtenemos la guia de INET a partir de un despacho
+            string[] lPartes = null;
+            string lGuiaINET = "";
+            lPartes = iIdDespachos.Split(new Char[] { ',' });
+
+            switch (iEmpresa.ToUpper () )
+            {
+                case "TO":
+                    lBD = "TORRESOCARANZA";
+                    break;
+                case "TOSOL":
+                    lBD = "TOSOL";
+                    break;
+
+            }
+
+            lGuiaINET = lDal.ObtenerNroGuiaInet_DespachoCam(lPartes[0].ToString(), lBD);
+            
+            lSql = "   select MAX(des_cam_fecha) FechaDespacho, MAX(des_cam_camion) Patente ";
+            lSql = string.Concat(lSql, " from DESPACHO_CAMION  , PIEZA_PRODUCCION pp,DetallePaquetesPieza d, Piezas p, Viaje v ");
+            lSql = string.Concat(lSql, " where DES_CAM_ID  in (", iIdDespachos, ")   and PIE_DESPACHO_CAMION =DES_CAM_ID ");
+            lSql = string.Concat(lSql, " and pp.PIE_ESTADO ='O60' and d.Id=pp.PIE_ETIQUETA_PIEZA ");
+            lSql = string.Concat(lSql, " and p.Id =d.IdPieza and p.Estado <>'00'  and v.Id=d.idviaje  ");         
+            lData = lDal.ObtenerDatos(lSql);
+            for (i = 0; i < lData.Tables[0].Rows.Count; i++)
+            {
+                lFilaCab = lTblCab.NewCabeceraRow();
+
+                lFilaCab["Patente"] = lData.Tables[0].Rows[i]["Patente"].ToString();
+                lFilaCab["FechaDespacho"] = lData.Tables[0].Rows[i]["FechaDespacho"].ToString().Substring(0,10) ;
+                lFilaCab["GuiaDespacho"] = lGuiaINET;
+                lFilaCab["TotalKgs"] = lTotalKgs.ToString(); ;
+                lTblCab.Rows.Add(lFilaCab);
+            }
+                      
+            lDtsRpt.Merge(lTblCab);
+
+            Frm_Visualizador lForm = new Frm_Visualizador();
+            lForm.CargarInforme(lDtsRpt);
+              lForm.ShowDialog ();
+
+
+        //      Dim frmVisualiza As FRm_Visualizadorvb = New FRm_Visualizadorvb()
+        //frmVisualiza.CargarInforme(lDtsPL)
+        //frmVisualiza.Show()
+        }
+
+        private void Btn_Imprimir_Click(object sender, EventArgs e)
+        {
+            string lIdDespachos = "";
+            if (ValidaDatos() == true)
+            {
+                foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
+                {
+                    if (lRow.Cells[0].Value != null)
+                        if (lRow.Cells[0].Value.ToString() == "True")
+                        {
+                            lIdDespachos = string.Concat(lIdDespachos, lRow.Cells["IdDespacho"].Value.ToString(), ",");
+                        }
+                }
+
+                if (lIdDespachos.Trim().Length > 3)
+                {
+                    lIdDespachos = lIdDespachos.Substring(0, lIdDespachos.Length - 1);
+                    ImprimeInformeCarga(lIdDespachos);
+                    
+                }
+
+            }
+
+        }
+
+        private void BTN_actualizarViaje_Click(object sender, EventArgs e)
+        {
+            int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lIdWsINET = ""; int j = 0;
+
+            //for (j = 0; j < TR_Arbol.Nodes .Count ; j++)
+            //{
+            //    TR_Arbol.HideSelection = false ;
+            //    TR_Arbol.SelectedNode = TR_Arbol.Nodes[j];
+            //    CargaDetalleNodo(TR_Arbol.SelectedNode.FullPath.ToString(), "F");
+
+            //    System.Threading.Thread.Sleep(2000);
+                //MessageBox.Show("Se carga nodo");
+                for (i = 0; i < Dtg_Camiones.Rows.Count; i++)
+                {
+                    lSql = string.Concat("Select Id  from Log_WS_INET where XML_Enviado like '%", Dtg_Camiones.Rows[i].Cells["Codigo"].Value.ToString(), "%'");
+                    lSql = string.Concat(lSql, "  and Origen='DespachoCamion'");
+                    lDts = lPx.ObtenerDatos(lSql);
+                    if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                    {
+                        lIdWsINET = lDts.Tables[0].Rows[0][0].ToString();
+                    }
+                    else
+                    {
+                     lIdWsINET = "9999999";
+                    }
+                        lSql = string.Concat(" update Viaje set idlogWsINET=", lIdWsINET, "  where Codigo='", Dtg_Camiones.Rows[i].Cells["Codigo"].Value.ToString(), "'");
+                        lDts = lPx.ObtenerDatos(lSql);
+                        Dtg_Camiones.Rows[i].Cells[1].Style.BackColor = Color.LightGreen;
+                        Dtg_Camiones.Refresh();
+                        Application.DoEvents();
+                        this.Refresh();                    
+                //}
+            
+            }
+            CargaCamiones();
+        }
+    }
+}

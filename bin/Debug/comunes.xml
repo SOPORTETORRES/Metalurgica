@@ -1,0 +1,775 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+comunes
+</name>
+</assembly>
+<members>
+<member name="T:comunes.My.Resources.Resources">
+<summary>
+  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+</summary>
+</member>
+<member name="P:comunes.My.Resources.Resources.ResourceManager">
+<summary>
+  Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+</summary>
+</member>
+<member name="P:comunes.My.Resources.Resources.Culture">
+<summary>
+  Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
+  búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Tipo_Hd">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Fecha">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Sector">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.OC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Obra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Figura">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Plano">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.EstadoOp">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.IdObra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.Error">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Hd.UserMod">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoEntregas_OC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.Item_OC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.KilosActa">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.KilosOC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.KilosEntregados">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.PesoAsignado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.Nrocolada">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.SaldoOC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.Diametro">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.CodViaje">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoEntregas_OC.IdObra">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.PiezaTipoB">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.EtiquetaLateral">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.CantEtiq">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.PesoEtiq">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.FiguraB">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.PiezasXEtiq">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.NroPaquetes">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Obra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Figura">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Nivel">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Elemento">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Plano">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Peso">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Paquete">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Cantidad">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Diametro">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Largo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Marca">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.CodigoIt">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Pieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.ValoresVar">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Orden">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.IdDetallePieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.NroPiezasVAR">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Imagen">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.Colada">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.IdForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.PiezaTipoB.FueImpresa">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoDetallePaquetesPieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.Id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.IdPieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.IdMov">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.NroPaq">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.TotalPaq">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.NroPiezas">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.KgsPaquete">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.Estado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.OPCION">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.Err">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetallePaquetesPieza.Etiqueta">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoActaEntrega">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.CodViaje">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.OC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.Archivo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.IdColada">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.NroActa">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoActaEntrega.TotalKgs">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoColada">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.Id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.Diametro">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.Largo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.NroColada">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.NroCertificado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.Procedencia">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.NroGuiaDespacho">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoColada.Kilos">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoOC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.Item_OC">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.IdObra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.Peso">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.Descripcion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoOC.Diametro">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoMov">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.idPiezaTipoB">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.IdObra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Plano">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Marca">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.PiezasTotales">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Asignadas">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.PesoAsignado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Saldo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.PesoSaldo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.NroPaquetes">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.PiezasXPaquete">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.KilosTotales">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Fecha">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Usuario">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Estado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Tipo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Imagen">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Factor">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.Errores">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoMov.CodViaje">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoDetalleForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.EsAngulo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.IdForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.Punto">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.CoordenadaX_Pto">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.CoordenadaY_Pto">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleForma.ValorPto">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.ColorPalette">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.MarshalByRefObject">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.Image">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Image.Tag">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Image.Palette">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoForma.Img">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoForma.IdForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoForma.PathImg">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoForma.DetalleForma">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.Tipo_Obra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Nombre">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Dir">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Encargado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Fono">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.TipoObra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Vigente">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.FechaCreacion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.UsuarioCrea">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Error">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Obs">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.MovilSup">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.NroContrato">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Oc">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.PesoMax">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.PesoMaxIT">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.SiglaObra">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Cliente">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Rut">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Sucursal">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.CentroCosto">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Codigo_INET">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.CodigoGuia_INET">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.EstadoAlta">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Superficie">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.TipoObra2">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Vehiculo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.CondicionVenta">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.CodigoParaFacturar">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.TipoDocumento">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.Empresa">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Obra.ObraRelacionada">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.TipoDetalleCotas">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.Id">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.IdPieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.IdForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.TipoPieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.A">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.B">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.C">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.D">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.E">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.F">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.G">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.H">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.I">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.J">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.K">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.L">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.M">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.N">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.TipoDetalleCotas.UserMod">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.Tipo_Pieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.IdPieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Cotas">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Correlativo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.EsVariable">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Error">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Pieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.IdForma">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Marca">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Cantidad">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Diametro">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Largo">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.TotalKilos">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Estado">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.IdImagen">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.DetallePieza">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.FechaCreacion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Ubicacion">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Id_Hd">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.IdIt">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.PathImg">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.LargoDes">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.UserMod">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.CodViaje">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Origen">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.Plano">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.NroPiezasVar">
+<comentarios/>
+</member>
+<member name="P:comunes.Ws_To.Tipo_Pieza.NroCotasVar">
+<comentarios/>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ObsCuadroProgramacionDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ResumenDespDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetalleDespDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetallePLDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.LaminaDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.CabeceraDetDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.BECHTELDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ObsCuadroProgramacionRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ResumenDespRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetalleDespRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetallePLRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.LaminaRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.CabeceraDetRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.BECHTELRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ObsCuadroProgramacionRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.ResumenDespRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetalleDespRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.DetallePLRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.LaminaRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.CabeceraDetRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+<member name="T:comunes.Ws_To.Dts_PL.BECHTELRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+</members>
+</doc>
