@@ -92,7 +92,8 @@ namespace Metalurgica
                         {
                             if ((bool)row.Cells[COLUMNNAME_MARCA].Value == true)
                             {
-                                lCodigo=row.Cells[COLUMNNAME_PRODUCTO].Value.ToString ();
+                                lTblINET.Clear();
+                                lCodigo =row.Cells[COLUMNNAME_PRODUCTO].Value.ToString ();
                                 //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
                                 lCantidad = row.Cells[COLUMNNAME_KILOS].Value.ToString();
                                 lFechaMov = DateTime.Now.ToString();
@@ -113,8 +114,8 @@ namespace Metalurgica
 
                                 // 1.- Se Integra con INET
                                 DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-                                lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
-                                lDts.Tables.Add(lTblFinal);
+                                //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
+                                lDts.Tables.Add(lTblINET.Copy ());
 
                                 lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                                 lRespuestaWS_INET = InvocarWS_INET(lObjINET);
@@ -167,7 +168,7 @@ namespace Metalurgica
 
                                 //3) Notificacion de los productos cerrados correctamente por email.
                                 if (counter > 0)
-                                    EnvioCorreo(email_msg);
+                                    EnvioCorreo(email_msg); 
 
 
                                 //1) Se registra el cierre del producto.
