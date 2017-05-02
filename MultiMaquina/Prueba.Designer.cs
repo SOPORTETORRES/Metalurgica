@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Prueba));
             this.Pnl_Maq = new System.Windows.Forms.Panel();
+            this.Btn_Bloquear = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.Btn_DesBloquear = new System.Windows.Forms.Button();
+            this.Btn_Maquina7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Btn_UsuarioActiva = new System.Windows.Forms.Button();
             this.Btn_Asignar = new System.Windows.Forms.Button();
@@ -44,10 +48,6 @@
             this.Btn_Maquina2 = new System.Windows.Forms.Button();
             this.Btn_Maquina1 = new System.Windows.Forms.Button();
             this.Pnl_Produccion = new System.Windows.Forms.Panel();
-            this.Btn_Maquina7 = new System.Windows.Forms.Button();
-            this.Btn_DesBloquear = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.Btn_Bloquear = new System.Windows.Forms.Button();
             this.ctlProduccion1 = new Metalurgica.Controls.CtlProduccion();
             this.Pnl_Maq.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -77,6 +77,55 @@
             this.Pnl_Maq.Name = "Pnl_Maq";
             this.Pnl_Maq.Size = new System.Drawing.Size(1338, 137);
             this.Pnl_Maq.TabIndex = 0;
+            // 
+            // Btn_Bloquear
+            // 
+            this.Btn_Bloquear.Enabled = false;
+            this.Btn_Bloquear.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_Bloquear.ImageKey = "Untitled (986).ico";
+            this.Btn_Bloquear.ImageList = this.imageList1;
+            this.Btn_Bloquear.Location = new System.Drawing.Point(1203, 69);
+            this.Btn_Bloquear.Name = "Btn_Bloquear";
+            this.Btn_Bloquear.Size = new System.Drawing.Size(106, 52);
+            this.Btn_Bloquear.TabIndex = 25;
+            this.Btn_Bloquear.Text = "Bloquear";
+            this.Btn_Bloquear.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_Bloquear.UseVisualStyleBackColor = true;
+            this.Btn_Bloquear.Visible = false;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Untitled (985).ico");
+            this.imageList1.Images.SetKeyName(1, "Untitled (986).ico");
+            this.imageList1.Images.SetKeyName(2, "Untitled (1021).ico");
+            // 
+            // Btn_DesBloquear
+            // 
+            this.Btn_DesBloquear.Enabled = false;
+            this.Btn_DesBloquear.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_DesBloquear.ImageKey = "Untitled (985).ico";
+            this.Btn_DesBloquear.ImageList = this.imageList1;
+            this.Btn_DesBloquear.Location = new System.Drawing.Point(1203, 11);
+            this.Btn_DesBloquear.Name = "Btn_DesBloquear";
+            this.Btn_DesBloquear.Size = new System.Drawing.Size(106, 52);
+            this.Btn_DesBloquear.TabIndex = 24;
+            this.Btn_DesBloquear.Text = "DesBloquear";
+            this.Btn_DesBloquear.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_DesBloquear.UseVisualStyleBackColor = true;
+            this.Btn_DesBloquear.Visible = false;
+            // 
+            // Btn_Maquina7
+            // 
+            this.Btn_Maquina7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Maquina7.Location = new System.Drawing.Point(440, 58);
+            this.Btn_Maquina7.Name = "Btn_Maquina7";
+            this.Btn_Maquina7.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina7.TabIndex = 22;
+            this.Btn_Maquina7.Text = "Maquina 7";
+            this.Btn_Maquina7.UseVisualStyleBackColor = true;
+            this.Btn_Maquina7.Visible = false;
             // 
             // groupBox2
             // 
@@ -238,53 +287,6 @@
             this.Pnl_Produccion.Name = "Pnl_Produccion";
             this.Pnl_Produccion.Size = new System.Drawing.Size(1343, 604);
             this.Pnl_Produccion.TabIndex = 1;
-            // 
-            // Btn_Maquina7
-            // 
-            this.Btn_Maquina7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Maquina7.Location = new System.Drawing.Point(440, 58);
-            this.Btn_Maquina7.Name = "Btn_Maquina7";
-            this.Btn_Maquina7.Size = new System.Drawing.Size(172, 46);
-            this.Btn_Maquina7.TabIndex = 22;
-            this.Btn_Maquina7.Text = "Maquina 7";
-            this.Btn_Maquina7.UseVisualStyleBackColor = true;
-            this.Btn_Maquina7.Visible = false;
-            // 
-            // Btn_DesBloquear
-            // 
-            this.Btn_DesBloquear.Enabled = false;
-            this.Btn_DesBloquear.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_DesBloquear.ImageKey = "Untitled (985).ico";
-            this.Btn_DesBloquear.ImageList = this.imageList1;
-            this.Btn_DesBloquear.Location = new System.Drawing.Point(1203, 11);
-            this.Btn_DesBloquear.Name = "Btn_DesBloquear";
-            this.Btn_DesBloquear.Size = new System.Drawing.Size(106, 52);
-            this.Btn_DesBloquear.TabIndex = 24;
-            this.Btn_DesBloquear.Text = "DesBloquear";
-            this.Btn_DesBloquear.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_DesBloquear.UseVisualStyleBackColor = true;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Untitled (985).ico");
-            this.imageList1.Images.SetKeyName(1, "Untitled (986).ico");
-            this.imageList1.Images.SetKeyName(2, "Untitled (1021).ico");
-            // 
-            // Btn_Bloquear
-            // 
-            this.Btn_Bloquear.Enabled = false;
-            this.Btn_Bloquear.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_Bloquear.ImageKey = "Untitled (986).ico";
-            this.Btn_Bloquear.ImageList = this.imageList1;
-            this.Btn_Bloquear.Location = new System.Drawing.Point(1203, 69);
-            this.Btn_Bloquear.Name = "Btn_Bloquear";
-            this.Btn_Bloquear.Size = new System.Drawing.Size(106, 52);
-            this.Btn_Bloquear.TabIndex = 25;
-            this.Btn_Bloquear.Text = "Bloquear";
-            this.Btn_Bloquear.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_Bloquear.UseVisualStyleBackColor = true;
             // 
             // ctlProduccion1
             // 

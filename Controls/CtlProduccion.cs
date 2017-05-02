@@ -108,50 +108,66 @@ namespace Metalurgica.Controls
 
             if ((iDts != null) && (iDts.Tables.Count > 1))
             {
-               // for (i = 1; i < iDts.Tables["Solicitudes_MP"].Rows.Count; i++)
-               while (i< iDts.Tables["Solicitudes_MP"].Rows.Count)
+                // for (i = 1; i < iDts.Tables["Solicitudes_MP"].Rows.Count; i++)
+                if (iDts.Tables["Solicitudes_MP"].Rows.Count > 0)
                 {
-                    if (iDts.Tables["Solicitudes_MP"].Rows.Count > 0)
+                    while (i < iDts.Tables["Solicitudes_MP"].Rows.Count)
                     {
-                        lKilosSolicitados = lcom.Val(iDts.Tables["Solicitudes_MP"].Rows[i]["Det_Kilos_Recep"].ToString());
-                        lKilosProducidos = lcom.Val(iDts.Tables["Solicitudes_MP"].Rows[i]["Det_Kilos_producidos"].ToString());
+                        if (iDts.Tables["Solicitudes_MP"].Rows.Count > 0)
+                        {
+                            lKilosSolicitados = lcom.Val(iDts.Tables["Solicitudes_MP"].Rows[i]["Det_Kilos_Recep"].ToString());
+                            lKilosProducidos = lcom.Val(iDts.Tables["Solicitudes_MP"].Rows[i]["Det_Kilos_producidos"].ToString());
+                        }
+                        //if (iDts.Tables["KgsProducido"].Rows.Count > 0)
+                        //    lKilosProducidos = lcom.Val(iDts.Tables["KgsProducido"].Rows[0][0].ToString());
+
+                        //debemos obtener el peso de la etiqueta para poder realizar los calculos y saber si se puede procesar o no
+                        listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+
+                        DataTable dataTable = listaDataSet.DataSet.Tables[0];
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            lPesoEtiqueta = lcom.Val(dataTable.Rows[0]["PesoPaquete"].ToString());
+                            lDiam = int.Parse(dataTable.Rows[0]["Diametro"].ToString());
+                            lKilosSaldo = lKilosSolicitados - (lKilosProducidos + lPesoEtiqueta);
+
+                            if (lKilosSolicitados == 0)
+                            {
+                                lMsg = string.Concat("No se ha realizado Solicitud de Materia Prima ", Environment.NewLine, "No se puede registrar la Etiqueta Producida");
+                                lRes = false;
+                                mIdSolicitudMP = "0";
+                            }
+                            else
+                                if (lKilosSaldo < 0)
+                            {
+                                lMsg = string.Concat("La materia prima solicitada ya ha sido consumida ", Environment.NewLine, "Realice una nueva solicitud ");
+                                lRes = false;
+                                mIdSolicitudMP = "0";
+                            }
+                            else
+                            {
+                                mIdSolicitudMP = iDts.Tables["Solicitudes_MP"].Rows[i]["det_Id"].ToString();
+                                i = iDts.Tables["Solicitudes_MP"].Rows.Count;
+                                lRes = true;
+                                lMsg = "";
+                            }
+                        }
+                        i++;
                     }
-                    //if (iDts.Tables["KgsProducido"].Rows.Count > 0)
-                    //    lKilosProducidos = lcom.Val(iDts.Tables["KgsProducido"].Rows[0][0].ToString());
-
-                    //debemos obtener el peso de la etiqueta para poder realizar los calculos y saber si se puede procesar o no
-                    listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
-
-                    DataTable dataTable = listaDataSet.DataSet.Tables[0];
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        lPesoEtiqueta = lcom.Val (dataTable.Rows[0]["PesoPaquete"].ToString ());
-                        lDiam = int.Parse(dataTable.Rows[0]["Diametro"].ToString());
-                        lKilosSaldo = lKilosSolicitados - (lKilosProducidos + lPesoEtiqueta);
-
-                        if (lKilosSolicitados == 0)
-                        {
-                            lMsg = string.Concat("No se ha realizado Solicitud de Materia Prima ", Environment.NewLine, "No se puede registrar la Etiqueta Producida");
-                            lRes = false;
-                            mIdSolicitudMP = "0";
-                        }
-                        else
-                            if (lKilosSaldo < 0)
-                        {
-                            lMsg = string.Concat("La materia prima solicitada ya ha sido consumida ", Environment.NewLine, "Realice una nueva solicitud ");
-                            lRes = false;
-                            mIdSolicitudMP = "0";
-                        }
-                        else
-                        {
-                            mIdSolicitudMP = iDts.Tables["Solicitudes_MP"].Rows[i]["det_Id"].ToString();
-                            i = iDts.Tables["Solicitudes_MP"].Rows.Count;
-                            lRes = true ;
-                            lMsg = "";
-                        }
-                    }
-                    i++;
                 }
+                else
+                {
+                    lMsg = string.Concat("No se ha realizado Solicitud de Materia Prima ", Environment.NewLine, "No se puede registrar la Etiqueta Producida");
+                    lRes = false;
+                    mIdSolicitudMP = "0";
+                }
+
+            }
+            else
+            {
+                lMsg = string.Concat("No se ha realizado Solicitud de Materia Prima ", Environment.NewLine, "No se puede registrar la Etiqueta Producida");
+                lRes = false;
+                mIdSolicitudMP = "0";
             }
             if (lMsg.Trim().Length > 1)
             {
@@ -664,6 +680,7 @@ namespace Metalurgica.Controls
                 }
 
             }
+            Lbl_MsgKgsProd.Visible = false;
         }
 
         private void VerificaMuestreo(string iDiametro)

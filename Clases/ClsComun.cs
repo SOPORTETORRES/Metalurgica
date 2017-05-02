@@ -59,6 +59,14 @@ namespace Metalurgica.Clases
 
         }
 
+        public string ObtenerVersionProduccion()
+        {
+
+            string miVariable = ConfigurationManager.AppSettings["VersionProduccion"];
+            return miVariable;
+
+        }
+
         public string ObtenerArchivoIntegracion()
         {
 

@@ -36,7 +36,9 @@ namespace Metalurgica.MultiMaquina
         private void CargarMaquinas()
         {
             Clases.ClsComun lDal = new Clases.ClsComun(); DataTable lTbl = new DataTable();
-            int i = 0;
+            int i = 0; string lVersion = lDal.ObtenerVersionProduccion();
+
+            this.Text = string.Concat("Formulario de registro de producción multi máquina (Versión ", lVersion, ")");
 
             lTbl = lDal.CargaTabla_Maquinas();
             for (i = 0; i < lTbl.Rows.Count ;  i++)
