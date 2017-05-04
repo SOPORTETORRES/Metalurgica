@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Data ;
+using System.Data;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using CommonLibrary2;
 using System.Text;
+using System.Collections;
 
 namespace Metalurgica
 {
@@ -54,10 +55,27 @@ namespace Metalurgica
             forms.dataGridViewRowsChecked(dgvProductos, COLUMNNAME_MARCA, false);
         }
 
+
+          private bool Agregar_IdSolicitud( ArrayList iList, string lDato)
+        {
+            bool lres = true;int i = 0;
+
+            for (i = 0; i < iList.Count; i++)
+            {
+                if (iList[i].ToString().ToUpper().Equals(lDato.ToUpper()))
+                {
+                    lres = false;
+                }
+            }
+            return lres;
+        }
+
+
+
         private void tlbGuardar_Click(object sender, EventArgs e)
         {
             Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();
-            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET();
+            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
             
             int counter = 0;
@@ -93,6 +111,10 @@ namespace Metalurgica
                             if ((bool)row.Cells[COLUMNNAME_MARCA].Value == true)
                             {
                                 lTblINET.Clear();
+                                if (Agregar_IdSolicitud(lLista, row.Cells["SOL_ID"].Value.ToString()))
+                                {
+                                    lLista.Add(row.Cells["SOL_ID"].Value.ToString());
+                                }
                                 lCodigo =row.Cells[COLUMNNAME_PRODUCTO].Value.ToString ();
                                 //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
                                 lCantidad = row.Cells[COLUMNNAME_KILOS].Value.ToString();
@@ -167,8 +189,8 @@ namespace Metalurgica
 
 
                                 //3) Notificacion de los productos cerrados correctamente por email.
-                                if (counter > 0)
-                                    EnvioCorreo(email_msg); 
+                                //if (counter > 0)
+                                //    EnvioCorreo(email_msg,"",""); 
 
 
                                 //1) Se registra el cierre del producto.
@@ -186,6 +208,7 @@ namespace Metalurgica
                             }
                         }
                     }
+                    EnvioCorreo("42", Program.currentUser.Login, "Linea de Corte");
                     //2) Cargamos el Objeto de INET
                     //Se debe informar en solo un movimiento todos los productos
                     //Recorremos los productos y si hay repetidos los consolidamos en solo una linea
@@ -200,7 +223,7 @@ namespace Metalurgica
                     //inet_msg = buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
 
                     //inet_msg = Microsoft.VisualBasic.Interaction.InputBox("Ingrese la accion resultante del WS (ok/error)", this.Text, "OK", -1, -1);
-                                
+
                     tlbActualizar.PerformClick();
                     MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -730,11 +753,76 @@ namespace Metalurgica
             return (result.Equals("") ? "OK" : result);
         }
 
-        private void EnvioCorreo(string cuerpo)
+        private void EnvioCorreo(string iIdSolicitudes,string iUsuario , string iMaq )
         {
-            MessageBox.Show("Asunto: Cierre de solicitudes" + Environment.NewLine + "Cuerpo:" + Environment.NewLine + cuerpo);
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            int i = 0; string lTblHtml = ""; DataTable lTbl = new DataTable();
+            string[] lPartes = null; string lSql = "";
+
+            lPartes = iIdSolicitudes.Split(new Char[] { ',' });
+
+            for (i = 0; i < lPartes.Length; i++)
+            {
+                if (lPartes[i].ToString().Trim().Length > 0)
+                {
+                    lSql = string.Concat(" SP_Consultas_WS 67,'", lPartes[i].ToString (), "','','','','','',''");
+                    lDts.Merge(lPX.ObtenerDatos(lSql));
+                }
+            }
+
+            //  lSql = string.Concat (" SP_Consultas_WS 67,'", iIdSolicitudes, "','','','','','',''");
+            //lDts = lPX.ObtenerDatos(lSql);
+
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTbl = lDts.Tables[0].Copy();
+                //Concatenamos el texto de la cabecera
+                lTblHtml = string.Concat(" Hola Estimados:  <br>  A continuación se muestra el estado de la Solicitud de Materia Prima al momento del cierre de turno <br> ");
+                lTblHtml = string.Concat(lTblHtml,"    El Usuario <b>",iUsuario , "</b> de la maquina <b>", iMaq , "</b>, ha Solicitado y producido lo siguiente:  <br> ");
+                lTblHtml = string.Concat(lTblHtml, "  <br> <br>   <table border = '1' >  <tr>   ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font - family: Arial; font - weight: bold; font - size: 12px;'> Id Solicitud </ td >  ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Codigo </ td >   ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Descripcion </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Origen </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Soldable </ td > ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Kgs Solicitados </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Kgs Recepcionados </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Kgs Producidos </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>% Producido </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>Saldo  </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Integrado INET </ td >");
+                lTblHtml = string.Concat(lTblHtml, " </tr> ");
+
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    lTblHtml = string.Concat(lTblHtml, " <tr> ");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl .Rows[i]["IdSol"].ToString (), "</td >" );
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Codigo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Descripcion"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Origen"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Soldable"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_RECEP"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_PRODUCIDOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["% producido"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Saldo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+
+                    lTblHtml = string.Concat(lTblHtml, " </tr>  ");
+                }
+            }
+
+
+            lTblHtml = string.Concat(lTblHtml, "</table>  <br> <br> No responder a este correo, ya que fue generado de forma automatica <br> <br> ");
+            lTblHtml = string.Concat(lTblHtml, "  Los acentos han sido eliminados para evitar problemas con caracteres extaños ");
+
+
+            //[SP_Consultas_WS]         @Opcion INT, @Par1 Varchar(100), @Par2 Varchar(100), @Par3 Varchar(150), @Par4 Varchar(100),
+            //@Par5 Varchar(100),  @Par6 Varchar(100), @Par7 Varchar(100)
+
+            //MessageBox.Show("Asunto: Cierre de solicitudes" + Environment.NewLine + "Cuerpo:" + Environment.NewLine + cuerpo);
             //WsMensajeria.Ws_ToSoapClient wsMensajeria = new WsMensajeria.Ws_ToSoapClient();
-            //string result = wsMensajeria.EnviaNotificacionesEnviaMsgDeNotificacion("", "Cierre de solicitudes", -500, cuerpo);
+            string result = lPX.EnviaNotificacionesEnviaMsgDeNotificacion("Sistema de notificaciones S.M.P.", lTblHtml,-600, "Gestion de Materia Prima " );
         }
 
         private void BloquearColumnas(DataGridView dgv)
@@ -910,6 +998,9 @@ namespace Metalurgica
 
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EnvioCorreo("40,41", Program.currentUser.Login, "Linea de Corte");
+        }
     }
 }
