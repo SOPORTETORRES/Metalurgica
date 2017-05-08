@@ -347,7 +347,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>VESeH9m4+XLNFveS/frOoJQCIJY=</dsig:DigestValue>
+        <dsig:DigestValue>T7VCK1hinVw/LEtPfaJ/s8I0ELE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -438,7 +438,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>8TYu97vwyMJCvrBJWN67RIo8ngE=</dsig:DigestValue>
+      <dsig:DigestValue>VESeH9m4+XLNFveS/frOoJQCIJY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="bin\Debug\Metalurgica.pdb" size="2387456">
@@ -447,7 +447,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>RNSTHyUArES/LChss7P549Vu/zM=</dsig:DigestValue>
+      <dsig:DigestValue>Btv4y0cei3scM5ePoLhGeI5m4HI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Metalurgica.exe.config" size="5926">

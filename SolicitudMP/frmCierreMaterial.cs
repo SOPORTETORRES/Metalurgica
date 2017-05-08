@@ -74,7 +74,7 @@ namespace Metalurgica
 
         private void tlbGuardar_Click(object sender, EventArgs e)
         {
-            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();int i = 0;string lIds_SMP = "";
             Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
             
@@ -208,7 +208,11 @@ namespace Metalurgica
                             }
                         }
                     }
-                    EnvioCorreo("42", Program.currentUser.Login, "Linea de Corte");
+                    for (i = 0; i < lLista.Count; i++)
+                    {
+                        lIds_SMP = string.Concat(lIds_SMP, ",", lLista[i]);
+                    }
+                    EnvioCorreo(lIds_SMP, Program.currentUser.Login, "Linea de Corte");
                     //2) Cargamos el Objeto de INET
                     //Se debe informar en solo un movimiento todos los productos
                     //Recorremos los productos y si hay repetidos los consolidamos en solo una linea
