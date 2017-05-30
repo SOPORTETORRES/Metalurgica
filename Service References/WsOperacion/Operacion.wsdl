@@ -358,6 +358,455 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ListarEstadoPagosPendientes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="opcion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEstadoPagosPendientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEstadoPagosPendientesResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaProxPresentacion" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Estado_Pago">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Obra" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_creacion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_reporte" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario_mod_admin" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_mod_admin" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_envio_clte" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_mod_clte" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_aprobado_clte" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_envio_facturacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario_creacion_fact_inet" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_creacion_fact_inet" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero_fact_inet" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_envio_fact_clte" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_venc_fact_clte" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario_daxcobrado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_cobro" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Correlativo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_prox_presentacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListarEstadoPago">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEstadoPagoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEstadoPagoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarObraEPNoAprobado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarObraEPNoAprobadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarObraEPNoAprobadoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxEP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxEPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminarEPCreacionEtiquetaxEPResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxGuia_Despacho">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="guia_Despacho" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxGuia_DespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminarEPCreacionEtiquetaxGuia_DespachoResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxIT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="guia_Despacho" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="it" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarEPCreacionEtiquetaxITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminarEPCreacionEtiquetaxITResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCreacionEtiqueta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listaEtiquetas" type="tns:ArrayOfEstado_Pago_Detalle" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEstado_Pago_Detalle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Estado_Pago_Detalle" nillable="true" type="tns:Estado_Pago_Detalle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Estado_Pago_Detalle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Obra" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Guia_despacho" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="It" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Kgs" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistrarEPCreacionEtiquetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPCreacionEtiquetaResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCambiosGdEnviadaaClte">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="estadoModificadaPor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaGd" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="estadoModificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistrarEPCambiosGdEnviadaaClteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPCambiosGdEnviadaaClteResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCambiosEtiquetaEnviadaaClte">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="estadoModificadaPor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listaEtiqueta" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="estadoModificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCambiosEtiquetaEnviadaaClteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPCambiosEtiquetaEnviadaaClteResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPResumenGuiaDespachoxEp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPResumenGuiaDespachoxEpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPResumenGuiaDespachoxEpResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPDetalleEtiquetasxGuiaDespacho">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="guia_Despacho" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPDetalleEtiquetasxGuiaDespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPDetalleEtiquetasxGuiaDespachoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPGeneracionReporte">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPGeneracionReporteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPGeneracionReporteResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPEnvioaCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPEnvioaClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPEnvioaClienteResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPAprobacionCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaAprobacion" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPAprobacionClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPAprobacionClienteResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPTrazabiidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPTrazabiidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPTrazabiidadResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPComentario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPComentarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPComentarioResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPComentario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPComentarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPComentarioResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="archivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPAdjuntoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPAdjuntoResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPAdjunto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPAdjuntoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPAdjuntoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPFacturacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="periodoCreacionFactura" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPFacturacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPFacturacionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPIngresadaINET">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="numFactura" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaEnvioClte" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaVencimiento" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPIngresadaINETResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPIngresadaINETResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCobrada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ep" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaCobro" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarEPCobradaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarEPCobradaResult" type="tns:Estado_Pago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iTabla" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametroResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarRecepcion_Colada">
         <s:complexType>
           <s:sequence>
@@ -1185,6 +1634,150 @@
   <wsdl:message name="ObtenerEtiquetasPorViajeYGuia_EPSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerEtiquetasPorViajeYGuia_EPResponse" />
   </wsdl:message>
+  <wsdl:message name="ListarEstadoPagosPendientesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEstadoPagosPendientes" />
+  </wsdl:message>
+  <wsdl:message name="ListarEstadoPagosPendientesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEstadoPagosPendientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEP" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEstadoPagoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEstadoPago" />
+  </wsdl:message>
+  <wsdl:message name="ListarEstadoPagoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEstadoPagoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarObraEPNoAprobadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarObraEPNoAprobado" />
+  </wsdl:message>
+  <wsdl:message name="ListarObraEPNoAprobadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarObraEPNoAprobadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxEPSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxEP" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxEPSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxEPResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxGuia_DespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxGuia_Despacho" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxGuia_DespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxGuia_DespachoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxITSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxIT" />
+  </wsdl:message>
+  <wsdl:message name="EliminarEPCreacionEtiquetaxITSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarEPCreacionEtiquetaxITResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCreacionEtiquetaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCreacionEtiqueta" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCreacionEtiquetaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCreacionEtiquetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCambiosGdEnviadaaClteSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCambiosGdEnviadaaClte" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCambiosGdEnviadaaClteSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCambiosGdEnviadaaClteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCambiosEtiquetaEnviadaaClteSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCambiosEtiquetaEnviadaaClte" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCambiosEtiquetaEnviadaaClteSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCambiosEtiquetaEnviadaaClteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPResumenGuiaDespachoxEpSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPResumenGuiaDespachoxEp" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPResumenGuiaDespachoxEpSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPResumenGuiaDespachoxEpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPDetalleEtiquetasxGuiaDespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPDetalleEtiquetasxGuiaDespacho" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPDetalleEtiquetasxGuiaDespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPDetalleEtiquetasxGuiaDespachoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPGeneracionReporteSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPGeneracionReporte" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPGeneracionReporteSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPGeneracionReporteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPEnvioaClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPEnvioaCliente" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPEnvioaClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPEnvioaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPAprobacionClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPAprobacionCliente" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPAprobacionClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPAprobacionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPTrazabiidadSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPTrazabiidad" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPTrazabiidadSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPTrazabiidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPComentarioSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPComentario" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPComentarioSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPComentarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPComentarioSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPComentario" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPComentarioSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPComentarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPAdjuntoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPAdjunto" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPAdjuntoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPAdjuntoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPFacturacionSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPFacturacion" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPFacturacionSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPFacturacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPIngresadaINETSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPIngresadaINET" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPIngresadaINETSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPIngresadaINETResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCobradaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCobrada" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarEPCobradaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarEPCobradaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerParametro" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarRecepcion_ColadaSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarRecepcion_Colada" />
   </wsdl:message>
@@ -1495,6 +2088,102 @@
     <wsdl:operation name="ObtenerEtiquetasPorViajeYGuia_EP">
       <wsdl:input message="tns:ObtenerEtiquetasPorViajeYGuia_EPSoapIn" />
       <wsdl:output message="tns:ObtenerEtiquetasPorViajeYGuia_EPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPagosPendientes">
+      <wsdl:input message="tns:ListarEstadoPagosPendientesSoapIn" />
+      <wsdl:output message="tns:ListarEstadoPagosPendientesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEP">
+      <wsdl:input message="tns:RegistrarEPSoapIn" />
+      <wsdl:output message="tns:RegistrarEPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPago">
+      <wsdl:input message="tns:ListarEstadoPagoSoapIn" />
+      <wsdl:output message="tns:ListarEstadoPagoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarObraEPNoAprobado">
+      <wsdl:input message="tns:ListarObraEPNoAprobadoSoapIn" />
+      <wsdl:output message="tns:ListarObraEPNoAprobadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxEP">
+      <wsdl:input message="tns:EliminarEPCreacionEtiquetaxEPSoapIn" />
+      <wsdl:output message="tns:EliminarEPCreacionEtiquetaxEPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxGuia_Despacho">
+      <wsdl:input message="tns:EliminarEPCreacionEtiquetaxGuia_DespachoSoapIn" />
+      <wsdl:output message="tns:EliminarEPCreacionEtiquetaxGuia_DespachoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxIT">
+      <wsdl:input message="tns:EliminarEPCreacionEtiquetaxITSoapIn" />
+      <wsdl:output message="tns:EliminarEPCreacionEtiquetaxITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCreacionEtiqueta">
+      <wsdl:input message="tns:RegistrarEPCreacionEtiquetaSoapIn" />
+      <wsdl:output message="tns:RegistrarEPCreacionEtiquetaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosGdEnviadaaClte">
+      <wsdl:input message="tns:RegistrarEPCambiosGdEnviadaaClteSoapIn" />
+      <wsdl:output message="tns:RegistrarEPCambiosGdEnviadaaClteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosEtiquetaEnviadaaClte">
+      <wsdl:input message="tns:RegistrarEPCambiosEtiquetaEnviadaaClteSoapIn" />
+      <wsdl:output message="tns:RegistrarEPCambiosEtiquetaEnviadaaClteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPResumenGuiaDespachoxEp">
+      <wsdl:input message="tns:ListarEPResumenGuiaDespachoxEpSoapIn" />
+      <wsdl:output message="tns:ListarEPResumenGuiaDespachoxEpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPDetalleEtiquetasxGuiaDespacho">
+      <wsdl:input message="tns:ListarEPDetalleEtiquetasxGuiaDespachoSoapIn" />
+      <wsdl:output message="tns:ListarEPDetalleEtiquetasxGuiaDespachoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPGeneracionReporte">
+      <wsdl:input message="tns:RegistrarEPGeneracionReporteSoapIn" />
+      <wsdl:output message="tns:RegistrarEPGeneracionReporteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPEnvioaCliente">
+      <wsdl:input message="tns:RegistrarEPEnvioaClienteSoapIn" />
+      <wsdl:output message="tns:RegistrarEPEnvioaClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAprobacionCliente">
+      <wsdl:input message="tns:RegistrarEPAprobacionClienteSoapIn" />
+      <wsdl:output message="tns:RegistrarEPAprobacionClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPTrazabiidad">
+      <wsdl:input message="tns:ListarEPTrazabiidadSoapIn" />
+      <wsdl:output message="tns:ListarEPTrazabiidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPComentario">
+      <wsdl:input message="tns:RegistrarEPComentarioSoapIn" />
+      <wsdl:output message="tns:RegistrarEPComentarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPComentario">
+      <wsdl:input message="tns:ListarEPComentarioSoapIn" />
+      <wsdl:output message="tns:ListarEPComentarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAdjunto">
+      <wsdl:input message="tns:RegistrarEPAdjuntoSoapIn" />
+      <wsdl:output message="tns:RegistrarEPAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPAdjunto">
+      <wsdl:input message="tns:ListarEPAdjuntoSoapIn" />
+      <wsdl:output message="tns:ListarEPAdjuntoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPFacturacion">
+      <wsdl:input message="tns:ListarEPFacturacionSoapIn" />
+      <wsdl:output message="tns:ListarEPFacturacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPIngresadaINET">
+      <wsdl:input message="tns:RegistrarEPIngresadaINETSoapIn" />
+      <wsdl:output message="tns:RegistrarEPIngresadaINETSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCobrada">
+      <wsdl:input message="tns:RegistrarEPCobradaSoapIn" />
+      <wsdl:output message="tns:RegistrarEPCobradaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <wsdl:input message="tns:ObtenerParametroSoapIn" />
+      <wsdl:output message="tns:ObtenerParametroSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarRecepcion_Colada">
       <wsdl:input message="tns:GuardarRecepcion_ColadaSoapIn" />
@@ -1819,6 +2508,222 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerEtiquetasPorViajeYGuia_EP">
       <soap:operation soapAction="http://tempuri.org/ObtenerEtiquetasPorViajeYGuia_EP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPagosPendientes">
+      <soap:operation soapAction="http://tempuri.org/ListarEstadoPagosPendientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEP">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPago">
+      <soap:operation soapAction="http://tempuri.org/ListarEstadoPago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarObraEPNoAprobado">
+      <soap:operation soapAction="http://tempuri.org/ListarObraEPNoAprobado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxEP">
+      <soap:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxEP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxGuia_Despacho">
+      <soap:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxGuia_Despacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxIT">
+      <soap:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCreacionEtiqueta">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPCreacionEtiqueta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosGdEnviadaaClte">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPCambiosGdEnviadaaClte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosEtiquetaEnviadaaClte">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPCambiosEtiquetaEnviadaaClte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPResumenGuiaDespachoxEp">
+      <soap:operation soapAction="http://tempuri.org/ListarEPResumenGuiaDespachoxEp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPDetalleEtiquetasxGuiaDespacho">
+      <soap:operation soapAction="http://tempuri.org/ListarEPDetalleEtiquetasxGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPGeneracionReporte">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPGeneracionReporte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPEnvioaCliente">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPEnvioaCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAprobacionCliente">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPAprobacionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPTrazabiidad">
+      <soap:operation soapAction="http://tempuri.org/ListarEPTrazabiidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPComentario">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPComentario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPComentario">
+      <soap:operation soapAction="http://tempuri.org/ListarEPComentario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAdjunto">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPAdjunto">
+      <soap:operation soapAction="http://tempuri.org/ListarEPAdjunto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPFacturacion">
+      <soap:operation soapAction="http://tempuri.org/ListarEPFacturacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPIngresadaINET">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPIngresadaINET" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCobrada">
+      <soap:operation soapAction="http://tempuri.org/RegistrarEPCobrada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <soap:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2351,6 +3256,222 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPagosPendientes">
+      <soap12:operation soapAction="http://tempuri.org/ListarEstadoPagosPendientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEP">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEstadoPago">
+      <soap12:operation soapAction="http://tempuri.org/ListarEstadoPago" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarObraEPNoAprobado">
+      <soap12:operation soapAction="http://tempuri.org/ListarObraEPNoAprobado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxEP">
+      <soap12:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxEP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxGuia_Despacho">
+      <soap12:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxGuia_Despacho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarEPCreacionEtiquetaxIT">
+      <soap12:operation soapAction="http://tempuri.org/EliminarEPCreacionEtiquetaxIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCreacionEtiqueta">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPCreacionEtiqueta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosGdEnviadaaClte">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPCambiosGdEnviadaaClte" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCambiosEtiquetaEnviadaaClte">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPCambiosEtiquetaEnviadaaClte" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPResumenGuiaDespachoxEp">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPResumenGuiaDespachoxEp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPDetalleEtiquetasxGuiaDespacho">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPDetalleEtiquetasxGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPGeneracionReporte">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPGeneracionReporte" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPEnvioaCliente">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPEnvioaCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAprobacionCliente">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPAprobacionCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPTrazabiidad">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPTrazabiidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPComentario">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPComentario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPComentario">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPComentario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPAdjunto">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPAdjunto">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPAdjunto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPFacturacion">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPFacturacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPIngresadaINET">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPIngresadaINET" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEPCobrada">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarEPCobrada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarRecepcion_Colada">
       <soap12:operation soapAction="http://tempuri.org/GuardarRecepcion_Colada" style="document" />
       <wsdl:input>
@@ -2705,10 +3826,10 @@
   </wsdl:binding>
   <wsdl:service name="Operacion">
     <wsdl:port name="OperacionSoap" binding="tns:OperacionSoap">
-      <soap:address location="http://localhost:52093/CUbigest2008/WS/Operacion.asmx" />
+      <soap:address location="http://localhost:54700/CUbigest2008/WS/Operacion.asmx" />
     </wsdl:port>
     <wsdl:port name="OperacionSoap12" binding="tns:OperacionSoap12">
-      <soap12:address location="http://localhost:52093/CUbigest2008/WS/Operacion.asmx" />
+      <soap12:address location="http://localhost:54700/CUbigest2008/WS/Operacion.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

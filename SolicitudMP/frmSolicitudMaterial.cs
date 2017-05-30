@@ -151,9 +151,9 @@ namespace Metalurgica
             string mensaje = validarControlesRequeridos(2);
             if (mensaje.Equals(""))
             {
-                int position = forms.dataGridViewSearchText(dgvProductos, COLUMNNAME_PRODUCTO, txtProducto.Text.Trim());
-                if (position != -1)
-                    dgvProductos.Rows.RemoveAt(position);
+                //int position = forms.dataGridViewSearchText(dgvProductos, COLUMNNAME_PRODUCTO, txtProducto.Text.Trim());
+                //if (position != -1)
+                //    dgvProductos.Rows.RemoveAt(position);
 
                 DataRow newRow = dtProductos.NewRow();
                 newRow[COLUMNNAME_PRODUCTO] = txtProducto.Text.Trim();

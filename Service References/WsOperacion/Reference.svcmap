@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:52093/CUbigest2008/WS/Operacion.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:54700/CUbigest2008/WS/Operacion.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Operacion1.disco" MetadataType="Disco" ID="e99916fc-bf47-4096-b513-f65135dbcaa6" SourceId="1" SourceUrl="http://localhost:52093/CUbigest2008/WS/Operacion.asmx?disco" />
-    <MetadataFile FileName="Operacion1.wsdl" MetadataType="Wsdl" ID="18cc8905-f330-4b27-ace5-66c727fe4825" SourceId="1" SourceUrl="http://localhost:52093/CUbigest2008/WS/Operacion.asmx?wsdl" />
+    <MetadataFile FileName="Operacion.disco" MetadataType="Disco" ID="bf4b58e5-dc81-48ce-9139-514aff4b5004" SourceId="1" SourceUrl="http://localhost:54700/CUbigest2008/WS/Operacion.asmx?disco" />
+    <MetadataFile FileName="Operacion.wsdl" MetadataType="Wsdl" ID="4a5992b5-2417-4e22-a28f-4d8a7ce5e5c1" SourceId="1" SourceUrl="http://localhost:54700/CUbigest2008/WS/Operacion.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

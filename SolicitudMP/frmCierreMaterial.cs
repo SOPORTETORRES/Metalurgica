@@ -131,9 +131,7 @@ namespace Metalurgica
                                 iFila["Procesado"] = "N";                                
                                 lTblINET.Rows.Add(iFila);
 
-                                //if (!inet_msg.Trim().ToUpper().Equals("OK"))
-                                //    inet_msg = "ERROR NO EXISTE STOCK DEL MATERIAL";
-
+                               
                                 // 1.- Se Integra con INET
                                 DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
                                 //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
@@ -166,67 +164,19 @@ namespace Metalurgica
                                 solicitud_Material_Detalle = wsOperacion.GuardarCierreMaterial(solicitud_Material_Detalle, inet_msg, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
                                 if (solicitud_Material_Detalle.MensajeError.Equals(""))
                                 {
-                                    //2) Cargamos el Objeto de INET       
-                                    //    DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-                                    //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
-                                    //lDts.Tables.Add(lTblFinal);
-
-                                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-                                    //lRespuestaWS_INET = InvocarWS_INET(lObjINET);
-
-
-                                    //lObjINET = lPX.ObtenerObjetoINETPorProducto(solicitud_Material_Detalle.Producto.ToString(), lCantidad.ToString(), lFechaMov, lGlosa1, lGlosa2);
-                                    //lRespuestaWS_INET = InvocarWS_INET_V1(lObjINET);
-                                    //// Invocamos el WS de INET
-                                    //// Comunicacion con el WS INET.
-
-                                    row.Cells[0].Value = false;
+                                     row.Cells[0].Value = false;
                                 }
                                 else
                                     MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-      
-
-
-                                //3) Notificacion de los productos cerrados correctamente por email.
-                                //if (counter > 0)
-                                //    EnvioCorreo(email_msg,"",""); 
-
-
-                                //1) Se registra el cierre del producto.
-                                //    solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
-                                //solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
-                                //solicitud_Material_Detalle.Usuario_Cierre = Program.currentUser.Login;
-                                ////solicitud_Material_Detalle.Fecha_Cierre = "";
-                                //solicitud_Material_Detalle.Tipo = row.Cells[COLUMNNAME_TIPO].Value.ToString().Substring(0, 1);
-                                //solicitud_Material_Detalle.Cantidad = Convert.ToInt32(row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString());
-                                //solicitud_Material_Detalle.Inet_Msg = inet_msg;
-
-                                //solicitud_Material_Detalle = wsOperacion.GuardarCierreMaterial(solicitud_Material_Detalle, inet_msg, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
-                                //if (solicitud_Material_Detalle.MensajeError.Equals(""))
-
-                            }
+                             }
                         }
                     }
                     for (i = 0; i < lLista.Count; i++)
                     {
-                        lIds_SMP = string.Concat(lIds_SMP, ",", lLista[i]);
+                        lIds_SMP = string.Concat(lLista[i], ",", lIds_SMP  );
                     }
                     EnvioCorreo(lIds_SMP, Program.currentUser.Login, "Linea de Corte");
-                    //2) Cargamos el Objeto de INET
-                    //Se debe informar en solo un movimiento todos los productos
-                    //Recorremos los productos y si hay repetidos los consolidamos en solo una linea
-                    //DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-                    //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
-                    //lDts.Tables.Add(lTblFinal);
-
-                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-                    //lRespuestaWS_INET = InvocarWS_INET_V1(lObjINET);
-                    //// Invocamos el WS de INET
-                    //// Comunicacion con el WS INET.
-                    //inet_msg = buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
-
-                    //inet_msg = Microsoft.VisualBasic.Interaction.InputBox("Ingrese la accion resultante del WS (ok/error)", this.Text, "OK", -1, -1);
+           
 
                     tlbActualizar.PerformClick();
                     MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -760,8 +710,8 @@ namespace Metalurgica
         private void EnvioCorreo(string iIdSolicitudes,string iUsuario , string iMaq )
         {
             Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
-            int i = 0; string lTblHtml = ""; DataTable lTbl = new DataTable();
-            string[] lPartes = null; string lSql = "";
+            int i = 0; string lTblHtml = ""; DataTable lTbl = new DataTable(); Clases.ClsComun lCom = new Clases.ClsComun(); 
+            string[] lPartes = null; string lSql = "";  string lFuente = ""; string lUrl = "";
 
             lPartes = iIdSolicitudes.Split(new Char[] { ',' });
 
@@ -784,7 +734,8 @@ namespace Metalurgica
                 lTblHtml = string.Concat(" Hola Estimados:  <br>  A continuación se muestra el estado de la Solicitud de Materia Prima al momento del cierre de turno <br> ");
                 lTblHtml = string.Concat(lTblHtml,"    El Usuario <b>",iUsuario , "</b> de la maquina <b>", iMaq , "</b>, ha Solicitado y producido lo siguiente:  <br> ");
                 lTblHtml = string.Concat(lTblHtml, "  <br> <br>   <table border = '1' >  <tr>   ");
-                lTblHtml = string.Concat(lTblHtml, " <td style = 'font - family: Arial; font - weight: bold; font - size: 12px;'> Id Solicitud </ td >  ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font - family: Arial; font - weight: bold; font - size: 12px;'>  Id Solicitud </ td >  ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Fecha Sol </ td >   ");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Codigo </ td >   ");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Descripcion </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Origen </ td >");
@@ -793,24 +744,48 @@ namespace Metalurgica
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Kgs Recepcionados </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Kgs Producidos </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>% Producido </ td >");
-                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>Saldo  </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>Saldo (kgs)  </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Integrado INET </ td >");
                 lTblHtml = string.Concat(lTblHtml, " </tr> ");
 
                 for (i = 0; i < lTbl.Rows.Count; i++)
                 {
                     lTblHtml = string.Concat(lTblHtml, " <tr> ");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl .Rows[i]["IdSol"].ToString (), "</td >" );
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Codigo"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Descripcion"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Origen"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Soldable"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_RECEP"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_PRODUCIDOS"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["% producido"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Saldo"].ToString(), "</td >");
-                    lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+                    //if (lCom.Val(lCom.ParteEntera(lTbl.Rows[i]["% producido"].ToString())) < 95)
+                    //{
+                    lFuente = "<td style='font-family: Arial;font - weight: bold; font-size: 12px;'> ";
+                    //}
+                    //else
+                    //{ lFuente = "<td style='font-family: Arial;  font-size: 12px;'> "; }
+
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl .Rows[i]["IdSol"].ToString (), "</td >" );
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["FechaSol"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Codigo"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Descripcion"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Origen"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Soldable"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_RECEP"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_KILOS_PRODUCIDOS"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["% producido"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["Saldo"].ToString(), "</td >");
+                    //lTblHtml = string.Concat(lTblHtml, " <td style='font-family: Arial;  font-size: 12px;'>", lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+                    // lUrl = string.Concat ("http://localhost:54700/CUbigest2008/SolicitudMP/DetalleSMP.aspx?I=", lTbl.Rows[i]["IdSol"].ToString());
+
+                    //lTblHtml = string.Concat(lTblHtml, lFuente, " <A HREF='", lUrl,"'>",  lTbl.Rows[i]["IdSol"].ToString(), "</A> </td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente,  lTbl.Rows[i]["IdSol"].ToString(), " </td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["FechaSol"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Codigo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Descripcion"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Origen"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Soldable"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS_RECEP"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS_PRODUCIDOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["% producido"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Saldo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+
 
                     lTblHtml = string.Concat(lTblHtml, " </tr>  ");
                 }
@@ -1004,7 +979,7 @@ namespace Metalurgica
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EnvioCorreo("40,41", Program.currentUser.Login, "Linea de Corte");
+            EnvioCorreo("570,571,572,573,574", Program.currentUser.Login, "Linea de Corte");
         }
     }
 }

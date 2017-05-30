@@ -40,6 +40,7 @@
             this.ctlProduccion1.Name = "ctlProduccion1";
             this.ctlProduccion1.Size = new System.Drawing.Size(923, 576);
             this.ctlProduccion1.TabIndex = 0;
+            this.ctlProduccion1.Load += new System.EventHandler(this.ctlProduccion1_Load);
             // 
             // FrmProduccion_2
             // 

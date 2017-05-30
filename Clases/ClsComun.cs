@@ -197,6 +197,33 @@ namespace Metalurgica.Clases
 
         }
 
+        public string  ParteEntera(string iValor)
+        {
+            string iRes = "";
+            char[] delimiterChars = { ',', '\t' };
+            char[] delimiterChars2 = { '.', '\t' };
+            
+
+            //Sencillamente, si se logra hacer la conversión, entonces es número
+            try
+            {
+                string[] words = iValor.Split(delimiterChars);
+                if (words.Length == 1)
+                {
+                    words = iValor.Split(delimiterChars2);
+
+                }
+
+                iRes = words[0];
+            }
+            catch //caso contrario, es falso.
+            {
+                iRes ="";
+            }
+
+            return iRes;
+
+        }
 
         public  DataTable CargaTablaObras()
         {

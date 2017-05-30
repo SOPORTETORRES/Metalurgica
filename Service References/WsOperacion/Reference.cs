@@ -92,6 +92,102 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerEtiquetasPorViajeYGuia_EP(string iIdObra, string iNroGuiaINET, string iCodigo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEstadoPagosPendientes", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEstadoPagosPendientes(string obra, string usuario, int opcion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEP(string obra, int ep, System.DateTime fechaProxPresentacion, string comentario, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEstadoPago", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEstadoPago(int ep);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarObraEPNoAprobado", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarObraEPNoAprobado(string obra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EliminarEPCreacionEtiquetaxEP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxEP(string obra, int ep, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EliminarEPCreacionEtiquetaxGuia_Despacho", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxGuia_Despacho(string obra, int ep, int guia_Despacho, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EliminarEPCreacionEtiquetaxIT", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxIT(string obra, int ep, int guia_Despacho, string it, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPCreacionEtiqueta", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPCreacionEtiqueta(Metalurgica.WsOperacion.Estado_Pago_Detalle[] listaEtiquetas, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPCambiosGdEnviadaaClte", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPCambiosGdEnviadaaClte(string obra, int ep, string estadoModificadaPor, string[] listaGd, string estadoModificacion, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPCambiosEtiquetaEnviadaaClte", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPCambiosEtiquetaEnviadaaClte(string obra, int ep, string estadoModificadaPor, string[] listaEtiqueta, string estadoModificacion, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPResumenGuiaDespachoxEp", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPResumenGuiaDespachoxEp(int ep);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPDetalleEtiquetasxGuiaDespacho", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPDetalleEtiquetasxGuiaDespacho(int guia_Despacho);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPGeneracionReporte", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPGeneracionReporte(string obra, int ep, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPEnvioaCliente", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPEnvioaCliente(string obra, int ep, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPAprobacionCliente", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPAprobacionCliente(string obra, int ep, System.DateTime fechaAprobacion, string comentario, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPTrazabiidad", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPTrazabiidad(int ep);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPComentario", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPComentario(string obra, int ep, string comentario, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPComentario", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPComentario(int ep);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPAdjunto", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPAdjunto(string obra, int ep, string archivo, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPAdjunto", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPAdjunto(int ep);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPFacturacion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPFacturacion(string estado, string periodoCreacionFactura);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPIngresadaINET", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPIngresadaINET(string obra, int ep, string usuario, System.DateTime fechaCreacion, int numFactura, System.DateTime fechaEnvioClte, System.DateTime fechaVencimiento, string comentario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarEPCobrada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Estado_Pago RegistrarEPCobrada(string obra, int ep, string usuario, System.DateTime fechaCobro, string comentario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametro", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string iTabla);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarRecepcion_Colada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Recepcion_Colada GuardarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal);
@@ -250,7 +346,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -352,7 +448,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -790,7 +886,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -962,7 +1058,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1148,7 +1244,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1250,7 +1346,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1324,7 +1420,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1426,7 +1522,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1556,7 +1652,449 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Estado_Pago_Detalle : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string obraField;
+        
+        private int idField;
+        
+        private string guia_despachoField;
+        
+        private string itField;
+        
+        private string etiquetaField;
+        
+        private int kgsField;
+        
+        private string mensajeErrorField;
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Obra {
+            get {
+                return this.obraField;
+            }
+            set {
+                this.obraField = value;
+                this.RaisePropertyChanged("Obra");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string Guia_despacho {
+            get {
+                return this.guia_despachoField;
+            }
+            set {
+                this.guia_despachoField = value;
+                this.RaisePropertyChanged("Guia_despacho");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string It {
+            get {
+                return this.itField;
+            }
+            set {
+                this.itField = value;
+                this.RaisePropertyChanged("It");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string Etiqueta {
+            get {
+                return this.etiquetaField;
+            }
+            set {
+                this.etiquetaField = value;
+                this.RaisePropertyChanged("Etiqueta");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int Kgs {
+            get {
+                return this.kgsField;
+            }
+            set {
+                this.kgsField = value;
+                this.RaisePropertyChanged("Kgs");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string MensajeError {
+            get {
+                return this.mensajeErrorField;
+            }
+            set {
+                this.mensajeErrorField = value;
+                this.RaisePropertyChanged("MensajeError");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Estado_Pago : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string obraField;
+        
+        private int idField;
+        
+        private string usuarioField;
+        
+        private System.DateTime fecha_creacionField;
+        
+        private System.DateTime fecha_reporteField;
+        
+        private string usuario_mod_adminField;
+        
+        private System.DateTime fecha_mod_adminField;
+        
+        private System.DateTime fecha_envio_clteField;
+        
+        private System.DateTime fecha_mod_clteField;
+        
+        private System.DateTime fecha_aprobado_clteField;
+        
+        private System.DateTime fecha_envio_facturacionField;
+        
+        private string usuario_creacion_fact_inetField;
+        
+        private System.DateTime fecha_creacion_fact_inetField;
+        
+        private int numero_fact_inetField;
+        
+        private System.DateTime fecha_envio_fact_clteField;
+        
+        private System.DateTime fecha_venc_fact_clteField;
+        
+        private string usuario_daxcobradoField;
+        
+        private System.DateTime fecha_cobroField;
+        
+        private string estadoField;
+        
+        private int correlativoField;
+        
+        private System.DateTime fecha_prox_presentacionField;
+        
+        private string mensajeErrorField;
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Obra {
+            get {
+                return this.obraField;
+            }
+            set {
+                this.obraField = value;
+                this.RaisePropertyChanged("Obra");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string Usuario {
+            get {
+                return this.usuarioField;
+            }
+            set {
+                this.usuarioField = value;
+                this.RaisePropertyChanged("Usuario");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public System.DateTime Fecha_creacion {
+            get {
+                return this.fecha_creacionField;
+            }
+            set {
+                this.fecha_creacionField = value;
+                this.RaisePropertyChanged("Fecha_creacion");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public System.DateTime Fecha_reporte {
+            get {
+                return this.fecha_reporteField;
+            }
+            set {
+                this.fecha_reporteField = value;
+                this.RaisePropertyChanged("Fecha_reporte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string Usuario_mod_admin {
+            get {
+                return this.usuario_mod_adminField;
+            }
+            set {
+                this.usuario_mod_adminField = value;
+                this.RaisePropertyChanged("Usuario_mod_admin");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public System.DateTime Fecha_mod_admin {
+            get {
+                return this.fecha_mod_adminField;
+            }
+            set {
+                this.fecha_mod_adminField = value;
+                this.RaisePropertyChanged("Fecha_mod_admin");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public System.DateTime Fecha_envio_clte {
+            get {
+                return this.fecha_envio_clteField;
+            }
+            set {
+                this.fecha_envio_clteField = value;
+                this.RaisePropertyChanged("Fecha_envio_clte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public System.DateTime Fecha_mod_clte {
+            get {
+                return this.fecha_mod_clteField;
+            }
+            set {
+                this.fecha_mod_clteField = value;
+                this.RaisePropertyChanged("Fecha_mod_clte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public System.DateTime Fecha_aprobado_clte {
+            get {
+                return this.fecha_aprobado_clteField;
+            }
+            set {
+                this.fecha_aprobado_clteField = value;
+                this.RaisePropertyChanged("Fecha_aprobado_clte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public System.DateTime Fecha_envio_facturacion {
+            get {
+                return this.fecha_envio_facturacionField;
+            }
+            set {
+                this.fecha_envio_facturacionField = value;
+                this.RaisePropertyChanged("Fecha_envio_facturacion");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public string Usuario_creacion_fact_inet {
+            get {
+                return this.usuario_creacion_fact_inetField;
+            }
+            set {
+                this.usuario_creacion_fact_inetField = value;
+                this.RaisePropertyChanged("Usuario_creacion_fact_inet");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
+        public System.DateTime Fecha_creacion_fact_inet {
+            get {
+                return this.fecha_creacion_fact_inetField;
+            }
+            set {
+                this.fecha_creacion_fact_inetField = value;
+                this.RaisePropertyChanged("Fecha_creacion_fact_inet");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
+        public int Numero_fact_inet {
+            get {
+                return this.numero_fact_inetField;
+            }
+            set {
+                this.numero_fact_inetField = value;
+                this.RaisePropertyChanged("Numero_fact_inet");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
+        public System.DateTime Fecha_envio_fact_clte {
+            get {
+                return this.fecha_envio_fact_clteField;
+            }
+            set {
+                this.fecha_envio_fact_clteField = value;
+                this.RaisePropertyChanged("Fecha_envio_fact_clte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=15)]
+        public System.DateTime Fecha_venc_fact_clte {
+            get {
+                return this.fecha_venc_fact_clteField;
+            }
+            set {
+                this.fecha_venc_fact_clteField = value;
+                this.RaisePropertyChanged("Fecha_venc_fact_clte");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=16)]
+        public string Usuario_daxcobrado {
+            get {
+                return this.usuario_daxcobradoField;
+            }
+            set {
+                this.usuario_daxcobradoField = value;
+                this.RaisePropertyChanged("Usuario_daxcobrado");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
+        public System.DateTime Fecha_cobro {
+            get {
+                return this.fecha_cobroField;
+            }
+            set {
+                this.fecha_cobroField = value;
+                this.RaisePropertyChanged("Fecha_cobro");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
+        public string Estado {
+            get {
+                return this.estadoField;
+            }
+            set {
+                this.estadoField = value;
+                this.RaisePropertyChanged("Estado");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
+        public int Correlativo {
+            get {
+                return this.correlativoField;
+            }
+            set {
+                this.correlativoField = value;
+                this.RaisePropertyChanged("Correlativo");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
+        public System.DateTime Fecha_prox_presentacion {
+            get {
+                return this.fecha_prox_presentacionField;
+            }
+            set {
+                this.fecha_prox_presentacionField = value;
+                this.RaisePropertyChanged("Fecha_prox_presentacion");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
+        public string MensajeError {
+            get {
+                return this.mensajeErrorField;
+            }
+            set {
+                this.mensajeErrorField = value;
+                this.RaisePropertyChanged("MensajeError");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1630,7 +2168,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2000,6 +2538,102 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerEtiquetasPorViajeYGuia_EP(string iIdObra, string iNroGuiaINET, string iCodigo) {
             return base.Channel.ObtenerEtiquetasPorViajeYGuia_EP(iIdObra, iNroGuiaINET, iCodigo);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEstadoPagosPendientes(string obra, string usuario, int opcion) {
+            return base.Channel.ListarEstadoPagosPendientes(obra, usuario, opcion);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEP(string obra, int ep, System.DateTime fechaProxPresentacion, string comentario, string usuario, string terminal) {
+            return base.Channel.RegistrarEP(obra, ep, fechaProxPresentacion, comentario, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEstadoPago(int ep) {
+            return base.Channel.ListarEstadoPago(ep);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarObraEPNoAprobado(string obra) {
+            return base.Channel.ListarObraEPNoAprobado(obra);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxEP(string obra, int ep, string usuario, string terminal) {
+            return base.Channel.EliminarEPCreacionEtiquetaxEP(obra, ep, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxGuia_Despacho(string obra, int ep, int guia_Despacho, string usuario, string terminal) {
+            return base.Channel.EliminarEPCreacionEtiquetaxGuia_Despacho(obra, ep, guia_Despacho, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxIT(string obra, int ep, int guia_Despacho, string it, string usuario, string terminal) {
+            return base.Channel.EliminarEPCreacionEtiquetaxIT(obra, ep, guia_Despacho, it, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPCreacionEtiqueta(Metalurgica.WsOperacion.Estado_Pago_Detalle[] listaEtiquetas, string usuario, string terminal) {
+            return base.Channel.RegistrarEPCreacionEtiqueta(listaEtiquetas, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPCambiosGdEnviadaaClte(string obra, int ep, string estadoModificadaPor, string[] listaGd, string estadoModificacion, string usuario, string terminal) {
+            return base.Channel.RegistrarEPCambiosGdEnviadaaClte(obra, ep, estadoModificadaPor, listaGd, estadoModificacion, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPCambiosEtiquetaEnviadaaClte(string obra, int ep, string estadoModificadaPor, string[] listaEtiqueta, string estadoModificacion, string usuario, string terminal) {
+            return base.Channel.RegistrarEPCambiosEtiquetaEnviadaaClte(obra, ep, estadoModificadaPor, listaEtiqueta, estadoModificacion, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPResumenGuiaDespachoxEp(int ep) {
+            return base.Channel.ListarEPResumenGuiaDespachoxEp(ep);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPDetalleEtiquetasxGuiaDespacho(int guia_Despacho) {
+            return base.Channel.ListarEPDetalleEtiquetasxGuiaDespacho(guia_Despacho);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPGeneracionReporte(string obra, int ep, string usuario, string terminal) {
+            return base.Channel.RegistrarEPGeneracionReporte(obra, ep, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPEnvioaCliente(string obra, int ep, string usuario, string terminal) {
+            return base.Channel.RegistrarEPEnvioaCliente(obra, ep, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPAprobacionCliente(string obra, int ep, System.DateTime fechaAprobacion, string comentario, string usuario, string terminal) {
+            return base.Channel.RegistrarEPAprobacionCliente(obra, ep, fechaAprobacion, comentario, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPTrazabiidad(int ep) {
+            return base.Channel.ListarEPTrazabiidad(ep);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPComentario(string obra, int ep, string comentario, string usuario, string terminal) {
+            return base.Channel.RegistrarEPComentario(obra, ep, comentario, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPComentario(int ep) {
+            return base.Channel.ListarEPComentario(ep);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPAdjunto(string obra, int ep, string archivo, string usuario, string terminal) {
+            return base.Channel.RegistrarEPAdjunto(obra, ep, archivo, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPAdjunto(int ep) {
+            return base.Channel.ListarEPAdjunto(ep);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPFacturacion(string estado, string periodoCreacionFactura) {
+            return base.Channel.ListarEPFacturacion(estado, periodoCreacionFactura);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPIngresadaINET(string obra, int ep, string usuario, System.DateTime fechaCreacion, int numFactura, System.DateTime fechaEnvioClte, System.DateTime fechaVencimiento, string comentario, string terminal) {
+            return base.Channel.RegistrarEPIngresadaINET(obra, ep, usuario, fechaCreacion, numFactura, fechaEnvioClte, fechaVencimiento, comentario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.Estado_Pago RegistrarEPCobrada(string obra, int ep, string usuario, System.DateTime fechaCobro, string comentario, string terminal) {
+            return base.Channel.RegistrarEPCobrada(obra, ep, usuario, fechaCobro, comentario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string iTabla) {
+            return base.Channel.ObtenerParametro(iTabla);
         }
         
         public Metalurgica.WsOperacion.Recepcion_Colada GuardarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal) {

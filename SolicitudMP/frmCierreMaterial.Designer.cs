@@ -55,8 +55,8 @@
             this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.dtpFechaRecepcion = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
-            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.button1 = new System.Windows.Forms.Button();
+            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.stsStatusStrip.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -332,14 +332,6 @@
             this.label8.TabIndex = 11;
             this.label8.Text = "Recepciones del día";
             // 
-            // ctlInformacionUsuario1
-            // 
-            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
-            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
-            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1088, 22);
-            this.ctlInformacionUsuario1.TabIndex = 30;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(767, 23);
@@ -349,6 +341,14 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ctlInformacionUsuario1
+            // 
+            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
+            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
+            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1088, 22);
+            this.ctlInformacionUsuario1.TabIndex = 30;
             // 
             // frmCierreMaterial
             // 
