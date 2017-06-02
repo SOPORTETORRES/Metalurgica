@@ -105,6 +105,7 @@ namespace Metalurgica.Controls
             int lKilosSolicitados = 0; int lKilosProducidos = 0; int lKilosSaldo = 0;
             bool lRes = true; Clases .ClsComun lcom=new Clases.ClsComun ();int i = 0;
             string lMsg = "";       int lPesoEtiqueta = 0; int lDiam = 0;DataTable lTbl = new DataTable ();
+            string lToleranciaSMP= ConfigurationManager.AppSettings["Tolerancia_SMP"].ToString();
 
             if ((iDts != null) && (iDts.Tables.Count > 1))
             {
@@ -129,6 +130,12 @@ namespace Metalurgica.Controls
                         {
                             lPesoEtiqueta = lcom.Val(dataTable.Rows[0]["PesoPaquete"].ToString());
                             lDiam = int.Parse(dataTable.Rows[0]["Diametro"].ToString());
+                            // A los Kilos Solicitados le agregamos la Tolerancia definida
+                            if (lcom.Val(lToleranciaSMP) > 0)
+                            {
+                                lKilosSolicitados= lKilosSolicitados+(lKilosSolicitados* lcom.Val(lToleranciaSMP)/100);
+                            }
+                            // Fin
                             lKilosSaldo = lKilosSolicitados - (lKilosProducidos + lPesoEtiqueta);
 
                             if (lKilosSolicitados == 0)
@@ -1189,6 +1196,10 @@ namespace Metalurgica.Controls
             VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
         }
 
-
+        private void TlbVer_Click(object sender, EventArgs e)
+        {
+            SolicitudMP.frmVisializar lfrm = new SolicitudMP.frmVisializar();
+            lfrm.ShowDialog();
+        }
     }
 }

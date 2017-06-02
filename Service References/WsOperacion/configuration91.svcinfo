@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="aGaEIMoKMDWhvl6r7Ti+5E+QcIA=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="qwUttHkm1uPukgOvyUxoGIFzN+c=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="OperacionSoap1">
       <properties>
@@ -112,7 +112,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="OperacionSoap1" contract="WsOperacion.OperacionSoap" bindingType="basicHttpBinding" address="http://localhost:54700/CUbigest2008/WS/Operacion.asmx" bindingConfiguration="OperacionSoap1">
+    <endpoint name="OperacionSoap" contract="WsOperacion.OperacionSoap" bindingType="basicHttpBinding" address="http://localhost:54700/CUbigest2008/WS/Operacion.asmx" bindingConfiguration="OperacionSoap1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:54700/CUbigest2008/WS/Operacion.asmx</serializedValue>
@@ -187,7 +187,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>OperacionSoap1</serializedValue>
+          <serializedValue>OperacionSoap</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

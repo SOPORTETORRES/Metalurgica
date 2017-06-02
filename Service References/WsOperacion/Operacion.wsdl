@@ -203,6 +203,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="AnularDetalleSolicitudMateriaPrima">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="iId_DetalleSol" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AnularDetalleSolicitudMateriaPrimaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnularDetalleSolicitudMateriaPrimaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerTablaConDestinatariosMAIL_EP">
         <s:complexType>
           <s:sequence>
@@ -1574,6 +1588,12 @@
   <wsdl:message name="ObtenerSolicitudesMP_PorTotemSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesMP_PorTotemResponse" />
   </wsdl:message>
+  <wsdl:message name="AnularDetalleSolicitudMateriaPrimaSoapIn">
+    <wsdl:part name="parameters" element="tns:AnularDetalleSolicitudMateriaPrima" />
+  </wsdl:message>
+  <wsdl:message name="AnularDetalleSolicitudMateriaPrimaSoapOut">
+    <wsdl:part name="parameters" element="tns:AnularDetalleSolicitudMateriaPrimaResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerTablaConDestinatariosMAIL_EPSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerTablaConDestinatariosMAIL_EP" />
   </wsdl:message>
@@ -2049,6 +2069,10 @@
       <wsdl:input message="tns:ObtenerSolicitudesMP_PorTotemSoapIn" />
       <wsdl:output message="tns:ObtenerSolicitudesMP_PorTotemSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AnularDetalleSolicitudMateriaPrima">
+      <wsdl:input message="tns:AnularDetalleSolicitudMateriaPrimaSoapIn" />
+      <wsdl:output message="tns:AnularDetalleSolicitudMateriaPrimaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerTablaConDestinatariosMAIL_EP">
       <wsdl:input message="tns:ObtenerTablaConDestinatariosMAIL_EPSoapIn" />
       <wsdl:output message="tns:ObtenerTablaConDestinatariosMAIL_EPSoapOut" />
@@ -2418,6 +2442,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesMP_PorTotem">
       <soap:operation soapAction="http://tempuri.org/ObtenerSolicitudesMP_PorTotem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnularDetalleSolicitudMateriaPrima">
+      <soap:operation soapAction="http://tempuri.org/AnularDetalleSolicitudMateriaPrima" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3159,6 +3192,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesMP_PorTotem">
       <soap12:operation soapAction="http://tempuri.org/ObtenerSolicitudesMP_PorTotem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnularDetalleSolicitudMateriaPrima">
+      <soap12:operation soapAction="http://tempuri.org/AnularDetalleSolicitudMateriaPrima" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

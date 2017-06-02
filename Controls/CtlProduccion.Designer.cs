@@ -50,6 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.Btn_MtoTotem = new System.Windows.Forms.Button();
             this.Btn_MtoMaq = new System.Windows.Forms.Button();
             this.Btn_NotificacionAveria = new System.Windows.Forms.Button();
@@ -77,6 +78,9 @@
             this.txtEtiquetaColada = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tlsToolBar = new System.Windows.Forms.ToolStrip();
+            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.tlbNuevo = new System.Windows.Forms.ToolStripButton();
             this.tlbGuardar = new System.Windows.Forms.ToolStripButton();
             this.tlbEliminar = new System.Windows.Forms.ToolStripButton();
@@ -88,10 +92,7 @@
             this.TlbNuevaSolicitud = new System.Windows.Forms.ToolStripButton();
             this.tlbRecepcion = new System.Windows.Forms.ToolStripButton();
             this.tlbCierre = new System.Windows.Forms.ToolStripButton();
-            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
+            this.TlbVer = new System.Windows.Forms.ToolStripButton();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -368,6 +369,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
             // 
+            // lbl_MsgBloqueo
+            // 
+            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lbl_MsgBloqueo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
+            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
+            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
+            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(894, 110);
+            this.lbl_MsgBloqueo.TabIndex = 55;
+            this.lbl_MsgBloqueo.Text = "label13";
+            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_MsgBloqueo.Visible = false;
+            // 
             // Btn_MtoTotem
             // 
             this.Btn_MtoTotem.Location = new System.Drawing.Point(808, 44);
@@ -627,12 +642,37 @@
             this.tlbSalir,
             this.TlbNuevaSolicitud,
             this.tlbRecepcion,
-            this.tlbCierre});
+            this.tlbCierre,
+            this.TlbVer});
             this.tlsToolBar.Location = new System.Drawing.Point(0, 36);
             this.tlsToolBar.Name = "tlsToolBar";
             this.tlsToolBar.Size = new System.Drawing.Size(920, 25);
             this.tlsToolBar.TabIndex = 43;
             this.tlsToolBar.Text = "toolStrip1";
+            // 
+            // stsStatusStrip
+            // 
+            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlsEstado});
+            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
+            this.stsStatusStrip.Name = "stsStatusStrip";
+            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
+            this.stsStatusStrip.TabIndex = 41;
+            this.stsStatusStrip.Text = "statusStrip1";
+            // 
+            // tlsEstado
+            // 
+            this.tlsEstado.Name = "tlsEstado";
+            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
+            this.tlsEstado.Text = "Listo";
+            // 
+            // ctlInformacionUsuario1
+            // 
+            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
+            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
+            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
+            this.ctlInformacionUsuario1.TabIndex = 42;
             // 
             // tlbNuevo
             // 
@@ -735,43 +775,15 @@
             this.tlbCierre.Visible = false;
             this.tlbCierre.Click += new System.EventHandler(this.tlbCierre_Click);
             // 
-            // stsStatusStrip
+            // TlbVer
             // 
-            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlsEstado});
-            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
-            this.stsStatusStrip.Name = "stsStatusStrip";
-            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
-            this.stsStatusStrip.TabIndex = 41;
-            this.stsStatusStrip.Text = "statusStrip1";
-            // 
-            // tlsEstado
-            // 
-            this.tlsEstado.Name = "tlsEstado";
-            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
-            this.tlsEstado.Text = "Listo";
-            // 
-            // ctlInformacionUsuario1
-            // 
-            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
-            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
-            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
-            this.ctlInformacionUsuario1.TabIndex = 42;
-            // 
-            // lbl_MsgBloqueo
-            // 
-            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lbl_MsgBloqueo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
-            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
-            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
-            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(894, 110);
-            this.lbl_MsgBloqueo.TabIndex = 55;
-            this.lbl_MsgBloqueo.Text = "label13";
-            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_MsgBloqueo.Visible = false;
+            this.TlbVer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TlbVer.Image = global::Metalurgica.Properties.Resources.find;
+            this.TlbVer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TlbVer.Name = "TlbVer";
+            this.TlbVer.Size = new System.Drawing.Size(23, 22);
+            this.TlbVer.Text = "Ver";
+            this.TlbVer.Click += new System.EventHandler(this.TlbVer_Click);
             // 
             // CtlProduccion
             // 
@@ -878,5 +890,6 @@
         private System.Windows.Forms.ToolStripButton tlbRecepcion;
         private System.Windows.Forms.ToolStripButton tlbCierre;
         private System.Windows.Forms.Label lbl_MsgBloqueo;
+        private System.Windows.Forms.ToolStripButton TlbVer;
     }
 }
