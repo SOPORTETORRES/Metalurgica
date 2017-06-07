@@ -56,6 +56,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string AnularDetalleSolicitudMateriaPrima(int iId_DetalleSol);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumenSMP_PorTurno", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorTurno(string iFechaIni, string iFechaFin);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTablaConDestinatariosMAIL_EP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerTablaConDestinatariosMAIL_EP(string iIdObra);
@@ -2506,6 +2510,10 @@ namespace Metalurgica.WsOperacion {
         
         public string AnularDetalleSolicitudMateriaPrima(int iId_DetalleSol) {
             return base.Channel.AnularDetalleSolicitudMateriaPrima(iId_DetalleSol);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorTurno(string iFechaIni, string iFechaFin) {
+            return base.Channel.ObtenerResumenSMP_PorTurno(iFechaIni, iFechaFin);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerTablaConDestinatariosMAIL_EP(string iIdObra) {

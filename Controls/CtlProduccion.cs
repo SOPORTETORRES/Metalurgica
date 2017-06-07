@@ -1199,6 +1199,7 @@ namespace Metalurgica.Controls
         private void TlbVer_Click(object sender, EventArgs e)
         {
             SolicitudMP.frmVisializar lfrm = new SolicitudMP.frmVisializar();
+            lfrm.IniciaFormulario(mUserLog.Login );
             lfrm.ShowDialog();
         }
     }

@@ -160,7 +160,7 @@ namespace Metalurgica
 
         private void tlbDesactivar_Click(object sender, EventArgs e)
         {
-            bool nuevaSolicitud = false;
+            bool nuevaSolicitud = false;int lIdDetalleSM = 0; string lRes = "";
             DataGridViewRow currentRow = dgvProductos.CurrentRow;
             if (currentRow != null)
             {
@@ -179,8 +179,12 @@ namespace Metalurgica
                         //solicitud_Material_Detalle.Fecha_Recep = "";
                         solicitud_Material_Detalle.Cantidad = Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString());
 
-                        result = wsOperacion.AnularRecepcionMaterial(solicitud_Material_Detalle, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
-                        if (result.MensajeError.Equals(""))
+                        lIdDetalleSM = new Clases.ClsComun().Val(currentRow.Cells["DET_ID"].Value.ToString());
+                        lRes = wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
+
+                        // result = wsOperacion.AnularRecepcionMaterial(solicitud_Material_Detalle, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
+                        // if (result.MensajeError.Equals(""))
+                        if (lRes.Equals(""))
                         {
                             if (MessageBox.Show("¿Desea crear una nueva solicitud para este producto?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
                             {
