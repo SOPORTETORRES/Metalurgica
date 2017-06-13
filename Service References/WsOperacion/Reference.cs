@@ -16,6 +16,14 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Obtener_DatosDeDespachoCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CierreDescargaIT", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string CierreDescargaIT(string iCodigo, string iIMEI);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarSolicitudMaterial", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Solicitud_Material GuardarSolicitudMaterial(Metalurgica.WsOperacion.Solicitud_Material solicitud_Material, string terminal, int totem);
@@ -40,6 +48,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_Cierre(System.DateTime fecha, int totem, string errorWS);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DevolucionDeMP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string DevolucionDeMP(string Det_Id, string NroBarras, string Kilos, string IdUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarCierreMaterial", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Solicitud_Material_Detalle GuardarCierreMaterial(Metalurgica.WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle, string inet_msg, string usuario, string terminal, int totem);
@@ -59,6 +71,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumenSMP_PorTurno", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorTurno(string iFechaIni, string iFechaFin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumenSMP_PorSolId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorSolId(string iDet_Sol);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTablaConDestinatariosMAIL_EP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -343,14 +359,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarITEtiquetaRecepcionada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Obtener_DatosDeDespachoCamion", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CierreDescargaIT", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string CierreDescargaIT(string iCodigo, string iIMEI);
     }
     
     /// <comentarios/>
@@ -2472,6 +2480,14 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra) {
+            return base.Channel.Obtener_DatosDeDespachoCamion(iIdObra);
+        }
+        
+        public string CierreDescargaIT(string iCodigo, string iIMEI) {
+            return base.Channel.CierreDescargaIT(iCodigo, iIMEI);
+        }
+        
         public Metalurgica.WsOperacion.Solicitud_Material GuardarSolicitudMaterial(Metalurgica.WsOperacion.Solicitud_Material solicitud_Material, string terminal, int totem) {
             return base.Channel.GuardarSolicitudMaterial(solicitud_Material, terminal, totem);
         }
@@ -2496,6 +2512,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ListarSolicitudMaterial_Cierre(fecha, totem, errorWS);
         }
         
+        public string DevolucionDeMP(string Det_Id, string NroBarras, string Kilos, string IdUsuario) {
+            return base.Channel.DevolucionDeMP(Det_Id, NroBarras, Kilos, IdUsuario);
+        }
+        
         public Metalurgica.WsOperacion.Solicitud_Material_Detalle GuardarCierreMaterial(Metalurgica.WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle, string inet_msg, string usuario, string terminal, int totem) {
             return base.Channel.GuardarCierreMaterial(solicitud_Material_Detalle, inet_msg, usuario, terminal, totem);
         }
@@ -2514,6 +2534,10 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorTurno(string iFechaIni, string iFechaFin) {
             return base.Channel.ObtenerResumenSMP_PorTurno(iFechaIni, iFechaFin);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerResumenSMP_PorSolId(string iDet_Sol) {
+            return base.Channel.ObtenerResumenSMP_PorSolId(iDet_Sol);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerTablaConDestinatariosMAIL_EP(string iIdObra) {
@@ -2798,14 +2822,6 @@ namespace Metalurgica.WsOperacion {
         
         public string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei) {
             return base.Channel.RegistrarITEtiquetaRecepcionada(it, etiqueta, usuario, latitud, longitud, imei);
-        }
-        
-        public System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra) {
-            return base.Channel.Obtener_DatosDeDespachoCamion(iIdObra);
-        }
-        
-        public string CierreDescargaIT(string iCodigo, string iIMEI) {
-            return base.Channel.CierreDescargaIT(iCodigo, iIMEI);
         }
     }
 }

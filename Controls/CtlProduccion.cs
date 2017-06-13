@@ -27,6 +27,8 @@ namespace Metalurgica.Controls
         DataTable mTblDatos = new DataTable();
         DataView mVistaPr = null;
 
+        public delegate void SalirDelFormulario();
+        public event SalirDelFormulario Salir;
         public CtlProduccion()
         {
             InitializeComponent();
@@ -1199,8 +1201,48 @@ namespace Metalurgica.Controls
         private void TlbVer_Click(object sender, EventArgs e)
         {
             SolicitudMP.frmVisializar lfrm = new SolicitudMP.frmVisializar();
-            lfrm.IniciaFormulario(mUserLog.Login );
+            lfrm.IniciaFormulario(mUserLog.Login , mUserLog);
             lfrm.ShowDialog();
+        }
+
+        private void tlbSalir_Click(object sender, EventArgs e)
+        {
+            //1.- Debemos chequear que cerro el turno
+            if (TurnoEstaCerrado() == false)
+            {
+                //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
+                MessageBox.Show("NO se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+            }
+            else
+            {
+                //2.- Si cerro, sale de la aplicacion
+                MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+
+                this.Salir();
+
+            }
+          }
+
+        protected virtual void ValidarSalir()
+        {
+            Salir();
+        }
+
+        private bool TurnoEstaCerrado()
+        {
+            bool lres = true; SolicitudMP.frmVisializar lFrm = new SolicitudMP.frmVisializar();
+            int i = 0;
+            DataTable lTblDatos = lFrm.ObtenerSMP_PorTurno();
+            lFrm = null;
+
+            for (i = 0; i < lTblDatos.Rows.Count; i++)
+            {
+                if (lTblDatos.Rows[i]["DET_INET_MSG"].ToString().Trim().Length == 0)
+                    lres = false;
+            }
+    
+
+            return lres;
         }
     }
 }

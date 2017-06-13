@@ -16,8 +16,8 @@ namespace Metalurgica
         private const string COLUMNNAME_ORIGEN = "ORIGEN";
         private const string COLUMNNAME_ORIGEN_DESCRIPCION = "DESC_ORIGEN";
         private const string COLUMNNAME_TIPO = "TIPO";
-        private const string COLUMNNAME_CANTIDAD = "CANTIDAD";
-        private const string COLUMNNAME_CANTIDAD_RECEP = "CANTIDAD_RECEP";
+        private const string COLUMNNAME_CANTIDAD = "BARRAS_SOL";
+        private const string COLUMNNAME_CANTIDAD_RECEP = "BARRAS_RECEP";
         private const string COLUMNNAME_OBS_RECEP = "OBS_RECEP";
         private Forms forms = new Forms();
         private CurrentUser mUserLog = new CurrentUser();
@@ -79,7 +79,7 @@ namespace Metalurgica
                                     lTmp = RegistraKilosEtiquetaRollos(row);
                                 }
                                 else
-                                    lTmp = (row.Cells["Kilos"].Value.ToString());
+                                    lTmp = (row.Cells["Kilos_Recep"].Value.ToString());
 
 
                                 if (lCom.EsNumero (lTmp) == true)
@@ -164,57 +164,68 @@ namespace Metalurgica
             DataGridViewRow currentRow = dgvProductos.CurrentRow;
             if (currentRow != null)
             {
-                if (MessageBox.Show("¿Esta seguro que desea anular este registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                try
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-                    try
+                    if (Convert.ToInt32(currentRow.Cells["CANTIDAD_PROD"].Value.ToString()) == 0)
                     {
-                        WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-                        WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle = new WsOperacion.Solicitud_Material_Detalle();
-                        WsOperacion.Solicitud_Material_Detalle result = new WsOperacion.Solicitud_Material_Detalle();
-
-                        solicitud_Material_Detalle.Id = Convert.ToInt32(currentRow.Cells[COLUMNNAME_ID].Value.ToString());
-                        solicitud_Material_Detalle.Producto = currentRow.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
-                        solicitud_Material_Detalle.Usuario_Recep = Program.currentUser.Login;
-                        //solicitud_Material_Detalle.Fecha_Recep = "";
-                        solicitud_Material_Detalle.Cantidad = Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString());
-
-                        lIdDetalleSM = new Clases.ClsComun().Val(currentRow.Cells["DET_ID"].Value.ToString());
-                        lRes = wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
-
-                        // result = wsOperacion.AnularRecepcionMaterial(solicitud_Material_Detalle, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
-                        // if (result.MensajeError.Equals(""))
-                        if (lRes.Equals(""))
+                        if (MessageBox.Show("¿Esta seguro que desea anular este registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
                         {
-                            if (MessageBox.Show("¿Desea crear una nueva solicitud para este producto?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
-                            {
-                                nuevaSolicitud = true;
-                                //producto
-                                //diamtro
-                                //largo
-                                //origen
-                                //tipo
-                                //cantidad
-                                solicitud_Material_Detalle.Diametro = currentRow.Cells[COLUMNNAME_DIAMETRO].Value.ToString();
-                                solicitud_Material_Detalle.Largo = currentRow.Cells[COLUMNNAME_LARGO].Value.ToString();
-                                solicitud_Material_Detalle.Origen = currentRow.Cells[COLUMNNAME_ORIGEN].Value.ToString();
-                                crearNuevaSolicitud(solicitud_Material_Detalle);
-                            }
-                        }
-                        else
-                            MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Cursor.Current = Cursors.WaitCursor;
 
-                        //tlbNuevo_Click(sender, e);
-                        tlbActualizar.PerformClick();
-                        if (!nuevaSolicitud)
-                            MessageBox.Show("Anulacion realizada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                            WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle = new WsOperacion.Solicitud_Material_Detalle();
+                            WsOperacion.Solicitud_Material_Detalle result = new WsOperacion.Solicitud_Material_Detalle();
+
+                            solicitud_Material_Detalle.Id = Convert.ToInt32(currentRow.Cells[COLUMNNAME_ID].Value.ToString());
+                            solicitud_Material_Detalle.Producto = currentRow.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
+                            solicitud_Material_Detalle.Usuario_Recep = Program.currentUser.Login;
+                            //solicitud_Material_Detalle.Fecha_Recep = "";
+                            solicitud_Material_Detalle.Cantidad = Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString());
+
+                            lIdDetalleSM = new Clases.ClsComun().Val(currentRow.Cells["DET_ID"].Value.ToString());
+                            lRes = wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
+
+                            // result = wsOperacion.AnularRecepcionMaterial(solicitud_Material_Detalle, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
+                            // if (result.MensajeError.Equals(""))
+                            if (lRes.Equals(""))
+                            {
+                                if (MessageBox.Show("¿Desea crear una nueva solicitud para este producto?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                                {
+                                    nuevaSolicitud = true;
+                                    //producto
+                                    //diamtro
+                                    //largo
+                                    //origen
+                                    //tipo
+                                    //cantidad
+                                    solicitud_Material_Detalle.Diametro = currentRow.Cells[COLUMNNAME_DIAMETRO].Value.ToString();
+                                    solicitud_Material_Detalle.Largo = currentRow.Cells[COLUMNNAME_LARGO].Value.ToString();
+                                    solicitud_Material_Detalle.Origen = currentRow.Cells[COLUMNNAME_ORIGEN].Value.ToString();
+                                    crearNuevaSolicitud(solicitud_Material_Detalle);
+                                }
+                            }
+                            else
+                                MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            //tlbNuevo_Click(sender, e);
+                            tlbActualizar.PerformClick();
+                            if (!nuevaSolicitud)
+                                MessageBox.Show("Anulacion realizada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        }
                     }
-                    catch (Exception exc)
+                    else
                     {
-                        MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("NO Puede Anular el Producto seleccionado, ya que tiene Kilos Producidos", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    Cursor.Current = Cursors.Default;
+
+
+                 }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                Cursor.Current = Cursors.Default;
             }            
         }
                     
@@ -254,6 +265,21 @@ namespace Metalurgica
             }
         }
 
+        private void ActualizaColumnasRecep(DataGridView dgv)
+        {
+            int i = 0;
+            for (i= 0; i < dgv.RowCount;i++)
+            {
+
+                if (dgv.Rows[i].Cells["BARRAS_RECEP"].Value.ToString().Equals("0"))
+                {
+                    dgv.Rows[i].Cells["BARRAS_RECEP"].Value = dgv.Rows[i].Cells["BARRAS_SOL"].Value;
+                    dgv.Rows[i].Cells["KILOS_RECEP"].Value = dgv.Rows[i].Cells["KILOS_SOL"].Value;
+                }
+            }
+        }
+
+
         private void tlbActualizar_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -274,12 +300,14 @@ namespace Metalurgica
                         dgvProductos.Columns.Insert(0, check);
                     }
                     BloquearColumnas(dgvProductos);
+                  
                     //tlbNuevo.PerformClick();
                     //tlbNuevo_Click(sender, e);
                     //ID, USUARIO, FECHA, TOTEM, COMPLETA, SOL_ID, PRODUCTO, DIAMETRO, LARGO, ORIGEN, TIPO CANTIDAD, USUARIO_RECEP, FECHA_RECEP, CANTIDAD_RECEP, OBS_RECEP, USUARIO_CIERRE, FECHA_CIERRE, INET_MSG, INET_FECHA
                     forms.dataGridViewHideColumns(dgvProductos, new string[] { "ID", "USUARIO", "FECHA", "TOTEM", "COMPLETA", "USUARIO_RECEP", "FECHA_RECEP", "USUARIO_CIERRE", "FECHA_CIERRE", "INET_MSG", "INET_FECHA" });
                     forms.dataGridViewAutoSizeColumnsMode(dgvProductos, DataGridViewAutoSizeColumnsMode.DisplayedCells);
                     tlsEstado.Text = "Registro(s): " + dgvProductos.Rows.Count;
+                    ActualizaColumnasRecep(dgvProductos);
                 }
                 else
                     MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -328,22 +356,29 @@ namespace Metalurgica
             DataGridViewRow currentRow = dgvProductos.CurrentRow;
             if (currentRow != null)
             {
-                frmRecepcionMaterialParcial frm = new frmRecepcionMaterialParcial();
-                frm.producto = currentRow.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString();
-                frm.diametro = currentRow.Cells[COLUMNNAME_DIAMETRO].Value.ToString();
-                frm.largo = currentRow.Cells[COLUMNNAME_LARGO].Value.ToString();
-                frm.origen = currentRow.Cells[COLUMNNAME_ORIGEN_DESCRIPCION].Value.ToString();
-                frm.tipo = currentRow.Cells[COLUMNNAME_TIPO].Value.ToString();
-                frm.cantidad = currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString();
-                frm.cantidad_parcial = (String.IsNullOrEmpty(currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()) ? Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString()) : Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()));
-                frm.obs = currentRow.Cells[COLUMNNAME_OBS_RECEP].Value.ToString();
-                frm.ShowDialog(this);
-                if (frm.ok)
+                try
                 {
-                    currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value = frm.cantidad_parcial.ToString();
-                    currentRow.Cells[COLUMNNAME_OBS_RECEP].Value = frm.obs;
+                    frmRecepcionMaterialParcial frm = new frmRecepcionMaterialParcial();
+                    frm.producto = currentRow.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString();
+                    frm.diametro = currentRow.Cells[COLUMNNAME_DIAMETRO].Value.ToString();
+                    frm.largo = currentRow.Cells[COLUMNNAME_LARGO].Value.ToString();
+                    frm.origen = currentRow.Cells[COLUMNNAME_ORIGEN_DESCRIPCION].Value.ToString();
+                    frm.tipo = currentRow.Cells[COLUMNNAME_TIPO].Value.ToString();
+                    frm.cantidad = currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString();
+                    frm.cantidad_parcial = (String.IsNullOrEmpty(currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()) ? Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD].Value.ToString()) : Convert.ToInt32(currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()));
+                    frm.obs = currentRow.Cells[COLUMNNAME_OBS_RECEP].Value.ToString();
+                    frm.ShowDialog(this);
+                    if (frm.ok)
+                    {
+                        currentRow.Cells[COLUMNNAME_CANTIDAD_RECEP].Value = frm.cantidad_parcial.ToString();
+                        currentRow.Cells[COLUMNNAME_OBS_RECEP].Value = frm.obs;
+                    }
+                    frm.Dispose();
                 }
-                frm.Dispose();
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -375,6 +410,11 @@ namespace Metalurgica
         private void Rb_Desmarcar_CheckedChanged(object sender, EventArgs e)
         {
             Marca_DesmarcaTodas(false);
+        }
+
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

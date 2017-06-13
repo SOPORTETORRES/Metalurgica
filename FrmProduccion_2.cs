@@ -37,6 +37,8 @@ namespace Metalurgica
 
         }
 
+       
+
         private void ctlProduccion1_Load(object sender, EventArgs e)
         {
 

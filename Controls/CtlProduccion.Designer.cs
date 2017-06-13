@@ -78,9 +78,6 @@
             this.txtEtiquetaColada = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tlsToolBar = new System.Windows.Forms.ToolStrip();
-            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.tlbNuevo = new System.Windows.Forms.ToolStripButton();
             this.tlbGuardar = new System.Windows.Forms.ToolStripButton();
             this.tlbEliminar = new System.Windows.Forms.ToolStripButton();
@@ -93,6 +90,9 @@
             this.tlbRecepcion = new System.Windows.Forms.ToolStripButton();
             this.tlbCierre = new System.Windows.Forms.ToolStripButton();
             this.TlbVer = new System.Windows.Forms.ToolStripButton();
+            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -650,30 +650,6 @@
             this.tlsToolBar.TabIndex = 43;
             this.tlsToolBar.Text = "toolStrip1";
             // 
-            // stsStatusStrip
-            // 
-            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlsEstado});
-            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
-            this.stsStatusStrip.Name = "stsStatusStrip";
-            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
-            this.stsStatusStrip.TabIndex = 41;
-            this.stsStatusStrip.Text = "statusStrip1";
-            // 
-            // tlsEstado
-            // 
-            this.tlsEstado.Name = "tlsEstado";
-            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
-            this.tlsEstado.Text = "Listo";
-            // 
-            // ctlInformacionUsuario1
-            // 
-            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
-            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
-            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
-            this.ctlInformacionUsuario1.TabIndex = 42;
-            // 
             // tlbNuevo
             // 
             this.tlbNuevo.Image = global::Metalurgica.Properties.Resources.add;
@@ -744,6 +720,7 @@
             this.tlbSalir.Name = "tlbSalir";
             this.tlbSalir.Size = new System.Drawing.Size(49, 22);
             this.tlbSalir.Text = "Salir";
+            this.tlbSalir.Click += new System.EventHandler(this.tlbSalir_Click);
             // 
             // TlbNuevaSolicitud
             // 
@@ -784,6 +761,30 @@
             this.TlbVer.Size = new System.Drawing.Size(23, 22);
             this.TlbVer.Text = "Ver";
             this.TlbVer.Click += new System.EventHandler(this.TlbVer_Click);
+            // 
+            // stsStatusStrip
+            // 
+            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlsEstado});
+            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
+            this.stsStatusStrip.Name = "stsStatusStrip";
+            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
+            this.stsStatusStrip.TabIndex = 41;
+            this.stsStatusStrip.Text = "statusStrip1";
+            // 
+            // tlsEstado
+            // 
+            this.tlsEstado.Name = "tlsEstado";
+            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
+            this.tlsEstado.Text = "Listo";
+            // 
+            // ctlInformacionUsuario1
+            // 
+            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
+            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
+            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
+            this.ctlInformacionUsuario1.TabIndex = 42;
             // 
             // CtlProduccion
             // 

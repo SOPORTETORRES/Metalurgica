@@ -440,6 +440,12 @@
     <Compile Include="SolicitudMP\frmCierreMaterialAdmin.Designer.cs">
       <DependentUpon>frmCierreMaterialAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="SolicitudMP\FrmDevolucionMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\FrmDevolucionMP.Designer.cs">
+      <DependentUpon>FrmDevolucionMP.cs</DependentUpon>
+    </Compile>
     <Compile Include="SolicitudMP\frmLogProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -606,6 +612,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SolicitudMP\frmCierreMaterialAdmin.resx">
       <DependentUpon>frmCierreMaterialAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\FrmDevolucionMP.resx">
+      <DependentUpon>FrmDevolucionMP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SolicitudMP\frmLogProducto.resx">
       <DependentUpon>frmLogProducto.cs</DependentUpon>

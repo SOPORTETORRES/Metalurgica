@@ -111,7 +111,7 @@ namespace Metalurgica
                         {
                             if ((bool)row.Cells[COLUMNNAME_MARCA].Value == true)
                             {
-                                if ((int)row.Cells["CANTIDAD_PROD"].Value > 0)
+                                if ((int)row.Cells["CANTIDAD_RECEP"].Value > 0)
                                 {
                                     lTblINET.Clear();
                                     if (Agregar_IdSolicitud(lLista, row.Cells["SOL_ID"].Value.ToString()))
@@ -120,7 +120,7 @@ namespace Metalurgica
                                     }
                                     lCodigo = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
                                     //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
-                                    lCantidad = row.Cells[COLUMNNAME_KILOS].Value.ToString();
+                                    lCantidad = row.Cells["CANTIDAD_RECEP"].Value.ToString();
                                     lFechaMov = DateTime.Now.ToString();
                                     lGlosa1 = Program.currentUser.Login;
                                     lGlosa2 = ObtenerTurno();

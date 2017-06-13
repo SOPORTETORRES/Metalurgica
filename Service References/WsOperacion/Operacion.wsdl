@@ -2,6 +2,42 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Obtener_DatosDeDespachoCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Obtener_DatosDeDespachoCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Obtener_DatosDeDespachoCamionResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CierreDescargaIT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iIMEI" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CierreDescargaITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CierreDescargaITResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarSolicitudMaterial">
         <s:complexType>
           <s:sequence>
@@ -154,6 +190,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DevolucionDeMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Det_Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NroBarras" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Kilos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdUsuario" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DevolucionDeMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DevolucionDeMPResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarCierreMaterial">
         <s:complexType>
           <s:sequence>
@@ -229,6 +282,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumenSMP_PorTurnoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenSMP_PorSolId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iDet_Sol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenSMP_PorSolIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumenSMP_PorSolIdResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1511,44 +1578,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Obtener_DatosDeDespachoCamion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Obtener_DatosDeDespachoCamionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Obtener_DatosDeDespachoCamionResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CierreDescargaIT">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iCodigo" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iIMEI" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CierreDescargaITResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CierreDescargaITResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="Obtener_DatosDeDespachoCamionSoapIn">
+    <wsdl:part name="parameters" element="tns:Obtener_DatosDeDespachoCamion" />
+  </wsdl:message>
+  <wsdl:message name="Obtener_DatosDeDespachoCamionSoapOut">
+    <wsdl:part name="parameters" element="tns:Obtener_DatosDeDespachoCamionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CierreDescargaITSoapIn">
+    <wsdl:part name="parameters" element="tns:CierreDescargaIT" />
+  </wsdl:message>
+  <wsdl:message name="CierreDescargaITSoapOut">
+    <wsdl:part name="parameters" element="tns:CierreDescargaITResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarSolicitudMaterialSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarSolicitudMaterial" />
   </wsdl:message>
@@ -1585,6 +1628,12 @@
   <wsdl:message name="ListarSolicitudMaterial_CierreSoapOut">
     <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreResponse" />
   </wsdl:message>
+  <wsdl:message name="DevolucionDeMPSoapIn">
+    <wsdl:part name="parameters" element="tns:DevolucionDeMP" />
+  </wsdl:message>
+  <wsdl:message name="DevolucionDeMPSoapOut">
+    <wsdl:part name="parameters" element="tns:DevolucionDeMPResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCierreMaterialSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCierreMaterial" />
   </wsdl:message>
@@ -1614,6 +1663,12 @@
   </wsdl:message>
   <wsdl:message name="ObtenerResumenSMP_PorTurnoSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorTurnoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumenSMP_PorSolIdSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorSolId" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumenSMP_PorSolIdSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorSolIdResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerTablaConDestinatariosMAIL_EPSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerTablaConDestinatariosMAIL_EP" />
@@ -2041,19 +2096,15 @@
   <wsdl:message name="RegistrarITEtiquetaRecepcionadaSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarITEtiquetaRecepcionadaResponse" />
   </wsdl:message>
-  <wsdl:message name="Obtener_DatosDeDespachoCamionSoapIn">
-    <wsdl:part name="parameters" element="tns:Obtener_DatosDeDespachoCamion" />
-  </wsdl:message>
-  <wsdl:message name="Obtener_DatosDeDespachoCamionSoapOut">
-    <wsdl:part name="parameters" element="tns:Obtener_DatosDeDespachoCamionResponse" />
-  </wsdl:message>
-  <wsdl:message name="CierreDescargaITSoapIn">
-    <wsdl:part name="parameters" element="tns:CierreDescargaIT" />
-  </wsdl:message>
-  <wsdl:message name="CierreDescargaITSoapOut">
-    <wsdl:part name="parameters" element="tns:CierreDescargaITResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
+      <wsdl:input message="tns:Obtener_DatosDeDespachoCamionSoapIn" />
+      <wsdl:output message="tns:Obtener_DatosDeDespachoCamionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CierreDescargaIT">
+      <wsdl:input message="tns:CierreDescargaITSoapIn" />
+      <wsdl:output message="tns:CierreDescargaITSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarSolicitudMaterial">
       <wsdl:input message="tns:GuardarSolicitudMaterialSoapIn" />
       <wsdl:output message="tns:GuardarSolicitudMaterialSoapOut" />
@@ -2078,6 +2129,10 @@
       <wsdl:input message="tns:ListarSolicitudMaterial_CierreSoapIn" />
       <wsdl:output message="tns:ListarSolicitudMaterial_CierreSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="DevolucionDeMP">
+      <wsdl:input message="tns:DevolucionDeMPSoapIn" />
+      <wsdl:output message="tns:DevolucionDeMPSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCierreMaterial">
       <wsdl:input message="tns:GuardarCierreMaterialSoapIn" />
       <wsdl:output message="tns:GuardarCierreMaterialSoapOut" />
@@ -2097,6 +2152,10 @@
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <wsdl:input message="tns:ObtenerResumenSMP_PorTurnoSoapIn" />
       <wsdl:output message="tns:ObtenerResumenSMP_PorTurnoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorSolId">
+      <wsdl:input message="tns:ObtenerResumenSMP_PorSolIdSoapIn" />
+      <wsdl:output message="tns:ObtenerResumenSMP_PorSolIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerTablaConDestinatariosMAIL_EP">
       <wsdl:input message="tns:ObtenerTablaConDestinatariosMAIL_EPSoapIn" />
@@ -2382,17 +2441,27 @@
       <wsdl:input message="tns:RegistrarITEtiquetaRecepcionadaSoapIn" />
       <wsdl:output message="tns:RegistrarITEtiquetaRecepcionadaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
-      <wsdl:input message="tns:Obtener_DatosDeDespachoCamionSoapIn" />
-      <wsdl:output message="tns:Obtener_DatosDeDespachoCamionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CierreDescargaIT">
-      <wsdl:input message="tns:CierreDescargaITSoapIn" />
-      <wsdl:output message="tns:CierreDescargaITSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
+      <soap:operation soapAction="http://tempuri.org/Obtener_DatosDeDespachoCamion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CierreDescargaIT">
+      <soap:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarSolicitudMaterial">
       <soap:operation soapAction="http://tempuri.org/GuardarSolicitudMaterial" style="document" />
       <wsdl:input>
@@ -2447,6 +2516,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DevolucionDeMP">
+      <soap:operation soapAction="http://tempuri.org/DevolucionDeMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCierreMaterial">
       <soap:operation soapAction="http://tempuri.org/GuardarCierreMaterial" style="document" />
       <wsdl:input>
@@ -2485,6 +2563,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <soap:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorSolId">
+      <soap:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorSolId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3131,27 +3218,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
-      <soap:operation soapAction="http://tempuri.org/Obtener_DatosDeDespachoCamion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CierreDescargaIT">
-      <soap:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
+      <soap12:operation soapAction="http://tempuri.org/Obtener_DatosDeDespachoCamion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CierreDescargaIT">
+      <soap12:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarSolicitudMaterial">
       <soap12:operation soapAction="http://tempuri.org/GuardarSolicitudMaterial" style="document" />
       <wsdl:input>
@@ -3206,6 +3293,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DevolucionDeMP">
+      <soap12:operation soapAction="http://tempuri.org/DevolucionDeMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarCierreMaterial">
       <soap12:operation soapAction="http://tempuri.org/GuardarCierreMaterial" style="document" />
       <wsdl:input>
@@ -3244,6 +3340,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <soap12:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorSolId">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorSolId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3883,24 +3988,6 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarITEtiquetaRecepcionada">
       <soap12:operation soapAction="http://tempuri.org/RegistrarITEtiquetaRecepcionada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Obtener_DatosDeDespachoCamion">
-      <soap12:operation soapAction="http://tempuri.org/Obtener_DatosDeDespachoCamion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CierreDescargaIT">
-      <soap12:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
