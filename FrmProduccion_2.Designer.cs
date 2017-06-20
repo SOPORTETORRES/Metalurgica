@@ -1,4 +1,6 @@
-﻿namespace Metalurgica
+﻿using System;
+
+namespace Metalurgica
 {
     partial class FrmProduccion_2
     {
@@ -56,7 +58,10 @@
             this.Load += new System.EventHandler(this.FrmProduccion_2_Load);
             this.ResumeLayout(false);
 
+            this.ctlProduccion1.BotonClick += new System.EventHandler(Boton_EventoClick);
+
         }
+
 
         #endregion
 

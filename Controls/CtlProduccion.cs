@@ -27,8 +27,8 @@ namespace Metalurgica.Controls
         DataTable mTblDatos = new DataTable();
         DataView mVistaPr = null;
 
-        public delegate void SalirDelFormulario();
-        public event SalirDelFormulario Salir;
+        public EventHandler BotonClick;
+
         public CtlProduccion()
         {
             InitializeComponent();
@@ -1216,16 +1216,15 @@ namespace Metalurgica.Controls
             else
             {
                 //2.- Si cerro, sale de la aplicacion
-                MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+                //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
 
-                this.Salir();
-
+                BotonClick(this, e);
             }
           }
 
         protected virtual void ValidarSalir()
         {
-            Salir();
+            //Salir();
         }
 
         private bool TurnoEstaCerrado()

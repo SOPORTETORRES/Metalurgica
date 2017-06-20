@@ -37,7 +37,10 @@ namespace Metalurgica
 
         }
 
-       
+        void Boton_EventoClick(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void ctlProduccion1_Load(object sender, EventArgs e)
         {
