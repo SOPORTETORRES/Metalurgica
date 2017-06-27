@@ -23,7 +23,7 @@ namespace Metalurgica
         private const string COLUMNNAME_TIPO = "TIPO";
         private const string COLUMNNAME_CANTIDAD = "CANTIDAD_SOL";
         private const string COLUMNNAME_KILOS = "CANTIDAD_PROD";
-        private const string COLUMNNAME_CANTIDAD_RECEP = "CANTIDAD_RECEP";
+        private const string COLUMNNAME_CANTIDAD_RECEP = "KILOS_PROD";
 
         private Forms forms = new Forms();
         private CurrentUser mUserLog = new CurrentUser();
@@ -111,7 +111,7 @@ namespace Metalurgica
                         {
                             if ((bool)row.Cells[COLUMNNAME_MARCA].Value == true)
                             {
-                                if ((int)row.Cells["CANTIDAD_RECEP"].Value > 0)
+                                if ((int)row.Cells["KILOS_PROD"].Value > 0)
                                 {
                                     lTblINET.Clear();
                                     if (Agregar_IdSolicitud(lLista, row.Cells["SOL_ID"].Value.ToString()))
@@ -120,7 +120,7 @@ namespace Metalurgica
                                     }
                                     lCodigo = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
                                     //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
-                                    lCantidad = row.Cells["CANTIDAD_RECEP"].Value.ToString();
+                                    lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
                                     lFechaMov = DateTime.Now.ToString();
                                     lGlosa1 = Program.currentUser.Login;
                                     lGlosa2 = ObtenerTurno();

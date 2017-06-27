@@ -639,11 +639,11 @@
             this.tlbActualizar,
             this.tlbImprimir,
             this.tlbExportar,
-            this.tlbSalir,
             this.TlbNuevaSolicitud,
             this.tlbRecepcion,
             this.tlbCierre,
-            this.TlbVer});
+            this.TlbVer,
+            this.tlbSalir});
             this.tlsToolBar.Location = new System.Drawing.Point(0, 36);
             this.tlsToolBar.Name = "tlsToolBar";
             this.tlsToolBar.Size = new System.Drawing.Size(920, 25);
@@ -754,11 +754,10 @@
             // 
             // TlbVer
             // 
-            this.TlbVer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.TlbVer.Image = global::Metalurgica.Properties.Resources.find;
             this.TlbVer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TlbVer.Name = "TlbVer";
-            this.TlbVer.Size = new System.Drawing.Size(23, 22);
+            this.TlbVer.Size = new System.Drawing.Size(43, 22);
             this.TlbVer.Text = "Ver";
             this.TlbVer.Click += new System.EventHandler(this.TlbVer_Click);
             // 

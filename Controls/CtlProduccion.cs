@@ -53,7 +53,7 @@ namespace Metalurgica.Controls
 
             string lValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
 
-            if (EtiquetaFueImpresa() == false)
+            if (PuedeProducirEtiqueta() == true)
             {
                 //Se debe validar las producciones v/s las solicitudes de material
                 WsOperacion.OperacionSoapClient lPxOp = new WsOperacion.OperacionSoapClient();
@@ -192,24 +192,26 @@ namespace Metalurgica.Controls
         }
 
 
-        private bool EtiquetaFueImpresa()
+        private bool PuedeProducirEtiqueta()
         {
-            bool lEtiquetaImpresa = false;
+            bool lEtiquetaImpresa = true;
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = "";
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
 
             string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; string lCuerpoMsg = "";
-            listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+            listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(80, txtEtiquetaPieza.Text, "", "", "", "");
             if (listaDataSet.MensajeError.Equals(""))
             {
                 if (listaDataSet.DataSet.Tables[0].Rows.Count > 0)
                 {
                     lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                    // Verificamos que la Etiqueta haya sido Impresa.
+
                     if (lTbl.Rows[0]["Impresa"].ToString().ToUpper().Equals("N"))
                     {
-                        lEtiquetaImpresa = true;
+                        lEtiquetaImpresa = false;
                         // Cuando ocurra esto en pantalla de totem se indicará al operario 
                         // "Esta etiqueta no ha sido impresa, avisar a su jefe", dejando un registro en log   
                         // para ver la ocurrencia aposterior y enviando un correo a la lista definida a continuación.                            
@@ -229,12 +231,21 @@ namespace Metalurgica.Controls
                         // listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
                         lSql = string.Concat("SP_Consultas_WS 54,'", mUserLog.Iduser, "','", mUserLog.IdTotem, "','", lTbl.Rows[0]["Etiqueta"].ToString(), "','");
                         lSql = string.Concat(lSql, lTbl.Rows[0]["Codigo"].ToString(), "','", txtEtiquetaPieza.Text, "'");
-                        //                    ALTER PROCEDURE [dbo].[SP_Consultas_WS]
-                        //@Opcion INT,          @Par1 Varchar(100),             @Par2 Varchar(100),
-                        //@Par3 Varchar(150),   @Par4 Varchar(100),             @Par5 Varchar(100),
-                        //@Par6 Varchar(100),   @Par7 Varchar(100)
+                        
                         lDts = lPx.ObtenerDatos(lSql);
                     }
+                    // Verificamos que se este pistolemado la etiqueta en la sucursal Programada.
+                    // Obtenemos las variables de sesion Sucursal e IdSucursal
+                    string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+                    string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
+                    if (!(lTbl.Rows[0]["IdSucursal"].ToString().ToUpper().Equals(lIdSucursal)))
+                    {
+                        lEtiquetaImpresa = false;
+                        lMsg = string.Concat("Esta etiqueta No puede ser producida, ya que esta asignada a la sucursal de ", lTbl.Rows[0]["SucursalAsiganda"].ToString().ToUpper() , Environment.NewLine);
+                        lMsg = string.Concat(lMsg," Este Tótem esta configurado como Sucursal ", lSucursal, Environment.NewLine);
+                        MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
 
                 }
             }
@@ -1207,11 +1218,13 @@ namespace Metalurgica.Controls
 
         private void tlbSalir_Click(object sender, EventArgs e)
         {
+            string lMsg = "";
             //1.- Debemos chequear que cerro el turno
             if (TurnoEstaCerrado() == false)
             {
                 //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
-                MessageBox.Show("NO se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+                lMsg = string .Concat ("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
+                MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
             }
             else
             {

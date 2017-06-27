@@ -68,6 +68,7 @@
             this.Btn_Dev.TabIndex = 2;
             this.Btn_Dev.Text = "Devolución MP";
             this.Btn_Dev.UseVisualStyleBackColor = true;
+            this.Btn_Dev.Visible = false;
             this.Btn_Dev.Click += new System.EventHandler(this.Btn_Dev_Click);
             // 
             // Tx_Det_Id
@@ -76,6 +77,7 @@
             this.Tx_Det_Id.Name = "Tx_Det_Id";
             this.Tx_Det_Id.Size = new System.Drawing.Size(34, 20);
             this.Tx_Det_Id.TabIndex = 3;
+            this.Tx_Det_Id.Visible = false;
             // 
             // frmVisializar
             // 
