@@ -26,6 +26,7 @@ namespace Metalurgica.Controls
         private string mIdSolicitudMP = "";
         DataTable mTblDatos = new DataTable();
         DataView mVistaPr = null;
+        private string mlValidarSolictud_MP = "";
 
         public EventHandler BotonClick;
 
@@ -47,6 +48,23 @@ namespace Metalurgica.Controls
             }
         }
 
+
+        private void AjustaColumnaGrilla()
+        {
+            if (this.dgvEtiquetasPiezas.DataSource != null)
+            {
+                dgvEtiquetasPiezas.ReadOnly = false;
+                dgvEtiquetasPiezas.Enabled = false;
+                dgvEtiquetasPiezas.Columns["Obra"].Width = 500;
+                dgvEtiquetasPiezas.Columns["idpaquete"].Width = 10;
+                dgvEtiquetasPiezas.Columns["diametro"].Width = 20;
+                dgvEtiquetasPiezas.Columns["NroPaq"].Width = 30;
+                dgvEtiquetasPiezas.Columns["totalpaq"].Width = 40;
+                dgvEtiquetasPiezas.Refresh();
+                dgvEtiquetasPiezas.ReadOnly = true;
+            }
+
+        }
         private void txtEtiquetaPieza_Validating(object sender, CancelEventArgs e)
         {
             string lValidarColadas = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString();
@@ -87,7 +105,7 @@ namespace Metalurgica.Controls
                     }
                 
                 }
-
+                AjustaColumnaGrilla();
             }
         }
 
@@ -433,13 +451,13 @@ namespace Metalurgica.Controls
                                                     dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
                                                     dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
                                                 }
-                                                //mTotalKilos =double.Parse (dataTable.Rows[0]["Pesopaquete"].ToString ());                                            
+                                                                                       
 
                                                 mTblDatos = dataTable.Copy();
                                                 //dgvActiva.DataSource = dataTable;
                                                 mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
                                                 dgvActiva.DataSource = mVistaPr;
-                                                dgvActiva.Columns["Obra"].Width = 500;
+                                               
                                             }
                                             else
                                             {
@@ -494,9 +512,7 @@ namespace Metalurgica.Controls
                     {
 
                     }
-                    // WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-                    // WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-                    //
+                  
                     if (mIdEtiquetaColada.ToString().Trim().Length > 0)
                     //if (txtEtiquetaColada.Text.Trim().Length > 0)
                     {
@@ -524,7 +540,7 @@ namespace Metalurgica.Controls
             }
             //lblKilos.Text = dt.Rows[0]["KILOS"].ToString();
             //01/11/2014 Segun proyecto de muestreo se agrega llamada
-            VerificaMuestreo(diametro);
+            //VerificaMuestreo(diametro);
 
         }
 
@@ -700,7 +716,7 @@ namespace Metalurgica.Controls
                 }
 
             }
-            Lbl_MsgKgsProd.Visible = false;
+            //Lbl_MsgKgsProd.Visible = false;
         }
 
         private void VerificaMuestreo(string iDiametro)
@@ -924,12 +940,25 @@ namespace Metalurgica.Controls
         }
 
 
-        public void HabilitaOpcionSolicitudMaterial(Boolean iHabilita)
+        public void HabilitaOpcionSolicitudMaterial()
         {
-            this.TlbNuevaSolicitud .Visible  = iHabilita;
-            this.tlbRecepcion  .Visible = iHabilita;
-            this.tlbRecepcion  .Visible = iHabilita;
-            tlbCierre.Visible = iHabilita;
+            //obtenemos la variable para la solicitud de materia prima
+            mlValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
+            // si no esta habilitada la opción de MP no se muestra en el Menu
+            if (mlValidarSolictud_MP.ToUpper().Equals("N"))
+            {
+                this.TlbNuevaSolicitud.Visible = false;
+                tlbRecepcion.Visible = false;
+                tlbCierre.Visible = false;
+                TlbVer.Visible = false;
+            }
+            else
+            {
+                this.TlbNuevaSolicitud.Visible = true;
+                this.tlbRecepcion.Visible = true;
+                this.tlbRecepcion.Visible = true;
+                tlbCierre.Visible = true;
+            }
         }
 
 
@@ -939,6 +968,9 @@ namespace Metalurgica.Controls
 
             try
             {
+               
+
+
                 //Visualizamos la version
                 Clases.ClsComun lCom = new Clases.ClsComun();
                 this.Text += " - versión: " + lCom.ObtenerVersion();  //Application.ProductVersion;
@@ -1220,8 +1252,8 @@ namespace Metalurgica.Controls
         {
             string lMsg = "";
             //1.-Revisamos en el archivo de configuracion si tiene habilitado la validacion de SMP
-            string lValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
-            if (lValidarSolictud_MP.ToUpper().Equals("S"))
+           
+            if (mlValidarSolictud_MP.ToUpper().Equals("S"))
             {
                 //2.- Debemos chequear que cerro el turno
                 if (TurnoEstaCerrado() == false)

@@ -27,7 +27,7 @@ namespace Metalurgica
             mIdUser = iUserLog.Iduser;
             ctlProduccion1.IniciaFormulario(iUserLog);
             ctlProduccion1.HabilitaControl (true );
-            ctlProduccion1.HabilitaOpcionSolicitudMaterial(true);
+            ctlProduccion1.HabilitaOpcionSolicitudMaterial();
 
             //ctlInformacionUsuario1.CargaDatosUserLog(iUserLog);)
         }

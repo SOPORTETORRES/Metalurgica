@@ -85,11 +85,11 @@
             this.tlbActualizar = new System.Windows.Forms.ToolStripButton();
             this.tlbImprimir = new System.Windows.Forms.ToolStripButton();
             this.tlbExportar = new System.Windows.Forms.ToolStripButton();
-            this.tlbSalir = new System.Windows.Forms.ToolStripButton();
             this.TlbNuevaSolicitud = new System.Windows.Forms.ToolStripButton();
             this.tlbRecepcion = new System.Windows.Forms.ToolStripButton();
             this.tlbCierre = new System.Windows.Forms.ToolStripButton();
             this.TlbVer = new System.Windows.Forms.ToolStripButton();
+            this.tlbSalir = new System.Windows.Forms.ToolStripButton();
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
@@ -135,9 +135,9 @@
             // 
             // Btn_Desbloquea
             // 
-            this.Btn_Desbloquea.Location = new System.Drawing.Point(574, 3);
+            this.Btn_Desbloquea.Location = new System.Drawing.Point(557, 3);
             this.Btn_Desbloquea.Name = "Btn_Desbloquea";
-            this.Btn_Desbloquea.Size = new System.Drawing.Size(148, 23);
+            this.Btn_Desbloquea.Size = new System.Drawing.Size(115, 23);
             this.Btn_Desbloquea.TabIndex = 23;
             this.Btn_Desbloquea.Text = "Ingresar Reparación";
             this.Btn_Desbloquea.UseVisualStyleBackColor = true;
@@ -158,7 +158,7 @@
             // 
             this.Lbl_MsgKgsProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Lbl_MsgKgsProd.AutoSize = true;
-            this.Lbl_MsgKgsProd.Location = new System.Drawing.Point(676, 9);
+            this.Lbl_MsgKgsProd.Location = new System.Drawing.Point(683, 9);
             this.Lbl_MsgKgsProd.Name = "Lbl_MsgKgsProd";
             this.Lbl_MsgKgsProd.Size = new System.Drawing.Size(181, 13);
             this.Lbl_MsgKgsProd.TabIndex = 21;
@@ -239,12 +239,10 @@
             // 
             this.dgvEtiquetasPiezas.AllowUserToAddRows = false;
             this.dgvEtiquetasPiezas.AllowUserToDeleteRows = false;
-            this.dgvEtiquetasPiezas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEtiquetasPiezas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEtiquetasPiezas.Location = new System.Drawing.Point(3, 3);
             this.dgvEtiquetasPiezas.MultiSelect = false;
             this.dgvEtiquetasPiezas.Name = "dgvEtiquetasPiezas";
-            this.dgvEtiquetasPiezas.ReadOnly = true;
             this.dgvEtiquetasPiezas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(906, 344);
             this.dgvEtiquetasPiezas.TabIndex = 0;
@@ -713,15 +711,6 @@
             this.tlbExportar.Size = new System.Drawing.Size(70, 22);
             this.tlbExportar.Text = "Exportar";
             // 
-            // tlbSalir
-            // 
-            this.tlbSalir.Image = global::Metalurgica.Properties.Resources.door_out;
-            this.tlbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tlbSalir.Name = "tlbSalir";
-            this.tlbSalir.Size = new System.Drawing.Size(49, 22);
-            this.tlbSalir.Text = "Salir";
-            this.tlbSalir.Click += new System.EventHandler(this.tlbSalir_Click);
-            // 
             // TlbNuevaSolicitud
             // 
             this.TlbNuevaSolicitud.Image = global::Metalurgica.Properties.Resources.add;
@@ -760,6 +749,15 @@
             this.TlbVer.Size = new System.Drawing.Size(43, 22);
             this.TlbVer.Text = "Ver";
             this.TlbVer.Click += new System.EventHandler(this.TlbVer_Click);
+            // 
+            // tlbSalir
+            // 
+            this.tlbSalir.Image = global::Metalurgica.Properties.Resources.door_out;
+            this.tlbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlbSalir.Name = "tlbSalir";
+            this.tlbSalir.Size = new System.Drawing.Size(49, 22);
+            this.tlbSalir.Text = "Salir";
+            this.tlbSalir.Click += new System.EventHandler(this.tlbSalir_Click);
             // 
             // stsStatusStrip
             // 
