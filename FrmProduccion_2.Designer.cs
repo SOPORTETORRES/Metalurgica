@@ -55,10 +55,10 @@ namespace Metalurgica
             this.Name = "FrmProduccion_2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Producción";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmProduccion_2_Load);
-            this.ResumeLayout(false);
-
             this.ctlProduccion1.BotonClick += new System.EventHandler(Boton_EventoClick);
+            this.ResumeLayout(false);
 
         }
 
