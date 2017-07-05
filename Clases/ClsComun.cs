@@ -241,6 +241,24 @@ namespace Metalurgica.Clases
             return lTbl;
         }
 
+
+        public DataTable CargaTablaObras(string iEmpresa)
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lEmpresa = iEmpresa;
+
+            lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+
+            return lTbl;
+        }
+
         public string ObtenerKilos (string iLargo,string iDiametro, int  iCantidad)
         {
             //El largo debe esta en Metros

@@ -791,8 +791,28 @@ namespace Metalurgica
 
         private DataTable CargaTablaObras( )
         {
-            Clases.ClsComun lcom = new Clases.ClsComun();
-            return lcom.CargaTablaObras ();
+            string lTipoDespacho =   ConfigurationManager.AppSettings["MultiDespacho"].ToString();
+            Clases.ClsComun lcom = new Clases.ClsComun();DataTable lTbl = new DataTable();
+
+            if (lTipoDespacho == "S")
+            {
+                Gr_empresa.Visible = true;
+
+                if (Rb_TO.Checked == true)
+                    lTbl = lcom.CargaTablaObras("TO");
+
+                if (RB_TOSOL.Checked == true)
+                    lTbl = lcom.CargaTablaObras("TOSOL");
+            }
+            else
+            {
+                Gr_empresa.Visible = false;
+                lTbl = lcom.CargaTablaObras();
+            }
+
+            return lTbl;
+
+
         }
 
         private bool RevisaBloqueosObra(string iIdObra)
@@ -881,9 +901,11 @@ namespace Metalurgica
 
        private void cboObraDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            cargaViaje(cboObraDestino.SelectedValue.ToString());
-            txtObs.Focus();
+            if (cboObraDestino.SelectedValue != null)
+            {
+                cargaViaje(cboObraDestino.SelectedValue.ToString());
+                txtObs.Focus();
+            }
         }
 
         private void frmDespachoCamion_Shown(object sender, EventArgs e)
@@ -1503,5 +1525,34 @@ namespace Metalurgica
 
         }
 
+        private void RB_TOSOL_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RB_TOSOL .Checked == true)
+            {
+                DataTable lTbl = new DataTable();
+                lTbl = CargaTablaObras();
+                if (lTbl.Rows.Count > 0)
+                {
+                    //lTbl = CargaTablaObras(listaDataSet.DataSet.Tables[0]);
+                    //new Forms().comboBoxFill(cboObraDestino, listaDataSet.DataSet.Tables[0], "Id", "Obra", 0);
+                    new Forms().comboBoxFill(cboObraDestino, lTbl, "Id", "Obra", 0);
+                }
+            }
+        }
+
+        private void Rb_TO_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Rb_TO.Checked == true)
+            {
+                DataTable lTbl = new DataTable();
+                lTbl = CargaTablaObras();
+                if (lTbl.Rows.Count > 0)
+                {
+                    //lTbl = CargaTablaObras(listaDataSet.DataSet.Tables[0]);
+                    //new Forms().comboBoxFill(cboObraDestino, listaDataSet.DataSet.Tables[0], "Id", "Obra", 0);
+                    new Forms().comboBoxFill(cboObraDestino, lTbl, "Id", "Obra", 0);
+                }
+            }
+        }
     }
 }

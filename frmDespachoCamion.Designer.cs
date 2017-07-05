@@ -44,6 +44,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Gr_empresa = new System.Windows.Forms.GroupBox();
+            this.RB_TOSOL = new System.Windows.Forms.RadioButton();
+            this.Rb_TO = new System.Windows.Forms.RadioButton();
             this.Btn_ITDESP = new System.Windows.Forms.Button();
             this.Btn_DevuelveCamion = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -100,6 +103,7 @@
             this.stsStatusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.Gr_empresa.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -252,6 +256,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.Gr_empresa);
             this.groupBox3.Controls.Add(this.Btn_ITDESP);
             this.groupBox3.Controls.Add(this.Btn_DevuelveCamion);
             this.groupBox3.Controls.Add(this.groupBox4);
@@ -266,6 +271,41 @@
             this.groupBox3.Text = "Datos del Despacho a Camión";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // Gr_empresa
+            // 
+            this.Gr_empresa.Controls.Add(this.RB_TOSOL);
+            this.Gr_empresa.Controls.Add(this.Rb_TO);
+            this.Gr_empresa.Location = new System.Drawing.Point(691, 17);
+            this.Gr_empresa.Name = "Gr_empresa";
+            this.Gr_empresa.Size = new System.Drawing.Size(124, 92);
+            this.Gr_empresa.TabIndex = 18;
+            this.Gr_empresa.TabStop = false;
+            this.Gr_empresa.Text = "Empresa a despachar";
+            // 
+            // RB_TOSOL
+            // 
+            this.RB_TOSOL.AutoSize = true;
+            this.RB_TOSOL.Location = new System.Drawing.Point(10, 56);
+            this.RB_TOSOL.Name = "RB_TOSOL";
+            this.RB_TOSOL.Size = new System.Drawing.Size(61, 17);
+            this.RB_TOSOL.TabIndex = 1;
+            this.RB_TOSOL.Text = "TOSOL";
+            this.RB_TOSOL.UseVisualStyleBackColor = true;
+            this.RB_TOSOL.CheckedChanged += new System.EventHandler(this.RB_TOSOL_CheckedChanged);
+            // 
+            // Rb_TO
+            // 
+            this.Rb_TO.AutoSize = true;
+            this.Rb_TO.Checked = true;
+            this.Rb_TO.Location = new System.Drawing.Point(10, 28);
+            this.Rb_TO.Name = "Rb_TO";
+            this.Rb_TO.Size = new System.Drawing.Size(104, 17);
+            this.Rb_TO.TabIndex = 0;
+            this.Rb_TO.TabStop = true;
+            this.Rb_TO.Text = "Torres Ocaranza";
+            this.Rb_TO.UseVisualStyleBackColor = true;
+            this.Rb_TO.CheckedChanged += new System.EventHandler(this.Rb_TO_CheckedChanged);
+            // 
             // Btn_ITDESP
             // 
             this.Btn_ITDESP.Location = new System.Drawing.Point(697, 142);
@@ -278,14 +318,12 @@
             // 
             // Btn_DevuelveCamion
             // 
-            this.Btn_DevuelveCamion.Enabled = false;
-            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(709, 26);
+            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(616, 136);
             this.Btn_DevuelveCamion.Name = "Btn_DevuelveCamion";
             this.Btn_DevuelveCamion.Size = new System.Drawing.Size(75, 42);
             this.Btn_DevuelveCamion.TabIndex = 16;
             this.Btn_DevuelveCamion.Text = "Devolución de Camión";
             this.Btn_DevuelveCamion.UseVisualStyleBackColor = true;
-            this.Btn_DevuelveCamion.Visible = false;
             this.Btn_DevuelveCamion.Click += new System.EventHandler(this.Btn_DevuelveCamion_Click);
             // 
             // groupBox4
@@ -299,7 +337,7 @@
             this.groupBox4.Controls.Add(this.cboObraDestino);
             this.groupBox4.Location = new System.Drawing.Point(385, 16);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(322, 117);
+            this.groupBox4.Size = new System.Drawing.Size(303, 117);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Selección de Viajes a Cargar";
@@ -397,7 +435,7 @@
             this.groupBox1.Controls.Add(this.lbl_NroPiezasCar);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Location = new System.Drawing.Point(785, 8);
+            this.groupBox1.Location = new System.Drawing.Point(816, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(295, 176);
             this.groupBox1.TabIndex = 14;
@@ -833,6 +871,8 @@
             this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.Gr_empresa.ResumeLayout(false);
+            this.Gr_empresa.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -920,5 +960,8 @@
         private System.Windows.Forms.Button Btn_DevuelveCamion;
         private System.Windows.Forms.ToolStripButton tlbIntegrarINET;
         private System.Windows.Forms.Button Btn_ITDESP;
+        private System.Windows.Forms.GroupBox Gr_empresa;
+        private System.Windows.Forms.RadioButton RB_TOSOL;
+        private System.Windows.Forms.RadioButton Rb_TO;
     }
 }

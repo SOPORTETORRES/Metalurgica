@@ -194,7 +194,7 @@ namespace Metalurgica.Controls
 
         private bool PuedeProducirEtiqueta()
         {
-            bool lEtiquetaImpresa = true;
+            bool lEtiquetaImpresa = true ;
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = "";
@@ -217,22 +217,22 @@ namespace Metalurgica.Controls
                         // para ver la ocurrencia aposterior y enviando un correo a la lista definida a continuación.                            
                         //1.- Mostramos el Mensaje 
                         MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //2.- Enviamos el Mail de Notificación IdOBra =-400
-                        lCuerpoMsg = string.Concat("Hola estimados: ", Environment.NewLine, " Se ha detectado que la Etiqueta leida NO ha sido impresa", Environment.NewLine);
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Los datos recopilados son:");
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Fecha :", DateTime.Now.ToShortDateString());
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Usuario:", mUserLog.Login);
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Viaje:", lTbl.Rows[0]["Codigo"].ToString());
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Id Totem:", mUserLog.IdTotem);
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Máquina:", mUserLog.IdMaquina);
-                        lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Número de Etiqueta:", lTbl.Rows[0]["Etiqueta"].ToString());
-                        lPx.EnviaNotificacionesEnviaMsgDeNotificacion("Etiqueta", lCuerpoMsg, -400, "Etiqueta Producida Sin estar Impresa");
+                        ////2.- Enviamos el Mail de Notificación IdOBra =-400
+                        //lCuerpoMsg = string.Concat("Hola estimados: ", Environment.NewLine, " Se ha detectado que la Etiqueta leida NO ha sido impresa", Environment.NewLine);
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Los datos recopilados son:");
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Fecha :", DateTime.Now.ToShortDateString());
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Usuario:", mUserLog.Login);
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Viaje:", lTbl.Rows[0]["Codigo"].ToString());
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Id Totem:", mUserLog.IdTotem);
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Máquina:", mUserLog.IdMaquina);
+                        //lCuerpoMsg = string.Concat(lCuerpoMsg, Environment.NewLine, "Número de Etiqueta:", lTbl.Rows[0]["Etiqueta"].ToString());
+                        //lPx.EnviaNotificacionesEnviaMsgDeNotificacion("Etiqueta", lCuerpoMsg, -400, "Etiqueta Producida Sin estar Impresa");
                         //3.- Insertamos en la Tabla de Log
                         // listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
-                        lSql = string.Concat("SP_Consultas_WS 54,'", mUserLog.Iduser, "','", mUserLog.IdTotem, "','", lTbl.Rows[0]["Etiqueta"].ToString(), "','");
-                        lSql = string.Concat(lSql, lTbl.Rows[0]["Codigo"].ToString(), "','", txtEtiquetaPieza.Text, "'");
+                        //lSql = string.Concat("SP_Consultas_WS 54,'", mUserLog.Iduser, "','", mUserLog.IdTotem, "','", lTbl.Rows[0]["Etiqueta"].ToString(), "','");
+                        //lSql = string.Concat(lSql, lTbl.Rows[0]["Codigo"].ToString(), "','", txtEtiquetaPieza.Text, "'");
                         
-                        lDts = lPx.ObtenerDatos(lSql);
+                        //lDts = lPx.ObtenerDatos(lSql);
                     }
                     // Verificamos que se este pistolemado la etiqueta en la sucursal Programada.
                     // Obtenemos las variables de sesion Sucursal e IdSucursal
@@ -1219,21 +1219,27 @@ namespace Metalurgica.Controls
         private void tlbSalir_Click(object sender, EventArgs e)
         {
             string lMsg = "";
-            //1.- Debemos chequear que cerro el turno
-            if (TurnoEstaCerrado() == false)
+            //1.-Revisamos en el archivo de configuracion si tiene habilitado la validacion de SMP
+            string lValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
+            if (lValidarSolictud_MP.ToUpper().Equals("S"))
             {
-                //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
-                lMsg = string .Concat ("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
-                MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                //2.- Debemos chequear que cerro el turno
+                if (TurnoEstaCerrado() == false)
+                {
+                    //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
+                    lMsg = string.Concat("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
+                    MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    //3.- Si cerro, sale de la aplicacion
+                    //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+                    BotonClick(this, e);
+                }
             }
             else
-            {
-                //2.- Si cerro, sale de la aplicacion
-                //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
-
                 BotonClick(this, e);
-            }
-          }
+        }
 
         protected virtual void ValidarSalir()
         {
