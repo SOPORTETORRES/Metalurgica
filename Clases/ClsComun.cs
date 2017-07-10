@@ -353,7 +353,7 @@ namespace Metalurgica.Clases
             }
             catch (Exception ex)
             {
-                lError = string.Concat("ClsDatos.CargaTabla ", ex.Message.ToString(), " sql: ", lSql);
+                lError = string.Concat("ClsDatos.CargaTablaRomana ", ex.Message.ToString(), " sql: ", lSql);
             }
 
             return lTbl;
