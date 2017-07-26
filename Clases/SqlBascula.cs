@@ -16,7 +16,7 @@ namespace Metalurgica.Clases
 
 
             lPartes = iFecha.Split(new Char[] { '/' });
-            if (lPartes.Length  == 0)
+            if (lPartes.Length  == 1)
             {
                 lPartes = iFecha.Split(new Char[] { '-' });
             }
@@ -28,8 +28,8 @@ namespace Metalurgica.Clases
                 lSq = string.Concat(" select *  from correlativos where patente='", iPatente, "'  and PesoBruto=0 ");
                 //lSq = string.Concat(lSq, " and (Fecha BETWEEN #", lFechaIni, "# AND #", lFechaFin, "#) ");
                 lSq = string.Concat(lSq, " and  DatePart('yyyy', Fecha)=", lYear, "   ");
-                lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lMes, "   ");
-                lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lDia, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
             }
 
               

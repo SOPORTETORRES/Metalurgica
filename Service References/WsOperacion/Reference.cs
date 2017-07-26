@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarITEtiquetaRecepcionada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Obtener_DatosDeDespachoCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra);
@@ -212,6 +216,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string iTabla);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarDatosPesajeCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.PesajeCamion GrabarDatosPesajeCamion(Metalurgica.WsOperacion.PesajeCamion iObjPC);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarRecepcion_Colada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Recepcion_Colada GuardarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal);
@@ -355,10 +363,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConsultarITRecepcion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet ConsultarITRecepcion(string it, string imei);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarITEtiquetaRecepcionada", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei);
     }
     
     /// <comentarios/>
@@ -1673,6 +1677,178 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class PesajeCamion : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private string patenteField;
+        
+        private int pesoTaraField;
+        
+        private string fechaTaraField;
+        
+        private int idUserTaraField;
+        
+        private int pesoBrutoField;
+        
+        private string fechaPesoBrutoField;
+        
+        private int idUserPesoBrutoField;
+        
+        private int idDespachoCamField;
+        
+        private string estadoField;
+        
+        private string errorsField;
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string Patente {
+            get {
+                return this.patenteField;
+            }
+            set {
+                this.patenteField = value;
+                this.RaisePropertyChanged("Patente");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int PesoTara {
+            get {
+                return this.pesoTaraField;
+            }
+            set {
+                this.pesoTaraField = value;
+                this.RaisePropertyChanged("PesoTara");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string FechaTara {
+            get {
+                return this.fechaTaraField;
+            }
+            set {
+                this.fechaTaraField = value;
+                this.RaisePropertyChanged("FechaTara");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int IdUserTara {
+            get {
+                return this.idUserTaraField;
+            }
+            set {
+                this.idUserTaraField = value;
+                this.RaisePropertyChanged("IdUserTara");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int PesoBruto {
+            get {
+                return this.pesoBrutoField;
+            }
+            set {
+                this.pesoBrutoField = value;
+                this.RaisePropertyChanged("PesoBruto");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string FechaPesoBruto {
+            get {
+                return this.fechaPesoBrutoField;
+            }
+            set {
+                this.fechaPesoBrutoField = value;
+                this.RaisePropertyChanged("FechaPesoBruto");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public int IdUserPesoBruto {
+            get {
+                return this.idUserPesoBrutoField;
+            }
+            set {
+                this.idUserPesoBrutoField = value;
+                this.RaisePropertyChanged("IdUserPesoBruto");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public int IdDespachoCam {
+            get {
+                return this.idDespachoCamField;
+            }
+            set {
+                this.idDespachoCamField = value;
+                this.RaisePropertyChanged("IdDespachoCam");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public string Estado {
+            get {
+                return this.estadoField;
+            }
+            set {
+                this.estadoField = value;
+                this.RaisePropertyChanged("Estado");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public string errors {
+            get {
+                return this.errorsField;
+            }
+            set {
+                this.errorsField = value;
+                this.RaisePropertyChanged("errors");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Estado_Pago_Detalle : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string obraField;
@@ -2480,6 +2656,10 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei) {
+            return base.Channel.RegistrarITEtiquetaRecepcionada(it, etiqueta, usuario, latitud, longitud, imei);
+        }
+        
         public System.Data.DataSet Obtener_DatosDeDespachoCamion(string iIdObra) {
             return base.Channel.Obtener_DatosDeDespachoCamion(iIdObra);
         }
@@ -2676,6 +2856,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerParametro(iTabla);
         }
         
+        public Metalurgica.WsOperacion.PesajeCamion GrabarDatosPesajeCamion(Metalurgica.WsOperacion.PesajeCamion iObjPC) {
+            return base.Channel.GrabarDatosPesajeCamion(iObjPC);
+        }
+        
         public Metalurgica.WsOperacion.Recepcion_Colada GuardarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal) {
             return base.Channel.GuardarRecepcion_Colada(recepcion_Colada, terminal);
         }
@@ -2818,10 +3002,6 @@ namespace Metalurgica.WsOperacion {
         
         public System.Data.DataSet ConsultarITRecepcion(string it, string imei) {
             return base.Channel.ConsultarITRecepcion(it, imei);
-        }
-        
-        public string RegistrarITEtiquetaRecepcionada(string it, string etiqueta, string usuario, string latitud, string longitud, string imei) {
-            return base.Channel.RegistrarITEtiquetaRecepcionada(it, etiqueta, usuario, latitud, longitud, imei);
         }
     }
 }

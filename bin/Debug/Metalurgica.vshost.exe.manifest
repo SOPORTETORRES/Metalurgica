@@ -47,11 +47,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="office" version="11.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Coladas.exe" size="381952">
       <assemblyIdentity name="Coladas" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -83,7 +78,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>FPSaxFIp4N6apB1nprOWjUsbOvU=</dsig:DigestValue>
+        <dsig:DigestValue>lRPEnXfww9SmzG6QgBEpfIkNfbY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -107,7 +102,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>fu/wgamcfjVYpTkdPe5iCcwfIDI=</dsig:DigestValue>
+        <dsig:DigestValue>kcPfZ+dFJ1PkATd+t7t1KEuHzeg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -340,14 +335,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="1297408">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="1301504">
       <assemblyIdentity name="Metalurgica" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>SWALAgDxuBnYARiZ1I+4u5Eu3fI=</dsig:DigestValue>
+        <dsig:DigestValue>jv7G0k/wS1eZSXWRwLFYp0KXwIw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -432,31 +427,31 @@
       <dsig:DigestValue>9UF3lVXCk2ERqxrvvIT0wodbVPo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.exe" size="1297408">
+  <file name="bin\Debug\Metalurgica.exe" size="1301504">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>SWALAgDxuBnYARiZ1I+4u5Eu3fI=</dsig:DigestValue>
+      <dsig:DigestValue>jv7G0k/wS1eZSXWRwLFYp0KXwIw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.pdb" size="2448896">
+  <file name="bin\Debug\Metalurgica.pdb" size="2461184">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>6f9nRM8ZTs2OaHdFliCn+chPROo=</dsig:DigestValue>
+      <dsig:DigestValue>j1TP4fTIsrpXpBGYE3W9g+rdEK8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Metalurgica.exe.config" size="6128">
+  <file name="Metalurgica.exe.config" size="6298">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>r44BuVxxYArgNZf127VyiewPXoo=</dsig:DigestValue>
+      <dsig:DigestValue>kPFylLcHFo443WrkCVBD+DV8J0E=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\to_do_list.png" size="742">

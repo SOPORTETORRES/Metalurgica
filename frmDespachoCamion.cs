@@ -1474,7 +1474,14 @@ namespace Metalurgica
   
         private void tlbIntegrarINET_Click(object sender, EventArgs e)
         {
-            Frm_IntegracionINET lFrm = new Frm_IntegracionINET();
+            Frm_IntegracionINET lFrm = new Frm_IntegracionINET(); string iEmpresa = "";
+            if (Rb_TO.Checked == true)
+                iEmpresa = "TO";
+
+            if (RB_TOSOL.Checked == true)
+                iEmpresa = "TOSOL";
+
+            lFrm.IniciaForm(iEmpresa);
             lFrm.ShowDialog(this);
         }
 

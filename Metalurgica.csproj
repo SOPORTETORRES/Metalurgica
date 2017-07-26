@@ -816,6 +816,9 @@
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.ListaDataSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.PesajeCamion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Pieza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -831,7 +834,7 @@
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Solicitud_Material_Detalle.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\WsOperacion\Operacion.wsdl" />
+    <None Include="Service References\WsOperacion\Operacion1.wsdl" />
     <None Include="Service References\WsSesion\Metalurgica.WsSesion.ListaDataSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -895,7 +898,7 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
-    <None Include="Service References\WsOperacion\Operacion.disco" />
+    <None Include="Service References\WsOperacion\Operacion1.disco" />
     <None Include="Service References\Px_WS\Ws_To.disco" />
     <None Include="Service References\Ws_TO\Ws_To.disco" />
     <None Include="Resources\to_do_list_checked_all.png" />

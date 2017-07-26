@@ -155,8 +155,8 @@
             // 
             // Tx_TextoAveria
             // 
-            this.Tx_TextoAveria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.Tx_TextoAveria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Tx_TextoAveria.Location = new System.Drawing.Point(7, 38);
             this.Tx_TextoAveria.Multiline = true;
             this.Tx_TextoAveria.Name = "Tx_TextoAveria";
@@ -619,7 +619,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(890, 712);
+            this.ClientSize = new System.Drawing.Size(890, 741);
             this.ControlBox = false;
             this.Controls.Add(this.Gr_Supervisor);
             this.Controls.Add(this.GB_Reparacion);

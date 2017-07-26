@@ -44,6 +44,7 @@
             this.Btn_Imprimir = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.BTN_actualizarViaje = new System.Windows.Forms.Button();
+            this.Lbl_titulo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Camiones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,9 +53,9 @@
             this.Dtg_Camiones.AllowUserToAddRows = false;
             this.Dtg_Camiones.AllowUserToDeleteRows = false;
             this.Dtg_Camiones.AllowUserToOrderColumns = true;
-            this.Dtg_Camiones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.Dtg_Camiones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Dtg_Camiones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dtg_Camiones.Location = new System.Drawing.Point(322, 89);
             this.Dtg_Camiones.Name = "Dtg_Camiones";
@@ -64,8 +65,8 @@
             // 
             // TR_Arbol
             // 
-            this.TR_Arbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.TR_Arbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.TR_Arbol.ImageIndex = 0;
             this.TR_Arbol.ImageList = this.imageList1;
             this.TR_Arbol.Location = new System.Drawing.Point(15, 69);
@@ -109,8 +110,8 @@
             // 
             // TX_Estado
             // 
-            this.TX_Estado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.TX_Estado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TX_Estado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TX_Estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TX_Estado.Location = new System.Drawing.Point(322, 324);
@@ -157,8 +158,8 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(334, 297);
             this.label4.Name = "label4";
@@ -194,19 +195,32 @@
             // 
             // BTN_actualizarViaje
             // 
-            this.BTN_actualizarViaje.Location = new System.Drawing.Point(472, 5);
+            this.BTN_actualizarViaje.Location = new System.Drawing.Point(325, 61);
             this.BTN_actualizarViaje.Name = "BTN_actualizarViaje";
-            this.BTN_actualizarViaje.Size = new System.Drawing.Size(231, 23);
+            this.BTN_actualizarViaje.Size = new System.Drawing.Size(180, 22);
             this.BTN_actualizarViaje.TabIndex = 13;
             this.BTN_actualizarViaje.Text = "Actualizar Viaje como despachado";
             this.BTN_actualizarViaje.UseVisualStyleBackColor = true;
+            this.BTN_actualizarViaje.Visible = false;
             this.BTN_actualizarViaje.Click += new System.EventHandler(this.BTN_actualizarViaje_Click);
+            // 
+            // Lbl_titulo
+            // 
+            this.Lbl_titulo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Lbl_titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_titulo.Location = new System.Drawing.Point(37, 3);
+            this.Lbl_titulo.Name = "Lbl_titulo";
+            this.Lbl_titulo.Size = new System.Drawing.Size(721, 30);
+            this.Lbl_titulo.TabIndex = 14;
+            this.Lbl_titulo.Text = "label6";
+            this.Lbl_titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Frm_IntegracionINET
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 560);
+            this.Controls.Add(this.Lbl_titulo);
             this.Controls.Add(this.BTN_actualizarViaje);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Btn_Imprimir);
@@ -246,5 +260,6 @@
         private System.Windows.Forms.Button Btn_Imprimir;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button BTN_actualizarViaje;
+        private System.Windows.Forms.Label Lbl_titulo;
     }
 }

@@ -285,7 +285,7 @@
             this.Pnl_Produccion.Controls.Add(this.ctlProduccion1);
             this.Pnl_Produccion.Location = new System.Drawing.Point(5, 141);
             this.Pnl_Produccion.Name = "Pnl_Produccion";
-            this.Pnl_Produccion.Size = new System.Drawing.Size(1343, 604);
+            this.Pnl_Produccion.Size = new System.Drawing.Size(1343, 596);
             this.Pnl_Produccion.TabIndex = 1;
             // 
             // ctlProduccion1
@@ -294,14 +294,14 @@
             this.ctlProduccion1.Enabled = false;
             this.ctlProduccion1.Location = new System.Drawing.Point(0, 0);
             this.ctlProduccion1.Name = "ctlProduccion1";
-            this.ctlProduccion1.Size = new System.Drawing.Size(1343, 604);
+            this.ctlProduccion1.Size = new System.Drawing.Size(1343, 596);
             this.ctlProduccion1.TabIndex = 0;
             // 
             // Prueba
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 749);
+            this.ClientSize = new System.Drawing.Size(1354, 741);
             this.Controls.Add(this.Pnl_Produccion);
             this.Controls.Add(this.Pnl_Maq);
             this.Name = "Prueba";

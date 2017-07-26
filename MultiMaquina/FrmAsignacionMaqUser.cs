@@ -7,6 +7,7 @@ using System.Linq;
 using CommonLibrary2;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Metalurgica.MultiMaquina
 {
@@ -24,14 +25,12 @@ namespace Metalurgica.MultiMaquina
 
         public void  IniciaForm()
         {
-            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); DataRow lFila = null;            
-            lSql = string.Concat("SP_ConsultasGenerales 71,'','','','',''");
-            lDts = lPx.ObtenerDatos(lSql);
-            mCargandoForm = true;
-            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            DataTable lTbl = new DataTable();DataRow lFila = null; string lSql = "";
+            DataSet lDts = new DataSet();
+             Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); 
+            lTbl = ObtenerSucursales();
+            if (lTbl.Rows.Count > 0)
             {
-                lTbl = lDts.Tables[0].Copy();
                 if (lTbl.Rows.Count > 0)
                 {
                     lFila = lTbl.NewRow();
@@ -39,9 +38,11 @@ namespace Metalurgica.MultiMaquina
                     lTbl.Rows.Add(lFila);
 
                     new Forms().comboBoxFill(Cmb_Sucursal, lTbl, "IdSucursal", "NombreSucursal", 0);
-                    Cmb_Sucursal.SelectedIndex = lTbl.Rows.Count-1;
+                    Cmb_Sucursal.SelectedIndex = lTbl.Rows.Count - 1;
                 }
             }
+
+          
             //Obtenemos todos los usuarios del sistema
             lSql = string.Concat("SP_ConsultasGenerales 72,'','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
@@ -57,17 +58,63 @@ namespace Metalurgica.MultiMaquina
 
         #region Metodos Privados  de la Clase
 
+        private DataTable ObtenerSucursales()
+        {
+      
+                  DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lEmpresa= ConfigurationManager.AppSettings["Empresa"];
+            string lSucursal = ConfigurationManager.AppSettings["Sucursal"];
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"];
+
+            if (lEmpresa.ToUpper().Equals("TOSOL"))
+            {
+                lSql = string.Concat("SP_ConsultasGenerales 71,'','','','',''");
+            }
+            else
+            {
+                if (lSucursal.ToUpper().Equals("CALAMA"))
+                {
+                    lSql = string.Concat("SP_ConsultasGenerales 81,'", lIdSucursal,"','','','',''");
+                }
+            }
+           
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0)
+                lTbl = lDts.Tables[0].Copy();
+
+            return lTbl;
+
+        }
+
         private void CargaMaquinasPorSucursal(string IdUscursal)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
             Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); DataTable lTblFinal = new DataTable();
             DataRow lFila = null; int i = 0;
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"];
+            string lSucursal = ConfigurationManager.AppSettings["Sucursal"];
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"];
 
             lTblFinal.Columns.Add("IdMaq", Type.GetType("System.String"));
             lTblFinal.Columns.Add("Nombre", Type.GetType("System.String"));
             lTblFinal.Columns.Add("UsuariosAsignados", Type.GetType("System.String"));
 
-            lSql = string.Concat("SP_ConsultasGenerales 73,'",IdUscursal,"','','','',''");
+            
+            if (lEmpresa.ToUpper().Equals("TOSOL"))
+            {
+                lSql = string.Concat("SP_ConsultasGenerales 73,'", IdUscursal, "','','','',''");
+            }
+            else
+            {
+                if (lSucursal.ToUpper().Equals("CALAMA"))
+                {
+                    lSql = string.Concat("SP_ConsultasGenerales 82,'", lIdSucursal, "','','','',''");
+                }
+            }
+
+
+          
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
             {

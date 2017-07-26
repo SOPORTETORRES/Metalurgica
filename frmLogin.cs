@@ -157,12 +157,7 @@ namespace Metalurgica
                             this.Hide();
                             IniciaApp(Program.currentUser.Machine, Program.currentUser);
 
-                             //frmProduccion lFrm = new frmProduccion();
-                             //lFrm.IniciaFormulario(Program.currentUser);
-                             //lFrm.ShowDialog();
-                            //frmRecepcionColada lFrm = new frmRecepcionColada();
-                            //lFrm.IniciaFormulario(Program.currentUser);
-                            //lFrm.ShowDialog();
+                      
                         }
                         else
                             MessageBox.Show("El usuario " + txtUsuario.Text + " esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information); 
@@ -190,12 +185,21 @@ namespace Metalurgica
             if (iIdTipoTotem == 2)
             {
                 string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
-
+                string lMultiMaq = ConfigurationManager.AppSettings["MultiMaq"].ToString();
                 if (lEmpresa.ToUpper().Equals("TO"))
                 {
-                    FrmProduccion_2 lFrm = new FrmProduccion_2();
-                    lFrm.IniciaFormulario(iUserLog);
-                    lFrm.ShowDialog();
+                    if (lMultiMaq.ToUpper().Equals("S"))
+                    {
+                        MultiMaquina.Prueba lFrm = new MultiMaquina.Prueba();
+                        lFrm.IniciaFormulario(iUserLog);
+                        lFrm.ShowDialog();
+                    }
+                    else
+                    {
+                        FrmProduccion_2 lFrm = new FrmProduccion_2();
+                        lFrm.IniciaFormulario(iUserLog);
+                        lFrm.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -203,15 +207,7 @@ namespace Metalurgica
                     lFrm.IniciaFormulario(iUserLog);
                     lFrm.ShowDialog();
                 }
-              //  frmProduccion lFrm = new frmProduccion();
-
-                //FrmProduccion_2 lFrm = new FrmProduccion_2();
-                //MultiMaquina.Prueba lFrm = new MultiMaquina.Prueba();
-
-                
-                //Frm_MtoMPrima form = new Frm_MtoMPrima();
-                //form.ShowDialog();
-            }
+                }
             if (iIdTipoTotem == 3)
             {
                 frmDespachoCamion lFrm = new frmDespachoCamion();

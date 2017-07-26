@@ -47,7 +47,7 @@ namespace Metalurgica
     private bool mAgregaColumna = true;
     private string  mIdObraSel = "";
     private string mSucursalTO = "";
-
+        private string mEmpresa = "";
 
         public Frm_IntegracionINET()
         {
@@ -56,7 +56,16 @@ namespace Metalurgica
 
         private void Frm_IntegracionINET_Load(object sender, EventArgs e)
         {
-            CargaCamiones();
+           
+        }
+
+        public void IniciaForm(string iEmpresa )
+        {
+            mEmpresa = iEmpresa;
+            mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
+            CargaCamiones(mSucursalTO , mEmpresa);
+            Lbl_titulo.Text = string.Concat ("Este Formulario muestra la información de despacho de la empresa ",mEmpresa .ToUpper ());
+
         }
 
         public void AgregaColumnaCheck()
@@ -72,21 +81,21 @@ namespace Metalurgica
             mAgregaColumna = false;
         }
 
-        private void CargaCamiones()
+        private void CargaCamiones(string lSucursalTO, string lEmpresa)
     {
         Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
         DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();string lTmp="";
         DataTable lTbl2 = new DataTable(); int j = 0; string lStrLlave = ""; string lPatente = "";
         TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0; string lPar1="";
-        string lEmpresa = "";
+        //string lEmpresa = "";
 
         //Create PROCEDURE [dbo].[SP_Consultas_FacturacionPorCamion]
         //@Opcion INT,          //@Par1 Varchar(100),       //@Par2 Varchar(100),
         //@Par3 Varchar(150),   //@Par4 Varchar(100),       //@Par5 Varchar(100),
         //@Par6 Varchar(100),   //@Par7 Varchar(100)
 
-        mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
-        lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+      
+        //lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
 
 
         if (lEmpresa.ToUpper().Equals("TO"))
@@ -247,7 +256,7 @@ namespace Metalurgica
                             //lViajes = string.Concat(lViajes, lRow.Cells["Codigo"].Value.ToString(), ",");
                         }
                 }
-                if (MessageBox.Show(string.Concat("¿Esta Seguro que desea realizar la genera la guía de depacho por ", TotalKgs, " kilos,  para el camión ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show(string.Concat("¿Esta Seguro que desea realizar la generación de  la guía de depacho por ", TotalKgs, " kilos,  para el camión ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (TotalKgs>0)   //(lDespachosCam.Length > 2)
                     {
@@ -273,7 +282,7 @@ namespace Metalurgica
 
             }           
             Btn_INET.Enabled = true ;
-            CargaCamiones();
+            CargaCamiones(mSucursalTO ,mEmpresa );
         }
 
         private string ObtenerIdDespachoCamion(string lViaje)
@@ -1134,9 +1143,9 @@ namespace Metalurgica
             mIdObra = int.Parse (IdObra);
             Registry registry = new Registry();
             mSucursal = (string) registry.GetValue(Program.regeditKeyName, "Sucursal", "");
-            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+            //string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
 
-             if (lEmpresa .ToUpper ().Equals ("TOSOL"))
+             if (mEmpresa .ToUpper ().Equals ("TOSOL"))
                  return lIntegra.InvocaWS_INET_TOSOL(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
              else
                 return lIntegra.InvocaWS_INET(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
@@ -1336,7 +1345,7 @@ namespace Metalurgica
                 //}
             
             }
-            CargaCamiones();
+            CargaCamiones(mSucursalTO ,mEmpresa );
         }
     }
 }

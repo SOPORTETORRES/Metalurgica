@@ -1165,7 +1165,8 @@ namespace Metalurgica
     {
             //Frm_IngPesoRomana lFrm = new Frm_IngPesoRomana();
             Bascula.Frm_PesajeCamion lFrm = new Bascula.Frm_PesajeCamion();
-        lFrm.ShowDialog();
+            lFrm.IniciaForm(mUserLog);
+            lFrm.ShowDialog();
     }
 
     private void Btn_ImportarRomana_Click(object sender, EventArgs e)
