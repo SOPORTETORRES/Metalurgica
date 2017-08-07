@@ -27,7 +27,8 @@ namespace Metalurgica.Controls
         DataTable mTblDatos = new DataTable();
         DataView mVistaPr = null;
         private string mlValidarSolictud_MP = "";
-
+        DataTable mTblDiametrosMaq = new DataTable();
+        string mSoloDiamPermitidos = "N";
         public EventHandler BotonClick;
 
         public CtlProduccion()
@@ -263,6 +264,35 @@ namespace Metalurgica.Controls
                         lMsg = string.Concat(lMsg," Este Tótem esta configurado como Sucursal ", lSucursal, Environment.NewLine);
                         MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+
+                    // Verificamos que la maquina pistolee solo los  diametros permitidos
+                    if (mSoloDiamPermitidos.ToUpper ().ToString ().Equals ("S"))
+                    {
+                        //pasos   1.- Identificar el díametro de la etiqueta leida
+                        string lDiam = lTbl.Rows[0]["Diametro"].ToString();
+                        string lMaq = mUserLog.IdMaquina.ToString();string lWheres = "";
+                        //2.- Obtener los diametros permitidos por maquina.
+                        lWheres = string.Concat(" MAQ_NRO=",lMaq , " and diametro='",lDiam ,"'");
+                        DataView lVista = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
+                        if (lVista.Count == 0)  //El diametro no esta permitido.
+                        {
+                            lWheres = string.Concat(" MAQ_NRO=", lMaq);
+                            DataView lVistaDiam = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
+                            int i = 0; string lDiamPermitidos = "";
+                            for (i = 0; i < lVistaDiam.Count; i++)
+                            {
+                                lDiamPermitidos = string.Concat(lVistaDiam[i]["diametro"], "-", lDiamPermitidos);
+                            }
+                            lDiamPermitidos = lDiamPermitidos.Substring(0, lDiamPermitidos.Length - 1);
+                            MessageBox.Show(string.Concat(" Los diámetros permitidos en esta máquina son: ", lDiamPermitidos), "Avisos Sistema", MessageBoxButtons.OK);
+                            lEtiquetaImpresa = false;
+                            txtEtiquetaPieza.Text = "";
+                        }
+
+                    }
+                   
+
+                
 
 
                 }
@@ -969,8 +999,6 @@ namespace Metalurgica.Controls
             try
             {
                
-
-
                 //Visualizamos la version
                 Clases.ClsComun lCom = new Clases.ClsComun();
                 this.Text += " - versión: " + lCom.ObtenerVersion();  //Application.ProductVersion;
@@ -993,7 +1021,22 @@ namespace Metalurgica.Controls
 
                 ActualizaKilosProducidos();
                 VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
-            }
+                //CArgamos los diametros permitidos por maquina, para posteriores validaciones
+                mSoloDiamPermitidos = ConfigurationManager.AppSettings["SoloDiametrosPermitidos"].ToString();
+                string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+                if (mSoloDiamPermitidos.ToUpper().Equals("S"))
+                {
+                    listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(84, lIdSucursal, "", "", "", "");
+                    if (listaDataSet.MensajeError.Equals(""))
+                    {
+                        if (listaDataSet.DataSet.Tables[0].Rows.Count > 0)
+                        {
+                            mTblDiametrosMaq  = listaDataSet.DataSet.Tables[0].Copy();
+                        }
+                    }
+                }
+                }
+                      
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);

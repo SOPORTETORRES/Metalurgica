@@ -80,6 +80,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Cmb_Patentes = new System.Windows.Forms.ComboBox();
             this.lblTransportista = new System.Windows.Forms.Label();
             this.btnCrudCamion = new System.Windows.Forms.Button();
             this.btnHlpCamion = new System.Windows.Forms.Button();
@@ -314,7 +315,6 @@
             this.Btn_ITDESP.TabIndex = 17;
             this.Btn_ITDESP.Text = "Dejar IT  despachada";
             this.Btn_ITDESP.UseVisualStyleBackColor = true;
-            this.Btn_ITDESP.Visible = false;
             this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Btn_DevuelveCamion
@@ -640,6 +640,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Cmb_Patentes);
             this.groupBox2.Controls.Add(this.lblTransportista);
             this.groupBox2.Controls.Add(this.btnCrudCamion);
             this.groupBox2.Controls.Add(this.btnHlpCamion);
@@ -652,6 +653,15 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transportista";
+            // 
+            // Cmb_Patentes
+            // 
+            this.Cmb_Patentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cmb_Patentes.FormattingEnabled = true;
+            this.Cmb_Patentes.Location = new System.Drawing.Point(80, 31);
+            this.Cmb_Patentes.Name = "Cmb_Patentes";
+            this.Cmb_Patentes.Size = new System.Drawing.Size(100, 21);
+            this.Cmb_Patentes.TabIndex = 11;
             // 
             // lblTransportista
             // 
@@ -965,5 +975,6 @@
         private System.Windows.Forms.GroupBox Gr_empresa;
         private System.Windows.Forms.RadioButton RB_TOSOL;
         private System.Windows.Forms.RadioButton Rb_TO;
+        private System.Windows.Forms.ComboBox Cmb_Patentes;
     }
 }

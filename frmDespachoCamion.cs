@@ -22,6 +22,7 @@ namespace Metalurgica
         private string  mViajesSel = "";
         private string mIdsViajes = "";
         private string mPiezasError = "";
+        private string mSoloCamionesBascula = "";
 
         public frmDespachoCamion()
         {
@@ -31,10 +32,54 @@ namespace Metalurgica
             this.Text += " - versión: " + lCom.ObtenerVersionDC();  
         }
 
+        private void HabilitaDesplegablePatentes(Boolean iSoloCamionesBascula)
+        {
+            DataTable lTbl = new DataTable();
+            if (iSoloCamionesBascula == true)
+            {
+                WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+                listaDataSet = wsOperacion.ObtenerPatentesParaDespacho();
+
+                if (listaDataSet.MensajeError.ToString().Trim().Length == 0)
+                {
+                    if (listaDataSet.DataSet.Tables.Count > 0)
+                    {
+                        lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                        new Forms().comboBoxFill(Cmb_Patentes, lTbl, "patente", "patente", 0);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(string.Concat ("El Sistema ha encontrado el siguiente error:  ", listaDataSet.MensajeError), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                txtPatente.Visible = false;
+                Cmb_Patentes.Visible = true;
+                btnHlpCamion.Visible = false;
+                btnCrudCamion.Visible = false;
+            }
+            else
+            {
+                txtPatente.Visible = true;
+                Cmb_Patentes.Visible = false ;
+                btnHlpCamion.Visible = true;
+                btnCrudCamion.Visible = true;
+            }
+        }
         public void IniciaFormulario(CurrentUser iUserLog)
         {
             mUserLog = iUserLog;
             ctlInformacionUsuario1.CargaDatosUserLog(iUserLog);
+            mSoloCamionesBascula = ConfigurationManager.AppSettings["SoloCamionesBascula"].ToString();
+            if (mSoloCamionesBascula.ToUpper().Equals("S"))
+            {
+                HabilitaDesplegablePatentes(true);
+               }
+            else
+            {
+                HabilitaDesplegablePatentes(false);
+            }
+
         }
         private void dgvEtiquetasPiezas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -90,8 +135,12 @@ namespace Metalurgica
         private string validarControlesRequeridos()
         {
             StringBuilder sb = new StringBuilder();
-            if (txtPatente.Text.Trim().Equals(""))
-                sb.Append("- Camión\n");
+            if (mSoloCamionesBascula.ToUpper ().Equals ("N"))
+            {
+                if (txtPatente.Text.Trim().Equals(""))
+                    sb.Append("- Camión\n");
+            }
+            
             //if (!txtBodegaAcopio.Text.Trim().Equals("") && !new CommonLibrary2.Information().isNumber(txtBodegaAcopio.Text))
             //    sb.Append("- Bodega Acopio (valor numérico)\n");
             if (dgvEtiquetasPiezas.Rows.Count == 0)
@@ -128,8 +177,16 @@ namespace Metalurgica
 
 
                         despacho_Camion.Id = 0; lDespachoCamion.Id = 0;
-                        despacho_Camion.Camion = txtPatente.Text.Trim(); lDespachoCamion.Camion = despacho_Camion.Camion;
+                        if (mSoloCamionesBascula.ToUpper().Equals("S"))
+                        {
+                            despacho_Camion.Camion = Cmb_Patentes.SelectedValue.ToString ();
+                        }
+                        else
+                        {
+                            despacho_Camion.Camion = txtPatente.Text.Trim();
+                        }
 
+                        lDespachoCamion.Camion = despacho_Camion.Camion;
                         despacho_Camion.Obra_Destino = (cboObraDestino.SelectedValue == null ? "" : cboObraDestino.SelectedValue.ToString());
                         lDespachoCamion.Obra_Destino = despacho_Camion.Obra_Destino;
 
