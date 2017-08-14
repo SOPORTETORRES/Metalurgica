@@ -897,7 +897,7 @@ namespace Metalurgica.Controls
                         mMsgMaquina = string.Concat(mMsgMaquina, " La notificación se realizo con fecha:  ", listaDataSet.DataSet.Tables[0].Rows[0]["FechaRegistro"].ToString(), Environment.NewLine);
                         groupBox1.Enabled = false;
                         tabOperaciones.Enabled = false;
-                        tlsToolBar.Enabled = false;
+                        //tlsToolBar.Enabled = false;
                         lbl_MsgBloqueo.Text = mMsgMaquina;
                         lbl_MsgBloqueo.Top = groupBox1.Top; lbl_MsgBloqueo.Left = groupBox1.Left;
                         lbl_MsgBloqueo.Width = groupBox1.Width; lbl_MsgBloqueo.Height = groupBox1.Height;
@@ -918,7 +918,7 @@ namespace Metalurgica.Controls
                             mMsgMaquina = string.Concat(mMsgMaquina, " Para que quede operativa el supervisor debe validar la mantención ", Environment.NewLine);
                             groupBox1.Enabled = false;
                             tabOperaciones.Enabled = false;
-                            tlsToolBar.Enabled = false;
+                           // tlsToolBar.Enabled = false;
                             lbl_MsgBloqueo.Text = mMsgMaquina;
                             lbl_MsgBloqueo.Top = groupBox1.Top; lbl_MsgBloqueo.Left = groupBox1.Left;
                             lbl_MsgBloqueo.Width = groupBox1.Width; lbl_MsgBloqueo.Height = groupBox1.Height;
@@ -1048,13 +1048,77 @@ namespace Metalurgica.Controls
 
         }
 
+        private void PuedeIngresarReparacion()
+        {
+            // ALTER PROCEDURE [dbo].[SP_CRUD_SOLUCION_AVERIA]
+            //@Id int,                          //@IdNotificacion int,	            //@Obs varchar(max) ,
+            //@IdUsuarioRegistra varchar(5) ,   //@Estado varchar(50),	            //@Par1 varchar(10),
+            //@Par2 varchar(10),                //@Opcion int 
 
-        //public void HabilitaControl(Boolean iHabilitado )
-        //{
-        //    groupBox1.Enabled =iHabilitado ;           
-        //}
 
-        public void EstablecerMaquinaActiva(Boolean iHabilitado)
+            // Si es cambio de Rollo No requiere validacion del perfil del mecanico.
+
+            if (mTipoAveria.Equals("AV"))
+            {
+                Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+                string lSql = ""; string lPerfil = mUserLog.PerfilUsuario; string lMsg = "";
+
+
+                //Verificamos el estado de la averia
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA 0,0,'','','',0,'',", mUserLog.IdMaquina, ",'',3 ");
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    if (lDts.Tables[0].Rows[0]["EstadoSupervisor"].ToString().Equals("NOOK") && lDts.Tables[0].Rows[0]["EstadoMaq"].ToString().Equals("OP"))
+                    {
+                        if (lPerfil.ToString().ToUpper().Equals("SUPERVISOR"))
+                        {
+                            Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
+                            lFrm.IniciaForm(mUserLog);
+                            lFrm.ShowDialog();
+                        }
+                        else
+                        {
+                            lMsg = String.Concat(" Solamente los Usuarios con Perfil de SUPERVISOR puedes Ingresar las liberaciones de  reparaciones ", Environment.NewLine, " No esta autorizado realizar la liberación de Reparaciones ");
+                            MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                        }
+                    }
+                    else
+                    {
+                        if (lPerfil.ToString().ToUpper().Equals("MECANICO"))
+                        {
+                            Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
+                            lFrm.IniciaForm(mUserLog);
+                            lFrm.ShowDialog();
+                        }
+                        else
+                        {
+                            lMsg = String.Concat(" Solamente los Usuarios con Perfil de Mecanicos puedes Ingresar las reparaciones ", Environment.NewLine, " No esta autorizado a ingresar Reparaciones ");
+                            MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                        }
+                        //}
+                    }
+                }
+
+
+            }
+
+            else
+            {
+                Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
+                lFrm.IniciaForm(mUserLog);
+                lFrm.ShowDialog();
+            }
+
+
+            VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+
+        }
+
+    
+
+
+    public void EstablecerMaquinaActiva(Boolean iHabilitado)
         {
             groupBox1.Enabled = iHabilitado;
         }
@@ -1273,7 +1337,11 @@ namespace Metalurgica.Controls
 
         private void Btn_Desbloquea_Click(object sender, EventArgs e)
         {
-
+            //Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
+            //lFrm.IniciaForm(mUserLog);
+            //lFrm.ShowDialog();
+            //VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+            PuedeIngresarReparacion();
         }
 
         private void Btn_NotificacionAveria_Click(object sender, EventArgs e)

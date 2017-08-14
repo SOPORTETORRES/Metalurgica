@@ -1281,12 +1281,6 @@ namespace Metalurgica
                     }
                     else
                     {
-                        //lSql = string.Concat(" SP_CRUD_SOLUCION_AVERIA 0,0,'',0,'','", mUserLog.Iduser, "','',3");
-                        //
-                        //lDts = lPx.ObtenerDatos(lSql);
-                        //if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
-                        //{
-                            //if (lDts.Tables[0].Rows[0]["PerfilUsuario"].ToString().ToUpper().Equals("MECANICO"))
                         if (lPerfil.ToString().ToUpper().Equals("MECANICO"))
                             {
                                 Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();

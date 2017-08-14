@@ -314,7 +314,7 @@ namespace Metalurgica.Maquinas
             }
             if (iTipo == "SA")
             {
-                if (Rb_cambioRollo.Checked == false)
+                if (Rb_cambioRollo.Checked == true)
                 {
                     if (Tx_ReparacionAveria.Text.Trim().Length < 3)
                     {
@@ -328,29 +328,33 @@ namespace Metalurgica.Maquinas
                     lMsg = string.Concat( lMsg ," Debe indicar el estado de la reparación (Operativa o Detenida)", Environment.NewLine);
                     lRes = false;                    
                 }
+                else
+                     if (Tx_ReparacionAveria.Text.Trim().Length < 3)
+                        {
+                            lMsg = string.Concat("Debe Ingresar  más de 3 caracteres en el campo Detalle de Reparación", Environment.NewLine);
+                            lRes = false;
+                            Tx_TextoAveria.Focus();
+                        }
+
             }
 
             if (iTipo == "LA")
             {
-                if (Rb_LiberarDetenida.Checked == true)
-                {
+           
                     if ((this.Rb_LiberarOperativa.Checked == false) && (Rb_LiberarDetenida.Checked == false))
                     {
                         lMsg = string.Concat(lMsg, " Debe indicar el estado de la reparación (Operativa o Detenida)", Environment.NewLine);
                         lRes = false;
                     }
-
-
-                    if (Tx_LiberarTotem.Text.Trim().Length < 3)
-                    {
-                        lMsg = string.Concat("Debe Ingresar  más de 3 caracteres en el campo Liberación de  Averia", Environment.NewLine);
-                        lRes = false;
-                        Tx_TextoAveria.Focus();
-                    }
+                    else 
+                         if (Tx_LiberarTotem.Text.Trim().Length < 3)
+                            {
+                                lMsg = string.Concat("Debe Ingresar  más de 3 caracteres en el campo Liberación de  Averia", Environment.NewLine);
+                                lRes = false;
+                                Tx_TextoAveria.Focus();
+                            }
                 }
-            }
-
-
+            
 
             if (lMsg.ToString().Trim().Length > 0)
             {
@@ -368,16 +372,24 @@ namespace Metalurgica.Maquinas
  private string  ObtenerCuerpoMail(string iUser, string iTxAveria, string iMaq, string iFecha, string iEstado, string iIdAveria ) 
     {
         string  lRes  = "";
-        lRes = String.Concat(" Señores Mantenimiento:  ", Environment.NewLine, Environment.NewLine);
-        lRes = String.Concat(" Se ha reportado una nueva notificación de Averia, con los siguientes datos ", Environment.NewLine);
-        lRes = String.Concat(lRes, " ID Averia          :", iIdAveria, Environment.NewLine);
-        lRes = String.Concat(lRes, " El Usuario         :", iUser, Environment.NewLine );
-        lRes = String.Concat(lRes, " Motivo averia      :", iTxAveria , Environment .NewLine);
-        lRes = String.Concat(lRes, " Maquina Afectada   :", iMaq, Environment.NewLine);
-        lRes = String.Concat(lRes, " Fecha Notificacion :", iFecha, Environment.NewLine);
-        lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
+            //lRes = String.Concat(" Señores Mantenimiento:  ", Environment.NewLine, Environment.NewLine);
+            //lRes = String.Concat(" Se ha reportado una nueva notificación de Averia, con los siguientes datos ", Environment.NewLine);
+            //lRes = String.Concat(lRes, " ID Averia          :", iIdAveria, Environment.NewLine);
+            //lRes = String.Concat(lRes, " El Usuario         :", iUser, Environment.NewLine );
+            //lRes = String.Concat(lRes, " Motivo averia      :", iTxAveria , Environment .NewLine);
+            //lRes = String.Concat(lRes, " Maquina Afectada   :", iMaq, Environment.NewLine);
+            //lRes = String.Concat(lRes, " Fecha Notificacion :", iFecha, Environment.NewLine);
+            //lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
+            lRes = String.Concat(" Señores Mantenimiento:  ", "<br> <br> " );
+            lRes = String.Concat(" Se ha reportado una nueva notificación de Averia, con los siguientes datos ", "  <br> ");
+            lRes = String.Concat(lRes, " ID Averia          :", iIdAveria, "  <br> ");
+            lRes = String.Concat(lRes, " El Usuario         :", iUser, "  <br> ");
+            lRes = String.Concat(lRes, " Motivo averia      :", iTxAveria, "  <br> ");
+            lRes = String.Concat(lRes, " Maquina Afectada   :", iMaq, "  <br> ");
+            lRes = String.Concat(lRes, " Fecha Notificacion :", iFecha, "  <br> ");
+            lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, "  <br> ");
 
-     if (iTxAveria.Equals ("Cambio de Rollo"))
+            if (iTxAveria.Equals ("Cambio de Rollo"))
      {
          lRes = String.Concat(lRes, " Notificación Informativa no requiere reparación.", Environment.NewLine); 
      }
