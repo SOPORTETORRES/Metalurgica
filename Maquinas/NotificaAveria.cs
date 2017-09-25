@@ -391,17 +391,17 @@ namespace Metalurgica.Maquinas
 
             if (iTxAveria.Equals ("Cambio de Rollo"))
      {
-         lRes = String.Concat(lRes, " Notificación Informativa no requiere reparación.", Environment.NewLine); 
+         lRes = String.Concat(lRes, " Notificación Informativa no requiere reparación.", "  <br> "); 
      }
      else
      { 
-         lRes = String.Concat(lRes, " Favor revisar la averia reportada.", Environment.NewLine); 
+         lRes = String.Concat(lRes, " Favor revisar la averia reportada.", "  <br> "); 
      }
         
         
-        lRes = String.Concat(lRes, Environment .NewLine, Environment .NewLine);
+        lRes = String.Concat(lRes, "  <br> ", "  <br> ");
 
-        lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", Environment.NewLine);
+        lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", "  <br> ");
 
         return lRes ;
         }
@@ -412,21 +412,21 @@ namespace Metalurgica.Maquinas
         //@IdUsuarioRegistra varchar(1) ,       //@Estado varchar(50),	                    //@Par1 varchar(10),
         //@Par2 varchar(10),                    //@Opcion int 
      string lRes = ""; DataTable lTbl = new DataTable(); int i = 0; DateTime lFechaSolucion; double  lMinutos = 0;
-     lRes = String.Concat(" Señores:  ", Environment.NewLine, Environment.NewLine);
-     lRes = String.Concat(lRes," Se ha Solucionado una notificación de Averia", Environment.NewLine, Environment.NewLine);
-     lRes = String.Concat(lRes," Datos de la Notificación de Averia: ", Environment.NewLine);
-     lRes = String.Concat(lRes, " ID Averia          :", Tx_Id .Text , Environment.NewLine);
-     lRes = String.Concat(lRes, " Motivo averia      :", Tx_TextoAveria.Text, Environment.NewLine);     
-     lRes = String.Concat(lRes, " Maquina Afectada   :", CmbMaquinaAveria.SelectedValue.ToString()   , Environment.NewLine);
-     lRes = String.Concat(lRes, " Fecha Notificacion :", Dtp_Fecha.Value .ToShortDateString() , Environment.NewLine);
+     lRes = String.Concat(" Señores:  ", "  <br> ", "  <br> ");
+     lRes = String.Concat(lRes," Se ha Solucionado una notificación de Averia", "  <br> ", "  <br> ");
+     lRes = String.Concat(lRes," Datos de la Notificación de Averia: ", "  <br> ");
+     lRes = String.Concat(lRes, " ID Averia          :", Tx_Id .Text, "  <br> ");
+     lRes = String.Concat(lRes, " Motivo averia      :", Tx_TextoAveria.Text, "  <br> ");     
+     lRes = String.Concat(lRes, " Maquina Afectada   :", CmbMaquinaAveria.SelectedValue.ToString(), "  <br> ");
+     lRes = String.Concat(lRes, " Fecha Notificacion :", Dtp_Fecha.Value .ToShortDateString(), "  <br> ");
 
-     lRes = String.Concat(lRes,Environment.NewLine, " Datos de la Solución de la  Averia: ", Environment.NewLine);
-     lRes = String.Concat( lRes," Se ingresaron las siguientes observaciones : ", Environment.NewLine);
-     lRes = String.Concat(lRes," Fecha Registro - Estado - Usuario Registra  -  Comentario ", Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", " Datos de la Solución de la  Averia: ", "  <br> ");
+     lRes = String.Concat( lRes," Se ingresaron las siguientes observaciones : ", "  <br> ");
+     lRes = String.Concat(lRes," Fecha Registro - Estado - Usuario Registra  -  Comentario ", "  <br> ");
      lTbl = ObtenerDatosSolucionAveria(Tx_Id.Text);
      for (i = 0; i < lTbl.Rows.Count; i++)
      {
-         lRes = String.Concat(lRes, lTbl.Rows [i]["FechaRegistro"].ToString ()," - ", lTbl.Rows [i]["Estado"].ToString ()," - ",lTbl.Rows [i]["UsuarioRegistra"].ToString ()," - ", lTbl.Rows [i]["Obs"].ToString () , Environment.NewLine);
+         lRes = String.Concat(lRes, lTbl.Rows [i]["FechaRegistro"].ToString ()," - ", lTbl.Rows [i]["Estado"].ToString ()," - ",lTbl.Rows [i]["UsuarioRegistra"].ToString ()," - ", lTbl.Rows [i]["Obs"].ToString (), "  <br> ");
          if (lTbl.Rows[i]["Estado"].ToString().ToUpper().Equals("OP"))
          {
              lFechaSolucion = DateTime.Parse(lTbl.Rows[i]["FechaRegistro"].ToString());
@@ -435,13 +435,13 @@ namespace Metalurgica.Maquinas
      }
 
      //Obtenemos los datos de la liberación de la maquina por el supervisor
-     lRes = String.Concat(lRes, Environment.NewLine,Environment.NewLine, " Datos de la Liberación de la  Averia por el Supervisor: ", Environment.NewLine);
-     lRes = String.Concat(lRes, " Se ingresaron las siguientes observaciones : ", Environment.NewLine);
-     lRes = String.Concat(lRes, " Fecha Registro - Estado - Usuario Registra  -  Comentario ", Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", "  <br> ", " Datos de la Liberación de la  Averia por el Supervisor: ", "  <br> ");
+     lRes = String.Concat(lRes, " Se ingresaron las siguientes observaciones : ", "  <br> ");
+     lRes = String.Concat(lRes, " Fecha Registro - Estado - Usuario Registra  -  Comentario ", "  <br> ");
      lTbl = ObtenerDatosLiberacionAveria(Tx_Id.Text);
      for (i = 0; i < lTbl.Rows.Count; i++)
      {
-         lRes = String.Concat(lRes, lTbl.Rows[i]["FechaRegistro"].ToString(), " - ", lTbl.Rows[i]["Estado"].ToString(), " - ", lTbl.Rows[i]["UsuarioRegistra"].ToString(), " - ", lTbl.Rows[i]["Obs"].ToString(), Environment.NewLine);
+         lRes = String.Concat(lRes, lTbl.Rows[i]["FechaRegistro"].ToString(), " - ", lTbl.Rows[i]["Estado"].ToString(), " - ", lTbl.Rows[i]["UsuarioRegistra"].ToString(), " - ", lTbl.Rows[i]["Obs"].ToString(), "  <br> ");
          if (lTbl.Rows[i]["Estado"].ToString().ToUpper().Equals("OP"))
          {
              lFechaSolucion = DateTime.Parse(lTbl.Rows[i]["FechaRegistro"].ToString());
@@ -450,13 +450,13 @@ namespace Metalurgica.Maquinas
      }
 
 
-     lRes = String.Concat(lRes,Environment.NewLine, " El Tiempo (en minutos) que estuvo detenida ma máquina fue de ", Math.Round( lMinutos,0).ToString (), Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en minutos) que estuvo detenida ma máquina fue de ", Math.Round( lMinutos,0).ToString (), "  <br> ");
      //lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
      
 
-     lRes = String.Concat(lRes, Environment.NewLine, Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", "  <br> ");
 
-     lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", Environment.NewLine);
+     lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", "  <br> ");
 
      return lRes;
  }
@@ -467,21 +467,21 @@ namespace Metalurgica.Maquinas
      //@IdUsuarioRegistra varchar(1) ,       //@Estado varchar(50),	                    //@Par1 varchar(10),
      //@Par2 varchar(10),                    //@Opcion int 
      string lRes = ""; DataTable lTbl = new DataTable(); int i = 0; DateTime lFechaSolucion; double lMinutos = 0;
-     lRes = String.Concat(" Señores:  ", Environment.NewLine, Environment.NewLine);
-     lRes = String.Concat(lRes, " Se ha Liberado una notificación de Averia", Environment.NewLine, Environment.NewLine);
-     lRes = String.Concat(lRes, " Datos de la Liberación de Averia: ", Environment.NewLine);
-     lRes = String.Concat(lRes, " ID Averia          :", Tx_Id.Text, Environment.NewLine);
-     lRes = String.Concat(lRes, " Motivo averia      :", Tx_TextoAveria.Text, Environment.NewLine);
-     lRes = String.Concat(lRes, " Maquina Afectada   :", CmbMaquinaAveria.SelectedValue.ToString(), Environment.NewLine);
-     lRes = String.Concat(lRes, " Fecha Notificacion :", Dtp_Fecha.Value.ToShortDateString(), Environment.NewLine);
+     lRes = String.Concat(" Señores:  ", "  <br> ", "  <br> ");
+     lRes = String.Concat(lRes, " Se ha Liberado una notificación de Averia", "  <br> ", "  <br> ");
+     lRes = String.Concat(lRes, " Datos de la Liberación de Averia: ", "  <br> ");
+     lRes = String.Concat(lRes, " ID Averia          :", Tx_Id.Text, "  <br> ");
+     lRes = String.Concat(lRes, " Motivo averia      :", Tx_TextoAveria.Text, "  <br> ");
+     lRes = String.Concat(lRes, " Maquina Afectada   :", CmbMaquinaAveria.SelectedValue.ToString(), "  <br> ");
+     lRes = String.Concat(lRes, " Fecha Notificacion :", Dtp_Fecha.Value.ToShortDateString(), "  <br> ");
 
-     lRes = String.Concat(lRes, Environment.NewLine, " Datos de la Solución de la  Averia: ", Environment.NewLine);
-     lRes = String.Concat(lRes, " Se ingresaron las siguientes observaciones : ", Environment.NewLine);
-     lRes = String.Concat(lRes, " Fecha Registro - Estado - Usuario Registra  -  Comentario ", Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", " Datos de la Solución de la  Averia: ", "  <br> ");
+     lRes = String.Concat(lRes, " Se ingresaron las siguientes observaciones : ", "  <br> ");
+     lRes = String.Concat(lRes, " Fecha Registro - Estado - Usuario Registra  -  Comentario ", "  <br> ");
      lTbl = ObtenerDatosSolucionAveria(Tx_Id.Text);
      for (i = 0; i < lTbl.Rows.Count; i++)
      {
-         lRes = String.Concat(lRes, lTbl.Rows[i]["FechaRegistro"].ToString(), " - ", lTbl.Rows[i]["Estado"].ToString(), " - ", lTbl.Rows[i]["UsuarioRegistra"].ToString(), " - ", lTbl.Rows[i]["Obs"].ToString(), Environment.NewLine);
+         lRes = String.Concat(lRes, lTbl.Rows[i]["FechaRegistro"].ToString(), " - ", lTbl.Rows[i]["Estado"].ToString(), " - ", lTbl.Rows[i]["UsuarioRegistra"].ToString(), " - ", lTbl.Rows[i]["Obs"].ToString(), "  <br> ");
          if (lTbl.Rows[i]["Estado"].ToString().ToUpper().Equals("OP"))
          {
              lFechaSolucion = DateTime.Parse(lTbl.Rows[i]["FechaRegistro"].ToString());
@@ -489,14 +489,14 @@ namespace Metalurgica.Maquinas
          }
      }
 
-     lRes = String.Concat(lRes,Environment.NewLine, " Se ingresaron las siguientes observaciones : ", Environment.NewLine);
-     lRes = String.Concat(lRes, Environment.NewLine, " El Tiempo (en Horas) que estuvo detenida ma máquina fue de ", Math.Round(lMinutos, 0).ToString(), Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", " Se ingresaron las siguientes observaciones : ", "  <br> ");
+     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en Horas) que estuvo detenida ma máquina fue de ", Math.Round(lMinutos, 0).ToString(), "  <br> ");
      //lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
 
 
-     lRes = String.Concat(lRes, Environment.NewLine, Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", "  <br> ");
 
-     lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", Environment.NewLine);
+     lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", "  <br> ");
 
      return lRes;
  }

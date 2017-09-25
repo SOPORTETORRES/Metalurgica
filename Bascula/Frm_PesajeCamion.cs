@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace Metalurgica.Bascula
     {
         private CurrentUser mUserLog = new CurrentUser();
         private int mIdPesajeCamion = 0;
+        private int mToleranciaBascula = 0;
+        private int mKilosCargadosCamion = 0;
 
 
         public Frm_PesajeCamion()
@@ -38,6 +41,13 @@ namespace Metalurgica.Bascula
             this.Dtp_FechaActual.MinDate = DateTime.Now .AddDays(-1);
             Rb_Tara.Checked = true;
             MuestraDatosSegunCheck();
+            string lToleranciaBascula = ConfigurationManager.AppSettings["ToleranciaBascula"].ToString();
+
+            if (lToleranciaBascula.Length > 0)
+                mToleranciaBascula = int.Parse(lToleranciaBascula);
+
+            Tx_ToleranciaBascula.Text = mToleranciaBascula.ToString();
+
         }
 
 
@@ -64,7 +74,7 @@ namespace Metalurgica.Bascula
         {
             string lRes = "";string lSql = ""; Clases.SqlBascula lTipoSql=new Clases.SqlBascula ();
             DataTable lTbl = new DataTable();Clases.ClsComun lDAL = new Clases.ClsComun();
-            string lFecha = DateTime.Now.ToShortDateString();
+            string lFecha = Dtp_FechaActual.Value.ToShortDateString();  //DateTime.Now.ToShortDateString();
 
             if (Tx_Patente.Text.Length == 0)
             {
@@ -82,6 +92,16 @@ namespace Metalurgica.Bascula
                 }
             }
             return lRes;
+        }
+
+        private string ObtenerPesoCargaCamion(string iPatente)
+        {
+            string lres = "0";
+
+
+
+            return lres;
+
         }
 
         private void MuestraDatosSegunCheck()
@@ -147,6 +167,11 @@ namespace Metalurgica.Bascula
                 lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
                 lObjCam.Estado = "PesoCarga";
                 lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
+                if (lObjCam.Id > 0)
+                {
+                    MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
+                }
+
             }
 
 
@@ -208,6 +233,7 @@ namespace Metalurgica.Bascula
                 {
                     Tx_Tara.Text = lTbl.Rows[0]["PesoTara"].ToString();
                     mIdPesajeCamion = int.Parse(lTbl.Rows[0]["IdPesajeCamion"].ToString());
+                    mKilosCargadosCamion= int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
                     Tx_Tara.ReadOnly = true;
                 }
             }
@@ -218,11 +244,28 @@ namespace Metalurgica.Bascula
 
         private void Btn_PesoBruto_Click(object sender, EventArgs e)
         {
+            int lDiferencia = 0;Double lToleranciaReal = 0;
             //ObtenerPesoBruto
-            int  lPesoBruto =int.Parse ( ObtenerPesoBruto());
+            int lPesoBruto = int.Parse(ObtenerPesoBruto());
             int lPesoTara = int.Parse(Tx_Tara.Text);
-            this.Tx_Bruto .Text = lPesoBruto.ToString ();
+            this.Tx_Bruto.Text = lPesoBruto.ToString();
             this.Tx_Carga.Text = (lPesoBruto - lPesoTara).ToString();
+            lDiferencia = Math.Abs (mKilosCargadosCamion - int.Parse (Tx_Carga.Text));
+            Tx_DiferenciaKilos.Text = lDiferencia.ToString();
+            if (lDiferencia > 0)
+            {
+                lToleranciaReal = (double.Parse (lDiferencia.ToString ()) / double.Parse (mKilosCargadosCamion.ToString ())) * 100;
+                Tx_ToleranciaReal.Text = Math.Round (lToleranciaReal,2).ToString();
+                Tx_KgsCargados.Text = mKilosCargadosCamion.ToString();
+                if (lToleranciaReal > Double .Parse(Tx_ToleranciaBascula.Text))
+                {
+                    Tx_Semaforo.BackColor = Color.Red;
+                } else
+                    Tx_Semaforo.BackColor = Color.Green ;
+
+
+            }
+
             Tx_Carga.ReadOnly = true;
 
         }

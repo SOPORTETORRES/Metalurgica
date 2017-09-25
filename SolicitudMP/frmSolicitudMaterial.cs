@@ -355,12 +355,12 @@ namespace Metalurgica
 
             //Diametro
             Ws_TO.Ws_ToSoapClient wsParametro = new Ws_TO.Ws_ToSoapClient();
-            DataSet ds = wsParametro.ObtenerParametro("Diametro");
+            DataSet ds = wsParametro.ObtenerParametros("Diametro");
             forms.comboBoxFill(cboDiametro, ds.Tables[0], "Par1", "Par1", 0);
 
 
             //Origen
-            ds = wsParametro.ObtenerParametro("Procedencia");
+            ds = wsParametro.ObtenerParametros("Procedencia");
             forms.comboBoxFill(cboOrigen, ds.Tables[0], "Id", "Par1", 0);
 
         }

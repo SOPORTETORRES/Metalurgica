@@ -138,7 +138,7 @@ namespace Metalurgica
                             registry.SetValue(Program.regeditKeyName, "Recordar", (chkRecordarUsuario.Checked ? "1" : "0"));
 
                             lPerfilUser=dt.Rows[0]["Perfil"].ToString();
-                            Program.currentUser.Login = txtUsuario.Text;
+                            Program.currentUser.Login = dt.Rows[0]["Usuario"].ToString(); ;
                             Program.currentUser.Name = dt.Rows[0]["Nombre"].ToString() + " " + dt.Rows[0]["Apellidos"].ToString();
                             //Program.currentUser.Machine = 2;
                             Program.currentUser.Iduser = dt.Rows[0]["Id"].ToString();

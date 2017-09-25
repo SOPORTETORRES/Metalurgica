@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btn_PesoBruto = new System.Windows.Forms.Button();
             this.Cmb_Patente = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Rb_Carga = new System.Windows.Forms.RadioButton();
@@ -48,7 +49,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
-            this.Btn_PesoBruto = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Tx_ToleranciaBascula = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Tx_Semaforo = new System.Windows.Forms.TextBox();
+            this.Tx_ToleranciaReal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Tx_KgsCargados = new System.Windows.Forms.TextBox();
+            this.Tx_DiferenciaKilos = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +68,16 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Tx_DiferenciaKilos);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.Tx_KgsCargados);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.Tx_ToleranciaReal);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.Tx_Semaforo);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.Tx_ToleranciaBascula);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.Btn_PesoBruto);
             this.groupBox1.Controls.Add(this.Cmb_Patente);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -77,10 +97,21 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(8, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(511, 325);
+            this.groupBox1.Size = new System.Drawing.Size(537, 437);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
+            // 
+            // Btn_PesoBruto
+            // 
+            this.Btn_PesoBruto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_PesoBruto.Location = new System.Drawing.Point(234, 260);
+            this.Btn_PesoBruto.Name = "Btn_PesoBruto";
+            this.Btn_PesoBruto.Size = new System.Drawing.Size(108, 24);
+            this.Btn_PesoBruto.TabIndex = 17;
+            this.Btn_PesoBruto.Text = "Obtener Peso Bruto";
+            this.Btn_PesoBruto.UseVisualStyleBackColor = true;
+            this.Btn_PesoBruto.Click += new System.EventHandler(this.Btn_PesoBruto_Click);
             // 
             // Cmb_Patente
             // 
@@ -131,7 +162,7 @@
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label7.Location = new System.Drawing.Point(18, 157);
+            this.label7.Location = new System.Drawing.Point(6, 151);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(465, 40);
             this.label7.TabIndex = 14;
@@ -149,7 +180,7 @@
             // Btn_ObtenerTara
             // 
             this.Btn_ObtenerTara.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_ObtenerTara.Location = new System.Drawing.Point(234, 216);
+            this.Btn_ObtenerTara.Location = new System.Drawing.Point(234, 206);
             this.Btn_ObtenerTara.Name = "Btn_ObtenerTara";
             this.Btn_ObtenerTara.Size = new System.Drawing.Size(108, 24);
             this.Btn_ObtenerTara.TabIndex = 11;
@@ -159,16 +190,17 @@
             // 
             // Tx_Carga
             // 
-            this.Tx_Carga.Location = new System.Drawing.Point(139, 287);
+            this.Tx_Carga.Location = new System.Drawing.Point(128, 314);
             this.Tx_Carga.MaxLength = 7;
             this.Tx_Carga.Name = "Tx_Carga";
             this.Tx_Carga.Size = new System.Drawing.Size(72, 23);
             this.Tx_Carga.TabIndex = 10;
+            this.Tx_Carga.Text = "-";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 291);
+            this.label6.Location = new System.Drawing.Point(32, 318);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 17);
             this.label6.TabIndex = 9;
@@ -176,16 +208,17 @@
             // 
             // Tx_Bruto
             // 
-            this.Tx_Bruto.Location = new System.Drawing.Point(140, 253);
+            this.Tx_Bruto.Location = new System.Drawing.Point(128, 261);
             this.Tx_Bruto.MaxLength = 7;
             this.Tx_Bruto.Name = "Tx_Bruto";
             this.Tx_Bruto.Size = new System.Drawing.Size(72, 23);
             this.Tx_Bruto.TabIndex = 8;
+            this.Tx_Bruto.Text = "-";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(31, 259);
+            this.label5.Location = new System.Drawing.Point(31, 267);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 17);
             this.label5.TabIndex = 7;
@@ -193,16 +226,17 @@
             // 
             // Tx_Tara
             // 
-            this.Tx_Tara.Location = new System.Drawing.Point(140, 217);
+            this.Tx_Tara.Location = new System.Drawing.Point(128, 207);
             this.Tx_Tara.MaxLength = 7;
             this.Tx_Tara.Name = "Tx_Tara";
             this.Tx_Tara.Size = new System.Drawing.Size(72, 23);
             this.Tx_Tara.TabIndex = 6;
+            this.Tx_Tara.Text = "-";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 222);
+            this.label4.Location = new System.Drawing.Point(32, 212);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 17);
             this.label4.TabIndex = 5;
@@ -247,9 +281,9 @@
             // Btn_Grabar
             // 
             this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Grabar.Location = new System.Drawing.Point(532, 30);
+            this.Btn_Grabar.Location = new System.Drawing.Point(558, 83);
             this.Btn_Grabar.Name = "Btn_Grabar";
-            this.Btn_Grabar.Size = new System.Drawing.Size(82, 36);
+            this.Btn_Grabar.Size = new System.Drawing.Size(82, 52);
             this.Btn_Grabar.TabIndex = 12;
             this.Btn_Grabar.Text = "Grabar";
             this.Btn_Grabar.UseVisualStyleBackColor = true;
@@ -258,30 +292,111 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(528, 118);
+            this.Btn_Salir.Location = new System.Drawing.Point(558, 279);
             this.Btn_Salir.Name = "Btn_Salir";
-            this.Btn_Salir.Size = new System.Drawing.Size(82, 36);
+            this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 13;
             this.Btn_Salir.Text = "Salir";
             this.Btn_Salir.UseVisualStyleBackColor = true;
             this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
-            // Btn_PesoBruto
+            // label8
             // 
-            this.Btn_PesoBruto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_PesoBruto.Location = new System.Drawing.Point(234, 253);
-            this.Btn_PesoBruto.Name = "Btn_PesoBruto";
-            this.Btn_PesoBruto.Size = new System.Drawing.Size(108, 24);
-            this.Btn_PesoBruto.TabIndex = 17;
-            this.Btn_PesoBruto.Text = "Obtener Peso Bruto";
-            this.Btn_PesoBruto.UseVisualStyleBackColor = true;
-            this.Btn_PesoBruto.Click += new System.EventHandler(this.Btn_PesoBruto_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(372, 200);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(155, 17);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Tolerancia Bascula (%)";
+            // 
+            // Tx_ToleranciaBascula
+            // 
+            this.Tx_ToleranciaBascula.Location = new System.Drawing.Point(425, 220);
+            this.Tx_ToleranciaBascula.MaxLength = 7;
+            this.Tx_ToleranciaBascula.Name = "Tx_ToleranciaBascula";
+            this.Tx_ToleranciaBascula.ReadOnly = true;
+            this.Tx_ToleranciaBascula.Size = new System.Drawing.Size(42, 23);
+            this.Tx_ToleranciaBascula.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(70, 406);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(171, 17);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Estado Despacho Camión";
+            // 
+            // Tx_Semaforo
+            // 
+            this.Tx_Semaforo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_Semaforo.Location = new System.Drawing.Point(247, 406);
+            this.Tx_Semaforo.Name = "Tx_Semaforo";
+            this.Tx_Semaforo.ReadOnly = true;
+            this.Tx_Semaforo.Size = new System.Drawing.Size(78, 23);
+            this.Tx_Semaforo.TabIndex = 21;
+            // 
+            // Tx_ToleranciaReal
+            // 
+            this.Tx_ToleranciaReal.Location = new System.Drawing.Point(425, 280);
+            this.Tx_ToleranciaReal.MaxLength = 7;
+            this.Tx_ToleranciaReal.Name = "Tx_ToleranciaReal";
+            this.Tx_ToleranciaReal.ReadOnly = true;
+            this.Tx_ToleranciaReal.Size = new System.Drawing.Size(42, 23);
+            this.Tx_ToleranciaReal.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(382, 258);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(134, 17);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Tolerancia Real (%)";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(227, 320);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(158, 15);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Kilos Cargados Por sistema";
+            // 
+            // Tx_KgsCargados
+            // 
+            this.Tx_KgsCargados.Location = new System.Drawing.Point(391, 317);
+            this.Tx_KgsCargados.MaxLength = 7;
+            this.Tx_KgsCargados.Name = "Tx_KgsCargados";
+            this.Tx_KgsCargados.ReadOnly = true;
+            this.Tx_KgsCargados.Size = new System.Drawing.Size(76, 23);
+            this.Tx_KgsCargados.TabIndex = 25;
+            // 
+            // Tx_DiferenciaKilos
+            // 
+            this.Tx_DiferenciaKilos.Location = new System.Drawing.Point(390, 357);
+            this.Tx_DiferenciaKilos.MaxLength = 7;
+            this.Tx_DiferenciaKilos.Name = "Tx_DiferenciaKilos";
+            this.Tx_DiferenciaKilos.ReadOnly = true;
+            this.Tx_DiferenciaKilos.Size = new System.Drawing.Size(76, 23);
+            this.Tx_DiferenciaKilos.TabIndex = 27;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(234, 361);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(110, 15);
+            this.label12.TabIndex = 26;
+            this.label12.Text = "Diferencia de KIlos";
             // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 349);
+            this.ClientSize = new System.Drawing.Size(648, 446);
             this.Controls.Add(this.Btn_Salir);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Btn_Grabar);
@@ -320,5 +435,15 @@
         private System.Windows.Forms.RadioButton Rb_Carga;
         private System.Windows.Forms.RadioButton Rb_Tara;
         private System.Windows.Forms.Button Btn_PesoBruto;
+        private System.Windows.Forms.TextBox Tx_Semaforo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox Tx_ToleranciaBascula;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox Tx_ToleranciaReal;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox Tx_KgsCargados;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox Tx_DiferenciaKilos;
+        private System.Windows.Forms.Label label12;
     }
 }

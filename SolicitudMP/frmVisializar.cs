@@ -42,8 +42,8 @@ namespace Metalurgica.SolicitudMP
             int lHora = DateTime.Now.Hour; int lHInicio = 0; int lHFin = 0; int i = 0;
             string lTxTurno = ""; Clases.ClsComun lCom = new Clases.ClsComun();
             string lFechaIni = ""; string lFechaFin = "";
-            lDts = lPx.ObtenerParametro("TurnoDia");
-            lDts.Merge(lPx.ObtenerParametro("TurnoNoche"));
+            lDts = lPx.ObtenerParametros("TurnoDia");
+            lDts.Merge(lPx.ObtenerParametros("TurnoNoche"));
             if (lDts.Tables.Count > 0)
             {
                 lTblTurno = lDts.Tables[0].Copy();

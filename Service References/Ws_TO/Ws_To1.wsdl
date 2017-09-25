@@ -3,7 +3,35 @@
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:import namespace="http://tempuri.org/Dts_PL.xsd" />
-      <s:import schemaLocation="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx?schema=Dts_PL" namespace="http://tempuri.org/Dts_PL.xsd" />
+      <s:import schemaLocation="http://localhost:55038/WS/Ws_To.asmx?schema=Dts_PL" namespace="http://tempuri.org/Dts_PL.xsd" />
+      <s:element name="ObtenerTrazabilidadColadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iDtsViajes">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerTrazabilidadColadasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerTrazabilidadColadasResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerDtsPL_ConDetBECH">
         <s:complexType>
           <s:sequence>
@@ -667,6 +695,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GrabarImagenesLayout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdForma" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iImg" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroDoblez" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarImagenesLayoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarImagenesLayoutResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GrabarImagenFormaOriginal">
         <s:complexType>
           <s:sequence>
@@ -737,17 +781,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerParametro">
+      <s:element name="ObtenerParametros">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ipar1" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerParametroResponse">
+      <s:element name="ObtenerParametrosResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametroResult">
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametrosResult">
               <s:complexType>
                 <s:sequence>
                   <s:element ref="s:schema" />
@@ -1040,6 +1084,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Empresa" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ObraRelacionada" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Avance" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdEncargado" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="ObtenerObrasVigentesResponse">
@@ -2251,36 +2296,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerTrazabilidadColadas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iDtsViajes">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerTrazabilidadColadasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerTrazabilidadColadasResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerTrazabilidadColadasSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerTrazabilidadColadas" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerTrazabilidadColadasSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerTrazabilidadColadasResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerDtsPL_ConDetBECHSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDtsPL_ConDetBECH" />
   </wsdl:message>
@@ -2467,6 +2490,12 @@
   <wsdl:message name="GrabarImagenFormaSoapOut">
     <wsdl:part name="parameters" element="tns:GrabarImagenFormaResponse" />
   </wsdl:message>
+  <wsdl:message name="GrabarImagenesLayoutSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarImagenesLayout" />
+  </wsdl:message>
+  <wsdl:message name="GrabarImagenesLayoutSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarImagenesLayoutResponse" />
+  </wsdl:message>
   <wsdl:message name="GrabarImagenFormaOriginalSoapIn">
     <wsdl:part name="parameters" element="tns:GrabarImagenFormaOriginal" />
   </wsdl:message>
@@ -2491,11 +2520,11 @@
   <wsdl:message name="ObtenerDatosSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerParametroSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerParametro" />
+  <wsdl:message name="ObtenerParametrosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerParametros" />
   </wsdl:message>
-  <wsdl:message name="ObtenerParametroSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerParametroResponse" />
+  <wsdl:message name="ObtenerParametrosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerHojaDespiecePorIdSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerHojaDespiecePorId" />
@@ -2899,13 +2928,11 @@
   <wsdl:message name="ObtenerDiametros_SaldosViajeSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDiametros_SaldosViajeResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerTrazabilidadColadasSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerTrazabilidadColadas" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerTrazabilidadColadasSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerTrazabilidadColadasResponse" />
-  </wsdl:message>
   <wsdl:portType name="Ws_ToSoap">
+    <wsdl:operation name="ObtenerTrazabilidadColadas">
+      <wsdl:input message="tns:ObtenerTrazabilidadColadasSoapIn" />
+      <wsdl:output message="tns:ObtenerTrazabilidadColadasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDtsPL_ConDetBECH">
       <wsdl:input message="tns:ObtenerDtsPL_ConDetBECHSoapIn" />
       <wsdl:output message="tns:ObtenerDtsPL_ConDetBECHSoapOut" />
@@ -3030,6 +3057,10 @@
       <wsdl:input message="tns:GrabarImagenFormaSoapIn" />
       <wsdl:output message="tns:GrabarImagenFormaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GrabarImagenesLayout">
+      <wsdl:input message="tns:GrabarImagenesLayoutSoapIn" />
+      <wsdl:output message="tns:GrabarImagenesLayoutSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GrabarImagenFormaOriginal">
       <wsdl:input message="tns:GrabarImagenFormaOriginalSoapIn" />
       <wsdl:output message="tns:GrabarImagenFormaOriginalSoapOut" />
@@ -3046,9 +3077,9 @@
       <wsdl:input message="tns:ObtenerDatosSoapIn" />
       <wsdl:output message="tns:ObtenerDatosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <wsdl:input message="tns:ObtenerParametroSoapIn" />
-      <wsdl:output message="tns:ObtenerParametroSoapOut" />
+    <wsdl:operation name="ObtenerParametros">
+      <wsdl:input message="tns:ObtenerParametrosSoapIn" />
+      <wsdl:output message="tns:ObtenerParametrosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerHojaDespiecePorId">
       <wsdl:input message="tns:ObtenerHojaDespiecePorIdSoapIn" />
@@ -3318,13 +3349,18 @@
       <wsdl:input message="tns:ObtenerDiametros_SaldosViajeSoapIn" />
       <wsdl:output message="tns:ObtenerDiametros_SaldosViajeSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerTrazabilidadColadas">
-      <wsdl:input message="tns:ObtenerTrazabilidadColadasSoapIn" />
-      <wsdl:output message="tns:ObtenerTrazabilidadColadasSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Ws_ToSoap" type="tns:Ws_ToSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerTrazabilidadColadas">
+      <soap:operation soapAction="http://tempuri.org/ObtenerTrazabilidadColadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDtsPL_ConDetBECH">
       <soap:operation soapAction="http://tempuri.org/ObtenerDtsPL_ConDetBECH" style="document" />
       <wsdl:input>
@@ -3604,6 +3640,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GrabarImagenesLayout">
+      <soap:operation soapAction="http://tempuri.org/GrabarImagenesLayout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GrabarImagenFormaOriginal">
       <soap:operation soapAction="http://tempuri.org/GrabarImagenFormaOriginal" style="document" />
       <wsdl:input>
@@ -3640,8 +3685,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <soap:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+    <wsdl:operation name="ObtenerParametros">
+      <soap:operation soapAction="http://tempuri.org/ObtenerParametros" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4252,18 +4297,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerTrazabilidadColadas">
-      <soap:operation soapAction="http://tempuri.org/ObtenerTrazabilidadColadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="Ws_ToSoap12" type="tns:Ws_ToSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerTrazabilidadColadas">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerTrazabilidadColadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDtsPL_ConDetBECH">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDtsPL_ConDetBECH" style="document" />
       <wsdl:input>
@@ -4543,6 +4588,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GrabarImagenesLayout">
+      <soap12:operation soapAction="http://tempuri.org/GrabarImagenesLayout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GrabarImagenFormaOriginal">
       <soap12:operation soapAction="http://tempuri.org/GrabarImagenFormaOriginal" style="document" />
       <wsdl:input>
@@ -4579,8 +4633,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+    <wsdl:operation name="ObtenerParametros">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerParametros" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5191,22 +5245,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerTrazabilidadColadas">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerTrazabilidadColadas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Ws_To">
     <wsdl:port name="Ws_ToSoap" binding="tns:Ws_ToSoap">
-      <soap:address location="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx" />
+      <soap:address location="http://localhost:55038/WS/Ws_To.asmx" />
     </wsdl:port>
     <wsdl:port name="Ws_ToSoap12" binding="tns:Ws_ToSoap12">
-      <soap12:address location="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx" />
+      <soap12:address location="http://localhost:55038/WS/Ws_To.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -18,12 +18,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:55038/WS/Ws_To.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Ws_To.wsdl" MetadataType="Wsdl" ID="92eff7d0-fdb6-4e99-9f57-7b8d0ab0d307" SourceId="1" SourceUrl="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx?wsdl" />
-    <MetadataFile FileName="Dts_PL.xsd" MetadataType="Schema" ID="dcac6eaa-d355-4bb7-8088-29d9f42c00d8" SourceId="1" SourceUrl="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx?schema=Dts_PL" />
-    <MetadataFile FileName="Ws_To.disco" MetadataType="Disco" ID="ff05310c-70d7-478a-bd7d-834aba79d372" SourceId="1" SourceUrl="http://localhost:52093/CUbigest2008/WS/Ws_To.asmx?disco" />
+    <MetadataFile FileName="Ws_To1.disco" MetadataType="Disco" ID="095874ac-77e4-4d36-946f-c6c0bec27a18" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?disco" />
+    <MetadataFile FileName="Dts_PL1.xsd" MetadataType="Schema" ID="bc0e1459-ca0b-4fd0-b43c-adb2b1d52e67" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?schema=Dts_PL" />
+    <MetadataFile FileName="Ws_To1.wsdl" MetadataType="Wsdl" ID="274fd1de-93ed-4af5-8835-0cc46c66f3a9" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -16,6 +16,10 @@ namespace Metalurgica.Ws_TO {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Ws_TO.Ws_ToSoap")]
     public interface Ws_ToSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTrazabilidadColadas", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet ObtenerTrazabilidadColadas(System.Data.DataSet iDtsViajes);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDtsPL_ConDetBECH", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.Ws_TO.Dts_PL ObtenerDtsPL_ConDetBECH(string iCodigoIt, string iIdIT, string iCodViaje, string iTipoImp);
@@ -155,6 +159,12 @@ namespace Metalurgica.Ws_TO {
         Metalurgica.Ws_TO.GrabarImagenFormaResponse GrabarImagenForma(Metalurgica.Ws_TO.GrabarImagenFormaRequest request);
         
         // CODEGEN: El parámetro 'iImg' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarImagenesLayout", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
+        Metalurgica.Ws_TO.GrabarImagenesLayoutResponse GrabarImagenesLayout(Metalurgica.Ws_TO.GrabarImagenesLayoutRequest request);
+        
+        // CODEGEN: El parámetro 'iImg' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarImagenFormaOriginal", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
@@ -175,10 +185,10 @@ namespace Metalurgica.Ws_TO {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
         System.Data.DataSet ObtenerDatos(string ipar1);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametro", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametros", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
-        System.Data.DataSet ObtenerParametro(string ipar1);
+        System.Data.DataSet ObtenerParametros(string ipar1);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerHojaDespiecePorId", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -517,11 +527,6 @@ namespace Metalurgica.Ws_TO {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
         System.Data.DataSet ObtenerDiametros_SaldosViaje(string iCodViaje);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTrazabilidadColadas", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(MarshalByRefObject))]
-        System.Data.DataSet ObtenerTrazabilidadColadas(System.Data.DataSet iDtsViajes);
     }
     
     /// <summary>
@@ -534,7 +539,7 @@ namespace Metalurgica.Ws_TO {
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
     [global::System.Xml.Serialization.XmlRootAttribute("Dts_PL")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     public partial class Dts_PL : global::System.Data.DataSet {
         
         private ObsCuadroProgramacionDataTable tableObsCuadroProgramacion;
@@ -5512,7 +5517,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -5754,7 +5759,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6010,7 +6015,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6182,7 +6187,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6620,7 +6625,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6792,7 +6797,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -6922,7 +6927,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7052,7 +7057,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7154,7 +7159,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7466,7 +7471,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7554,7 +7559,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7656,7 +7661,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7675,7 +7680,7 @@ namespace Metalurgica.Ws_TO {
     
     /// <comentarios/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Image))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7693,7 +7698,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7730,7 +7735,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7804,7 +7809,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -7876,6 +7881,8 @@ namespace Metalurgica.Ws_TO {
         private string obraRelacionadaField;
         
         private string avanceField;
+        
+        private string idEncargadoField;
         
         /// <comentarios/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -8273,6 +8280,18 @@ namespace Metalurgica.Ws_TO {
             }
         }
         
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
+        public string IdEncargado {
+            get {
+                return this.idEncargadoField;
+            }
+            set {
+                this.idEncargadoField = value;
+                this.RaisePropertyChanged("IdEncargado");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -8284,7 +8303,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -8568,7 +8587,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -9006,7 +9025,7 @@ namespace Metalurgica.Ws_TO {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -9276,6 +9295,49 @@ namespace Metalurgica.Ws_TO {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GrabarImagenesLayout", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GrabarImagenesLayoutRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string iIdForma;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] iImg;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public int iNroDoblez;
+        
+        public GrabarImagenesLayoutRequest() {
+        }
+        
+        public GrabarImagenesLayoutRequest(string iIdForma, byte[] iImg, int iNroDoblez) {
+            this.iIdForma = iIdForma;
+            this.iImg = iImg;
+            this.iNroDoblez = iNroDoblez;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GrabarImagenesLayoutResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GrabarImagenesLayoutResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string GrabarImagenesLayoutResult;
+        
+        public GrabarImagenesLayoutResponse() {
+        }
+        
+        public GrabarImagenesLayoutResponse(string GrabarImagenesLayoutResult) {
+            this.GrabarImagenesLayoutResult = GrabarImagenesLayoutResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="GrabarImagenFormaOriginal", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class GrabarImagenFormaOriginalRequest {
         
@@ -9448,6 +9510,10 @@ namespace Metalurgica.Ws_TO {
                 base(binding, remoteAddress) {
         }
         
+        public System.Data.DataSet ObtenerTrazabilidadColadas(System.Data.DataSet iDtsViajes) {
+            return base.Channel.ObtenerTrazabilidadColadas(iDtsViajes);
+        }
+        
         public Metalurgica.Ws_TO.Dts_PL ObtenerDtsPL_ConDetBECH(string iCodigoIt, string iIdIT, string iCodViaje, string iTipoImp) {
             return base.Channel.ObtenerDtsPL_ConDetBECH(iCodigoIt, iIdIT, iCodViaje, iTipoImp);
         }
@@ -9592,6 +9658,20 @@ namespace Metalurgica.Ws_TO {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Metalurgica.Ws_TO.GrabarImagenesLayoutResponse Metalurgica.Ws_TO.Ws_ToSoap.GrabarImagenesLayout(Metalurgica.Ws_TO.GrabarImagenesLayoutRequest request) {
+            return base.Channel.GrabarImagenesLayout(request);
+        }
+        
+        public string GrabarImagenesLayout(string iIdForma, byte[] iImg, int iNroDoblez) {
+            Metalurgica.Ws_TO.GrabarImagenesLayoutRequest inValue = new Metalurgica.Ws_TO.GrabarImagenesLayoutRequest();
+            inValue.iIdForma = iIdForma;
+            inValue.iImg = iImg;
+            inValue.iNroDoblez = iNroDoblez;
+            Metalurgica.Ws_TO.GrabarImagenesLayoutResponse retVal = ((Metalurgica.Ws_TO.Ws_ToSoap)(this)).GrabarImagenesLayout(inValue);
+            return retVal.GrabarImagenesLayoutResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         Metalurgica.Ws_TO.GrabarImagenFormaOriginalResponse Metalurgica.Ws_TO.Ws_ToSoap.GrabarImagenFormaOriginal(Metalurgica.Ws_TO.GrabarImagenFormaOriginalRequest request) {
             return base.Channel.GrabarImagenFormaOriginal(request);
         }
@@ -9617,8 +9697,8 @@ namespace Metalurgica.Ws_TO {
             return base.Channel.ObtenerDatos(ipar1);
         }
         
-        public System.Data.DataSet ObtenerParametro(string ipar1) {
-            return base.Channel.ObtenerParametro(ipar1);
+        public System.Data.DataSet ObtenerParametros(string ipar1) {
+            return base.Channel.ObtenerParametros(ipar1);
         }
         
         public Metalurgica.Ws_TO.Tipo_Hd ObtenerHojaDespiecePorId(string iIdP) {
@@ -9911,10 +9991,6 @@ namespace Metalurgica.Ws_TO {
         
         public System.Data.DataSet ObtenerDiametros_SaldosViaje(string iCodViaje) {
             return base.Channel.ObtenerDiametros_SaldosViaje(iCodViaje);
-        }
-        
-        public System.Data.DataSet ObtenerTrazabilidadColadas(System.Data.DataSet iDtsViajes) {
-            return base.Channel.ObtenerTrazabilidadColadas(iDtsViajes);
         }
     }
 }

@@ -842,7 +842,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsSesion\WS_Sesion.wsdl" />
-    <None Include="Service References\Ws_TO\Dts_PL.xsd" />
+    <None Include="Service References\Ws_TO\Dts_PL1.xsd" />
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Dts_PL.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -888,7 +888,7 @@
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Pieza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Ws_TO\Ws_To.wsdl" />
+    <None Include="Service References\Ws_TO\Ws_To1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -898,9 +898,9 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\Ws_TO\Ws_To1.disco" />
     <None Include="Service References\WsOperacion\Operacion1.disco" />
     <None Include="Service References\Px_WS\Ws_To.disco" />
-    <None Include="Service References\Ws_TO\Ws_To.disco" />
     <None Include="Resources\to_do_list_checked_all.png" />
     <Content Include="Resources\to_do_list_cheked_all.png" />
     <None Include="Service References\Px_MovStockTOSOL\Reference.svcmap">
