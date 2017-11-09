@@ -410,11 +410,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\Px_WS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\WsCrud\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -741,53 +736,6 @@
     <None Include="Service References\Px_MovExistenciasINET\wsmovexiall.wsdl" />
     <None Include="Service References\Px_MovStockTOSOL\wsmovexiall.wsdl" />
     <None Include="Service References\Px_MovStock\wsmovexiall.wsdl" />
-    <None Include="Service References\Px_WS\Dts_PL.xsd" />
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.Dts_PL.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.Objeto_WsINET.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.PiezaTipoB.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoActaEntrega.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoColada.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoDetalleCotas.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoDetalleFormaConHilos.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoDetallePaquetesPieza.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoEntregas_OC.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoForma.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoMov.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.TipoOC.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.Tipo_Hd.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.Tipo_Obra.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Metalurgica.Px_WS.Tipo_Pieza.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_WS\Ws_To.wsdl" />
     <None Include="Service References\WsCrud\Crud1.wsdl" />
     <None Include="Service References\WsCrud\Metalurgica.WsCrud.Bodega.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -842,7 +790,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsSesion\WS_Sesion.wsdl" />
-    <None Include="Service References\Ws_TO\Dts_PL1.xsd" />
+    <None Include="Service References\Ws_TO\Dts_PL.xsd" />
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Dts_PL.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -888,7 +836,7 @@
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Pieza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Ws_TO\Ws_To1.wsdl" />
+    <None Include="Service References\Ws_TO\ws_to.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -898,9 +846,14 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
-    <None Include="Service References\Ws_TO\Ws_To1.disco" />
+    <None Include="Service References\Ws_TO\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Ws_TO\configuration.svcinfo" />
+    <None Include="Service References\Ws_TO\configuration91.svcinfo" />
+    <None Include="Service References\Ws_TO\ws_to.disco" />
     <None Include="Service References\WsOperacion\Operacion1.disco" />
-    <None Include="Service References\Px_WS\Ws_To.disco" />
     <None Include="Resources\to_do_list_checked_all.png" />
     <Content Include="Resources\to_do_list_cheked_all.png" />
     <None Include="Service References\Px_MovStockTOSOL\Reference.svcmap">
@@ -924,12 +877,6 @@
     <None Include="Service References\Coladas_Px_WS_Ws_To\Ws_To.disco" />
     <None Include="Service References\WsSesion\WS_Sesion.disco" />
     <None Include="Service References\WsCrud\Crud1.disco" />
-    <None Include="Service References\Px_WS\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\Px_WS\configuration.svcinfo" />
-    <None Include="Service References\Px_WS\configuration91.svcinfo" />
     <None Include="Service References\Px_MovExistenciasINET\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -954,12 +901,6 @@
     </None>
     <None Include="Service References\Px_GuiaDespacho\configuration.svcinfo" />
     <None Include="Service References\Px_GuiaDespacho\configuration91.svcinfo" />
-    <None Include="Service References\Ws_TO\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\Ws_TO\configuration.svcinfo" />
-    <None Include="Service References\Ws_TO\configuration91.svcinfo" />
     <None Include="Service References\WsOperacion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1003,7 +944,6 @@
     <WCFMetadataStorage Include="Service References\Px_MovExistenciasINET\" />
     <WCFMetadataStorage Include="Service References\Px_MovStockTOSOL\" />
     <WCFMetadataStorage Include="Service References\Px_MovStock\" />
-    <WCFMetadataStorage Include="Service References\Px_WS\" />
     <WCFMetadataStorage Include="Service References\WsCrud\" />
     <WCFMetadataStorage Include="Service References\WsOperacion\" />
     <WCFMetadataStorage Include="Service References\WsSesion\" />

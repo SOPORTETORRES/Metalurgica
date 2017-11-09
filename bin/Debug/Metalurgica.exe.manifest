@@ -335,14 +335,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="1312768">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="1313792">
       <assemblyIdentity name="Metalurgica" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>HrT1CE/lGI7bygn5KR5SkKgOsT0=</dsig:DigestValue>
+        <dsig:DigestValue>ea6yHecCtQ0FvuEn4OFdsLZ65pA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -427,31 +427,31 @@
       <dsig:DigestValue>9UF3lVXCk2ERqxrvvIT0wodbVPo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.exe" size="1312768">
+  <file name="bin\Debug\Metalurgica.exe" size="1313792">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>tQqHHHIhgDNGg36vEYT8a3eunbU=</dsig:DigestValue>
+      <dsig:DigestValue>ea6yHecCtQ0FvuEn4OFdsLZ65pA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.pdb" size="2475520">
+  <file name="bin\Debug\Metalurgica.pdb" size="2481664">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Bt5AkDaVT41dRjbw99H02EiyxoU=</dsig:DigestValue>
+      <dsig:DigestValue>6MuMlYK5h2yQYl5BAvE70C9zP08=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Metalurgica.exe.config" size="6834">
+  <file name="Metalurgica.exe.config" size="6488">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Kp5waQHb0ozES73dKYBYyU4iU5I=</dsig:DigestValue>
+      <dsig:DigestValue>THBLUEhlwF8aGxQhvzP8S7N96KI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\to_do_list.png" size="742">
