@@ -25,7 +25,7 @@ namespace Metalurgica.MultiMaquina
         private void QuitarUsuariosMaquinas(string iNroMaquina, string iIdUser)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); string lResp = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lResp = "";
 
             lSql = string.Concat("SP_ConsultasGenerales 76,'", iNroMaquina, "','", iIdUser, "','','',''");
             lDts = lPx.ObtenerDatos(lSql);

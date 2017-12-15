@@ -25,7 +25,7 @@ namespace Metalurgica.Consignacion
         public  void CargaTrazabilidad(string iId)
         {
             DataTable mTblDatos = new DataTable();
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau ",iId ,",'','','','','','','','','','','','','','','','','','','','','','',9");
             lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))

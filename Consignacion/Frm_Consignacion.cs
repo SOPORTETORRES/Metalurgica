@@ -55,7 +55,7 @@ namespace Metalurgica.Consignacion
         public  void CargaDatos(CurrentUser iUseLog)
         {
             mUserLog = iUseLog;
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
 
             if (Rb_Pistoleo1.Checked == true)
                 lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau 0,'','','','','','','','','','','','','','','','','','','','','','',4,0");
@@ -78,10 +78,10 @@ namespace Metalurgica.Consignacion
         public void CargaTodosLosDatos(CurrentUser iUseLog)
         {
             mUserLog = iUseLog;
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
 
-            
-                lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau 0,'','','','','','','','','','','','','','','','','','','','','','',8,0");
+
+            lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau 0,'','','','','','','','','','','','','','','','','','','','','','',8,0");
 
 
 
@@ -98,10 +98,8 @@ namespace Metalurgica.Consignacion
 
         private void Btn_CargaDatos_Click(object sender, EventArgs e)
         {
-             string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
-            
-
-            if (Tx_GuiaDespacho .Text .Trim().Length >0)
+             string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+             if (Tx_GuiaDespacho .Text .Trim().Length >0)
             {
                 lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau 0,'", Tx_GuiaDespacho .Text, "','',''");
                 lSql = String.Concat(lSql, ",'','','','','','','','','','','','','','','','','','',2,0");
@@ -160,9 +158,11 @@ namespace Metalurgica.Consignacion
 
 
         private int GrabaDatosColadas(DataGridViewRow iFila)
-        { 
+        {
             //Insertamos en la tabla coladas
-            Px_WS.TipoColada lColada = new Px_WS.TipoColada(); Px_WS.Ws_ToSoapClient lDal = new Px_WS.Ws_ToSoapClient();
+           
+            Ws_TO.TipoColada lColada = new Ws_TO.TipoColada();
+            Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient();
             DataSet lDatos = new DataSet(); string lNroColada = ""; string lIdPaqueteColada = "";
             string lSql = ""; int i = 0;
             char[] delimiterChars = { ' ', '\t' }; string[] lPartes= iFila.Cells ["TextoMaterial"].Value .ToString ().Split(delimiterChars);
@@ -229,7 +229,7 @@ namespace Metalurgica.Consignacion
 
         private bool  LeeCodigoBarras(string iCB)
         {
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             int i = 0; int j = 0; int lId = 0; int lIdColada = 0;
             bool lRes = false;
 
@@ -413,7 +413,7 @@ namespace Metalurgica.Consignacion
         {
             if (Rb_ColadasPiezas.Checked == true)
             {
-                string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+                string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
                 lSql = String.Concat("Exec SP_CRUD_ConsignacionGerdau 0,'','',''");
                 lSql = String.Concat(lSql, ",'','','','','','','','','','','','','','','','','CON','','',10,0");
                     lDts = lPx.ObtenerDatos(lSql);

@@ -19,7 +19,7 @@ namespace Metalurgica.DTS
             string lSql = "Select * from correlativos "; DataTable lTbl = new DataTable();
             Clases.ClsComun lCom = new Clases.ClsComun(); DataSet lDts = new DataSet();
             lSql = "Select max(correlativo)  from correlativosRomana  ";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); string LtlCorrCubigest = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string LtlCorrCubigest = "";
 
             lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
@@ -56,7 +56,7 @@ namespace Metalurgica.DTS
         {
             DataTable lTbl = new DataTable(); string lSql = "";
             Clases.ClsComun lCom = new Clases.ClsComun(); DataSet lDts = new DataSet();
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); string LtlCorrCubigest = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string LtlCorrCubigest = "";
 
             //1.-Tabla correlativos
             DTS.DtsDatos.CorrelativosRomanaDataTable lTblRom = new DtsDatos.CorrelativosRomanaDataTable();

@@ -228,7 +228,7 @@ namespace Metalurgica.Clases
         public  DataTable CargaTablaObras()
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
             lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
             lDts = lPx.ObtenerDatos(lSql);
@@ -245,7 +245,7 @@ namespace Metalurgica.Clases
         public DataTable CargaTablaObras(string iEmpresa)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa = iEmpresa;
 
             lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
@@ -262,8 +262,8 @@ namespace Metalurgica.Clases
         public string ObtenerKilos (string iLargo,string iDiametro, int  iCantidad)
         {
             //El largo debe esta en Metros
-            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); 
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lRes = "";
 
             lRes = lPx.ObtenerPesoBechtell(iLargo, iDiametro, iCantidad).ToString ();
@@ -274,7 +274,7 @@ namespace Metalurgica.Clases
         public DataTable CargaTablaUsuariosAsignadosAUnaMaquina(string iNroMaquina)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
 
             lSql = string.Concat("SP_ConsultasGenerales 74,'", iNroMaquina, "','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
@@ -290,7 +290,7 @@ namespace Metalurgica.Clases
         public DataTable CargaTablaObras_ParaIngresoRomana()
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
             lSql= string.Concat ("SP_ConsultasGenerales 53,'','','','',''");            
             lDts = lPx.ObtenerDatos(lSql);
@@ -306,7 +306,7 @@ namespace Metalurgica.Clases
         public DataTable CargaTabla_Maquinas()
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
             lSql = string.Concat("SP_ConsultasGenerales 70,'",lIdSucursal,"','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
@@ -325,7 +325,7 @@ namespace Metalurgica.Clases
 //@Par4 Varchar(100),   //@Par5 Varchar(100),       //@Par6 Varchar(100),       //@Par7 Varchar(100)
 
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); string lRes = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();  string lRes = "";
 
             lSql = string.Concat("SP_Consultas_WS 60,'", iCodProducto, "','','','','','',''");
             lDts = lPx.ObtenerDatos(lSql);

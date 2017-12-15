@@ -277,7 +277,7 @@ namespace Metalurgica
 
         private string ObtenerTurno()
         {
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();  DataSet lDts = new DataSet();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();  DataSet lDts = new DataSet();
             string lSql = " SP_ConsultasGenerales 77,'','','','',''"; string lRes = "";
             int lHora = 0; Clases.ClsComun lCom = new Clases.ClsComun();
 

@@ -27,7 +27,7 @@ namespace Metalurgica.Maquinas
             //       @ID INT,               //@NOMBRE VARCHAR(100),     //@DESCRIPCION VARCHAR(50),
             //      @ACTIVA VARCHAR(10),          //@IdTotem int,             //@IdTipoMaq int,
             //      @PARAM1 VARCHAR(50),          //@PARAM2 VARCHAR(50),      //@OPCION INT
-             int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+             int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
              string lIdWsINET = ""; int j = 0; DataTable lTblTipoMaq = new DataTable();
             lSql = " SP_CRUD_MAQUINA 0,'','','',0,'0','','',10";
             lDts = lPx.ObtenerDatos(lSql);
@@ -45,7 +45,7 @@ namespace Metalurgica.Maquinas
         private void GrabarDatos()
         {         
           
-             int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+             int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lIdWsINET = ""; int j = 0;
 
             if (DatosOKParaGrabar() == true)
@@ -98,7 +98,7 @@ namespace Metalurgica.Maquinas
 
         private void CargaDatosPorId(string iIdMaquina)
         {
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             DataTable lTbl = new DataTable(); Clases.ClsComun lComun = new Clases.ClsComun();       
             lSql = string.Concat(" SP_CRUD_MAQUINA ", iIdMaquina ,",'','','S',0,'0' ,'','',13");
             lDts = lPx.ObtenerDatos(lSql);
@@ -122,7 +122,7 @@ namespace Metalurgica.Maquinas
         private void Btn_VerMaq_Click(object sender, EventArgs e)
         {
             Consignacion.Frm_Detalle lFrm = new Consignacion.Frm_Detalle(); DataTable lTbl = new DataTable();
-            string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             lSql = "";                                   
                 lSql = string.Concat(" SP_CRUD_MAQUINA 0,'','','S',0,'0' ,'','',12");
                 lDts = lPx.ObtenerDatos(lSql);

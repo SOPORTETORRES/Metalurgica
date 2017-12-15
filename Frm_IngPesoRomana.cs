@@ -27,7 +27,7 @@ namespace Metalurgica
             {
                 string lSql = "";// string.Concat("SP_ConsultasGenerales 51,'", Tx_PesoRomana.Text, "','", Cmb_IT.SelectedValue.ToString(), "','','',''");
                 DataTable lTbl = new DataTable(); DataSet lDts = new DataSet();
-                Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); int lFilasAfectadas = 0;
+                Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int lFilasAfectadas = 0;
                 Clases .ClsComun lCom=new Clases.ClsComun ();
                 lDts = lPx.ObtenerDatos(lSql);
                 if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
@@ -87,8 +87,8 @@ namespace Metalurgica
         private void CargaPatentes(string iObraSel)
         {
             string lSql = string.Concat ("SP_ConsultasGenerales 49,'",iObraSel ,"','','','',''");
-            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); 
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();                       
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();                       
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
             {
@@ -168,7 +168,7 @@ namespace Metalurgica
 
             string lSql = string.Concat("SP_ConsultasGenerales 50,'", iPatente, "','", iIdObra, "','','',''");
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet();
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lViajes = ""; int i = 0;
 
             lDts = lPx.ObtenerDatos(lSql);

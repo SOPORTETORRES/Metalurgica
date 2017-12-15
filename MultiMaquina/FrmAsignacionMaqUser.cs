@@ -27,7 +27,7 @@ namespace Metalurgica.MultiMaquina
         {
             DataTable lTbl = new DataTable();DataRow lFila = null; string lSql = "";
             DataSet lDts = new DataSet();
-             Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); 
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); 
             lTbl = ObtenerSucursales();
             if (lTbl.Rows.Count > 0)
             {
@@ -62,7 +62,7 @@ namespace Metalurgica.MultiMaquina
         {
       
                   DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa= ConfigurationManager.AppSettings["Empresa"];
             string lSucursal = ConfigurationManager.AppSettings["Sucursal"];
             string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"];
@@ -90,7 +90,7 @@ namespace Metalurgica.MultiMaquina
         private void CargaMaquinasPorSucursal(string IdUscursal)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); DataTable lTblFinal = new DataTable();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataTable lTblFinal = new DataTable();
             DataRow lFila = null; int i = 0;
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"];
             string lSucursal = ConfigurationManager.AppSettings["Sucursal"];
@@ -183,7 +183,7 @@ namespace Metalurgica.MultiMaquina
         private void AsignarUsuariosMaquinas(string iNroMaquina, string iIdUser)
         { 
               DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-              Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient(); string lResp = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lResp = "";
 
             lSql = string.Concat("SP_ConsultasGenerales 75,'",iNroMaquina,"','",iIdUser,"','','',''");
             lDts = lPx.ObtenerDatos(lSql);

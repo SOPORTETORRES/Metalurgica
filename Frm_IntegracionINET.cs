@@ -237,12 +237,10 @@ namespace Metalurgica
         {
             int i = 0; string lSQl = ""; int lRespINET = 0; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); int j = 0;
             
-           // PersisteRespuesta_INET(" <ACCION>ok</ACCION>   &amp;lt;SDT_RESPUESTA_MOVTOS.RESPUESTA_MOVTO&amp;gt;   &amp;lt;TMETIP&amp;gt;1&amp;lt;/TMETIP&amp;gt;   &amp;lt;TMECOD&amp;gt;30&amp;lt;/TMECOD&amp;gt;   &amp;lt;MOVSUCCOD&amp;gt;1&amp;lt;/MOVSUCCOD&amp;gt;   &amp;lt;MOVNUMDOC&amp;gt;223652&amp;lt;/MOVNUMDOC&amp;gt;   &amp;lt;MOVESTDOC&amp;gt;0&amp;lt;/MOVESTDOC&amp;gt;   &amp;lt;MOVESTDSC&amp;gt;Procesado&amp;lt;/MOVESTDSC&amp;gt;  &amp;lt;/SDT_RESPUESTA_MOVTOS.RESPUESTA_MOVTO&amp;gt; &amp;lt;/SDT_RESPUESTA_MOVTOS&amp;gt; </XML> </SDT_TRANSPORTE> </string>   <Xmlout>              <NUMERROR>0</NUMERROR>        <DESCERROR>  <NRO_DOC>0</NRO_DOC>  <CAJCOD>0</CAJCOD>  <DOCCOD>330</DOCCOD>  <ATENUMREA>24264</ATENUMREA>  <COD_ESTADO>0</COD_ESTADO>  <DSC_ESTADO>Pendiente</DSC_ESTADO>  <MOT_ESTADO/> </SDT_RESP_PROCESO> </DESCERROR>      </SDT_ERRORES_ERROR>    </Xmlout>  </ExecuteResponse>", "UT1122");
-
             Integracion_INET.Tipo_InvocaWS lRes= new  Integracion_INET.Tipo_InvocaWS();  int TotalKgs = 0; int NroIT = 0;
             string lDespachosCam = ""; string lViajes = ""; List<Tipo_GuiaOC> lListaOC = new List<Tipo_GuiaOC>();
-            Btn_INET.Enabled = false;
-            //lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text );
+            Btn_INET.Enabled = false;int NroGuiasCreadas = 0;
+          
             if (ValidaDatos() == true)
             {
                 foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
@@ -252,14 +250,14 @@ namespace Metalurgica
                         {
                             TotalKgs = TotalKgs + int.Parse(lRow.Cells["Kilos"].Value.ToString());
                             NroIT = NroIT + 1;
-                            //lDespachosCam = string.Concat(lDespachosCam, lRow.Cells["IdDespacho"].Value.ToString(), ",");
-                            //lViajes = string.Concat(lViajes, lRow.Cells["Codigo"].Value.ToString(), ",");
+                            
                         }
                 }
                 if (MessageBox.Show(string.Concat("¿Esta Seguro que desea realizar la generación de  la guía de depacho por ", TotalKgs, " kilos,  para el camión ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (TotalKgs>0)   //(lDespachosCam.Length > 2)
                     {
+                        //el objeto lListaOC entrega solo VIajes con un numero de OC, con lo cual las guias de reposición NO TENDRAN UNA OC
                        lListaOC= ObtenerGuiasPorOC();
                        for (i = 0; i < lListaOC.Count; i++)
                        {
@@ -276,7 +274,31 @@ namespace Metalurgica
                                lDal.ObtenerDatos(lSQl);
                            }
                        }
-                       MessageBox.Show(string.Concat("Se han Creado ", lListaOC.Count, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);                       
+                        NroGuiasCreadas = lListaOC.Count;
+                        //*************************************************************************************************************************
+                        //Ahora revisamos las guias de reposición
+                        lListaOC = new List<Tipo_GuiaOC>();
+                        lListaOC = ObtenerGuias_DeReposicion();
+                        for (i = 0; i < lListaOC.Count; i++)
+                        {
+                            lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
+                            lViajes = lListaOC[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
+                            lRes = InvocaWS_INET_Reposicion(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes);
+                            lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
+                            string[] lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
+                            for (j = 0; j < lPartes.Length; j++)
+                            {
+                                lIdDespacho = Obtener_IdDespacho(lPartes[j].ToString());
+                                lSQl = string.Concat(" Update viaje set IdRespuestaINET=", lRespINET, ", patente='", Tx_Patente.Text, "', IdDespachoCamion=", lIdDespacho);
+                                lSQl = string.Concat(lSQl, ", IdLogWsINET=", lRes.Id, " where Codigo='", lPartes[j].ToString(), "'");
+                                lDal.ObtenerDatos(lSQl);
+                            }
+                        }
+                        NroGuiasCreadas = NroGuiasCreadas+ lListaOC.Count;
+                        //*************************************************************************************************************************
+
+
+                        MessageBox.Show(string.Concat("Se han Creado ", NroGuiasCreadas, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);                       
                     }
                 }
 
@@ -312,11 +334,7 @@ namespace Metalurgica
                 if (lRow.Cells[0].Value != null)
                     if (lRow.Cells[0].Value.ToString() == "True")
                     {
-             // ALTER PROCEDURE [dbo].[SP_Consultas_FacturacionPorCamion]
-                //@Opcion INT,              //@Par1 Varchar(50),
-                //@Par2 Varchar(50),        //@Par3 Varchar(50),
-                //@Par4 Varchar(50),        //@Par5 Varchar(50),
-                //@Par6 Varchar(50),        //@Par7 Varchar(50)
+          
                         lsql = string.Concat ("SP_Consultas_FacturacionPorCamion  5,'",lRow.Cells["Codigo"].Value .ToString() ,"',");
                         lsql = string.Concat(lsql ,"'','','','','',''");
                         lDts = lDal.ObtenerDatos(lsql);
@@ -386,6 +404,95 @@ namespace Metalurgica
             }
 
             return lListaFinal;        
+        }
+
+
+        private List<Tipo_GuiaOC> ObtenerGuias_DeReposicion()
+        {
+            List<Tipo_GuiaOC> lListas = new List<Tipo_GuiaOC>();
+            Tipo_GuiaOC lGuiaOC = new Tipo_GuiaOC(); string lsql = "";
+            Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            List<Tipo_GuiaOC> lListaFinal = new List<Tipo_GuiaOC>(); int i = 0;
+            foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
+            {
+                if (lRow.Cells[0].Value != null)
+                    if (lRow.Cells[0].Value.ToString() == "True")
+                    {
+
+                        lsql = string.Concat("SP_Consultas_FacturacionPorCamion  5,'", lRow.Cells["Codigo"].Value.ToString(), "',");
+                        lsql = string.Concat(lsql, "'','','','','',''");
+                        lDts = lDal.ObtenerDatos(lsql);
+                        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                        {
+                            if (lDts.Tables[0].Rows[0]["OC"].ToString().Equals (""))
+                            {
+                                lGuiaOC = new Tipo_GuiaOC();
+                                lGuiaOC.IdIt = lDts.Tables[0].Rows[0]["IDIT"].ToString();
+                                lGuiaOC.OC = lDts.Tables[0].Rows[0]["OC"].ToString();
+                                lGuiaOC.Viajes = lDts.Tables[0].Rows[0]["Codigo"].ToString();
+                                if (lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString().Trim().Length > 1)
+                                    lGuiaOC.DespachosCamion = lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString();
+                                else
+                                    lGuiaOC.DespachosCamion = ObtenerIdDespachoCamion(lDts.Tables[0].Rows[0]["Codigo"].ToString());
+
+                                lListas.Add(lGuiaOC);
+
+                            }
+                           
+                        }
+                    }
+            }
+            //Revisamos las listas y solo dejamos las 
+            string lViajes = ""; string lDespachos = ""; string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
+
+            lTbl = CreaCampo(lTbl);
+            for (i = 0; i < lListas.Count; i++)
+            {
+                lOC_Tmp = lListas[i].OC.ToString();
+                //for (j = 0; j < lListas.Count; j++)
+                //{
+                    if (lListas[j].OC.ToString().Trim().Length == 0)
+                    {
+                        if (lOC_Tmp.IndexOf(lListas[j].OC.ToString()) > -1)
+                        {
+                            lVista = new DataView(lTbl, string.Concat("OC='", lListas[j].OC.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                            if (lVista.Count == 0)
+                            {
+                                lFila = lTbl.NewRow();
+                                lFila["IdIt"] = lListas[i].IdIt;
+                                lFila["OC"] = lListas[i].OC;
+                                lFila["Viajes"] = lListas[i].Viajes;
+                                lFila["DespachoCamion"] = lListas[i].DespachosCamion;
+                                lTbl.Rows.Add(lFila);
+                                lListas[j].OC = "";
+                            }
+                            else
+                            {
+                                lVista[0]["IdIt"] = string.Concat(lVista[0]["IdIt"], ",", lListas[i].IdIt);
+                                lVista[0]["Viajes"] = string.Concat(lVista[0]["Viajes"], ",", lListas[i].Viajes);
+                                lVista[0]["DespachoCamion"] = string.Concat(lVista[0]["DespachoCamion"], ",", lListas[i].DespachosCamion);
+                                lListas[i].OC = "";
+                            }
+                        }
+                    //}
+                }
+            }
+
+            if (lTbl.Rows.Count > 0)
+            {
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    lGuiaOC = new Tipo_GuiaOC();
+                    lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString();
+                    lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
+                    lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
+                    lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
+                    lListaFinal.Add(lGuiaOC);
+                }
+            }
+
+            return lListaFinal;
         }
 
         private DataTable CreaCampo(DataTable iTbl)
@@ -1153,6 +1260,36 @@ namespace Metalurgica
        
         }
 
+        private Integracion_INET.Tipo_InvocaWS InvocaWS_INET_Reposicion(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes)
+        {
+
+            Tipo_InvocaWS lResultado = new Tipo_InvocaWS();
+
+            Tipo_DocVentaExt lImputObj = new Tipo_DocVentaExt();
+            string lEstadoProceso = ""; bool lEstadoP1 = false;
+            bool lEstadoP2 = false; StringWriter strDataXml = new StringWriter();
+
+            Integracion_INET.Cls_LN lIntegra = new Integracion_INET.Cls_LN();
+
+            string lSql = ""; WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();
+            WsCrud.ListaDataSet lDts = new WsCrud.ListaDataSet();
+
+            //try
+            //{
+
+            mIdObra = int.Parse(IdObra);
+            Registry registry = new Registry();
+            mSucursal = (string)registry.GetValue(Program.regeditKeyName, "Sucursal", "");
+            //string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+
+            if (mEmpresa.ToUpper().Equals("TOSOL"))
+                return lIntegra.InvocaWS_INET_TOSOL_Reposicion(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
+            else
+                return lIntegra.InvocaWS_INET_Reposicion(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
+
+
+        }
+
         #endregion
 
         private void IntegracionConINET(string iParametros)
@@ -1312,7 +1449,7 @@ namespace Metalurgica
 
         private void BTN_actualizarViaje_Click(object sender, EventArgs e)
         {
-            int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            int i = 0; string lSql = ""; DataSet lDts = new DataSet(); Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lIdWsINET = ""; int j = 0;
 
             //for (j = 0; j < TR_Arbol.Nodes .Count ; j++)

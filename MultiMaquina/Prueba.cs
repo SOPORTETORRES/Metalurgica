@@ -126,7 +126,7 @@ namespace Metalurgica.MultiMaquina
         private void HabilitaBotones_De_Bloqueo(int NroMaq)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             lSql = string.Concat(" SP_CRUD_BloqueosMaquinas  0,", NroMaq, ",0,0,'',0,3");
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
@@ -150,7 +150,7 @@ namespace Metalurgica.MultiMaquina
 
         private void HabilitaControlParaLectura(Boolean iHabilitado)
         {
-            string lIdUser = ""; Px_WS.Ws_ToSoapClient lPx = new Px_WS.Ws_ToSoapClient();
+            string lIdUser = ""; Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             
             //Mostramos el formulario para que se seleccione el usuario que realiza la produccion
             MultiMaquina.FrmVisualizar lFrm = new FrmVisualizar();
