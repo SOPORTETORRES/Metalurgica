@@ -45,6 +45,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.BTN_actualizarViaje = new System.Windows.Forms.Button();
             this.Lbl_titulo = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Camiones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,9 +59,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Dtg_Camiones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dtg_Camiones.Location = new System.Drawing.Point(322, 89);
+            this.Dtg_Camiones.Location = new System.Drawing.Point(322, 125);
             this.Dtg_Camiones.Name = "Dtg_Camiones";
-            this.Dtg_Camiones.Size = new System.Drawing.Size(644, 208);
+            this.Dtg_Camiones.Size = new System.Drawing.Size(725, 208);
             this.Dtg_Camiones.TabIndex = 0;
             this.Dtg_Camiones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Camiones_CellContentClick);
             // 
@@ -92,9 +94,9 @@
             this.Btn_INET.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Btn_INET.ImageKey = "Untitled (358).ico";
             this.Btn_INET.ImageList = this.imageList1;
-            this.Btn_INET.Location = new System.Drawing.Point(777, 6);
+            this.Btn_INET.Location = new System.Drawing.Point(777, -2);
             this.Btn_INET.Name = "Btn_INET";
-            this.Btn_INET.Size = new System.Drawing.Size(80, 57);
+            this.Btn_INET.Size = new System.Drawing.Size(80, 58);
             this.Btn_INET.TabIndex = 2;
             this.Btn_INET.Text = "Generar Guía INET";
             this.Btn_INET.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -114,11 +116,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TX_Estado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TX_Estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TX_Estado.Location = new System.Drawing.Point(322, 324);
+            this.TX_Estado.Location = new System.Drawing.Point(322, 359);
             this.TX_Estado.Multiline = true;
             this.TX_Estado.Name = "TX_Estado";
             this.TX_Estado.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TX_Estado.Size = new System.Drawing.Size(644, 220);
+            this.TX_Estado.Size = new System.Drawing.Size(725, 186);
             this.TX_Estado.TabIndex = 6;
             // 
             // label1
@@ -161,9 +163,9 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(334, 297);
+            this.label4.Location = new System.Drawing.Point(335, 333);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(609, 23);
+            this.label4.Size = new System.Drawing.Size(690, 23);
             this.label4.TabIndex = 10;
             this.label4.Text = "Detalle del proceso de integración con INET";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -173,7 +175,7 @@
             this.Btn_Imprimir.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Btn_Imprimir.ImageIndex = 4;
             this.Btn_Imprimir.ImageList = this.imageList1;
-            this.Btn_Imprimir.Location = new System.Drawing.Point(875, 6);
+            this.Btn_Imprimir.Location = new System.Drawing.Point(875, -1);
             this.Btn_Imprimir.Name = "Btn_Imprimir";
             this.Btn_Imprimir.Size = new System.Drawing.Size(81, 57);
             this.Btn_Imprimir.TabIndex = 11;
@@ -185,10 +187,12 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(319, 66);
+            this.label5.Location = new System.Drawing.Point(324, 96);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(609, 23);
+            this.label5.Size = new System.Drawing.Size(717, 23);
             this.label5.TabIndex = 12;
             this.label5.Text = "Despachos Pendientes de Integrar con INET";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,11 +219,33 @@
             this.Lbl_titulo.Text = "label6";
             this.Lbl_titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.LightGreen;
+            this.label6.Location = new System.Drawing.Point(764, 73);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Guías Facturables";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Yellow;
+            this.label7.Location = new System.Drawing.Point(872, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Guías Reposición";
+            // 
             // Frm_IntegracionINET
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 560);
+            this.ClientSize = new System.Drawing.Size(1059, 560);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.Lbl_titulo);
             this.Controls.Add(this.BTN_actualizarViaje);
             this.Controls.Add(this.label5);
@@ -261,5 +287,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button BTN_actualizarViaje;
         private System.Windows.Forms.Label Lbl_titulo;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

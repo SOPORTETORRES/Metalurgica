@@ -412,7 +412,8 @@ namespace Metalurgica.Maquinas
         //@IdUsuarioRegistra varchar(1) ,       //@Estado varchar(50),	                    //@Par1 varchar(10),
         //@Par2 varchar(10),                    //@Opcion int 
      string lRes = ""; DataTable lTbl = new DataTable(); int i = 0; DateTime lFechaSolucion; double  lMinutos = 0;
-     lRes = String.Concat(" Señores:  ", "  <br> ", "  <br> ");
+            DateTime lFechaAveria;
+            lRes = String.Concat(" Señores:  ", "  <br> ", "  <br> ");
      lRes = String.Concat(lRes," Se ha Solucionado una notificación de Averia", "  <br> ", "  <br> ");
      lRes = String.Concat(lRes," Datos de la Notificación de Averia: ", "  <br> ");
      lRes = String.Concat(lRes, " ID Averia          :", Tx_Id .Text, "  <br> ");
@@ -430,7 +431,8 @@ namespace Metalurgica.Maquinas
          if (lTbl.Rows[i]["Estado"].ToString().ToUpper().Equals("OP"))
          {
              lFechaSolucion = DateTime.Parse(lTbl.Rows[i]["FechaRegistro"].ToString());
-             lMinutos = (lFechaSolucion - Dtp_Fecha.Value).TotalHours  ;
+                    lFechaAveria = DateTime.Parse(lTbl.Rows[i]["FechaAveria"].ToString());
+                    lMinutos = (lFechaSolucion - lFechaAveria).TotalMinutes  ;
          }
      }
 
@@ -445,7 +447,7 @@ namespace Metalurgica.Maquinas
          if (lTbl.Rows[i]["Estado"].ToString().ToUpper().Equals("OP"))
          {
              lFechaSolucion = DateTime.Parse(lTbl.Rows[i]["FechaRegistro"].ToString());
-             lMinutos = (lFechaSolucion - Dtp_Fecha.Value).TotalHours;
+             lMinutos = (lFechaSolucion - Dtp_Fecha.Value).TotalMinutes;
          }
      }
 

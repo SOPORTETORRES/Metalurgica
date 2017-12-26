@@ -183,8 +183,8 @@ namespace Metalurgica
         private void CargaDetalleNodo(string iTextNodo, string iTipo, string iSucursal)
         {
             string[] split = iTextNodo.Split(new Char[] { '\\' });
-            string lFecha = ""; string lPatente = ""; string[] lPartes = null;
-             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();   DataSet lDts = new DataSet(); 
+            string lFecha = ""; string lPatente = ""; string[] lPartes = null; int i = 0;
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();   DataSet lDts = new DataSet(); 
 
             string lSql = "";
             Btn_INET.Enabled = false;
@@ -226,11 +226,33 @@ namespace Metalurgica
                Dtg_Camiones.Columns[3].Width = 250;
                Dtg_Camiones.Columns[4].Width = 80;
                Dtg_Camiones.Columns[5].Width = 60;
-           }
+
+                for (i = 0; i < Dtg_Camiones.RowCount; i++)
+                {
+                    PintaGrilla(i, Dtg_Camiones.Rows[i].Cells["TipoGuiaINET"].Value.ToString());
+                }
+            }
 
 
             Tx_Fecha.Text = lFecha;
             Tx_Patente.Text = lPatente;
+        }
+
+        private void PintaGrilla(int lIndexFila, string iTipo)
+        {
+            Color lColor = Color.Black;
+            if (iTipo.ToUpper().Equals("R"))
+                lColor = Color.Yellow;
+            else
+                lColor = Color.LightGreen;
+
+            int i = 0;
+
+            for (i = 1; i < 9; i++)
+            {
+                Dtg_Camiones.Rows[lIndexFila].Cells[i].Style.BackColor = lColor;
+            }
+
         }
 
         private void Btn_INET_Click(object sender, EventArgs e)
@@ -394,12 +416,16 @@ namespace Metalurgica
             {
                 for (i = 0; i < lTbl.Rows.Count; i++)
                 {
-                    lGuiaOC = new Tipo_GuiaOC();
-                    lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString ();
-                    lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
-                    lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
-                    lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
-                    lListaFinal.Add(lGuiaOC);
+                    if (lTbl.Rows[i]["OC"].ToString() != "0")
+                    {
+                        lGuiaOC = new Tipo_GuiaOC();
+                        lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString();
+                        lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
+                        lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
+                        lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
+                        lListaFinal.Add(lGuiaOC);
+                    }
+                    
                 }
             }
 
@@ -424,7 +450,7 @@ namespace Metalurgica
                         lDts = lDal.ObtenerDatos(lsql);
                         if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                         {
-                            if (lDts.Tables[0].Rows[0]["OC"].ToString().Equals (""))
+                            if (lDts.Tables[0].Rows[0]["OC"].ToString().Equals ("0"))
                             {
                                 lGuiaOC = new Tipo_GuiaOC();
                                 lGuiaOC.IdIt = lDts.Tables[0].Rows[0]["IDIT"].ToString();
@@ -452,7 +478,7 @@ namespace Metalurgica
                 lOC_Tmp = lListas[i].OC.ToString();
                 //for (j = 0; j < lListas.Count; j++)
                 //{
-                    if (lListas[j].OC.ToString().Trim().Length == 0)
+                    if (lListas[j].OC.ToString().Equals ("0"))
                     {
                         if (lOC_Tmp.IndexOf(lListas[j].OC.ToString()) > -1)
                         {

@@ -274,8 +274,9 @@ namespace Metalurgica.MultiMaquina
             this.Close();
         }
 
+        private void FrmAsignacionMaqUser_Load(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }

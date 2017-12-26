@@ -239,6 +239,7 @@
             this.Name = "FrmAsignacionMaqUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formulario de asignación de Usuarios y Maquinas";
+            this.Load += new System.EventHandler(this.FrmAsignacionMaqUser_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Maquinas)).EndInit();
             this.groupBox2.ResumeLayout(false);
