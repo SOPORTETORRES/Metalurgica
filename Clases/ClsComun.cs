@@ -33,6 +33,14 @@ namespace Metalurgica.Clases
 
         }
 
+        public string ObtenerParametroAppConfig( string iParam)
+        {
+
+            string miVariable = ConfigurationManager.AppSettings[iParam];
+            return miVariable;
+
+        }
+
         public string ObtenerLoginPorTarjeta()
         {
 

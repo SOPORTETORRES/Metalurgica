@@ -199,8 +199,16 @@ namespace Metalurgica.Controls
             }
             if (lMsg.Trim().Length > 1)
             {
-                txtEtiquetaPieza.Text = "";
-                MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (mIdNotificacion.ToString().Trim().Length == 0)
+                {
+                    txtEtiquetaPieza.Text = "";
+                    MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    lRes = true;
+                }
+               
             }
             //else
             //{
@@ -1363,22 +1371,28 @@ namespace Metalurgica.Controls
         {
             string lMsg = "";
             //1.-Revisamos en el archivo de configuracion si tiene habilitado la validacion de SMP
-           
-            if (mlValidarSolictud_MP.ToUpper().Equals("S"))
+            // 1.5.- Si la maquina esta con notificación de averias debe poder salir sin problemas
+
+            if (mIdNotificacion.ToString().Trim().Length == 0)
             {
-                //2.- Debemos chequear que cerro el turno
-                if (TurnoEstaCerrado() == false)
+                if (mlValidarSolictud_MP.ToUpper().Equals("S"))
                 {
-                    //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
-                    lMsg = string.Concat("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
-                    MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                    //2.- Debemos chequear que cerro el turno
+                    if (TurnoEstaCerrado() == false)
+                    {
+                        //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
+                        lMsg = string.Concat("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
+                        MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        //3.- Si cerro, sale de la aplicacion
+                        //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+                        BotonClick(this, e);
+                    }
                 }
                 else
-                {
-                    //3.- Si cerro, sale de la aplicacion
-                    //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
                     BotonClick(this, e);
-                }
             }
             else
                 BotonClick(this, e);

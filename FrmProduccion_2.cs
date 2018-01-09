@@ -29,6 +29,8 @@ namespace Metalurgica
             ctlProduccion1.HabilitaControl (true );
             ctlProduccion1.HabilitaOpcionSolicitudMaterial();
 
+            string lParam = new Clases.ClsComun().ObtenerParametroAppConfig("VersionProduccion");
+            this.Text = string.Concat(this.Text, "  Versión: ", lParam);
             //ctlInformacionUsuario1.CargaDatosUserLog(iUserLog);)
         }
 
