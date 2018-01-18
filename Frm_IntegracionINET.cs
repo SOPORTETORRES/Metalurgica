@@ -241,10 +241,16 @@ namespace Metalurgica
         private void PintaGrilla(int lIndexFila, string iTipo)
         {
             Color lColor = Color.Black;
+
+            
             if (iTipo.ToUpper().Equals("R"))
                 lColor = Color.Yellow;
-            else
+
+            if (iTipo.ToUpper().Equals("F"))
                 lColor = Color.LightGreen;
+
+            if (iTipo.ToUpper().Equals("FE"))
+                lColor = Color.LightSalmon ;
 
             int i = 0;
 
@@ -280,6 +286,7 @@ namespace Metalurgica
                     if (TotalKgs>0)   //(lDespachosCam.Length > 2)
                     {
                         //el objeto lListaOC entrega solo VIajes con un numero de OC, con lo cual las guias de reposición NO TENDRAN UNA OC
+                        // Los viajes con Nro de OC pueden tener codigo de guia 330 Facturable, 333 facturable FE en punta
                        lListaOC= ObtenerGuiasPorOC();
                        for (i = 0; i < lListaOC.Count; i++)
                        {
@@ -366,6 +373,7 @@ namespace Metalurgica
                             lGuiaOC.IdIt = lDts.Tables[0].Rows[0]["IDIT"].ToString();
                             lGuiaOC.OC  = lDts.Tables[0].Rows[0]["OC"].ToString();
                             lGuiaOC.Viajes  = lDts.Tables[0].Rows[0]["Codigo"].ToString();
+                            lGuiaOC .CodigoGuiaINET = lDts.Tables[0].Rows[0]["TipoGuia_INET"].ToString();
                             if (lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString().Trim ().Length >1)
                                     lGuiaOC.DespachosCamion = lDts.Tables[0].Rows[0]["idDespachosCamion"].ToString();
                             else
@@ -397,6 +405,7 @@ namespace Metalurgica
                                 lFila["OC"] = lListas[j].OC;
                                 lFila["Viajes"] = lListas[j].Viajes;
                                 lFila["DespachoCamion"] = lListas[j].DespachosCamion;
+                                lFila["TipoGuia_INET"] = lListas[j].CodigoGuiaINET;
                                 lTbl.Rows.Add(lFila);
                                 lListas[j].OC = "";
                             }
@@ -405,6 +414,7 @@ namespace Metalurgica
                                 lVista[0]["IdIt"] = string.Concat (lVista[0]["IdIt"] , ",",lListas[j].IdIt);
                                 lVista[0]["Viajes"] = string.Concat(lVista[0]["Viajes"], ",", lListas[j].Viajes );
                                 lVista[0]["DespachoCamion"] = string.Concat(lVista[0]["DespachoCamion"], ",", lListas[j].DespachosCamion);
+                                lVista[0]["TipoGuia_INET"] = string.Concat(lVista[0]["TipoGuia_INET"], ",", lListas[j].CodigoGuiaINET) ; 
                                 lListas[j].OC = "";
                             }
                         }
@@ -423,6 +433,7 @@ namespace Metalurgica
                         lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
                         lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
                         lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
+                        lGuiaOC.CodigoGuiaINET = lTbl.Rows[i]["TipoGuia_INET"].ToString();
                         lListaFinal.Add(lGuiaOC);
                     }
                     
@@ -527,6 +538,7 @@ namespace Metalurgica
             iTbl.Columns.Add("IdIT");
             iTbl.Columns.Add("Viajes");
             iTbl.Columns.Add("DespachoCamion");
+            iTbl.Columns.Add("TipoGuia_INET");
 
             return iTbl;        
         }

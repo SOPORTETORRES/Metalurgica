@@ -12,6 +12,7 @@ namespace Metalurgica.Models
         private string _Viajes = "";
         private string _IdIt = "";
         private string _DespachosCamion = "";
+        private string _CodigoGuiaINET = "";
 
         public string OC
         {
@@ -37,6 +38,14 @@ namespace Metalurgica.Models
             get { return _IdIt; }
             set { _IdIt = value; }
         }
+        public string CodigoGuiaINET
+        {
+            get { return _CodigoGuiaINET; }
+            set { _CodigoGuiaINET = value; }
+        }
 
+
+
+        
     }
 }
