@@ -228,7 +228,11 @@ namespace Metalurgica.Controls
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
 
             string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; string lCuerpoMsg = "";
-            listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(80, txtEtiquetaPieza.Text, "", "", "", "");
+            //80  verifica la sucursal por la it
+            //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(80, txtEtiquetaPieza.Text, "", "", "", "");
+
+            //93 verifica la sucursal por la Etiqueta
+            listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(93, txtEtiquetaPieza.Text, "", "", "", "");
             if (listaDataSet.MensajeError.Equals(""))
             {
                 if (listaDataSet.DataSet.Tables[0].Rows.Count > 0)

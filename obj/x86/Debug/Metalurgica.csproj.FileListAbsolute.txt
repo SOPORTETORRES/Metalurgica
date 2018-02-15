@@ -97,3 +97,4 @@ D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\D
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.SolicitudMP.FrmDevolucionMP.resources
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_PesajeCamion.resources
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\ExceptionUtility2.dll
+D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Produccion.CargaEstadisticasMaq.resources

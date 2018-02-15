@@ -292,7 +292,7 @@ namespace Metalurgica
                        {
                            lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
                            lViajes = lListaOC[i].Viajes ;  //lViajes.Substring(0, lViajes.Length - 1);
-                           lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes);
+                           lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes, lListaOC[i].CodigoGuiaINET);
                            lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
                            string[] lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
                            for (j = 0; j < lPartes.Length; j++)
@@ -428,13 +428,62 @@ namespace Metalurgica
                 {
                     if (lTbl.Rows[i]["OC"].ToString() != "0")
                     {
-                        lGuiaOC = new Tipo_GuiaOC();
-                        lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString();
-                        lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
-                        lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
-                        lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
-                        lGuiaOC.CodigoGuiaINET = lTbl.Rows[i]["TipoGuia_INET"].ToString();
-                        lListaFinal.Add(lGuiaOC);
+                        Tipo_GuiaOC lGuiaOC_F = new Tipo_GuiaOC(); Tipo_GuiaOC lGuiaOC_FE = new Tipo_GuiaOC();
+                        string[] lPartesIdIT = (lTbl.Rows[i]["IdIT"].ToString().Split(new Char[] { ',' }));
+                        string[] lPartesViaje = (lTbl.Rows[i]["Viajes"].ToString().Split(new Char[] { ',' }));
+                        string[] lPartes_DC = (lTbl.Rows[i]["DespachoCamion"].ToString().Split(new Char[] { ',' }));
+                        string[] lPartes = (lTbl.Rows[i]["TipoGuia_INET"].ToString().Split(new Char[] { ',' }));
+                        for (j = 0; j < lPartes.Length ; j++)
+                        {
+                            if (lPartes[j].ToUpper().Equals("F"))
+                            {
+                                lGuiaOC_F.OC = lTbl.Rows[i]["OC"].ToString();
+                                lGuiaOC_F.IdIt  = string.Concat (lPartesIdIT[j].ToString (), ",", lGuiaOC_F.IdIt);
+                                lGuiaOC_F.Viajes  = string.Concat(lPartesViaje[j].ToString(), ",", lGuiaOC_F.Viajes);
+                                lGuiaOC_F.DespachosCamion = string.Concat(lPartes_DC[j].ToString(), ",", lGuiaOC_F.DespachosCamion);
+                                lGuiaOC_F.CodigoGuiaINET = string.Concat(lPartes [j].ToString(), ",", lGuiaOC_F.CodigoGuiaINET);
+                            }
+
+                            if (lPartes[j].ToUpper().Equals("FE"))
+                            {
+                                lGuiaOC_FE.OC = lTbl.Rows[i]["OC"].ToString();
+                                lGuiaOC_FE.IdIt = string.Concat(lPartesIdIT[j].ToString(),",", lGuiaOC_F.IdIt);
+                                lGuiaOC_FE.Viajes = string.Concat(lPartesViaje[j].ToString(), ",", lGuiaOC_F.Viajes);
+                                lGuiaOC_FE.DespachosCamion = string.Concat(lPartes_DC[j].ToString(), ",", lGuiaOC_F.DespachosCamion);
+                                lGuiaOC_FE.CodigoGuiaINET = string.Concat(lPartes[j].ToString(), ",", lGuiaOC_F.CodigoGuiaINET);
+                            }
+
+                        }
+
+                        if (lGuiaOC_F.OC.Trim().Length > 0)
+                        {
+                            lGuiaOC = new Tipo_GuiaOC();
+                            lGuiaOC.IdIt = lGuiaOC_F.IdIt.ToString ().Substring (0, lGuiaOC_F.IdIt.Length -1);
+                            lGuiaOC.OC = lGuiaOC_F.OC.ToString().Substring(0, lGuiaOC_F.OC.Length - 1);
+                            lGuiaOC.Viajes = lGuiaOC_F.Viajes.ToString().Substring(0, lGuiaOC_F.Viajes.Length - 1);
+                            lGuiaOC.DespachosCamion = lGuiaOC_F.DespachosCamion.ToString().Substring(0, lGuiaOC_F.DespachosCamion.Length - 1);
+                            lGuiaOC.CodigoGuiaINET = lGuiaOC_F.CodigoGuiaINET.ToString().Substring(0, lGuiaOC_F.CodigoGuiaINET.Length - 1);
+                            lListaFinal.Add(lGuiaOC);
+                        }
+                        if (lGuiaOC_FE.OC.Trim().Length > 0)
+                        {
+                            lGuiaOC = new Tipo_GuiaOC();
+                            lGuiaOC.IdIt = lGuiaOC_FE.IdIt.ToString().Substring(0, lGuiaOC_FE.IdIt.Length - 1);
+                            lGuiaOC.OC = lGuiaOC_FE.OC.ToString().Substring(0, lGuiaOC_FE.OC.Length - 1);
+                            lGuiaOC.Viajes = lGuiaOC_FE.Viajes.ToString().Substring(0, lGuiaOC_FE.Viajes.Length - 1);
+                            lGuiaOC.DespachosCamion = lGuiaOC_FE.DespachosCamion.ToString().Substring(0, lGuiaOC_FE.DespachosCamion.Length - 1);
+                            lGuiaOC.CodigoGuiaINET = lGuiaOC_FE.CodigoGuiaINET.ToString().Substring(0, lGuiaOC_FE.CodigoGuiaINET.Length - 1);
+                            lListaFinal.Add(lGuiaOC);
+                        }
+
+
+                        //lGuiaOC = new Tipo_GuiaOC();
+                        //lGuiaOC.IdIt = lTbl.Rows[i]["IdIt"].ToString();
+                        //lGuiaOC.OC = lTbl.Rows[i]["OC"].ToString();
+                        //lGuiaOC.Viajes = lTbl.Rows[i]["Viajes"].ToString();
+                        //lGuiaOC.DespachosCamion = lTbl.Rows[i]["DespachoCamion"].ToString();
+                        //lGuiaOC.CodigoGuiaINET = lTbl.Rows[i]["TipoGuia_INET"].ToString();
+                        //lListaFinal.Add(lGuiaOC);
                     }
                     
                 }
@@ -1268,7 +1317,7 @@ namespace Metalurgica
     }
 
 
-         private Integracion_INET.Tipo_InvocaWS InvocaWS_INET(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes)
+         private Integracion_INET.Tipo_InvocaWS InvocaWS_INET(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes, string lTipoGuiaINET)
         {
             
             Tipo_InvocaWS  lResultado = new Tipo_InvocaWS ();
@@ -1293,7 +1342,7 @@ namespace Metalurgica
              if (mEmpresa .ToUpper ().Equals ("TOSOL"))
                  return lIntegra.InvocaWS_INET_TOSOL(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
              else
-                return lIntegra.InvocaWS_INET(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes);
+                return lIntegra.InvocaWS_INET(ref TX_Estado, IdObra, mSucursal, lDespachosCam, lViajes, lTipoGuiaINET);
 
        
         }

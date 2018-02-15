@@ -307,12 +307,15 @@ namespace Metalurgica
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string lSucursal = ""; string lPar = "SG-295/1|15|Stgo|60";
-            Registry registry = new Registry();
-            lSucursal = (string)registry.GetValue(Program.regeditKeyName, "Sucursal", "");
-            //lPar = string.Concat(Lbl_Viajes.Text, "|", lIdObra, "|", lSucursal, "|", idDespacho);
-            Clases.ClsComun lLog = new Clases.ClsComun();
-            lLog.EjecutaShell(Application.StartupPath, lPar);
+            //string lSucursal = ""; string lPar = "SG-295/1|15|Stgo|60";
+            //Registry registry = new Registry();
+            //lSucursal = (string)registry.GetValue(Program.regeditKeyName, "Sucursal", "");
+            ////lPar = string.Concat(Lbl_Viajes.Text, "|", lIdObra, "|", lSucursal, "|", idDespacho);
+            //Clases.ClsComun lLog = new Clases.ClsComun();
+            //lLog.EjecutaShell(Application.StartupPath, lPar);
+            Produccion.CargaEstadisticasMaq lfr = new Produccion.CargaEstadisticasMaq();
+            lfr.Show();
+
         }
     }
 }
