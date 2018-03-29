@@ -562,6 +562,7 @@
             this.Btn_ImportarRomana.TabIndex = 13;
             this.Btn_ImportarRomana.Text = "Importar Datos Romana";
             this.Btn_ImportarRomana.UseVisualStyleBackColor = true;
+            this.Btn_ImportarRomana.Visible = false;
             this.Btn_ImportarRomana.Click += new System.EventHandler(this.Btn_ImportarRomana_Click);
             // 
             // Btn_IngPeso

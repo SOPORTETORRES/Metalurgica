@@ -121,7 +121,7 @@
             this.Btn_Maquina7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Maquina7.Location = new System.Drawing.Point(440, 58);
             this.Btn_Maquina7.Name = "Btn_Maquina7";
-            this.Btn_Maquina7.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina7.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina7.TabIndex = 22;
             this.Btn_Maquina7.Text = "Maquina 7";
             this.Btn_Maquina7.UseVisualStyleBackColor = true;
@@ -181,9 +181,9 @@
             // Btn_Maquina6
             // 
             this.Btn_Maquina6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Maquina6.Location = new System.Drawing.Point(216, 55);
+            this.Btn_Maquina6.Location = new System.Drawing.Point(216, 57);
             this.Btn_Maquina6.Name = "Btn_Maquina6";
-            this.Btn_Maquina6.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina6.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina6.TabIndex = 11;
             this.Btn_Maquina6.Text = "Maquina 6";
             this.Btn_Maquina6.UseVisualStyleBackColor = true;
@@ -221,7 +221,7 @@
             this.Btn_Maquina5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Maquina5.Location = new System.Drawing.Point(5, 58);
             this.Btn_Maquina5.Name = "Btn_Maquina5";
-            this.Btn_Maquina5.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina5.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina5.TabIndex = 10;
             this.Btn_Maquina5.Text = "Maquina 5";
             this.Btn_Maquina5.UseVisualStyleBackColor = true;
@@ -233,7 +233,7 @@
             this.Btn_Maquina4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Maquina4.Location = new System.Drawing.Point(656, 7);
             this.Btn_Maquina4.Name = "Btn_Maquina4";
-            this.Btn_Maquina4.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina4.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina4.TabIndex = 9;
             this.Btn_Maquina4.Text = "Maquina 4";
             this.Btn_Maquina4.UseVisualStyleBackColor = true;
@@ -245,7 +245,7 @@
             this.Btn_Maquina3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Maquina3.Location = new System.Drawing.Point(440, 7);
             this.Btn_Maquina3.Name = "Btn_Maquina3";
-            this.Btn_Maquina3.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina3.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina3.TabIndex = 8;
             this.Btn_Maquina3.Text = "Maquina 3";
             this.Btn_Maquina3.UseVisualStyleBackColor = true;
@@ -257,7 +257,7 @@
             this.Btn_Maquina2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Maquina2.Location = new System.Drawing.Point(216, 7);
             this.Btn_Maquina2.Name = "Btn_Maquina2";
-            this.Btn_Maquina2.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina2.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina2.TabIndex = 7;
             this.Btn_Maquina2.Text = "Maquina 2";
             this.Btn_Maquina2.UseVisualStyleBackColor = true;
@@ -267,9 +267,9 @@
             // Btn_Maquina1
             // 
             this.Btn_Maquina1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Maquina1.Location = new System.Drawing.Point(4, 4);
+            this.Btn_Maquina1.Location = new System.Drawing.Point(4, 7);
             this.Btn_Maquina1.Name = "Btn_Maquina1";
-            this.Btn_Maquina1.Size = new System.Drawing.Size(172, 46);
+            this.Btn_Maquina1.Size = new System.Drawing.Size(172, 50);
             this.Btn_Maquina1.TabIndex = 6;
             this.Btn_Maquina1.Text = "Maquina 1";
             this.Btn_Maquina1.UseVisualStyleBackColor = true;

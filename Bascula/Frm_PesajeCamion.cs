@@ -55,7 +55,7 @@ namespace Metalurgica.Bascula
 
         private string ObtenerPesoBruto()
         {
-            string lRes = ""; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
+            string lRes = "0"; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
             DataTable lTbl = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun();
             string lFecha = DateTime.Now.ToShortDateString(); int lPesoTara = int.Parse(Tx_Tara.Text);
 
@@ -82,12 +82,13 @@ namespace Metalurgica.Bascula
             }
             else
             {
-
-                lTbl = lDAL.CargaTablaRomana(lTipoSql.ObtenerSqlTara(Tx_Patente.Text, lFecha));
+                lSql = lTipoSql.ObtenerSqlTara(Tx_Patente.Text, lFecha);
+                Tx_sql.Text = lSql;
+                lTbl = lDAL.CargaTablaRomana(lSql);
 
                 if (lTbl.Rows.Count > 0)
                 {
-                    lRes = lTbl.Rows[0]["PesoTara"].ToString();
+                    lRes = lTbl.Rows[0]["PesoBruto"].ToString();
 
                 }
             }

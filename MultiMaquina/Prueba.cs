@@ -12,6 +12,8 @@ namespace Metalurgica.MultiMaquina
     public partial class Prueba : Form
     {
         private CurrentUser mUserLog = new CurrentUser();
+        private string mIdMaqSel = "";
+        private string mNombre_MaqSel = "";
         public Prueba()
         {
             InitializeComponent();
@@ -49,9 +51,12 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina1.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina1.Visible = true;Btn_Maquina1.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina1.BackColor = Color.LightSalmon;
-                        else
+                            Btn_Maquina1.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA  ");
+                        }
+                            else
                             Btn_Maquina1.BackColor = Color.LightGreen ;
 
                         break;
@@ -59,8 +64,12 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina2.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina2.Visible = true;Btn_Maquina2.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina2.BackColor = Color.LightSalmon;
+                            Btn_Maquina2.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA   ");
+                        }
+                            
                         else
                             Btn_Maquina2.BackColor = Color.LightGreen;
 
@@ -69,8 +78,12 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina3.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina3.Visible = true;Btn_Maquina3.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();;
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina3.BackColor = Color.LightSalmon;
+                            Btn_Maquina3.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA   ");
+                        }
+                           
                         else
                             Btn_Maquina3.BackColor = Color.LightGreen;
 
@@ -79,8 +92,11 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina4.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina4.Visible = true;Btn_Maquina4.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina4.BackColor = Color.LightSalmon;
+                            Btn_Maquina4.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA  ");
+                        }
                         else
                             Btn_Maquina4.BackColor = Color.LightGreen;
 
@@ -89,8 +105,11 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina5.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina5.Visible = true;Btn_Maquina5.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina5.BackColor = Color.LightSalmon;
+                            Btn_Maquina5.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA   ");
+                        }
                         else
                             Btn_Maquina5.BackColor = Color.LightGreen;
 
@@ -99,8 +118,11 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina6.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina6.Visible = true;Btn_Maquina6.Tag =lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina6.BackColor = Color.LightSalmon;
+                            Btn_Maquina6.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA   ");
+                        }
                         else
                             Btn_Maquina6.BackColor = Color.LightGreen;
 
@@ -109,8 +131,11 @@ namespace Metalurgica.MultiMaquina
                         Btn_Maquina7.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
                         Btn_Maquina7.Visible = true; Btn_Maquina7.Tag = lTbl.Rows[i]["MAQ_NRO"].ToString();
 
-                        if (lTbl.Rows[i]["MAQ_NOMBRE"].ToString().ToUpper().Equals("B"))
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
                             Btn_Maquina7.BackColor = Color.LightSalmon;
+                            Btn_Maquina7.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " -  BLOQUEADA   ");
+                        }
                         else
                             Btn_Maquina7.BackColor = Color.LightGreen;
 
@@ -165,6 +190,8 @@ namespace Metalurgica.MultiMaquina
                 mUserLog.IdMaquina = int.Parse(Btn_MaquinaActiva.Tag.ToString());
                 ctlProduccion1.CargaUsuarioActual(mUserLog);
                 ctlProduccion1.HabilitaControl(iHabilitado);
+                ctlProduccion1.CargaUsuarioActual(mUserLog);
+                ctlProduccion1.CargaMaqActual (mIdMaqSel ,mNombre_MaqSel );
                 Lbl_Mensaje.Text = " Ahora puede Registrar la Producción, para esto lea el código de Barras de Etiquetas";
                 ctlProduccion1.VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
                 ctlProduccion1.EstablecerFocoEtiqueta();
@@ -196,44 +223,105 @@ namespace Metalurgica.MultiMaquina
 
         private void Btn_Maquina1_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat (Btn_Maquina1.Text, " - " , Btn_Maquina1.Tag.ToString  ())   ;
-            Btn_MaquinaActiva.Tag = Btn_Maquina1.Tag;
-            HabilitaControlParaLectura(true );
+            if (Btn_Maquina1.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show( "La Máquina Seleccionada se encuentra Bloqueda por  Averia.  No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina1.Text, " - ", Btn_Maquina1.Tag.ToString());
+                mIdMaqSel = Btn_Maquina1.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina1.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina1.Tag;
+                HabilitaControlParaLectura(true);
+            }
+            
         }
 
         private void Btn_Maquina2_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina2.Text, " - ", Btn_Maquina2.Tag.ToString());
-            Btn_MaquinaActiva.Tag = Btn_Maquina2.Tag;
-            HabilitaControlParaLectura(true);
+            if (Btn_Maquina2.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show("La Máquina Seleccionada se encuentra Bloqueda por  Averia . No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina2.Text, " - ", Btn_Maquina2.Tag.ToString());
+                mIdMaqSel = Btn_Maquina2.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina2.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina2.Tag;
+                HabilitaControlParaLectura(true);
+            }
         }
 
         private void Btn_Maquina3_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina3.Text, " - ", Btn_Maquina3.Tag.ToString());
-            Btn_MaquinaActiva.Tag = Btn_Maquina3.Tag;
-            HabilitaControlParaLectura(true);
+            if (Btn_Maquina3.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show("La Máquina Seleccionada se encuentra Bloqueda por  Averia . No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina3.Text, " - ", Btn_Maquina3.Tag.ToString());
+                mIdMaqSel = Btn_Maquina3.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina3.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina3.Tag;
+                HabilitaControlParaLectura(true);
+            }
         }
 
         private void Btn_Maquina4_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina4.Text, " - ", Btn_Maquina4.Tag.ToString());
-            Btn_MaquinaActiva.Tag = Btn_Maquina4.Tag;
-            HabilitaControlParaLectura(true);
+            if (Btn_Maquina4.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show("La Máquina Seleccionada se encuentra Bloqueda por  Averia . No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina4.Text, " - ", Btn_Maquina4.Tag.ToString());
+                mIdMaqSel = Btn_Maquina4.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina4.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina4.Tag;
+                HabilitaControlParaLectura(true);
+            }
         }
 
         private void Btn_Maquina5_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina5.Text, " - ", Btn_Maquina5.Tag.ToString());
-            Btn_MaquinaActiva.Tag = Btn_Maquina5.Tag;
-            HabilitaControlParaLectura(true);
+            if (Btn_Maquina5.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show("La Máquina Seleccionada se encuentra Bloqueda por  Averia . No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina5.Text, " - ", Btn_Maquina5.Tag.ToString());
+                mIdMaqSel = Btn_Maquina5.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina5.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina5.Tag;
+                HabilitaControlParaLectura(true);
+            }
         }
 
         private void Btn_Maquina6_Click(object sender, EventArgs e)
         {
-            Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina6.Text, " - ", Btn_Maquina6.Tag.ToString());
-            Btn_MaquinaActiva.Tag = Btn_Maquina6.Tag;
-            HabilitaControlParaLectura(true);
+            if (Btn_Maquina6.BackColor == Color.LightSalmon)
+            {
+                MessageBox.Show("La Máquina Seleccionada se encuentra Bloqueda por  Averia . No se puede Registrar la Producción. ");
+            }
+
+            else
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina6.Text, " - ", Btn_Maquina6.Tag.ToString());
+                mIdMaqSel = Btn_Maquina6.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina6.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina6.Tag;
+                HabilitaControlParaLectura(true);
+            }
         }
 
         private void Btn_Asignar_Click(object sender, EventArgs e)

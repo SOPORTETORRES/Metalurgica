@@ -191,6 +191,11 @@ namespace Metalurgica
                     if (lMultiMaq.ToUpper().Equals("S"))
                     {
                         MultiMaquina.Prueba lFrm = new MultiMaquina.Prueba();
+                        iUserLog.IdMaquina = 0;
+                        iUserLog.IdTotem   = 0;                        iUserLog.Iduser = "";
+                        iUserLog.PerfilUsuario = "";                        iUserLog.Name = "";
+                        iUserLog.Login  = ""; iUserLog.DescripcionMaq = "";
+
                         lFrm.IniciaFormulario(iUserLog);
                         lFrm.ShowDialog();
                     }

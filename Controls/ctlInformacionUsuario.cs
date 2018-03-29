@@ -30,13 +30,24 @@ namespace Metalurgica
         public void CargaDatosUserLog(CurrentUser iUser)
         {
             mUserlog = iUser;
+            lblLogin.Text = mUserlog.Login;
+            lblUsuario.Text = mUserlog.Name;
+            lblComputador.Text = mUserlog.ComputerName;
+            lblFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+            LblMaq.Text = mUserlog.DescripcionMaq;
+            LblIdTotem.Text = mUserlog.IdTotem.ToString();
+            lblUsuario.Text = mUserlog.Name;
             //lblLogin.Text = iUser.Login;
             //lblUsuario.Text = iUser.Name;
             //lblComputador.Text = iUser.ComputerName;
             //lblFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");    
-       
+                         }
 
-
+        public void CargaDatosMaq(string iIdMaq, string iNomreMaq)
+        {
+            //mUserlog = iUser;
+            LblMaq.Text = iNomreMaq; 
         }
 
         private void timer1_Tick(object sender, EventArgs e)

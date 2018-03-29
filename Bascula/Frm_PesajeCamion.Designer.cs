@@ -59,6 +59,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
+            this.Tx_sql = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Tx_sql);
             this.groupBox1.Controls.Add(this.Tx_DiferenciaKilos);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.Tx_KgsCargados);
@@ -392,6 +394,13 @@
             this.Btn_Salir.UseVisualStyleBackColor = true;
             this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
+            // Tx_sql
+            // 
+            this.Tx_sql.Location = new System.Drawing.Point(356, 388);
+            this.Tx_sql.Name = "Tx_sql";
+            this.Tx_sql.Size = new System.Drawing.Size(175, 23);
+            this.Tx_sql.TabIndex = 28;
+            // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -445,5 +454,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox Tx_DiferenciaKilos;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox Tx_sql;
     }
 }

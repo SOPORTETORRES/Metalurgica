@@ -23,6 +23,7 @@ namespace Metalurgica
         private string mIdsViajes = "";
         private string mPiezasError = "";
         private string mSoloCamionesBascula = "";
+        private bool mPrimeraVez = true;
 
         public frmDespachoCamion()
         {
@@ -45,8 +46,10 @@ namespace Metalurgica
                 {
                     if (listaDataSet.DataSet.Tables.Count > 0)
                     {
+                        mPrimeraVez = true;
                         lTbl = listaDataSet.DataSet.Tables[0].Copy();
                         new Forms().comboBoxFill(Cmb_Patentes, lTbl, "patente", "patente", 0);
+                        mPrimeraVez = false;
                     }
                 }
                 else
@@ -55,8 +58,8 @@ namespace Metalurgica
                 }
                 txtPatente.Visible = false;
                 Cmb_Patentes.Visible = true;
-                btnHlpCamion.Visible = false;
-                btnCrudCamion.Visible = false;
+                btnHlpCamion.Visible = true;
+                btnCrudCamion.Visible = true;
             }
             else
             {
@@ -139,8 +142,18 @@ namespace Metalurgica
             {
                 if (txtPatente.Text.Trim().Equals(""))
                     sb.Append("- Camión\n");
+
+                
             }
-            
+            else
+            {
+                if (ValidaPatente(Cmb_Patentes .SelectedValue .ToString ()) == false)
+                {
+                    sb.Append("- Camión\n");
+                }
+
+            }
+
             //if (!txtBodegaAcopio.Text.Trim().Equals("") && !new CommonLibrary2.Information().isNumber(txtBodegaAcopio.Text))
             //    sb.Append("- Bodega Acopio (valor numérico)\n");
             if (dgvEtiquetasPiezas.Rows.Count == 0)
@@ -413,7 +426,7 @@ namespace Metalurgica
                     try
                     {
                         lTblPaq = (DataTable)dgvEtiquetasPiezas.DataSource;
-                        lVista = new DataView(lTblPaq, string.Concat("Etiqueta_Pieza=", iEtiquetaPieza), "", DataViewRowState.CurrentRows);
+                            lVista = new DataView(lTblPaq, string.Concat("Etiqueta_Pieza=", iEtiquetaPieza), "", DataViewRowState.CurrentRows);
                         if (lVista.Count > 0)
                         {
                             //0000047: Envío de mail, cuando se despacha una pieza que no ha sido producida
@@ -784,25 +797,31 @@ namespace Metalurgica
                 {
                     lblTransportista.Text = ".";
 
-                    WsCrud.CrudSoapClient wsCrud = new WsCrud.CrudSoapClient();
-                    WsCrud.Camion camion = new WsCrud.Camion();
-
-                    camion = wsCrud.ObtenerCamion(txtPatente.Text); //Patente
-                    if (camion.MensajeError.Equals(""))
+                    if (ValidaPatente(txtPatente.Text) == false)
                     {
-                        if (camion.Activo.Equals("S"))
-                            lblTransportista.Text = camion.Transportista;
-                        else
-                        {
-                            MessageBox.Show("El camión '" + txtPatente.Text + "' no existe o esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            e.Cancel = true;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show(camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         e.Cancel = true;
                     }
+                       
+                    
+                    //WsCrud.CrudSoapClient wsCrud = new WsCrud.CrudSoapClient();
+                    //WsCrud.Camion camion = new WsCrud.Camion();
+
+                        //camion = wsCrud.ObtenerCamion(txtPatente.Text); //Patente
+                        //if (camion.MensajeError.Equals(""))
+                        //{
+                        //    if (camion.Activo.Equals("S"))
+                        //        lblTransportista.Text = camion.Transportista;
+                        //    else
+                        //    {
+                        //        MessageBox.Show("El camión '" + txtPatente.Text + "' no existe o esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //        e.Cancel = true;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show(camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    e.Cancel = true;
+                        //}
                 }
                 catch (Exception exc)
                 {
@@ -844,6 +863,32 @@ namespace Metalurgica
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private bool ValidaPatente(string iPatente)
+        {
+            WsCrud.CrudSoapClient wsCrud = new WsCrud.CrudSoapClient();
+            WsCrud.Camion camion = new WsCrud.Camion();
+            bool lRes = true;
+            camion = wsCrud.ObtenerCamion(iPatente); //Patente
+            if (camion.MensajeError.Equals(""))
+            {
+                if (camion.Activo.Equals("S"))
+                    lblTransportista.Text = camion.Transportista;
+                else
+                {
+                    MessageBox.Show("El camión '" + iPatente + "' no existe o esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lRes=false ;
+                }
+            }
+            else
+            {
+                MessageBox.Show(camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lRes=false ;
+            }
+
+
+            return lRes;
         }
 
         private DataTable CargaTablaObras( )
@@ -1616,6 +1661,31 @@ namespace Metalurgica
                     //new Forms().comboBoxFill(cboObraDestino, listaDataSet.DataSet.Tables[0], "Id", "Obra", 0);
                     new Forms().comboBoxFill(cboObraDestino, lTbl, "Id", "Obra", 0);
                 }
+            }
+        }
+
+        private void Cmb_Patentes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!Cmb_Patentes.SelectedValue.ToString ().Trim().Equals(""))
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    lblTransportista.Text = ".";
+                    if (mPrimeraVez == false)
+                    {
+                        if (ValidaPatente(Cmb_Patentes.SelectedValue.ToString()) == false)
+                        {
+                            Cmb_Patentes.Focus();
+                        }
+                    }
+
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Cursor.Current = Cursors.Default;
             }
         }
     }

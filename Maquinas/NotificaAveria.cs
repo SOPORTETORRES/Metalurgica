@@ -305,6 +305,11 @@ namespace Metalurgica.Maquinas
             bool lRes = true; string lMsg = "";
             if (iTipo == "NA")
             {
+                if ((Rb_Operativa.Checked == false) && (Rb_Detenida.Checked == false))
+                {
+                    lMsg = string.Concat(lMsg, " Debe indicar el estado de la Notificación  (Operativa o Detenida)", Environment.NewLine);
+                    lRes = false;
+                }
                 if (Tx_TextoAveria.Text.Trim().Length < 3)
                 {
                     lMsg = string.Concat("Debe Ingresar  más de 3 caracteres en el campo Motivo Averia", Environment.NewLine);
@@ -738,7 +743,7 @@ namespace Metalurgica.Maquinas
                     lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
                     //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                     lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria);
-                    lTitulo = "NOtificación por Notificación de Averias: ";
+                    lTitulo = "Notificación por Notificación de Averias: ";
                     lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
                     if (lRes.ToUpper().Equals("OK"))
                     {

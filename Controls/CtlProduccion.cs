@@ -1149,6 +1149,15 @@ namespace Metalurgica.Controls
             ctlInformacionUsuario1.CargaDatosUserLog(iUsuarioActual);  
         }
 
+        public void CargaMaqActual(string iIdMaq, string iNomreMaq)
+        {
+            mMaquinaActiva = iIdMaq;
+            mUserLog.IdMaquina = int.Parse (iIdMaq);
+            mUserLog.DescripcionMaq = iNomreMaq;
+
+            ctlInformacionUsuario1.CargaDatosMaq(iIdMaq, iNomreMaq);
+        }
+
         #endregion
 
         private void txtEtiquetaColada_Leave(object sender, EventArgs e)
@@ -1359,9 +1368,14 @@ namespace Metalurgica.Controls
         private void Btn_NotificacionAveria_Click(object sender, EventArgs e)
         {
             Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
-            lFrm.IniciaForm(mUserLog);
-            lFrm.ShowDialog();
-            VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+            //mUserLog.DescripcionMaq = mMaquinaActiva;
+            if (MessageBox.Show(string.Concat ("¿Esta seguro que desea reportar una Averia para la Máquina ",mUserLog .DescripcionMaq .ToUpper() ," "),"Avisos sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                    lFrm.IniciaForm(mUserLog);
+                    lFrm.ShowDialog();
+                    VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+            }
+           
         }
 
         private void TlbVer_Click(object sender, EventArgs e)

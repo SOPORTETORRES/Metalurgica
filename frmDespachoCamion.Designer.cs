@@ -662,6 +662,7 @@
             this.Cmb_Patentes.Name = "Cmb_Patentes";
             this.Cmb_Patentes.Size = new System.Drawing.Size(100, 21);
             this.Cmb_Patentes.TabIndex = 11;
+            this.Cmb_Patentes.SelectedIndexChanged += new System.EventHandler(this.Cmb_Patentes_SelectedIndexChanged);
             // 
             // lblTransportista
             // 
