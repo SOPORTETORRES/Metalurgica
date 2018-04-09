@@ -166,6 +166,10 @@ namespace Metalurgica
             string mensaje = validarControlesRequeridos(); string lEtiColada="";
             string lIdObra = ""; int idDespacho = 0;
             string lOpcionUSer = ""; string lEstado = "";
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
+            WsOperacion.Despacho_Camion lDespachoCamion = new WsOperacion.Despacho_Camion();
+
             //Integracion_INET.Cls_LN lLogInet = new Integracion_INET.Cls_LN();
             //Integracion_INET.Tipo_InvocaWS lResWS = new Integracion_INET.Tipo_InvocaWS();
 
@@ -184,9 +188,8 @@ namespace Metalurgica
                     Cursor.Current = Cursors.WaitCursor;
                     try
                     {
-                        WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-                        WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
-                        WsOperacion.Despacho_Camion lDespachoCamion = new WsOperacion.Despacho_Camion();
+                       
+                        
 
 
                         despacho_Camion.Id = 0; lDespachoCamion.Id = 0;
@@ -262,6 +265,11 @@ namespace Metalurgica
             }
             else
                 MessageBox.Show(" No se realizara la grabación de los datos ya que se Selecciono CANCELAR en el Resumen Despacho:\n\n" , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            //Invocamos el metodo que revisa los bloqueos
+            wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
+
         }
 
 

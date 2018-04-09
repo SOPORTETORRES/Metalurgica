@@ -16,7 +16,9 @@ namespace Metalurgica.Maquinas
         private string mIdMaquina = "";
         private string mTipoNotificacion = "";
         private string mIdMecanico = "";
-       
+        private string mTipoAveria = "";
+        private Clases.Obj.Obj_ElementoProd mObjEP = new Clases.Obj.Obj_ElementoProd();
+
 
         public NotificaAveria()
         {
@@ -300,6 +302,81 @@ namespace Metalurgica.Maquinas
 
         }
 
+        private void VerFormulario(string iTipo)
+        {
+            if (iTipo.ToUpper().Equals("EP"))
+            {
+                Rb_cambioRollo.Enabled = false;
+                Rb_Operativa.Text = " Elemento de Producción Queda Operativo";
+                Rb_Detenida.Text = " Elemento de Producción Queda Detenido";
+            }
+            else
+            {
+
+            }
+        }
+
+        private void CargaCmb_ElementosProd(string iIdElemento)
+        {
+            string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            DataTable lTblOperario = new DataTable(); DataView lVista = null;
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+
+
+            switch (lEmpresa.ToUpper())
+            {
+                case "TO":   //Cambio de rollo
+                    lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  'Produccion','TO','','','',1");
+                    break;
+                case "TOSOL":      // 
+                    lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  'Produccion','TOSOL','','','',1");
+                    break;
+            }
+
+
+
+            lDts = lPx.ObtenerDatos(lSql);
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTblOperario = lDts.Tables[0].Copy();
+                CmbOperador.DisplayMember = "Usuario";
+                CmbOperador.ValueMember = "Id";
+                CmbOperador.DataSource = lTblOperario;
+                if (lCom.Val(mUserLog.Iduser) > 0)
+                {
+                    CmbOperador.SelectedValue = mUserLog.Iduser;
+                    lVista = new DataView(lTblOperario, string.Concat("Id=", mUserLog.Iduser), "", DataViewRowState.CurrentRows);
+                    if (lVista.Count > 0)
+                        CmbOperador.Enabled = false;
+                    else
+                        CmbOperador.Enabled = true;
+                }
+            }
+
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+
+            lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  '", lIdSucursal,"','','','','',4");
+            lDts = lPx.ObtenerDatos(lSql);
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                CmbMaquinaAveria.DisplayMember = "Par1";
+                CmbMaquinaAveria.ValueMember = "Id";
+                CmbMaquinaAveria.DataSource = lDts.Tables[0].Copy();
+                if (lCom.Val(iIdElemento) > 0)
+                {
+                    CmbMaquinaAveria.SelectedValue = iIdElemento;
+                    lVista = new DataView(lDts.Tables[0], string.Concat("Id=", iIdElemento), "", DataViewRowState.CurrentRows);
+                    if (lVista.Count > 0)
+                        CmbMaquinaAveria.Enabled = false;
+                    else
+                        CmbMaquinaAveria.Enabled = true;
+                }
+            }
+
+        }
+
+
         private bool DatosOKParaGrabar( string iTipo )
         {
             bool lRes = true; string lMsg = "";
@@ -537,11 +614,21 @@ namespace Metalurgica.Maquinas
 
         private void NotificaAveria_Load(object sender, EventArgs e)
         {
+            if (mTipoAveria.ToUpper().Equals("EP"))
+            {
+                CargaCmb_ElementosProd (mObjEP .IdElemento );
+                VerFormulario("EP");
+                //if (MaquinaConAveria() == true)
+                //    CargarDatosNotificacionAveria();
+            }
+            else
+            {
+                CargaCmb(mIdMaquina.ToString() );
+                if (MaquinaConAveria()==true)
+                    CargarDatosNotificacionAveria();
 
-            CargaCmb(mIdMaquina.ToString() );
-            if (MaquinaConAveria()==true)
-                CargarDatosNotificacionAveria();
-           
+            }
+
         }
 
 
@@ -570,6 +657,12 @@ namespace Metalurgica.Maquinas
             mIdMecanico = iUser.Iduser;
            
            
+        }
+
+        public void IniciaFormElementoProd(Clases .Obj.Obj_ElementoProd  iObj)
+        {
+            mObjEP = iObj;
+            mTipoAveria = "EP";
         }
 
         private void Tx_TextoAveria_KeyPress(object sender, KeyPressEventArgs e)
@@ -734,9 +827,10 @@ namespace Metalurgica.Maquinas
 
                 if (this.Rb_Operativa.Checked == true)
                     EstadoMaq = "OP";
+                
 
                 lSql = string.Concat("exec SP_CRUD_NOTIFICACION_AVERIA ", lCom.Val(Tx_Id.Text), ",", CmbOperador.SelectedValue);
-                lSql = string.Concat(lSql, ",'','", lTexto, "','N',0,'ING',", this.CmbMaquinaAveria.SelectedValue, ",'", EstadoMaq, "',1");
+                lSql = string.Concat(lSql, ",'", mTipoAveria,"','", lTexto, "','N',0,'ING',", this.CmbMaquinaAveria.SelectedValue, ",'", EstadoMaq, "',1");
                 lDts = lPx.ObtenerDatos(lSql);
                 if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -41,8 +42,14 @@ namespace Metalurgica.MultiMaquina
             int i = 0; string lVersion = lDal.ObtenerVersionProduccion();
 
             this.Text = string.Concat("Formulario de registro de producción multi máquina (Versión ", lVersion, ")");
+            string lMultiMaq = ConfigurationManager.AppSettings["MultiMaq"].ToString();
 
-            lTbl = lDal.CargaTabla_Maquinas();
+            if (lMultiMaq.ToUpper().Equals("S"))
+                lTbl = lDal.CargaTabla_MUltiMaquinas();
+            else
+                lTbl = lDal.CargaTabla_Maquinas();
+
+
             for (i = 0; i < lTbl.Rows.Count ;  i++)
             {
                 switch (i)

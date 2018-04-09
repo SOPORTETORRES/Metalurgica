@@ -326,6 +326,21 @@ namespace Metalurgica.Clases
             return lTbl;
         }
 
+        public DataTable CargaTabla_MUltiMaquinas()
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            lSql = string.Concat("SP_ConsultasGenerales 103,'", lIdSucursal, "','','','',''");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+            return lTbl;
+        }
+
         public string ObtenerTipoPorProducto(string iCodProducto)
         {
 //  ALTER PROCEDURE [dbo].[SP_Consultas_WS]

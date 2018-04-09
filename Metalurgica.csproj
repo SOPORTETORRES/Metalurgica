@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Clases\ClsComun.cs" />
     <Compile Include="Clases\ObjetoWsINET.cs" />
+    <Compile Include="Clases\Obj\Obj_ElementoProd.cs" />
     <Compile Include="Clases\SqlBascula.cs" />
     <Compile Include="Clases\TipoImprimeColada.cs" />
     <Compile Include="Compilaciones\NuevasVersiones.cs" />
@@ -267,6 +268,12 @@
     </Compile>
     <Compile Include="Maquinas\Frm_Desbloqueo.Designer.cs">
       <DependentUpon>Frm_Desbloqueo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\Frm_ElementosProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_ElementosProduccion.Designer.cs">
+      <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
     </Compile>
     <Compile Include="Maquinas\Frm_MtoMaquina.cs">
       <SubType>Form</SubType>
@@ -579,6 +586,9 @@
     <EmbeddedResource Include="Maquinas\Frm_Desbloqueo.resx">
       <DependentUpon>Frm_Desbloqueo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_ElementosProduccion.resx">
+      <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maquinas\Frm_MtoMaquina.resx">
       <DependentUpon>Frm_MtoMaquina.cs</DependentUpon>
     </EmbeddedResource>
@@ -766,6 +776,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Despacho_Camion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.EP_Generado.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Estado_Pago.datasource">

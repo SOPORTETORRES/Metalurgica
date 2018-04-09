@@ -78,6 +78,10 @@
             this.txtEtiquetaColada = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tlsToolBar = new System.Windows.Forms.ToolStrip();
+            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_NotificaAveriaElemento = new System.Windows.Forms.Button();
             this.tlbNuevo = new System.Windows.Forms.ToolStripButton();
             this.tlbGuardar = new System.Windows.Forms.ToolStripButton();
             this.tlbEliminar = new System.Windows.Forms.ToolStripButton();
@@ -90,9 +94,6 @@
             this.tlbCierre = new System.Windows.Forms.ToolStripButton();
             this.TlbVer = new System.Windows.Forms.ToolStripButton();
             this.tlbSalir = new System.Windows.Forms.ToolStripButton();
-            this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -333,6 +334,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Btn_NotificaAveriaElemento);
             this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.Btn_MtoTotem);
             this.groupBox1.Controls.Add(this.Btn_MtoMaq);
@@ -370,12 +372,11 @@
             // lbl_MsgBloqueo
             // 
             this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lbl_MsgBloqueo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
             this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
             this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
-            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(894, 110);
+            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(576, 21);
             this.lbl_MsgBloqueo.TabIndex = 55;
             this.lbl_MsgBloqueo.Text = "label13";
             this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -403,11 +404,11 @@
             // 
             // Btn_NotificacionAveria
             // 
-            this.Btn_NotificacionAveria.Location = new System.Drawing.Point(788, 69);
+            this.Btn_NotificacionAveria.Location = new System.Drawing.Point(720, 73);
             this.Btn_NotificacionAveria.Name = "Btn_NotificacionAveria";
             this.Btn_NotificacionAveria.Size = new System.Drawing.Size(77, 48);
             this.Btn_NotificacionAveria.TabIndex = 52;
-            this.Btn_NotificacionAveria.Text = "Notificación de Averia";
+            this.Btn_NotificacionAveria.Text = "Notificación de Averia Maquina";
             this.Btn_NotificacionAveria.UseVisualStyleBackColor = true;
             this.Btn_NotificacionAveria.Click += new System.EventHandler(this.Btn_NotificacionAveria_Click);
             // 
@@ -604,7 +605,7 @@
             this.txtObs.Location = new System.Drawing.Point(105, 80);
             this.txtObs.Multiline = true;
             this.txtObs.Name = "txtObs";
-            this.txtObs.Size = new System.Drawing.Size(667, 43);
+            this.txtObs.Size = new System.Drawing.Size(607, 43);
             this.txtObs.TabIndex = 1;
             this.txtObs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtObs_KeyPress);
             this.txtObs.Leave += new System.EventHandler(this.txtObs_Leave);
@@ -647,6 +648,40 @@
             this.tlsToolBar.Size = new System.Drawing.Size(920, 25);
             this.tlsToolBar.TabIndex = 43;
             this.tlsToolBar.Text = "toolStrip1";
+            // 
+            // stsStatusStrip
+            // 
+            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlsEstado});
+            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
+            this.stsStatusStrip.Name = "stsStatusStrip";
+            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
+            this.stsStatusStrip.TabIndex = 41;
+            this.stsStatusStrip.Text = "statusStrip1";
+            // 
+            // tlsEstado
+            // 
+            this.tlsEstado.Name = "tlsEstado";
+            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
+            this.tlsEstado.Text = "Listo";
+            // 
+            // ctlInformacionUsuario1
+            // 
+            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
+            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
+            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
+            this.ctlInformacionUsuario1.TabIndex = 42;
+            // 
+            // Btn_NotificaAveriaElemento
+            // 
+            this.Btn_NotificaAveriaElemento.Location = new System.Drawing.Point(808, 73);
+            this.Btn_NotificaAveriaElemento.Name = "Btn_NotificaAveriaElemento";
+            this.Btn_NotificaAveriaElemento.Size = new System.Drawing.Size(77, 48);
+            this.Btn_NotificaAveriaElemento.TabIndex = 56;
+            this.Btn_NotificaAveriaElemento.Text = "Notificación de Averia Elemento";
+            this.Btn_NotificaAveriaElemento.UseVisualStyleBackColor = true;
+            this.Btn_NotificaAveriaElemento.Click += new System.EventHandler(this.Btn_NotificaAveriaElemento_Click);
             // 
             // tlbNuevo
             // 
@@ -759,30 +794,6 @@
             this.tlbSalir.Text = "Salir";
             this.tlbSalir.Click += new System.EventHandler(this.tlbSalir_Click);
             // 
-            // stsStatusStrip
-            // 
-            this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlsEstado});
-            this.stsStatusStrip.Location = new System.Drawing.Point(0, 578);
-            this.stsStatusStrip.Name = "stsStatusStrip";
-            this.stsStatusStrip.Size = new System.Drawing.Size(920, 22);
-            this.stsStatusStrip.TabIndex = 41;
-            this.stsStatusStrip.Text = "statusStrip1";
-            // 
-            // tlsEstado
-            // 
-            this.tlsEstado.Name = "tlsEstado";
-            this.tlsEstado.Size = new System.Drawing.Size(32, 17);
-            this.tlsEstado.Text = "Listo";
-            // 
-            // ctlInformacionUsuario1
-            // 
-            this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
-            this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
-            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
-            this.ctlInformacionUsuario1.TabIndex = 42;
-            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -889,5 +900,6 @@
         private System.Windows.Forms.ToolStripButton tlbCierre;
         private System.Windows.Forms.Label lbl_MsgBloqueo;
         private System.Windows.Forms.ToolStripButton TlbVer;
+        private System.Windows.Forms.Button Btn_NotificaAveriaElemento;
     }
 }

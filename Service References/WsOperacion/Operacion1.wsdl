@@ -2,22 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ObtenerDatosConsultaGenerica">
+      <s:element name="ObtenerDetalleProduccionPorColada">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="iOpcion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="iPar1" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iPar2" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iPar3" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iPar4" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iPar5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerDatosConsultaGenericaResponse">
+      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosConsultaGenericaResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -43,6 +38,39 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerResumanPiezasPorViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumanPiezasPorViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosConsultaGenerica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="iOpcion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPar1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPar2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPar3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPar4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPar5" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosConsultaGenericaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosConsultaGenericaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerDetallePiezasPorViaje">
         <s:complexType>
           <s:sequence>
@@ -170,6 +198,172 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="CierreDescargaITResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ipar1" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametroResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametroTO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ipar1" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerParametroTOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametroTOResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPExcel_ResumenObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenEpGeneradosxObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenEpGeneradosxObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPExcel_ResumenEpGeneradosxObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenGuiasxObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_ResumenGuiasxObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPExcel_ResumenGuiasxObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosObraParaEP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iidObra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosObraParaEPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosObraParaEPResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoNotificacion_NC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iDestinatarios" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iAsunto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iCuerpo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iCuerpoHtml" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarCorreoNotificacion_NCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarCorreoNotificacion_NCResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabaEP_Generado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iEP" type="tns:EP_Generado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EP_Generado">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_EP" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalKgs_EP" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalValor_EP" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuarioGenera" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdObra" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="tns:ArrayOfEP_GeneradoDetalle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEP_GeneradoDetalle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EP_GeneradoDetalle" nillable="true" type="tns:EP_GeneradoDetalle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EP_GeneradoDetalle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_EP" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Servicio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValorKgs" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalKgs" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuarioGenera" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GrabaEP_GeneradoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabaEP_GeneradoResult" type="tns:EP_Generado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerAsignacionITMaq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iFecha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdIt_PorAprobar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iPersisteResultado" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerAsignacionITMaqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerAsignacionITMaqResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1002,17 +1196,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerParametro">
+      <s:element name="ObtenerEmpresaPor_EP">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iTabla" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Id_Obra" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerParametroResponse">
+      <s:element name="ObtenerEmpresaPor_EPResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerParametroResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEmpresaPor_EPResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1076,6 +1270,34 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerPesoTaraPorPatenteResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerProcesoMaquina">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Nro_Maq" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerProcesoMaquinaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerProcesoMaquinaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RevisaRN">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RevisaRNResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RevisaRNResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1613,36 +1835,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColada">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerResumanPiezasPorViaje">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerResumanPiezasPorViajeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumanPiezasPorViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViaje" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumanPiezasPorViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViajeResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerDatosConsultaGenericaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDatosConsultaGenerica" />
   </wsdl:message>
@@ -1678,6 +1884,60 @@
   </wsdl:message>
   <wsdl:message name="CierreDescargaITSoapOut">
     <wsdl:part name="parameters" element="tns:CierreDescargaITResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerParametro" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroTOSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroTO" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerParametroTOSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroTOResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenObra" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenObraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenEpGeneradosxObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenEpGeneradosxObra" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenEpGeneradosxObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenEpGeneradosxObraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenGuiasxObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenGuiasxObra" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_ResumenGuiasxObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenGuiasxObraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosObraParaEPSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosObraParaEP" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosObraParaEPSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosObraParaEPResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoNotificacion_NCSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoNotificacion_NC" />
+  </wsdl:message>
+  <wsdl:message name="EnviarCorreoNotificacion_NCSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoNotificacion_NCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrabaEP_GeneradoSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabaEP_Generado" />
+  </wsdl:message>
+  <wsdl:message name="GrabaEP_GeneradoSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabaEP_GeneradoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerAsignacionITMaqSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaq" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerAsignacionITMaqSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaqResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarSolicitudMaterialSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarSolicitudMaterial" />
@@ -1955,11 +2215,11 @@
   <wsdl:message name="RegistrarEPCobradaSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarEPCobradaResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerParametroSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerParametro" />
+  <wsdl:message name="ObtenerEmpresaPor_EPSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEmpresaPor_EP" />
   </wsdl:message>
-  <wsdl:message name="ObtenerParametroSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerParametroResponse" />
+  <wsdl:message name="ObtenerEmpresaPor_EPSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEmpresaPor_EPResponse" />
   </wsdl:message>
   <wsdl:message name="GrabarDatosPesajeCamionSoapIn">
     <wsdl:part name="parameters" element="tns:GrabarDatosPesajeCamion" />
@@ -1984,6 +2244,18 @@
   </wsdl:message>
   <wsdl:message name="ObtenerPesoTaraPorPatenteSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerPesoTaraPorPatenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerProcesoMaquinaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerProcesoMaquina" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerProcesoMaquinaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerProcesoMaquinaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RevisaRNSoapIn">
+    <wsdl:part name="parameters" element="tns:RevisaRN" />
+  </wsdl:message>
+  <wsdl:message name="RevisaRNSoapOut">
+    <wsdl:part name="parameters" element="tns:RevisaRNResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarRecepcion_ColadaSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarRecepcion_Colada" />
@@ -2171,19 +2443,15 @@
   <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerResumanPiezasPorViajeSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViaje" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerResumanPiezasPorViajeSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViajeResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
+      <wsdl:input message="tns:ObtenerResumanPiezasPorViajeSoapIn" />
+      <wsdl:output message="tns:ObtenerResumanPiezasPorViajeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDatosConsultaGenerica">
       <wsdl:input message="tns:ObtenerDatosConsultaGenericaSoapIn" />
       <wsdl:output message="tns:ObtenerDatosConsultaGenericaSoapOut" />
@@ -2207,6 +2475,42 @@
     <wsdl:operation name="CierreDescargaIT">
       <wsdl:input message="tns:CierreDescargaITSoapIn" />
       <wsdl:output message="tns:CierreDescargaITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <wsdl:input message="tns:ObtenerParametroSoapIn" />
+      <wsdl:output message="tns:ObtenerParametroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametroTO">
+      <wsdl:input message="tns:ObtenerParametroTOSoapIn" />
+      <wsdl:output message="tns:ObtenerParametroTOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenObra">
+      <wsdl:input message="tns:ListarEPExcel_ResumenObraSoapIn" />
+      <wsdl:output message="tns:ListarEPExcel_ResumenObraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenEpGeneradosxObra">
+      <wsdl:input message="tns:ListarEPExcel_ResumenEpGeneradosxObraSoapIn" />
+      <wsdl:output message="tns:ListarEPExcel_ResumenEpGeneradosxObraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
+      <wsdl:input message="tns:ListarEPExcel_ResumenGuiasxObraSoapIn" />
+      <wsdl:output message="tns:ListarEPExcel_ResumenGuiasxObraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosObraParaEP">
+      <wsdl:input message="tns:ObtenerDatosObraParaEPSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosObraParaEPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoNotificacion_NC">
+      <wsdl:input message="tns:EnviarCorreoNotificacion_NCSoapIn" />
+      <wsdl:output message="tns:EnviarCorreoNotificacion_NCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabaEP_Generado">
+      <wsdl:input message="tns:GrabaEP_GeneradoSoapIn" />
+      <wsdl:output message="tns:GrabaEP_GeneradoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerAsignacionITMaq">
+      <wsdl:input message="tns:ObtenerAsignacionITMaqSoapIn" />
+      <wsdl:output message="tns:ObtenerAsignacionITMaqSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarSolicitudMaterial">
       <wsdl:input message="tns:GuardarSolicitudMaterialSoapIn" />
@@ -2392,9 +2696,9 @@
       <wsdl:input message="tns:RegistrarEPCobradaSoapIn" />
       <wsdl:output message="tns:RegistrarEPCobradaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <wsdl:input message="tns:ObtenerParametroSoapIn" />
-      <wsdl:output message="tns:ObtenerParametroSoapOut" />
+    <wsdl:operation name="ObtenerEmpresaPor_EP">
+      <wsdl:input message="tns:ObtenerEmpresaPor_EPSoapIn" />
+      <wsdl:output message="tns:ObtenerEmpresaPor_EPSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GrabarDatosPesajeCamion">
       <wsdl:input message="tns:GrabarDatosPesajeCamionSoapIn" />
@@ -2411,6 +2715,14 @@
     <wsdl:operation name="ObtenerPesoTaraPorPatente">
       <wsdl:input message="tns:ObtenerPesoTaraPorPatenteSoapIn" />
       <wsdl:output message="tns:ObtenerPesoTaraPorPatenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerProcesoMaquina">
+      <wsdl:input message="tns:ObtenerProcesoMaquinaSoapIn" />
+      <wsdl:output message="tns:ObtenerProcesoMaquinaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RevisaRN">
+      <wsdl:input message="tns:RevisaRNSoapIn" />
+      <wsdl:output message="tns:RevisaRNSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarRecepcion_Colada">
       <wsdl:input message="tns:GuardarRecepcion_ColadaSoapIn" />
@@ -2536,17 +2848,27 @@
       <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
-      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
-      <wsdl:input message="tns:ObtenerResumanPiezasPorViajeSoapIn" />
-      <wsdl:output message="tns:ObtenerResumanPiezasPorViajeSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
+      <soap:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDatosConsultaGenerica">
       <soap:operation soapAction="http://tempuri.org/ObtenerDatosConsultaGenerica" style="document" />
       <wsdl:input>
@@ -2594,6 +2916,87 @@
     </wsdl:operation>
     <wsdl:operation name="CierreDescargaIT">
       <soap:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <soap:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametroTO">
+      <soap:operation soapAction="http://tempuri.org/ObtenerParametroTO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenObra">
+      <soap:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenEpGeneradosxObra">
+      <soap:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenEpGeneradosxObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
+      <soap:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosObraParaEP">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosObraParaEP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoNotificacion_NC">
+      <soap:operation soapAction="http://tempuri.org/EnviarCorreoNotificacion_NC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabaEP_Generado">
+      <soap:operation soapAction="http://tempuri.org/GrabaEP_Generado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerAsignacionITMaq">
+      <soap:operation soapAction="http://tempuri.org/ObtenerAsignacionITMaq" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3015,8 +3418,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <soap:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+    <wsdl:operation name="ObtenerEmpresaPor_EP">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEmpresaPor_EP" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3053,6 +3456,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPesoTaraPorPatente">
       <soap:operation soapAction="http://tempuri.org/ObtenerPesoTaraPorPatente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerProcesoMaquina">
+      <soap:operation soapAction="http://tempuri.org/ObtenerProcesoMaquina" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevisaRN">
+      <soap:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3339,27 +3760,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
-      <soap:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDatosConsultaGenerica">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosConsultaGenerica" style="document" />
       <wsdl:input>
@@ -3407,6 +3828,87 @@
     </wsdl:operation>
     <wsdl:operation name="CierreDescargaIT">
       <soap12:operation soapAction="http://tempuri.org/CierreDescargaIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametro">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametroTO">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerParametroTO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenObra">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenEpGeneradosxObra">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenEpGeneradosxObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosObraParaEP">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosObraParaEP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoNotificacion_NC">
+      <soap12:operation soapAction="http://tempuri.org/EnviarCorreoNotificacion_NC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabaEP_Generado">
+      <soap12:operation soapAction="http://tempuri.org/GrabaEP_Generado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerAsignacionITMaq">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerAsignacionITMaq" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3828,8 +4330,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerParametro">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerParametro" style="document" />
+    <wsdl:operation name="ObtenerEmpresaPor_EP">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEmpresaPor_EP" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -3866,6 +4368,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPesoTaraPorPatente">
       <soap12:operation soapAction="http://tempuri.org/ObtenerPesoTaraPorPatente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerProcesoMaquina">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerProcesoMaquina" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevisaRN">
+      <soap12:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4145,24 +4665,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResumanPiezasPorViaje">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

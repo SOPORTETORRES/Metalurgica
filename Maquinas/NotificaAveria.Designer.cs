@@ -168,7 +168,7 @@
             // Rb_Detenida
             // 
             this.Rb_Detenida.AutoSize = true;
-            this.Rb_Detenida.Location = new System.Drawing.Point(392, 14);
+            this.Rb_Detenida.Location = new System.Drawing.Point(497, 14);
             this.Rb_Detenida.Name = "Rb_Detenida";
             this.Rb_Detenida.Size = new System.Drawing.Size(145, 17);
             this.Rb_Detenida.TabIndex = 17;

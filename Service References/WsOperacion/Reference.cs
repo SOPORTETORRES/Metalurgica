@@ -16,6 +16,14 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumanPiezasPorViaje", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosConsultaGenerica", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosConsultaGenerica(int iOpcion, string iPar1, string iPar2, string iPar3, string iPar4, string iPar5);
@@ -39,6 +47,42 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CierreDescargaIT", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string CierreDescargaIT(string iCodigo, string iIMEI);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametro", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string ipar1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametroTO", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerParametroTO(string ipar1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPExcel_ResumenObra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenObra(string obra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPExcel_ResumenEpGeneradosxObra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenEpGeneradosxObra(string obra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenGuiasxObra(string obra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosObraParaEP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosObraParaEP(string iidObra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EnviarCorreoNotificacion_NC", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string EnviarCorreoNotificacion_NC(string iDestinatarios, string iAsunto, string iCuerpo, bool iCuerpoHtml);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabaEP_Generado", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.EP_Generado GrabaEP_Generado(Metalurgica.WsOperacion.EP_Generado iEP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarSolicitudMaterial", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -224,9 +268,9 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Estado_Pago RegistrarEPCobrada(string obra, int ep, string usuario, System.DateTime fechaCobro, string comentario, string terminal);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerParametro", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEmpresaPor_EP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string iTabla);
+        string ObtenerEmpresaPor_EP(string Id_Obra);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarDatosPesajeCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -243,6 +287,14 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPesoTaraPorPatente", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerPesoTaraPorPatente(string iPatente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerProcesoMaquina", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string ObtenerProcesoMaquina(int Nro_Maq);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RevisaRN", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string RevisaRN(string iIdObra);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarRecepcion_Colada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -367,18 +419,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosProduccionPorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumanPiezasPorViaje", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje);
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -393,7 +437,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public System.Data.DataSet _dataSet {
             get {
@@ -405,7 +449,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string _error {
             get {
@@ -417,7 +461,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public System.Data.DataSet DataSet {
             get {
@@ -429,7 +473,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string MensajeError {
             get {
@@ -451,8 +495,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -481,7 +525,7 @@ namespace Metalurgica.WsOperacion {
         
         private string etiquetaField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -493,7 +537,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int IdPieza {
             get {
@@ -505,7 +549,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public int IdMov {
             get {
@@ -517,7 +561,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public int NroPaq {
             get {
@@ -529,7 +573,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public int TotalPaq {
             get {
@@ -541,7 +585,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public int NroPiezas {
             get {
@@ -553,7 +597,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public double KgsPaquete {
             get {
@@ -565,7 +609,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public string Estado {
             get {
@@ -577,7 +621,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public int OPCION {
             get {
@@ -589,7 +633,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string Err {
             get {
@@ -601,7 +645,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public string Etiqueta {
             get {
@@ -623,8 +667,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -655,7 +699,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -667,7 +711,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Camion {
             get {
@@ -679,7 +723,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Obra_Destino {
             get {
@@ -691,7 +735,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string Usuario {
             get {
@@ -703,7 +747,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public System.DateTime Fecha {
             get {
@@ -715,7 +759,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string Obs {
             get {
@@ -727,7 +771,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string Usuario_Vb {
             get {
@@ -739,7 +783,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public System.DateTime Fecha_Vb {
             get {
@@ -751,7 +795,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public string Obs_Vb {
             get {
@@ -763,7 +807,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string CodigoViaje {
             get {
@@ -775,7 +819,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Order=10)]
         public TipoDetallePaquetesPieza[] ListaPaquetes {
             get {
@@ -787,7 +831,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string MensajeError {
             get {
@@ -809,8 +853,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -829,7 +873,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -841,7 +885,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int Bodega_Id {
             get {
@@ -853,7 +897,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Usuario {
             get {
@@ -865,7 +909,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public System.DateTime Fecha {
             get {
@@ -877,7 +921,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Obs {
             get {
@@ -889,7 +933,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string MensajeError {
             get {
@@ -911,8 +955,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -927,7 +971,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Colada {
             get {
@@ -939,7 +983,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Etiqueta {
             get {
@@ -951,7 +995,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Estado {
             get {
@@ -963,7 +1007,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string MensajeError {
             get {
@@ -985,8 +1029,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1005,7 +1049,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -1017,7 +1061,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int Bodega_Id {
             get {
@@ -1029,7 +1073,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Usuario {
             get {
@@ -1041,7 +1085,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public System.DateTime Fecha {
             get {
@@ -1053,7 +1097,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Obs {
             get {
@@ -1065,7 +1109,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string MensajeError {
             get {
@@ -1087,8 +1131,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1111,7 +1155,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -1123,7 +1167,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Colada {
             get {
@@ -1135,7 +1179,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Usuario {
             get {
@@ -1147,7 +1191,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public System.DateTime Fecha {
             get {
@@ -1159,7 +1203,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Camion {
             get {
@@ -1171,7 +1215,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string Etiqueta_colada {
             get {
@@ -1183,7 +1227,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string Estado {
             get {
@@ -1195,7 +1239,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public string MensajeError {
             get {
@@ -1217,8 +1261,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1247,7 +1291,7 @@ namespace Metalurgica.WsOperacion {
         
         private string errorsField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -1259,7 +1303,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Patente {
             get {
@@ -1271,7 +1315,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public int PesoTara {
             get {
@@ -1283,7 +1327,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string FechaTara {
             get {
@@ -1295,7 +1339,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public int IdUserTara {
             get {
@@ -1307,7 +1351,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public int PesoBruto {
             get {
@@ -1319,7 +1363,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string FechaPesoBruto {
             get {
@@ -1331,7 +1375,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public int IdUserPesoBruto {
             get {
@@ -1343,7 +1387,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public int IdDespachoCam {
             get {
@@ -1355,7 +1399,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string Estado {
             get {
@@ -1367,7 +1411,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public string errors {
             get {
@@ -1389,8 +1433,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1411,7 +1455,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Obra {
             get {
@@ -1423,7 +1467,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int Id {
             get {
@@ -1435,7 +1479,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Guia_despacho {
             get {
@@ -1447,7 +1491,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string It {
             get {
@@ -1459,7 +1503,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Etiqueta {
             get {
@@ -1471,7 +1515,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public int Kgs {
             get {
@@ -1483,7 +1527,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string MensajeError {
             get {
@@ -1505,8 +1549,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1557,7 +1601,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Obra {
             get {
@@ -1569,7 +1613,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public int Id {
             get {
@@ -1581,7 +1625,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Usuario {
             get {
@@ -1593,7 +1637,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public System.DateTime Fecha_creacion {
             get {
@@ -1605,7 +1649,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public System.DateTime Fecha_reporte {
             get {
@@ -1617,7 +1661,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string Usuario_mod_admin {
             get {
@@ -1629,7 +1673,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public System.DateTime Fecha_mod_admin {
             get {
@@ -1641,7 +1685,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public System.DateTime Fecha_envio_clte {
             get {
@@ -1653,7 +1697,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public System.DateTime Fecha_mod_clte {
             get {
@@ -1665,7 +1709,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public System.DateTime Fecha_aprobado_clte {
             get {
@@ -1677,7 +1721,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public System.DateTime Fecha_envio_facturacion {
             get {
@@ -1689,7 +1733,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string Usuario_creacion_fact_inet {
             get {
@@ -1701,7 +1745,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=12)]
         public System.DateTime Fecha_creacion_fact_inet {
             get {
@@ -1713,7 +1757,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=13)]
         public int Numero_fact_inet {
             get {
@@ -1725,7 +1769,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=14)]
         public System.DateTime Fecha_envio_fact_clte {
             get {
@@ -1737,7 +1781,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=15)]
         public System.DateTime Fecha_venc_fact_clte {
             get {
@@ -1749,7 +1793,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=16)]
         public string Usuario_daxcobrado {
             get {
@@ -1761,7 +1805,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=17)]
         public System.DateTime Fecha_cobro {
             get {
@@ -1773,7 +1817,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=18)]
         public string Estado {
             get {
@@ -1785,7 +1829,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=19)]
         public int Correlativo {
             get {
@@ -1797,7 +1841,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=20)]
         public System.DateTime Fecha_prox_presentacion {
             get {
@@ -1809,7 +1853,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=21)]
         public string MensajeError {
             get {
@@ -1831,8 +1875,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1875,7 +1919,7 @@ namespace Metalurgica.WsOperacion {
         
         private int kilos_RecepcionadosField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -1887,7 +1931,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Producto {
             get {
@@ -1899,7 +1943,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string Diametro {
             get {
@@ -1911,7 +1955,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string Largo {
             get {
@@ -1923,7 +1967,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Origen {
             get {
@@ -1935,7 +1979,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string Tipo {
             get {
@@ -1947,7 +1991,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public int Cantidad {
             get {
@@ -1959,7 +2003,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public string Usuario_Recep {
             get {
@@ -1971,7 +2015,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public System.DateTime Fecha_Recep {
             get {
@@ -1983,7 +2027,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public int Cantidad_Recep {
             get {
@@ -1995,7 +2039,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public string Obs_Recep {
             get {
@@ -2007,7 +2051,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string Usuario_Cierre {
             get {
@@ -2019,7 +2063,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=12)]
         public System.DateTime Fecha_Cierre {
             get {
@@ -2031,7 +2075,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=13)]
         public string Inet_Msg {
             get {
@@ -2043,7 +2087,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=14)]
         public System.DateTime Inet_Fecha {
             get {
@@ -2055,7 +2099,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=15)]
         public string MensajeError {
             get {
@@ -2067,7 +2111,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=16)]
         public int Kilos {
             get {
@@ -2079,7 +2123,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=17)]
         public int Kilos_Recepcionados {
             get {
@@ -2101,8 +2145,8 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2121,7 +2165,7 @@ namespace Metalurgica.WsOperacion {
         
         private string mensajeErrorField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
             get {
@@ -2133,7 +2177,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string Usuario {
             get {
@@ -2145,7 +2189,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public System.DateTime Fecha {
             get {
@@ -2157,7 +2201,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public int Totem {
             get {
@@ -2169,7 +2213,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string Completa {
             get {
@@ -2181,7 +2225,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string MensajeError {
             get {
@@ -2203,8 +2247,254 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2046.0")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class EP_GeneradoDetalle : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int id_EPField;
+        
+        private string servicioField;
+        
+        private int valorKgsField;
+        
+        private int totalKgsField;
+        
+        private int idUsuarioGeneraField;
+        
+        private System.DateTime fechaField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int Id_EP {
+            get {
+                return this.id_EPField;
+            }
+            set {
+                this.id_EPField = value;
+                this.RaisePropertyChanged("Id_EP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string Servicio {
+            get {
+                return this.servicioField;
+            }
+            set {
+                this.servicioField = value;
+                this.RaisePropertyChanged("Servicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public int ValorKgs {
+            get {
+                return this.valorKgsField;
+            }
+            set {
+                this.valorKgsField = value;
+                this.RaisePropertyChanged("ValorKgs");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int TotalKgs {
+            get {
+                return this.totalKgsField;
+            }
+            set {
+                this.totalKgsField = value;
+                this.RaisePropertyChanged("TotalKgs");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int IdUsuarioGenera {
+            get {
+                return this.idUsuarioGeneraField;
+            }
+            set {
+                this.idUsuarioGeneraField = value;
+                this.RaisePropertyChanged("IdUsuarioGenera");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public System.DateTime Fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+                this.RaisePropertyChanged("Fecha");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class EP_Generado : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int id_EPField;
+        
+        private int totalKgs_EPField;
+        
+        private int totalValor_EPField;
+        
+        private int idUsuarioGeneraField;
+        
+        private int idObraField;
+        
+        private System.DateTime fechaField;
+        
+        private EP_GeneradoDetalle[] detalleField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int Id_EP {
+            get {
+                return this.id_EPField;
+            }
+            set {
+                this.id_EPField = value;
+                this.RaisePropertyChanged("Id_EP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int TotalKgs_EP {
+            get {
+                return this.totalKgs_EPField;
+            }
+            set {
+                this.totalKgs_EPField = value;
+                this.RaisePropertyChanged("TotalKgs_EP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public int TotalValor_EP {
+            get {
+                return this.totalValor_EPField;
+            }
+            set {
+                this.totalValor_EPField = value;
+                this.RaisePropertyChanged("TotalValor_EP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int IdUsuarioGenera {
+            get {
+                return this.idUsuarioGeneraField;
+            }
+            set {
+                this.idUsuarioGeneraField = value;
+                this.RaisePropertyChanged("IdUsuarioGenera");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int IdObra {
+            get {
+                return this.idObraField;
+            }
+            set {
+                this.idObraField = value;
+                this.RaisePropertyChanged("IdObra");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public System.DateTime Fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+                this.RaisePropertyChanged("Fecha");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=7)]
+        public EP_GeneradoDetalle[] Detalle {
+            get {
+                return this.detalleField;
+            }
+            set {
+                this.detalleField = value;
+                this.RaisePropertyChanged("Detalle");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2271,7 +2561,7 @@ namespace Metalurgica.WsOperacion {
         
         private string fueImpresaField;
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string id {
             get {
@@ -2283,7 +2573,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
         public string EtiquetaLateral {
             get {
@@ -2295,7 +2585,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public string CantEtiq {
             get {
@@ -2307,7 +2597,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public string PesoEtiq {
             get {
@@ -2319,7 +2609,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string FiguraB {
             get {
@@ -2331,7 +2621,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string PiezasXEtiq {
             get {
@@ -2343,7 +2633,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string NroPaquetes {
             get {
@@ -2355,7 +2645,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=7)]
         public string Obra {
             get {
@@ -2367,7 +2657,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public string Figura {
             get {
@@ -2379,7 +2669,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
         public string Nivel {
             get {
@@ -2391,7 +2681,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
         public string Elemento {
             get {
@@ -2403,7 +2693,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string Plano {
             get {
@@ -2415,7 +2705,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=12)]
         public string Ubicacion {
             get {
@@ -2427,7 +2717,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=13)]
         public string Peso {
             get {
@@ -2439,7 +2729,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=14)]
         public string Paquete {
             get {
@@ -2451,7 +2741,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=15)]
         public string Cantidad {
             get {
@@ -2463,7 +2753,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=16)]
         public string Diametro {
             get {
@@ -2475,7 +2765,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=17)]
         public string Largo {
             get {
@@ -2487,7 +2777,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=18)]
         public string Marca {
             get {
@@ -2499,7 +2789,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=19)]
         public string CodigoIt {
             get {
@@ -2511,7 +2801,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=20)]
         public string Pieza {
             get {
@@ -2523,7 +2813,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=21)]
         public string ValoresVar {
             get {
@@ -2535,7 +2825,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=22)]
         public int Orden {
             get {
@@ -2547,7 +2837,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=23)]
         public int IdDetallePieza {
             get {
@@ -2559,7 +2849,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=24)]
         public string NroPiezasVAR {
             get {
@@ -2571,7 +2861,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary", Order=25)]
         public byte[] Imagen {
             get {
@@ -2583,7 +2873,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=26)]
         public string Colada {
             get {
@@ -2595,7 +2885,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=27)]
         public string NroCertificado {
             get {
@@ -2607,7 +2897,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=28)]
         public int IdForma {
             get {
@@ -2619,7 +2909,7 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=29)]
         public string FueImpresa {
             get {
@@ -2668,6 +2958,14 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {
+            return base.Channel.ObtenerDetalleProduccionPorColada(EtiquetaColada);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje) {
+            return base.Channel.ObtenerResumanPiezasPorViaje(iCodViaje);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosConsultaGenerica(int iOpcion, string iPar1, string iPar2, string iPar3, string iPar4, string iPar5) {
             return base.Channel.ObtenerDatosConsultaGenerica(iOpcion, iPar1, iPar2, iPar3, iPar4, iPar5);
         }
@@ -2690,6 +2988,42 @@ namespace Metalurgica.WsOperacion {
         
         public string CierreDescargaIT(string iCodigo, string iIMEI) {
             return base.Channel.CierreDescargaIT(iCodigo, iIMEI);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string ipar1) {
+            return base.Channel.ObtenerParametro(ipar1);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerParametroTO(string ipar1) {
+            return base.Channel.ObtenerParametroTO(ipar1);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenObra(string obra) {
+            return base.Channel.ListarEPExcel_ResumenObra(obra);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenEpGeneradosxObra(string obra) {
+            return base.Channel.ListarEPExcel_ResumenEpGeneradosxObra(obra);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenGuiasxObra(string obra) {
+            return base.Channel.ListarEPExcel_ResumenGuiasxObra(obra);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosObraParaEP(string iidObra) {
+            return base.Channel.ObtenerDatosObraParaEP(iidObra);
+        }
+        
+        public string EnviarCorreoNotificacion_NC(string iDestinatarios, string iAsunto, string iCuerpo, bool iCuerpoHtml) {
+            return base.Channel.EnviarCorreoNotificacion_NC(iDestinatarios, iAsunto, iCuerpo, iCuerpoHtml);
+        }
+        
+        public Metalurgica.WsOperacion.EP_Generado GrabaEP_Generado(Metalurgica.WsOperacion.EP_Generado iEP) {
+            return base.Channel.GrabaEP_Generado(iEP);
+        }
+        
+        public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
+            return base.Channel.ObtenerAsignacionITMaq(iFecha, IdIt_PorAprobar, iPersisteResultado);
         }
         
         public Metalurgica.WsOperacion.Solicitud_Material GuardarSolicitudMaterial(Metalurgica.WsOperacion.Solicitud_Material solicitud_Material, string terminal, int totem) {
@@ -2876,8 +3210,8 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.RegistrarEPCobrada(obra, ep, usuario, fechaCobro, comentario, terminal);
         }
         
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerParametro(string iTabla) {
-            return base.Channel.ObtenerParametro(iTabla);
+        public string ObtenerEmpresaPor_EP(string Id_Obra) {
+            return base.Channel.ObtenerEmpresaPor_EP(Id_Obra);
         }
         
         public Metalurgica.WsOperacion.PesajeCamion GrabarDatosPesajeCamion(Metalurgica.WsOperacion.PesajeCamion iObjPC) {
@@ -2894,6 +3228,14 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerPesoTaraPorPatente(string iPatente) {
             return base.Channel.ObtenerPesoTaraPorPatente(iPatente);
+        }
+        
+        public string ObtenerProcesoMaquina(int Nro_Maq) {
+            return base.Channel.ObtenerProcesoMaquina(Nro_Maq);
+        }
+        
+        public string RevisaRN(string iIdObra) {
+            return base.Channel.RevisaRN(iIdObra);
         }
         
         public Metalurgica.WsOperacion.Recepcion_Colada GuardarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal) {
@@ -3018,14 +3360,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada) {
             return base.Channel.ObtenerDatosProduccionPorColada(EtiquetaColada);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {
-            return base.Channel.ObtenerDetalleProduccionPorColada(EtiquetaColada);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje) {
-            return base.Channel.ObtenerResumanPiezasPorViaje(iCodViaje);
         }
     }
 }

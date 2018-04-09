@@ -1437,5 +1437,26 @@ namespace Metalurgica.Controls
 
             return lres;
         }
+
+        private void Btn_NotificaAveriaElemento_Click(object sender, EventArgs e)
+        {
+            Clases.Obj.Obj_ElementoProd lObj = new Clases.Obj.Obj_ElementoProd();
+            Maquinas.Frm_ElementosProduccion lFrm = new Maquinas.Frm_ElementosProduccion();
+            lFrm.IniciaFormulario("1");
+            lFrm.ShowDialog(this);
+            lObj=(Clases.Obj.Obj_ElementoProd) AppDomain.CurrentDomain.GetData("ElementoSel" );
+
+            if ((lObj.IdElemento.Trim().Length > 0) && (lObj.IdUserReporta.Trim().Length > 0))
+            {
+                Maquinas.NotificaAveria lFrmAV = new Maquinas.NotificaAveria();
+                //mUserLog.DescripcionMaq = mMaquinaActiva;
+                if (MessageBox.Show(string.Concat("¿Esta seguro que desea reportar una Averia para el elemento de Producción ", lObj.DescripcionElemento , " ? "), "Avisos sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    lFrmAV.IniciaFormElementoProd (lObj);
+                    lFrmAV.ShowDialog();
+                    //VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+                }
+            }
+        }
     }
 }
