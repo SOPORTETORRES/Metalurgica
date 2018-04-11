@@ -2,17 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ObtenerDetalleProduccionPorColada">
+      <s:element name="ObtenerResumanPiezasPorViaje">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
+      <s:element name="ObtenerResumanPiezasPorViajeResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,20 +38,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerResumanPiezasPorViaje">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerResumanPiezasPorViajeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="ObtenerDatosConsultaGenerica">
         <s:complexType>
           <s:sequence>
@@ -341,6 +327,27 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GrabaEP_GeneradoResult" type="tns:EP_Generado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosIniciales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iTipo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosInicialesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosInicialesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1273,20 +1280,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerProcesoMaquina">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="Nro_Maq" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerProcesoMaquinaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerProcesoMaquinaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="RevisaRN">
         <s:complexType>
           <s:sequence>
@@ -1835,14 +1828,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
-  </wsdl:message>
   <wsdl:message name="ObtenerResumanPiezasPorViajeSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViaje" />
   </wsdl:message>
@@ -1932,6 +1933,12 @@
   </wsdl:message>
   <wsdl:message name="GrabaEP_GeneradoSoapOut">
     <wsdl:part name="parameters" element="tns:GrabaEP_GeneradoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosInicialesSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosIniciales" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosInicialesSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosInicialesResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerAsignacionITMaqSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaq" />
@@ -2245,12 +2252,6 @@
   <wsdl:message name="ObtenerPesoTaraPorPatenteSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerPesoTaraPorPatenteResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerProcesoMaquinaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerProcesoMaquina" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerProcesoMaquinaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerProcesoMaquinaResponse" />
-  </wsdl:message>
   <wsdl:message name="RevisaRNSoapIn">
     <wsdl:part name="parameters" element="tns:RevisaRN" />
   </wsdl:message>
@@ -2443,11 +2444,13 @@
   <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
+  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
-      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <wsdl:input message="tns:ObtenerResumanPiezasPorViajeSoapIn" />
       <wsdl:output message="tns:ObtenerResumanPiezasPorViajeSoapOut" />
@@ -2507,6 +2510,10 @@
     <wsdl:operation name="GrabaEP_Generado">
       <wsdl:input message="tns:GrabaEP_GeneradoSoapIn" />
       <wsdl:output message="tns:GrabaEP_GeneradoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales">
+      <wsdl:input message="tns:ObtenerDatosInicialesSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosInicialesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <wsdl:input message="tns:ObtenerAsignacionITMaqSoapIn" />
@@ -2716,10 +2723,6 @@
       <wsdl:input message="tns:ObtenerPesoTaraPorPatenteSoapIn" />
       <wsdl:output message="tns:ObtenerPesoTaraPorPatenteSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerProcesoMaquina">
-      <wsdl:input message="tns:ObtenerProcesoMaquinaSoapIn" />
-      <wsdl:output message="tns:ObtenerProcesoMaquinaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <wsdl:input message="tns:RevisaRNSoapIn" />
       <wsdl:output message="tns:RevisaRNSoapOut" />
@@ -2848,18 +2851,13 @@
       <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <soap:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
       <wsdl:input>
@@ -2988,6 +2986,15 @@
     </wsdl:operation>
     <wsdl:operation name="GrabaEP_Generado">
       <soap:operation soapAction="http://tempuri.org/GrabaEP_Generado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosIniciales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3463,15 +3470,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerProcesoMaquina">
-      <soap:operation soapAction="http://tempuri.org/ObtenerProcesoMaquina" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -3760,18 +3758,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <soap12:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
       <wsdl:input>
@@ -3900,6 +3898,15 @@
     </wsdl:operation>
     <wsdl:operation name="GrabaEP_Generado">
       <soap12:operation soapAction="http://tempuri.org/GrabaEP_Generado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosIniciales" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4375,15 +4382,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerProcesoMaquina">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerProcesoMaquina" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap12:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -4665,6 +4663,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

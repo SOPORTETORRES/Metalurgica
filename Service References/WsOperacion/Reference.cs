@@ -16,10 +16,6 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumanPiezasPorViaje", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje);
@@ -79,6 +75,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabaEP_Generado", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.EP_Generado GrabaEP_Generado(Metalurgica.WsOperacion.EP_Generado iEP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosIniciales", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet ObtenerDatosIniciales(string iTipo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -288,10 +288,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerPesoTaraPorPatente(string iPatente);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerProcesoMaquina", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string ObtenerProcesoMaquina(int Nro_Maq);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RevisaRN", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string RevisaRN(string iIdObra);
@@ -419,6 +415,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosProduccionPorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada);
     }
     
     /// <remarks/>
@@ -2958,10 +2958,6 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {
-            return base.Channel.ObtenerDetalleProduccionPorColada(EtiquetaColada);
-        }
-        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje) {
             return base.Channel.ObtenerResumanPiezasPorViaje(iCodViaje);
         }
@@ -3020,6 +3016,10 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.EP_Generado GrabaEP_Generado(Metalurgica.WsOperacion.EP_Generado iEP) {
             return base.Channel.GrabaEP_Generado(iEP);
+        }
+        
+        public System.Data.DataSet ObtenerDatosIniciales(string iTipo) {
+            return base.Channel.ObtenerDatosIniciales(iTipo);
         }
         
         public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
@@ -3230,10 +3230,6 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerPesoTaraPorPatente(iPatente);
         }
         
-        public string ObtenerProcesoMaquina(int Nro_Maq) {
-            return base.Channel.ObtenerProcesoMaquina(Nro_Maq);
-        }
-        
         public string RevisaRN(string iIdObra) {
             return base.Channel.RevisaRN(iIdObra);
         }
@@ -3360,6 +3356,10 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada) {
             return base.Channel.ObtenerDatosProduccionPorColada(EtiquetaColada);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {
+            return base.Channel.ObtenerDetalleProduccionPorColada(EtiquetaColada);
         }
     }
 }

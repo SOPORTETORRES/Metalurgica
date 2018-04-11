@@ -17,6 +17,7 @@ namespace Metalurgica.Maquinas
         private string mTipoNotificacion = "";
         private string mIdMecanico = "";
         private string mTipoAveria = "";
+        private string mIdAveria = "";
         private Clases.Obj.Obj_ElementoProd mObjEP = new Clases.Obj.Obj_ElementoProd();
 
 
@@ -53,6 +54,36 @@ namespace Metalurgica.Maquinas
                         }
                     }
                 }
+            return lRes;
+        }
+
+        private bool ElementoDeProduccion_ConAveria(string iIdNotificacion)
+        {
+            bool lRes = false;
+            Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+            string lSql = ""; DataTable lTbl = new DataTable();
+
+            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',6 ");
+            listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
+            if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+            {
+                lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                if (lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("OK"))
+                    lRes = false;
+                else
+                {
+                    //if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("CAMBIO DE ROLLO"))
+                    if ((lTbl.Rows[0]["TextoIncidencia"].ToString().ToUpper().Equals("CAMBIO DE ROLLO")) && (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP")))
+                    {
+                        lRes = false;
+                    }
+                    else
+                    {
+                        lRes = true;
+                    }
+                }
+            }
             return lRes;
         }
 
@@ -618,8 +649,8 @@ namespace Metalurgica.Maquinas
             {
                 CargaCmb_ElementosProd (mObjEP .IdElemento );
                 VerFormulario("EP");
-                //if (MaquinaConAveria() == true)
-                //    CargarDatosNotificacionAveria();
+                if (ElementoDeProduccion_ConAveria(mIdAveria ) == true)
+                    CargarDatosNotificacionAveria_EP();
             }
             else
             {
@@ -654,9 +685,7 @@ namespace Metalurgica.Maquinas
         {
             mUserLog = iUser;
             mIdMaquina = mUserLog.IdMaquina.ToString () ;
-            mIdMecanico = iUser.Iduser;
-           
-           
+            mIdMecanico = iUser.Iduser;           
         }
 
         public void IniciaFormElementoProd(Clases .Obj.Obj_ElementoProd  iObj)
@@ -664,6 +693,16 @@ namespace Metalurgica.Maquinas
             mObjEP = iObj;
             mTipoAveria = "EP";
         }
+
+        public void IniciaReparacion_EP(string iIdAveria, CurrentUser iUser)
+        {
+            mIdAveria = iIdAveria;
+            mTipoAveria = "EP";
+            mUserLog = iUser;
+            mIdMaquina = mUserLog.IdMaquina.ToString();
+            mIdMecanico = iUser.Iduser;
+        }
+
 
         private void Tx_TextoAveria_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -713,10 +752,6 @@ namespace Metalurgica.Maquinas
                     EstadoMaq = "DET";
 
                 //*****************************************************
-    //@Id int,                             //@IdNotificacion int,	                //@Obs varchar(max) ,
-    //@IdUsuarioRegistra varchar(1) ,    //@Estado varchar(50),	                    //@Par1 varchar(10),
-    //@Par2 varchar(10),                //@Opcion int 
-
                 lSql = string.Concat("exec SP_CRUD_SOLUCION_AVERIA ", lCom.Val(Tx_IdSolucion.Text), ",", Tx_Id.Text,",'" );
                 lSql = string.Concat(lSql, Tx_ReparacionAveria.Text, "','", lCom.Val(mIdMecanico), "','", EstadoMaq, "','SA','',1");
                 lDts = lPx.ObtenerDatos(lSql);
@@ -885,6 +920,127 @@ namespace Metalurgica.Maquinas
                 Rb_Averia.Enabled = true;
             }
         }
+
+        #region Notificación elemento de Produccion
+        private void CargarDatosNotificacionAveria_EP()
+        {
+            Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient(); string lIdSolAveria = "";
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+            string lSql = ""; string lMsg = ""; string lEstadoMaq = "";
+            DataTable lTbl = new DataTable(); DateTime lFechaRegistro;
+            try
+            {
+                listaDataSet.MensajeError = "";
+                mTipoNotificacion = "NA";
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveria , ", 0,'','','',0,'',0,'',6 ");
+                listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
+                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                {
+                    lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                    lEstadoMaq = lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper();
+                    lIdSolAveria = lTbl.Rows[0]["IdSolucion"].ToString().ToUpper();
+                    //CmbOperador - CmbMaquinaAveria -  Dtp_Fecha  - Tx_Id   - Rb_Averia - Rb_cambioRollo  - 
+                    //Rb_Operativa - Rb_Detenida  - Tx_TextoAveria   - groupBox1
+
+                    switch (lEstadoMaq.ToUpper())
+                    {
+                        case "CR":   //Cambio de rollo
+                            Rb_cambioRollo.Checked = true;
+                            Rb_Operativa.Checked = false;
+                            Rb_Detenida.Checked = false;
+                            break;
+                        case "OP":      // 
+                            Rb_cambioRollo.Checked = false;
+                            Rb_Averia.Checked = true;
+                            Rb_Operativa.Checked = true;
+                            Rb_Detenida.Checked = false;
+                            break;
+                        case "DET":      // Queda Operativa
+                            Rb_cambioRollo.Checked = false;
+                            Rb_Averia.Checked = true;
+                            Rb_Operativa.Checked = false;
+                            Rb_Detenida.Checked = true;
+                            CmbOperador.SelectedValue = lTbl.Rows[0]["IdOperador"];
+                            CmbMaquinaAveria.SelectedValue = lTbl.Rows[0]["IdMaquina"];
+                            Tx_Id.Text = lTbl.Rows[0]["IdNotificacion"].ToString();
+                            Tx_TextoAveria.Text = lTbl.Rows[0]["TextoIncidencia"].ToString();
+                            if (Tx_TextoAveria.Text.Equals("Cambio de Rollo"))
+                                Rb_cambioRollo.Checked = true;
+
+                            Tx_Mecanico.Text = mUserLog.Login;
+                            Tx_Mecanico.Tag = mUserLog.Iduser;
+                            groupBox1.Enabled = false;
+                            mTipoNotificacion = "SA";
+                            break;
+                    }
+
+                    lFechaRegistro = DateTime.Parse(lTbl.Rows[0]["FechaRegistro"].ToString());
+                    Dtp_Fecha.Value = lFechaRegistro;
+                    if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP") && lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("NOOK"))
+                    { mTipoNotificacion = "NOOK"; }
+
+                }
+
+         
+
+                switch (mTipoNotificacion)
+                {
+                    case "NA":   //notificacion de averia
+                        GB_Reparacion.Enabled = false;
+                        groupBox1.Enabled = true;
+                        Gr_Supervisor.Enabled = false;
+                        if (lIdSolAveria.Trim().Length == 0)
+                        {
+                            this.Width = 906;
+                            this.Height = 265;
+                        }
+
+                        break;
+                    case "SA":      // SOlucion Averia
+                        //dgvActiva = dgvEtiquetasPiezasExcepciones;
+                        GB_Reparacion.Enabled = true;
+                        groupBox1.Enabled = false;
+                        Gr_Supervisor.Enabled = false;
+                        this.Width = 906;
+                        this.Height = 688;
+                        if (lEstadoMaq.ToUpper().Equals("DET"))
+                            CargarDatosSolucionAveria();
+                        break;
+                    case "NOOK":      // SOlucion Averia
+                        //dgvActiva = dgvEtiquetasPiezasExcepciones;
+                        GB_Reparacion.Enabled = false;
+                        groupBox1.Enabled = false;
+                        Gr_Supervisor.Enabled = true;
+                        this.Width = 906;
+                        this.Height = 780;
+                        CmbOperador.SelectedValue = lTbl.Rows[0]["IdOperador"];
+                        CmbMaquinaAveria.SelectedValue = lTbl.Rows[0]["IdMaquina"];
+                        Tx_Id.Text = lTbl.Rows[0]["IdNotificacion"].ToString();
+                        Tx_TextoAveria.Text = lTbl.Rows[0]["TextoIncidencia"].ToString();
+                        if (Tx_TextoAveria.Text.Equals("Cambio de Rollo"))
+                            Rb_cambioRollo.Checked = true;
+
+
+                        CargarDatosSolucionAveria();
+
+                        Tx_Supervisor.Text = mUserLog.Login;
+                        Tx_Supervisor.Tag = mUserLog.Iduser;
+                        CargarDatosLiberacionAveria();
+                     
+                        break;
+                }
+
+            }
+            catch (Exception exc)
+            {
+                listaDataSet.MensajeError = exc.Message.ToString();
+            }
+
+            //   return lRes;
+
+        }
+
+        #endregion
 
 
     }

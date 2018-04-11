@@ -1442,19 +1442,51 @@ namespace Metalurgica.Controls
         {
             Clases.Obj.Obj_ElementoProd lObj = new Clases.Obj.Obj_ElementoProd();
             Maquinas.Frm_ElementosProduccion lFrm = new Maquinas.Frm_ElementosProduccion();
-            lFrm.IniciaFormulario("1");
+            lFrm.IniciaFormulario(mUserLog .Iduser );
             lFrm.ShowDialog(this);
             lObj=(Clases.Obj.Obj_ElementoProd) AppDomain.CurrentDomain.GetData("ElementoSel" );
-
-            if ((lObj.IdElemento.Trim().Length > 0) && (lObj.IdUserReporta.Trim().Length > 0))
+           
+            if (lObj != null)
             {
-                Maquinas.NotificaAveria lFrmAV = new Maquinas.NotificaAveria();
-                //mUserLog.DescripcionMaq = mMaquinaActiva;
-                if (MessageBox.Show(string.Concat("¿Esta seguro que desea reportar una Averia para el elemento de Producción ", lObj.DescripcionElemento , " ? "), "Avisos sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if ((lObj.IdElemento.Trim().Length > 0) && (lObj.IdUserReporta.Trim().Length > 0))
                 {
-                    lFrmAV.IniciaFormElementoProd (lObj);
-                    lFrmAV.ShowDialog();
-                    //VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+                    Maquinas.NotificaAveria lFrmAV = new Maquinas.NotificaAveria();
+                    //mUserLog.DescripcionMaq = mMaquinaActiva;
+                    if (MessageBox.Show(string.Concat("¿Esta seguro que desea reportar una Averia para el elemento de Producción ", lObj.DescripcionElemento, " ? "), "Avisos sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        lFrmAV.IniciaFormElementoProd(lObj );
+                        lFrmAV.ShowDialog();
+                        //VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+
+                        ////*************************************************
+                        //Maquinas.NotificaAveria lFrms = new Maquinas.NotificaAveria();
+                        ////mUserLog.DescripcionMaq = mMaquinaActiva;
+                        //if (MessageBox.Show(string.Concat("¿Esta seguro que desea reportar una Averia para la Máquina ", mUserLog.DescripcionMaq.ToUpper(), " "), "Avisos sistema", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        //{
+                        //    lFrms.IniciaForm(mUserLog);
+                        //    lFrms.ShowDialog();
+                        //   // VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
+                        //}
+
+                        //******************************************************
+                    }
+                }
+            }
+            else
+            {
+                CurrentUser mUserTmp = new CurrentUser();Clases.ClsComun lcom = new Clases.ClsComun();
+                string lSolucion= AppDomain.CurrentDomain.GetData ("IdAveria").ToString ();
+                string lIdUser = AppDomain.CurrentDomain.GetData("IdUser").ToString();
+                string lUser = AppDomain.CurrentDomain.GetData("User" ).ToString ();
+                if (lcom.EsNumero(lSolucion))
+                {
+                    //lObjProd.IdElemento =
+                    Maquinas.NotificaAveria lFrms = new Maquinas.NotificaAveria();
+                    mUserTmp.IdMaquina = new Clases.ClsComun().Val(lSolucion);
+                    mUserTmp.Iduser = lIdUser;
+                    mUserTmp.Login = lUser;
+                    lFrms.IniciaReparacion_EP( lSolucion, mUserTmp);
+                    lFrms.ShowDialog();
                 }
             }
         }

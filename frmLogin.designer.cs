@@ -91,6 +91,7 @@
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Nombre de usuario:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -100,6 +101,7 @@
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Contraseña:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // chkRecordarUsuario
             // 
