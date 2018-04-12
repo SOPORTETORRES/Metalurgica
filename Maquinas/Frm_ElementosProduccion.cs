@@ -14,6 +14,7 @@ namespace Metalurgica.Maquinas
     {
         private string mIdUserReporta = "";
         private CurrentUser mUserLog_Frm = new CurrentUser();
+        private string mIdAveriaSeleccionada = "";
 
         public Frm_ElementosProduccion()
         {
@@ -42,6 +43,11 @@ namespace Metalurgica.Maquinas
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient(); int i = 0;
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
             //DataRow lFila = null;
+
+            AppDomain.CurrentDomain.SetData("ElementoSel", null);
+            AppDomain.CurrentDomain.SetData("IdAveria", "");
+            AppDomain.CurrentDomain.SetData("IdUser", "");
+            AppDomain.CurrentDomain.SetData("User", "");
 
             lTbl.Columns.Add("Id", Type.GetType("System.String"));
             lTbl.Columns.Add("Elemento", Type.GetType("System.String"));
@@ -84,7 +90,7 @@ namespace Metalurgica.Maquinas
                 lNroNotificaciones = lDal.Val(Dgt_elementos.Rows[lFila].Cells["NroNotificaciones"].Value.ToString());
                 if (lNroNotificaciones > 0)
                 {
-                    button1.Enabled = false;
+                    button1.Enabled = true;
                     Btn_Solucion.Enabled = true;
                 }
                 else
@@ -119,10 +125,11 @@ namespace Metalurgica.Maquinas
         {
             //Debemos solitar Login y Verificar el Perfil
             Habilita_Deshabilida(false);
-            Pnl_Login.Visible = true;
+            //Pnl_Login.Visible = true;
+            CargaDatosAverias(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login);
+            Pnl_SeleccionAveria.Visible = true;
 
 
-            
         }
 
         private void Habilita_Deshabilida(Boolean iHabilitado)
@@ -166,7 +173,14 @@ namespace Metalurgica.Maquinas
 
                         mUserLog_Frm.PerfilUsuario = dt.Rows[0]["Descperfil"].ToString();
 
-                      //  PuedeIngresarReparacion(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login );
+
+               
+
+                        PuedeIngresarReparacion(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login );
+
+                        //CargaDatosAverias(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login);
+                        //Pnl_SeleccionAveria.Visible = true;
+
 
                     }
                     else
@@ -246,21 +260,27 @@ namespace Metalurgica.Maquinas
             string lSql = ""; string lPerfil = iPerfilUsuario; string lMsg = "";
 
             //Verificamos el estado de la averia
-            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA 0,0,'','','',0,'',", iIdElemento, ",'',4 ");
+            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveriaSeleccionada ,",0,'','','',0,'',", iIdElemento, ",'',7 ");
             lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
-                if (lDts.Tables[0].Rows[0]["EstadoSupervisor"].ToString().Equals("NOOK") && lDts.Tables[0].Rows[0]["EstadoMaq"].ToString().Equals("OP"))
+                if (lDts.Tables[0].Rows[0]["EstadoSup"].ToString().Equals("NOOK") && lDts.Tables[0].Rows[0]["EstadoMaq"].ToString().Equals("OP"))
                 {
                     if (lPerfil.ToString().ToUpper().Equals("SUPERVISOR"))
                     {
-                        Pnl_Login.Visible = false;
-                        CargaDatosAverias(iIdElemento, iPerfilUsuario, iIdUserLog);
-                        Pnl_SeleccionAveria.Visible = true;
                         
-                        //Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
-                        //lFrm.IniciaForm(mUserLog_Frm);
-                        //lFrm.ShowDialog();
+                        //*****************************************
+                        Pnl_Login.Visible = false;
+                        //CargaDatosAverias(iIdElemento, iPerfilUsuario, iIdUserLog);
+                        Pnl_SeleccionAveria.Visible = true;
+
+                        string lIdNotificacion = string.Concat(Lbl_IdNotificacion.Text);
+                        AppDomain.CurrentDomain.SetData("IdAveria", lIdNotificacion);
+                        AppDomain.CurrentDomain.SetData("IdUser", mUserLog_Frm.Iduser);
+                        AppDomain.CurrentDomain.SetData("User", mUserLog_Frm.Login);
+                        this.Close();
+                        //******************************************+
+
                     }
                     else
                     {
@@ -275,12 +295,15 @@ namespace Metalurgica.Maquinas
                         //Se deben listar las Notificaciones que estan Abiertas, el debe seleccionar 
                         //cual desea solucionar, Se debe listar todas pero solo puede liberar las pendientes
                         Pnl_Login.Visible = false;
-                        CargaDatosAverias(iIdElemento, iPerfilUsuario, iIdUserLog);
+                        //CargaDatosAverias(iIdElemento, iPerfilUsuario, iIdUserLog);
                         Pnl_SeleccionAveria.Visible = true;
 
-                        //Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
-                        //lFrm.IniciaForm(mUserLog_Frm);
-                        //lFrm.ShowDialog();
+                        string lIdNotificacion = string.Concat(Lbl_IdNotificacion.Text);
+                        AppDomain.CurrentDomain.SetData("IdAveria", lIdNotificacion);
+                        AppDomain.CurrentDomain.SetData("IdUser", mUserLog_Frm.Iduser);
+                        AppDomain.CurrentDomain.SetData("User", mUserLog_Frm.Login);
+                        this.Close();
+
                     }
                     else
                     {
@@ -311,11 +334,18 @@ namespace Metalurgica.Maquinas
         private void Btn_Reparacion_Click(object sender, EventArgs e)
         {
             //string lIdNotificacion = string.Concat ("R|",Lbl_IdNotificacion.Text);
-            string lIdNotificacion = string.Concat( Lbl_IdNotificacion.Text);
-            AppDomain.CurrentDomain.SetData("IdAveria", lIdNotificacion);
-            AppDomain.CurrentDomain.SetData("IdUser", mUserLog_Frm .Iduser );
-            AppDomain.CurrentDomain.SetData("User", mUserLog_Frm.Login);
-            this.Close();
+            // Segun el estado de la Notificacion se debe solicitar Login
+            //Debemos solitar Login y Verificar el Perfil
+            Habilita_Deshabilida(false);
+            Pnl_SeleccionAveria.Visible = false;
+            Pnl_Login.Visible = true;
+
+            //string lIdNotificacion = string.Concat( Lbl_IdNotificacion.Text);
+            //AppDomain.CurrentDomain.SetData("IdAveria", lIdNotificacion);
+            //AppDomain.CurrentDomain.SetData("IdUser", mUserLog_Frm .Iduser );
+            //AppDomain.CurrentDomain.SetData("User", mUserLog_Frm.Login);
+            //this.Close();
+
         }
 
         private void Dtg_Averias_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -325,7 +355,7 @@ namespace Metalurgica.Maquinas
             {
                 Lbl_IdNotificacion .Text = Dtg_Averias.Rows[lFila].Cells["IdNotificacion"].Value.ToString();
                lbl_Averia .Text = Dtg_Averias.Rows[lFila].Cells["TextoIncidencia"].Value.ToString();
-               
+                mIdAveriaSeleccionada = Lbl_IdNotificacion.Text;
             }
         }
 

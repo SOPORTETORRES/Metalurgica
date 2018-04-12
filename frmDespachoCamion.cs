@@ -149,7 +149,7 @@ namespace Metalurgica
             {
                 if (ValidaPatente(Cmb_Patentes .SelectedValue .ToString ()) == false)
                 {
-                    sb.Append("- Camión\n");
+                    sb.Append("- Patente  Camión no existe\n");
                 }
 
             }
@@ -268,7 +268,7 @@ namespace Metalurgica
 
 
             //Invocamos el metodo que revisa los bloqueos
-            wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
+          //  wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
 
         }
 

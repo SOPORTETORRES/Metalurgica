@@ -64,7 +64,7 @@ namespace Metalurgica.Maquinas
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             string lSql = ""; DataTable lTbl = new DataTable();
 
-            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',6 ");
+            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',7 ");
             listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
             if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
             {
@@ -777,7 +777,10 @@ namespace Metalurgica.Maquinas
 
                         if (EstadoMaq.Equals("OP"))
                         {
-                            Application.Exit();
+                            if (mTipoAveria == "EP")
+                                this.Close();
+                            else
+                                Application.Exit();
                          }
                         else
                         {
@@ -835,7 +838,10 @@ namespace Metalurgica.Maquinas
 
                         if (EstadoMaq.Equals("OP"))
                         {
-                            Application.Exit();
+                            if (mTipoAveria =="EP")
+                                this.Close();
+                            else
+                                    Application.Exit();
                         }
                         else
                         {
@@ -932,7 +938,7 @@ namespace Metalurgica.Maquinas
             {
                 listaDataSet.MensajeError = "";
                 mTipoNotificacion = "NA";
-                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveria , ", 0,'','','',0,'',0,'',6 ");
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveria , ", 0,'','','',0,'',0,'',7 ");
                 listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
                 if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {
@@ -976,7 +982,7 @@ namespace Metalurgica.Maquinas
 
                     lFechaRegistro = DateTime.Parse(lTbl.Rows[0]["FechaRegistro"].ToString());
                     Dtp_Fecha.Value = lFechaRegistro;
-                    if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP") && lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("NOOK"))
+                    if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP") && lTbl.Rows[0]["EstadoSup"].ToString().ToUpper().Equals("NOOK"))
                     { mTipoNotificacion = "NOOK"; }
 
                 }
