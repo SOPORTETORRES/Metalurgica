@@ -18,6 +18,7 @@ namespace Metalurgica.Bascula
         private int mIdPesajeCamion = 0;
         private int mToleranciaBascula = 0;
         private int mKilosCargadosCamion = 0;
+        private string mIdCorrelativo = "";
 
 
         public Frm_PesajeCamion()
@@ -64,7 +65,7 @@ namespace Metalurgica.Bascula
             if (lTbl.Rows.Count > 0)
             {
                 lRes = lTbl.Rows[0]["PesoBruto"].ToString();
-
+                mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
             }
             return lRes;
         }
@@ -107,79 +108,174 @@ namespace Metalurgica.Bascula
 
         private void MuestraDatosSegunCheck()
         {
-            if (Rb_Tara.Checked == true)
-            {
-                Cmb_Patente.Visible = false;
-                Btn_ObtenerTara.Enabled = true;
-            }
 
-            if (Rb_Carga .Checked == true)
+            try
             {
-                //cargamos el desplegable con los datos de las patentes con camion cargado
-                WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-                WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet();DataTable lTbl = new DataTable();
-                DataRow lFila = null;
-
-                lLIstaDts = wsOperacion.ObtenerPatentesParaCalculoCarga();
-                if (lLIstaDts.DataSet.Tables.Count > 0)
+                if (Rb_Tara.Checked == true)
                 {
-                    lTbl = lLIstaDts.DataSet.Tables[0].Copy();
-                    lFila = lTbl.NewRow();
-                    lFila["patente"] = "Seleccionar";
-                    lTbl.Rows.Add(lFila);
-                    new Forms().comboBoxFill(Cmb_Patente, lTbl, "patente", "patente", 0);
-                    Cmb_Patente.SelectedText = "Seleccionar";
+                    Cmb_Patente.Visible = false;
+                    Btn_ObtenerTara.Enabled = true;
                 }
-         
-                Cmb_Patente.Visible = true;
-                Btn_ObtenerTara.Enabled = false;             
-            }
 
+                if (Rb_Carga.Checked == true)
+                {
+                    //cargamos el desplegable con los datos de las patentes con camion cargado
+                    WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                    WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+                    DataRow lFila = null;
+
+                    lLIstaDts = wsOperacion.ObtenerPatentesParaCalculoCarga();
+                    if (lLIstaDts.DataSet.Tables.Count > 0)
+                    {
+                        lTbl = lLIstaDts.DataSet.Tables[0].Copy();
+                        lFila = lTbl.NewRow();
+                        lFila["patente"] = "Seleccionar";
+                        lTbl.Rows.Add(lFila);
+                        new Forms().comboBoxFill(Cmb_Patente, lTbl, "patente", "patente", 0);
+                        Cmb_Patente.SelectedText = "Seleccionar";
+                    }
+
+                    Cmb_Patente.Visible = true;
+                    Btn_ObtenerTara.Enabled = false;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
         private String GrabarDatos()
         {
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                 WsOperacion.PesajeCamion lObjCam = new WsOperacion.PesajeCamion();
-            if (Rb_Tara.Checked == true)
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();Clases.ClsComun lCom = new Clases.ClsComun();
+            string lTxMsg = "";
+            try
             {
-                
-                lObjCam.Id = 0;
-                lObjCam.Patente = Tx_Patente.Text;
-                lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
-                lObjCam.FechaTara = DateTime.Now.ToString();
-                lObjCam.IdUserTara = int.Parse(mUserLog.Iduser);
-                lObjCam.PesoBruto = 0;
-                lObjCam.IdDespachoCam = 0;
-                lObjCam.Estado = "PesoTara";
-                lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
-                if (lObjCam.Id > 0)
+                if (Rb_Tara.Checked == true)
                 {
-                    MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
+
+                    lObjCam.Id = 0;
+                    lObjCam.Patente = Tx_Patente.Text;
+                    lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
+                    lObjCam.FechaTara = DateTime.Now.ToString();
+                    lObjCam.IdUserTara = int.Parse(mUserLog.Iduser);
+                    lObjCam.PesoBruto = 0;
+                    lObjCam.IdDespachoCam = 0;
+                    lObjCam.Estado = "PesoTara";
+                    lObjCam.IdCorrelativo = lCom.Val(mIdCorrelativo.ToString ()).ToString ();
+                    lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
+                    if (lObjCam.Id > 0)
+                    {
+
+                        MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
+                        mIdCorrelativo = "0";
+                    }
+                }
+
+                if (Rb_Carga.Checked == true)
+                {
+                    lObjCam.Id = mIdPesajeCamion;
+                    lObjCam.Patente = Cmb_Patente.SelectedValue.ToString();
+                    lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
+                    lObjCam.PesoBruto = int.Parse(Tx_Bruto.Text); ;
+                    lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
+                    lObjCam.Estado = "PesoCarga";
+                    lObjCam.IdCorrelativo = mIdCorrelativo;
+                    lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
+                    if (lObjCam.Id > 0)
+                    {
+                        //enviar Correo para informar.
+                        lDts = wsOperacion.ObtenerDatosPesajeCamion(lObjCam.Id.ToString());
+                        if (lDts.MensajeError.Trim().Length == 0)
+                        {
+                            lTxMsg = EnviaCorreoNotificacion(lDts.DataSet.Copy());
+                        }
+                        MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
+                        mIdCorrelativo = "0";
+                        Btn_Grabar.Enabled = false;
+                    }
+
                 }
             }
-
-            if (Rb_Carga.Checked == true)
+            catch (Exception exc)
             {
-                lObjCam.Id = mIdPesajeCamion ;
-                lObjCam.Patente = Cmb_Patente .SelectedValue .ToString ();
-                lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
-                lObjCam.PesoBruto = int.Parse(Tx_Bruto.Text); ;
-                lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
-                lObjCam.Estado = "PesoCarga";
-                lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
-                if (lObjCam.Id > 0)
-                {
-                    MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
-                }
-
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
             return "";
         }
 
+        private string EnviaCorreoNotificacion(DataSet lDts  )
+        {
+            string lTx = "";string lRes = "";DataTable lTbl = new DataTable();DataTable lTblDespacho = new DataTable();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lTx_Caso = "";
+            string lPatente = ""; string lFechaDespacho = ""; string lPesoGuia = "";string lKgsNeto = "";
+            string lDesviacion= ""; string lJefeTurno = "Sin Datos "; string lResultadoPesaje = "";string lObra = " Sin Datos ";
+            int lPs = 0;
 
+
+            lResultadoPesaje = Btn_PesoBruto.Tag.ToString ();
+
+
+            switch (lResultadoPesaje.ToUpper())
+            {
+                case "+":   //Se despacha mas 
+                    lTx_Caso = " Para la Obra xxx  se ha generado un <b> despacho con sobre peso </b> con los siguientes resultados";
+                    break;
+                case "-":      // Se despacha menos
+                    lTx_Caso = " Para la Obra xxx  se ha generado un <b>  despacho con Ausencia de Material  </b> con los siguientes resultados";
+                    break;
+                default:
+                    lTx_Caso = " Para la Obra xxx  se ha realizado un <b> despacho conforme </b> con los siguientes resultados";
+                    break;
+            }
+
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTbl = lDts.Tables[0].Copy();
+                lPatente = lTbl.Rows[0]["Patente"].ToString();
+
+                
+                lPs = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
+                lPesoGuia = lPs.ToString("N0");
+                lPs = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
+                lKgsNeto = lPs.ToString("N0");
+                lTx = string.Concat(" Camion con Patente:", lTbl.Rows[0]["Patente"].ToString(), "  ", "<Br>");
+                lTx = string.Concat(lTx, " Fecha Guia de Despacho   :", lTbl.Rows[0]["FechaPesoBruto"].ToString(), "<Br>");
+                lTx = string.Concat(lTx, " Peso Guia de Despacho    :", lPesoGuia, " Kgs. <Br>");
+                lTx = string.Concat(lTx, " Peso Neto                :", lKgsNeto, " Kgs. <Br>");
+                lTx = string.Concat(lTx, " Porcentaje de Desviación :", Tx_ToleranciaReal.Text , " % <Br>");
+                //numero.ToString("0,0.00")
+
+                if ((lDts.Tables.Count == 2) && (lDts.Tables[1].Rows.Count > 0))
+                {
+                    lTblDespacho = lDts.Tables[1].Copy();
+                    lJefeTurno = lTblDespacho.Rows[0]["UsuarioDespacha"].ToString();
+                    lObra = lTblDespacho.Rows[0]["Nombre"].ToString();
+                }
+
+                lTx = string.Concat(lTx, " Jefe de Turno a Cargo    :", lJefeTurno, "<Br>");
+                lTx = string.Concat(lTx, " <BR> <BR> <BR> " );
+                lTx = string.Concat(lTx, "  Este mensaje a sido generado de forma Automatica, favor NO responder este correo <BR>");
+                lTx = string.Concat(lTx, "  Los acentos y caracteres especiales han sido eliminado del correo <BR>");
+
+                lTx_Caso = lTx_Caso.Replace("xxx", lObra);
+
+                lTx = string.Concat(lTx_Caso, " <BR> <BR>", lTx);
+
+            }
+
+            lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTx, -900, string.Concat ("Detalle de Pesaje Camión Patente: ", lPatente));
+            //if (lRes.ToUpper().Equals("OK"))
+
+                return lRes;
+
+        }
+
+        
         #endregion
 
         private void Btn_Grabar_Click(object sender, EventArgs e)
@@ -263,6 +359,20 @@ namespace Metalurgica.Bascula
                     Tx_Semaforo.BackColor = Color.Red;
                 } else
                     Tx_Semaforo.BackColor = Color.Green ;
+
+
+                //Obtenemos el dato para el correo electronico
+                Btn_PesoBruto.Tag = " ";
+                if ((double.Parse(Tx_Carga.Text) > mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+                    {
+                    Btn_PesoBruto.Tag = "+";
+                    }
+
+                if ((double.Parse(Tx_Carga.Text) < mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+                {
+                    Btn_PesoBruto.Tag = "-";
+                }
+
 
 
             }

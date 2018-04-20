@@ -8,6 +8,7 @@ namespace Metalurgica.Clases
 {
     public class SqlBascula
     {
+       
         public string ObtenerSqlTara(string iPatente, string iFecha)
         {
             string lSq = "";string lFechaIni = string.Concat(iFecha, " 00:00:00");
@@ -25,11 +26,12 @@ namespace Metalurgica.Clases
             {
                 lDia = lPartes[0].ToString (); lMes = lPartes[1].ToString();
                 lYear = lPartes[2].ToString();
-                lSq = string.Concat(" select *  from correlativos where patente='", iPatente, "'  and PesoTara=0 ");
+                lSq = string.Concat(" select  top 1 *  from correlativos where patente='", iPatente, "'  and PesoTara=0 ");
                 //lSq = string.Concat(lSq, " and (Fecha BETWEEN #", lFechaIni, "# AND #", lFechaFin, "#) ");
                 lSq = string.Concat(lSq, " and pesoBruto>0 and  DatePart('yyyy', Fecha)=", lYear, "   ");
                 lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
                 lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
+                lSq = string.Concat(lSq, "  order by correlativo desc ");
             }
 
               

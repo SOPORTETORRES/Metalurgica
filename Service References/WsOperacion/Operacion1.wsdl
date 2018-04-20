@@ -2,17 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ObtenerResumanPiezasPorViaje">
+      <s:element name="ObtenerDetalleProduccionPorColada">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerResumanPiezasPorViajeResponse">
+      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,6 +38,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerResumanPiezasPorViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumanPiezasPorViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumanPiezasPorViajeResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerDatosConsultaGenerica">
         <s:complexType>
           <s:sequence>
@@ -1237,6 +1251,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdDespachoCam" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="errors" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdCorrelativo" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GrabarDatosPesajeCamionResponse">
@@ -1277,6 +1292,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerPesoTaraPorPatenteResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosPesajeCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosPesajeCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosPesajeCamionResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1828,22 +1857,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColada">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerResumanPiezasPorViajeSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViaje" />
   </wsdl:message>
@@ -2252,6 +2273,12 @@
   <wsdl:message name="ObtenerPesoTaraPorPatenteSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerPesoTaraPorPatenteResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerDatosPesajeCamionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosPesajeCamion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosPesajeCamionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosPesajeCamionResponse" />
+  </wsdl:message>
   <wsdl:message name="RevisaRNSoapIn">
     <wsdl:part name="parameters" element="tns:RevisaRN" />
   </wsdl:message>
@@ -2444,13 +2471,11 @@
   <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <wsdl:input message="tns:ObtenerResumanPiezasPorViajeSoapIn" />
       <wsdl:output message="tns:ObtenerResumanPiezasPorViajeSoapOut" />
@@ -2723,6 +2748,10 @@
       <wsdl:input message="tns:ObtenerPesoTaraPorPatenteSoapIn" />
       <wsdl:output message="tns:ObtenerPesoTaraPorPatenteSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPesajeCamion">
+      <wsdl:input message="tns:ObtenerDatosPesajeCamionSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosPesajeCamionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <wsdl:input message="tns:RevisaRNSoapIn" />
       <wsdl:output message="tns:RevisaRNSoapOut" />
@@ -2851,13 +2880,18 @@
       <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
-      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <soap:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
       <wsdl:input>
@@ -3470,6 +3504,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPesajeCamion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosPesajeCamion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -3758,18 +3801,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <soap12:operation soapAction="http://tempuri.org/ObtenerResumanPiezasPorViaje" style="document" />
       <wsdl:input>
@@ -4382,6 +4425,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPesajeCamion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosPesajeCamion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap12:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -4663,15 +4715,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleProduccionPorColada">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
