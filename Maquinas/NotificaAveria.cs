@@ -39,7 +39,7 @@ namespace Metalurgica.Maquinas
                 if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {
                     lTbl = listaDataSet.DataSet.Tables[0].Copy();
-                    if (lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("OK"))
+                    if (lTbl.Rows[0]["estado"].ToString().ToUpper().Equals("OP"))
                         lRes = false;
                     else
                     {
@@ -737,6 +737,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaSolucionAveria()
         {
+            string lTipoNot = "";
             if (DatosOKParaGrabar("SA") == true)
             {
                 string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
@@ -777,10 +778,14 @@ namespace Metalurgica.Maquinas
 
                         if (EstadoMaq.Equals("OP"))
                         {
-                            if (mTipoAveria == "EP")
+                            lTipoNot = AppDomain.CurrentDomain.GetData ("TipoAveria" ).ToString ();
+                            if ((mTipoAveria == "EP") )
                                 this.Close();
                             else
-                                Application.Exit();
+                                 if ((lTipoNot == "MM"))
+                                this.Close();
+                            else
+                                   Application.Exit();
                          }
                         else
                         {
@@ -838,9 +843,14 @@ namespace Metalurgica.Maquinas
 
                         if (EstadoMaq.Equals("OP"))
                         {
+                            string lTipoAv = AppDomain.CurrentDomain.GetData ("TipoAveria" ).ToString ();
                             if (mTipoAveria =="EP")
                                 this.Close();
                             else
+                                if (lTipoAv =="MM")
+                                this.Close();
+                            else
+
                                     Application.Exit();
                         }
                         else
@@ -871,7 +881,7 @@ namespace Metalurgica.Maquinas
                 
 
                 lSql = string.Concat("exec SP_CRUD_NOTIFICACION_AVERIA ", lCom.Val(Tx_Id.Text), ",", CmbOperador.SelectedValue);
-                lSql = string.Concat(lSql, ",'", mTipoAveria,"','", lTexto, "','N',0,'ING',", this.CmbMaquinaAveria.SelectedValue, ",'", EstadoMaq, "',1");
+                lSql = string.Concat(lSql, ",'", mTipoAveria,"','", lTexto, "','N',0,'", EstadoMaq,"',", this.CmbMaquinaAveria.SelectedValue, ",'", EstadoMaq, "',1");
                 lDts = lPx.ObtenerDatos(lSql);
                 if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                 {

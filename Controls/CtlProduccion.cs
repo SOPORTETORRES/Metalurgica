@@ -893,7 +893,7 @@ namespace Metalurgica.Controls
                 listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
                 if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {
-                    mEstadoMaquina = listaDataSet.DataSet.Tables[0].Rows[0]["EstadoMaq"].ToString().ToUpper();
+                    mEstadoMaquina = listaDataSet.DataSet.Tables[0].Rows[0]["Estado"].ToString().ToUpper();
                     if (listaDataSet.DataSet.Tables[0].Rows[0]["TextoIncidencia"].ToString().Equals("Cambio de Rollo"))
                     { mTipoAveria = "CB"; }
                     else
@@ -922,7 +922,7 @@ namespace Metalurgica.Controls
                     }
                     else
                     {
-                        if ((listaDataSet.DataSet.Tables[0].Rows[0]["EstadoSupervisor"].ToString().Equals("NOOK")) && (mTipoAveria.ToUpper().Equals("AV")))
+                        if ((listaDataSet.DataSet.Tables[0].Rows[0]["EstadoSupervisor"].ToString().Equals("NOOK")) && (mTipoAveria.ToUpper().Equals("AV")) && listaDataSet.DataSet.Tables[0].Rows[0]["Estado"].ToString().Equals("DET"))
                         {
                             mIdNotificacion = listaDataSet.DataSet.Tables[0].Rows[0]["Id"].ToString();
                             mMsgMaquina = string.Concat(" El Tótem Esta asociado a la Maquina ", listaDataSet.DataSet.Tables[0].Rows[0]["Maquina"].ToString());
@@ -956,6 +956,82 @@ namespace Metalurgica.Controls
                             Chk_MultiplesColadas.Enabled = true;
                         }
                     }
+                }
+                else
+                {
+                    groupBox1.Enabled = true;
+                    tabOperaciones.Enabled = true;
+                    tlsToolBar.Enabled = true;
+                    lbl_MsgBloqueo.Visible = false;
+                    txtEtiquetaPieza.Enabled = true;
+                    Chk_MultiplesColadas.Enabled = true;
+                }
+            }
+            catch (Exception exc)
+            {
+                listaDataSet.MensajeError = exc.Message.ToString();
+            }
+
+
+        }
+
+
+        public void VerificaEstadoMaquina_MM(string lIdMaquina)
+        {
+            //           [SP_CRUD_NOTIFICACION_AVERIA]  @Id int,
+            //@IdOperador int,                  //@TipoMaquina varchar(50) ,	//@TextoIncidencia varchar(max) ,
+            //@MailEnviado varchar(1) ,         //@IdUserCrea int   ,           //@Estado varchar(50),
+            //@IdMaquina int,                   //@EstadoMaq varchar(10),       //@Opcion int 
+
+            Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+            string lSql = ""; string lMsg = ""; Btn_Desbloquea.Visible = false;
+            try
+            {
+                listaDataSet.MensajeError = "";
+
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA 0,0,'','','',0,'',", lIdMaquina, ",'',3 ");
+                listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
+                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                {
+                    mEstadoMaquina = listaDataSet.DataSet.Tables[0].Rows[0]["EstadoMaq"].ToString().ToUpper();
+                    if (listaDataSet.DataSet.Tables[0].Rows[0]["TextoIncidencia"].ToString().Equals("Cambio de Rollo"))
+                    { mTipoAveria = "CB"; }
+                    else
+                    { mTipoAveria = "AV"; }
+
+                    if (mEstadoMaquina.ToUpper().Equals("DET"))
+                    {
+                        mIdNotificacion = listaDataSet.DataSet.Tables[0].Rows[0]["Id"].ToString();
+                        mMsgMaquina = string.Concat(" El Tótem Esta asociado a la Maquina ", listaDataSet.DataSet.Tables[0].Rows[0]["Maquina"].ToString());
+                        mMsgMaquina = string.Concat(mMsgMaquina, " La cual se encuentra en estado Detenida ", Environment.NewLine);
+                        mMsgMaquina = string.Concat(mMsgMaquina, " Por notificación del Usuario: ", listaDataSet.DataSet.Tables[0].Rows[0]["Nombre"].ToString(), Environment.NewLine);
+                        mMsgMaquina = string.Concat(mMsgMaquina, " Con el motivo de: ", listaDataSet.DataSet.Tables[0].Rows[0]["TextoIncidencia"].ToString(), Environment.NewLine);
+                        mMsgMaquina = string.Concat(mMsgMaquina, " La notificación se realizo con fecha:  ", listaDataSet.DataSet.Tables[0].Rows[0]["FechaRegistro"].ToString(), Environment.NewLine);
+                        groupBox1.Enabled = false;
+                        tabOperaciones.Enabled = false;
+                        //tlsToolBar.Enabled = false;
+                        lbl_MsgBloqueo.Text = mMsgMaquina;
+                        lbl_MsgBloqueo.Top = groupBox1.Top; lbl_MsgBloqueo.Left = groupBox1.Left;
+                        lbl_MsgBloqueo.Width = groupBox1.Width; lbl_MsgBloqueo.Height = groupBox1.Height;
+                        lbl_MsgBloqueo.Visible = true;
+                        txtEtiquetaPieza.Enabled = false;
+                        Chk_MultiplesColadas.Enabled = false;
+                        //groupBox1.Visible = false;
+                        Btn_Desbloquea.Visible = true;
+                        this.Refresh();
+                    }
+                    else
+                    {
+                      
+                            groupBox1.Enabled = true;
+                            tabOperaciones.Enabled = true;
+                            tlsToolBar.Enabled = true;
+                            lbl_MsgBloqueo.Visible = false;
+                            txtEtiquetaPieza.Enabled = true;
+                            Chk_MultiplesColadas.Enabled = true;
+                        }
+                    
                 }
                 else
                 {
@@ -1060,7 +1136,7 @@ namespace Metalurgica.Controls
 
         }
 
-        private void PuedeIngresarReparacion()
+        public void PuedeIngresarReparacion()
         {
             // ALTER PROCEDURE [dbo].[SP_CRUD_SOLUCION_AVERIA]
             //@Id int,                          //@IdNotificacion int,	            //@Obs varchar(max) ,

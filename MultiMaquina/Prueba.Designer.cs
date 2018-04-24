@@ -48,11 +48,19 @@
             this.Btn_Maquina2 = new System.Windows.Forms.Button();
             this.Btn_Maquina1 = new System.Windows.Forms.Button();
             this.Pnl_Produccion = new System.Windows.Forms.Panel();
+            this.Pnl_Login = new System.Windows.Forms.Panel();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.txtClave = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.ctlProduccion1 = new Metalurgica.Controls.CtlProduccion();
             this.Pnl_Maq.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.Pnl_Produccion.SuspendLayout();
+            this.Pnl_Login.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pnl_Maq
@@ -282,11 +290,83 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Pnl_Produccion.BackColor = System.Drawing.Color.Silver;
+            this.Pnl_Produccion.Controls.Add(this.Pnl_Login);
             this.Pnl_Produccion.Controls.Add(this.ctlProduccion1);
             this.Pnl_Produccion.Location = new System.Drawing.Point(5, 141);
             this.Pnl_Produccion.Name = "Pnl_Produccion";
             this.Pnl_Produccion.Size = new System.Drawing.Size(1343, 596);
             this.Pnl_Produccion.TabIndex = 1;
+            // 
+            // Pnl_Login
+            // 
+            this.Pnl_Login.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.Pnl_Login.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Pnl_Login.Controls.Add(this.txtUsuario);
+            this.Pnl_Login.Controls.Add(this.txtClave);
+            this.Pnl_Login.Controls.Add(this.label2);
+            this.Pnl_Login.Controls.Add(this.label3);
+            this.Pnl_Login.Controls.Add(this.btnCancelar);
+            this.Pnl_Login.Controls.Add(this.btnAceptar);
+            this.Pnl_Login.Location = new System.Drawing.Point(348, 51);
+            this.Pnl_Login.Name = "Pnl_Login";
+            this.Pnl_Login.Size = new System.Drawing.Size(266, 173);
+            this.Pnl_Login.TabIndex = 26;
+            this.Pnl_Login.Visible = false;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Location = new System.Drawing.Point(16, 40);
+            this.txtUsuario.MaxLength = 50;
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(230, 20);
+            this.txtUsuario.TabIndex = 6;
+            // 
+            // txtClave
+            // 
+            this.txtClave.Location = new System.Drawing.Point(16, 79);
+            this.txtClave.MaxLength = 50;
+            this.txtClave.Name = "txtClave";
+            this.txtClave.PasswordChar = 'X';
+            this.txtClave.Size = new System.Drawing.Size(230, 20);
+            this.txtClave.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Contraseña:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(99, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Nombre de usuario:";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(141, 114);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 27);
+            this.btnCancelar.TabIndex = 9;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(33, 114);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(102, 27);
+            this.btnAceptar.TabIndex = 8;
+            this.btnAceptar.Text = "Iniciar sesión >>";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // ctlProduccion1
             // 
@@ -296,6 +376,7 @@
             this.ctlProduccion1.Name = "ctlProduccion1";
             this.ctlProduccion1.Size = new System.Drawing.Size(1343, 596);
             this.ctlProduccion1.TabIndex = 0;
+            this.ctlProduccion1.Load += new System.EventHandler(this.ctlProduccion1_Load);
             // 
             // Prueba
             // 
@@ -312,6 +393,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.Pnl_Produccion.ResumeLayout(false);
+            this.Pnl_Login.ResumeLayout(false);
+            this.Pnl_Login.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -337,5 +420,12 @@
         private System.Windows.Forms.Button Btn_Bloquear;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button Btn_DesBloquear;
+        private System.Windows.Forms.Panel Pnl_Login;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.TextBox txtClave;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }
