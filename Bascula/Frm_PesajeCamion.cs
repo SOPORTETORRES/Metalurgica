@@ -155,7 +155,6 @@ namespace Metalurgica.Bascula
             {
                 if (Rb_Tara.Checked == true)
                 {
-
                     lObjCam.Id = 0;
                     lObjCam.Patente = Tx_Patente.Text;
                     lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
@@ -166,11 +165,15 @@ namespace Metalurgica.Bascula
                     lObjCam.Estado = "PesoTara";
                     lObjCam.IdCorrelativo = lCom.Val(mIdCorrelativo.ToString ()).ToString ();
                     lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
-                    if (lObjCam.Id > 0)
+                    if (lObjCam.errors.Trim().Length == 0)
                     {
-
                         MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
                         mIdCorrelativo = "0";
+                        Btn_Grabar.Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Concat ("Ha ocurrido el siguiente error:",lObjCam .errors .ToString ()), "Avisos Sistema", MessageBoxButtons.OK);
                     }
                 }
 
@@ -196,15 +199,12 @@ namespace Metalurgica.Bascula
                         mIdCorrelativo = "0";
                         Btn_Grabar.Enabled = false;
                     }
-
                 }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
             return "";
         }
 
@@ -212,12 +212,12 @@ namespace Metalurgica.Bascula
         {
             string lTx = "";string lRes = "";DataTable lTbl = new DataTable();DataTable lTblDespacho = new DataTable();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lTx_Caso = "";
-            string lPatente = ""; string lFechaDespacho = ""; string lPesoGuia = "";string lKgsNeto = "";
+            string lPatente = ""; string lFechaDespacho = ""; string lPesoGuia = "";string lKgsNeto = ""; string lKgsDesarrollo = "";
             string lDesviacion= ""; string lJefeTurno = "Sin Datos "; string lResultadoPesaje = "";string lObra = " Sin Datos ";
+            string lPorDesviacion = "";  double  lPGD = 0; double lPN = 0; double lPD = 0;
             int lPs = 0;
 
-
-            lResultadoPesaje = Btn_PesoBruto.Tag.ToString ();
+           lResultadoPesaje = Btn_PesoBruto.Tag.ToString ();
 
 
             switch (lResultadoPesaje.ToUpper())
@@ -232,23 +232,43 @@ namespace Metalurgica.Bascula
                     lTx_Caso = " Para la Obra xxx  se ha realizado un <b> despacho conforme </b> con los siguientes resultados";
                     break;
             }
+            lTx = string.Concat("<table   border='1'>    <tr>  ");
+            lTx = string.Concat(lTx, "  <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Patente Camión</td> ");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Fecha GD</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso GD&nbsp; (KG)</td> ");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso Desarrollo (KG)</td> ");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso Báscula(KG)</td> ");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación(KG)</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación(%)</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;' > Nombre Jefe Turno</td>");
+            lTx = string.Concat(lTx, "  </tr> ");
 
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
                 lTbl = lDts.Tables[0].Copy();
                 lPatente = lTbl.Rows[0]["Patente"].ToString();
-
-                
                 lPs = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
                 lPesoGuia = lPs.ToString("N0");
                 lPs = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
                 lKgsNeto = lPs.ToString("N0");
-                lTx = string.Concat(" Camion con Patente:", lTbl.Rows[0]["Patente"].ToString(), "  ", "<Br>");
-                lTx = string.Concat(lTx, " Fecha Guia de Despacho   :", lTbl.Rows[0]["FechaPesoBruto"].ToString(), "<Br>");
-                lTx = string.Concat(lTx, " Peso Guia de Despacho    :", lPesoGuia, " Kgs. <Br>");
-                lTx = string.Concat(lTx, " Peso Neto                :", lKgsNeto, " Kgs. <Br>");
-                lTx = string.Concat(lTx, " Porcentaje de Desviación :", Tx_ToleranciaReal.Text , " % <Br>");
-                //numero.ToString("0,0.00")
+                lPs = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
+                lKgsDesarrollo = lPs.ToString("N0");
+                lPGD = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
+                lPN = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
+                lPD = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
+
+                lDesviacion = (lPD - lPN).ToString ();
+                lPorDesviacion = Math.Round ((((lPD - lPN) * 100) / lPD),2).ToString();
+                // % diferencia = ((Peso Guía de Despacho - Peso Neto)*100)/ (Peso Guía de Despacho) 
+                
+                lTx = string.Concat(lTx, "  <tr> ");
+                lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["Patente"].ToString()  , "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["FechaPesoBruto"].ToString() , "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lPesoGuia , "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lKgsDesarrollo, "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lKgsNeto, "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lDesviacion, "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lPorDesviacion.ToString(), "</td>  ");
 
                 if ((lDts.Tables.Count == 2) && (lDts.Tables[1].Rows.Count > 0))
                 {
@@ -256,8 +276,9 @@ namespace Metalurgica.Bascula
                     lJefeTurno = lTblDespacho.Rows[0]["UsuarioDespacha"].ToString();
                     lObra = lTblDespacho.Rows[0]["Nombre"].ToString();
                 }
+                lTx = string.Concat(lTx, "  <td>", lJefeTurno.ToString(), "</td>   </tr>   </table>  ");
 
-                lTx = string.Concat(lTx, " Jefe de Turno a Cargo    :", lJefeTurno, "<Br>");
+                //lTx = string.Concat(lTx, " Jefe de Turno a Cargo    :", lJefeTurno, "<Br>");
                 lTx = string.Concat(lTx, " <BR> <BR> <BR> " );
                 lTx = string.Concat(lTx, "  Este mensaje a sido generado de forma Automatica, favor NO responder este correo <BR>");
                 lTx = string.Concat(lTx, "  Los acentos y caracteres especiales han sido eliminado del correo <BR>");
@@ -273,9 +294,12 @@ namespace Metalurgica.Bascula
 
                 return lRes;
 
+
         }
 
         
+
+
         #endregion
 
         private void Btn_Grabar_Click(object sender, EventArgs e)
@@ -351,6 +375,8 @@ namespace Metalurgica.Bascula
             Tx_DiferenciaKilos.Text = lDiferencia.ToString();
             if (lDiferencia > 0)
             {
+                // % diferencia = ((Peso Guía de Despacho - Peso Neto)*100)/ (Peso Guía de Despacho) 
+
                 lToleranciaReal = (double.Parse (lDiferencia.ToString ()) / double.Parse (mKilosCargadosCamion.ToString ())) * 100;
                 Tx_ToleranciaReal.Text = Math.Round (lToleranciaReal,2).ToString();
                 Tx_KgsCargados.Text = mKilosCargadosCamion.ToString();
