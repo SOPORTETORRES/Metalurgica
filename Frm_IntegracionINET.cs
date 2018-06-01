@@ -48,6 +48,7 @@ namespace Metalurgica
     private string  mIdObraSel = "";
     private string mSucursalTO = "";
         private string mEmpresa = "";
+        private string mSoloCamionesBascula = "";
 
         public Frm_IntegracionINET()
         {
@@ -59,9 +60,10 @@ namespace Metalurgica
            
         }
 
-        public void IniciaForm(string iEmpresa )
+        public void IniciaForm(string iEmpresa ,string iSoloCamionEnBascula)
         {
             mEmpresa = iEmpresa;
+            mSoloCamionesBascula = iSoloCamionEnBascula;
             mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
             CargaCamiones(mSucursalTO , mEmpresa);
             Lbl_titulo.Text = string.Concat ("Este Formulario muestra la información de despacho de la empresa ",mEmpresa .ToUpper ());
@@ -180,6 +182,40 @@ namespace Metalurgica
 
         }
 
+        private string ValidaIntegracionINET(string iPatente )
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); 
+            DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();  
+            string lRes = "";
+            //Si la variable de configuración  SoloCamionesBascula esta en S
+            // al momento de despachar el camión este deberia haber sido pesada la tara
+            if (mSoloCamionesBascula.ToUpper().Equals("S"))
+            {
+                lSql = String.Concat(" exec SP_CRUD_PesajeCamion 0", ",'", iPatente, "',0,'',0,0,'',0,0,'',0,10");
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    lRes = "OK";
+                    Btn_INET.Enabled = true;
+                }
+                else
+                {
+                    Btn_INET.Enabled = false;
+                    lRes = " Para poder emitir la Guía de Despacho, Debe finalizar el Proceso de Pesaje en Bascula y Grabar los Datos. Verifique el Proceso ";
+                    //MessageBox.Show(lRes, "Avisos Sistema", MessageBoxButtons.OK);
+                }
+            }
+            else
+            {
+                //Si la variable no esta activada, no se debe validar nada 
+                lRes = "OK";
+                Btn_INET.Enabled = true ;
+            }
+            
+            return lRes;
+
+        }
+
         private void CargaDetalleNodo(string iTextNodo, string iTipo, string iSucursal)
         {
             string[] split = iTextNodo.Split(new Char[] { '\\' });
@@ -188,54 +224,64 @@ namespace Metalurgica
 
             string lSql = "";
             Btn_INET.Enabled = false;
-            switch (iTipo)
-            {
-                case "P":
-                     lPartes = split[0].Split(new Char[] { '(' });
-                    lFecha = lPartes[0].ToString().Trim ();
-                     lPartes = split[1].Split(new Char[] { '(' });
-                    lPatente = lPartes[0].ToString().Trim();
-                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 3,'", lFecha, "','",lPatente,"','",iSucursal,"','','','',''");
-
-                    Btn_INET.Enabled = true;
-                    break;
-                case "F":
-                      lPartes = split[0].Split(new Char[] { '(' });
-                    lFecha = lPartes[0].ToString().Trim ();
-                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lFecha, "','','','','','',''");
-                    break;
-
-            }
-            if (lSql.Trim().Length > 0)
-            {
-                lDts = lPx.ObtenerDatos(lSql);
-                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
-                {                    
-                    Dtg_Camiones.DataSource = lDts.Tables[0].Copy();
-                }
-            }
-           if (mAgregaColumna==true  )
-                AgregaColumnaCheck();
-
-
-           if (iTipo=="P")
-           {
-               //formateamos la grilla
-               Dtg_Camiones.Columns[0].Width = 60;
-               Dtg_Camiones.Columns[2].Width = 60;
-               Dtg_Camiones.Columns[3].Width = 250;
-               Dtg_Camiones.Columns[4].Width = 80;
-               Dtg_Camiones.Columns[5].Width = 60;
-
-                for (i = 0; i < Dtg_Camiones.RowCount; i++)
+          
+                switch (iTipo)
                 {
-                    PintaGrilla(i, Dtg_Camiones.Rows[i].Cells["TipoGuiaINET"].Value.ToString());
+                    case "P":
+                        lPartes = split[0].Split(new Char[] { '(' });
+                        lFecha = lPartes[0].ToString().Trim();
+                        lPartes = split[1].Split(new Char[] { '(' });
+                        lPatente = lPartes[0].ToString().Trim();
+                        lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 3,'", lFecha, "','", lPatente, "','", iSucursal, "','','','',''");
+
+                        Btn_INET.Enabled = true;
+                        break;
+                    case "F":
+                        lPartes = split[0].Split(new Char[] { '(' });
+                        lFecha = lPartes[0].ToString().Trim();
+                        lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lFecha, "','','','','','',''");
+                        break;
+
                 }
-            }
+                if (lSql.Trim().Length > 0)
+                {
+                    lDts = lPx.ObtenerDatos(lSql);
+                    if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                    {
+                        Dtg_Camiones.DataSource = lDts.Tables[0].Copy();
+                    }
+                }
+                if (mAgregaColumna == true)
+                    AgregaColumnaCheck();
 
 
+                if (iTipo == "P")
+                {
+                    //formateamos la grilla
+                    Dtg_Camiones.Columns[0].Width = 60;
+                    Dtg_Camiones.Columns[2].Width = 60;
+                    Dtg_Camiones.Columns[3].Width = 250;
+                    Dtg_Camiones.Columns[4].Width = 80;
+                    Dtg_Camiones.Columns[5].Width = 60;
+
+                    for (i = 0; i < Dtg_Camiones.RowCount; i++)
+                    {
+                        PintaGrilla(i, Dtg_Camiones.Rows[i].Cells["TipoGuiaINET"].Value.ToString());
+                    }
+                }
+          
             Tx_Fecha.Text = lFecha;
             Tx_Patente.Text = lPatente;
+            string lValidacionINET = ValidaIntegracionINET(Tx_Patente.Text);
+            if (lValidacionINET == "OK")
+            {
+                Btn_INET.Enabled = true;
+            }
+            else
+            {
+                Btn_INET.Enabled = false;
+                MessageBox.Show(string.Concat(" Ha Ocurrido el siguiente Error: ", lValidacionINET));
+            }
         }
 
         private void PintaGrilla(int lIndexFila, string iTipo)

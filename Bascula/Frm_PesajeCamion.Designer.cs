@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Tx_sql = new System.Windows.Forms.TextBox();
             this.Tx_DiferenciaKilos = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.Tx_KgsCargados = new System.Windows.Forms.TextBox();
@@ -59,7 +60,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
-            this.Tx_sql = new System.Windows.Forms.TextBox();
+            this.Btn_GeneraDatos = new System.Windows.Forms.Button();
+            this.Tx_IdCorrCarga = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.Tx_IdCorrTara = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +74,10 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Tx_IdCorrCarga);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.Tx_IdCorrTara);
+            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.Tx_sql);
             this.groupBox1.Controls.Add(this.Tx_DiferenciaKilos);
             this.groupBox1.Controls.Add(this.label12);
@@ -99,10 +108,17 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(8, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(537, 437);
+            this.groupBox1.Size = new System.Drawing.Size(579, 437);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
+            // 
+            // Tx_sql
+            // 
+            this.Tx_sql.Location = new System.Drawing.Point(356, 388);
+            this.Tx_sql.Name = "Tx_sql";
+            this.Tx_sql.Size = new System.Drawing.Size(175, 23);
+            this.Tx_sql.TabIndex = 28;
             // 
             // Tx_DiferenciaKilos
             // 
@@ -284,7 +300,7 @@
             // 
             // Tx_Carga
             // 
-            this.Tx_Carga.Location = new System.Drawing.Point(128, 314);
+            this.Tx_Carga.Location = new System.Drawing.Point(133, 329);
             this.Tx_Carga.MaxLength = 7;
             this.Tx_Carga.Name = "Tx_Carga";
             this.Tx_Carga.Size = new System.Drawing.Size(72, 23);
@@ -294,7 +310,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(32, 318);
+            this.label6.Location = new System.Drawing.Point(130, 305);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 17);
             this.label6.TabIndex = 9;
@@ -302,7 +318,7 @@
             // 
             // Tx_Bruto
             // 
-            this.Tx_Bruto.Location = new System.Drawing.Point(128, 261);
+            this.Tx_Bruto.Location = new System.Drawing.Point(133, 266);
             this.Tx_Bruto.MaxLength = 7;
             this.Tx_Bruto.Name = "Tx_Bruto";
             this.Tx_Bruto.Size = new System.Drawing.Size(72, 23);
@@ -312,7 +328,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(31, 267);
+            this.label5.Location = new System.Drawing.Point(131, 246);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 17);
             this.label5.TabIndex = 7;
@@ -320,7 +336,7 @@
             // 
             // Tx_Tara
             // 
-            this.Tx_Tara.Location = new System.Drawing.Point(128, 207);
+            this.Tx_Tara.Location = new System.Drawing.Point(133, 215);
             this.Tx_Tara.MaxLength = 7;
             this.Tx_Tara.Name = "Tx_Tara";
             this.Tx_Tara.Size = new System.Drawing.Size(72, 23);
@@ -330,7 +346,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 212);
+            this.label4.Location = new System.Drawing.Point(131, 195);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 17);
             this.label4.TabIndex = 5;
@@ -375,7 +391,7 @@
             // Btn_Grabar
             // 
             this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Grabar.Location = new System.Drawing.Point(558, 83);
+            this.Btn_Grabar.Location = new System.Drawing.Point(600, 83);
             this.Btn_Grabar.Name = "Btn_Grabar";
             this.Btn_Grabar.Size = new System.Drawing.Size(82, 52);
             this.Btn_Grabar.TabIndex = 12;
@@ -386,7 +402,7 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(558, 279);
+            this.Btn_Salir.Location = new System.Drawing.Point(600, 279);
             this.Btn_Salir.Name = "Btn_Salir";
             this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 13;
@@ -394,18 +410,59 @@
             this.Btn_Salir.UseVisualStyleBackColor = true;
             this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
-            // Tx_sql
+            // Btn_GeneraDatos
             // 
-            this.Tx_sql.Location = new System.Drawing.Point(356, 388);
-            this.Tx_sql.Name = "Tx_sql";
-            this.Tx_sql.Size = new System.Drawing.Size(175, 23);
-            this.Tx_sql.TabIndex = 28;
+            this.Btn_GeneraDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_GeneraDatos.Location = new System.Drawing.Point(600, 389);
+            this.Btn_GeneraDatos.Name = "Btn_GeneraDatos";
+            this.Btn_GeneraDatos.Size = new System.Drawing.Size(82, 53);
+            this.Btn_GeneraDatos.TabIndex = 14;
+            this.Btn_GeneraDatos.Text = "Genera Datos";
+            this.Btn_GeneraDatos.UseVisualStyleBackColor = true;
+            this.Btn_GeneraDatos.Click += new System.EventHandler(this.Btn_GeneraDatos_Click);
+            // 
+            // Tx_IdCorrCarga
+            // 
+            this.Tx_IdCorrCarga.Location = new System.Drawing.Point(27, 266);
+            this.Tx_IdCorrCarga.MaxLength = 7;
+            this.Tx_IdCorrCarga.Name = "Tx_IdCorrCarga";
+            this.Tx_IdCorrCarga.Size = new System.Drawing.Size(72, 23);
+            this.Tx_IdCorrCarga.TabIndex = 32;
+            this.Tx_IdCorrCarga.Text = "-";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 246);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 17);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Id Corr. Carga";
+            // 
+            // Tx_IdCorrTara
+            // 
+            this.Tx_IdCorrTara.Location = new System.Drawing.Point(29, 215);
+            this.Tx_IdCorrTara.MaxLength = 7;
+            this.Tx_IdCorrTara.Name = "Tx_IdCorrTara";
+            this.Tx_IdCorrTara.Size = new System.Drawing.Size(72, 23);
+            this.Tx_IdCorrTara.TabIndex = 30;
+            this.Tx_IdCorrTara.Text = "-";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(26, 195);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(88, 17);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Id Corr. Tara";
             // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 446);
+            this.ClientSize = new System.Drawing.Size(690, 446);
+            this.Controls.Add(this.Btn_GeneraDatos);
             this.Controls.Add(this.Btn_Salir);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Btn_Grabar);
@@ -455,5 +512,10 @@
         private System.Windows.Forms.TextBox Tx_DiferenciaKilos;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox Tx_sql;
+        private System.Windows.Forms.Button Btn_GeneraDatos;
+        private System.Windows.Forms.TextBox Tx_IdCorrCarga;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox Tx_IdCorrTara;
+        private System.Windows.Forms.Label label14;
     }
 }

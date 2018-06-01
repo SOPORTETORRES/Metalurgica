@@ -100,6 +100,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCantidadEtiquetasPiezas = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Dtg_ResumenCarga = new System.Windows.Forms.DataGridView();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -113,6 +115,8 @@
             this.panel4.SuspendLayout();
             this.Gr_Avance.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).BeginInit();
             this.SuspendLayout();
             // 
             // tlsToolBar
@@ -129,7 +133,7 @@
             this.tlbSalir});
             this.tlsToolBar.Location = new System.Drawing.Point(0, 36);
             this.tlsToolBar.Name = "tlsToolBar";
-            this.tlsToolBar.Size = new System.Drawing.Size(1121, 25);
+            this.tlsToolBar.Size = new System.Drawing.Size(1370, 25);
             this.tlsToolBar.TabIndex = 24;
             this.tlsToolBar.Text = "toolStrip1";
             // 
@@ -224,7 +228,7 @@
             this.tlsEstado});
             this.stsStatusStrip.Location = new System.Drawing.Point(0, 472);
             this.stsStatusStrip.Name = "stsStatusStrip";
-            this.stsStatusStrip.Size = new System.Drawing.Size(1121, 22);
+            this.stsStatusStrip.Size = new System.Drawing.Size(1370, 22);
             this.stsStatusStrip.TabIndex = 25;
             this.stsStatusStrip.Text = "statusStrip1";
             // 
@@ -241,7 +245,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 61);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1121, 208);
+            this.panel1.Size = new System.Drawing.Size(1370, 208);
             this.panel1.TabIndex = 26;
             // 
             // label4
@@ -257,6 +261,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.Gr_empresa);
             this.groupBox3.Controls.Add(this.Btn_ITDESP);
             this.groupBox3.Controls.Add(this.Btn_DevuelveCamion);
@@ -266,7 +271,7 @@
             this.groupBox3.Controls.Add(this.txtObs);
             this.groupBox3.Location = new System.Drawing.Point(3, 14);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1115, 188);
+            this.groupBox3.Size = new System.Drawing.Size(1364, 188);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos del Despacho a Camión";
@@ -439,7 +444,7 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Location = new System.Drawing.Point(816, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 176);
+            this.groupBox1.Size = new System.Drawing.Size(243, 176);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resumen Carga";
@@ -449,9 +454,9 @@
             this.label13.BackColor = System.Drawing.Color.Blue;
             this.label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(14, 121);
+            this.label13.Location = new System.Drawing.Point(4, 121);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(249, 16);
+            this.label13.Size = new System.Drawing.Size(234, 16);
             this.label13.TabIndex = 33;
             this.label13.Text = "Detalle Por Cargar";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -459,7 +464,7 @@
             // Lbl_PaqPorCar
             // 
             this.Lbl_PaqPorCar.AutoSize = true;
-            this.Lbl_PaqPorCar.Location = new System.Drawing.Point(176, 157);
+            this.Lbl_PaqPorCar.Location = new System.Drawing.Point(160, 157);
             this.Lbl_PaqPorCar.Name = "Lbl_PaqPorCar";
             this.Lbl_PaqPorCar.Size = new System.Drawing.Size(31, 13);
             this.Lbl_PaqPorCar.TabIndex = 32;
@@ -468,7 +473,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(175, 139);
+            this.label17.Location = new System.Drawing.Point(159, 139);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(79, 13);
             this.label17.TabIndex = 31;
@@ -477,7 +482,7 @@
             // Lbl_KilosPorCar
             // 
             this.Lbl_KilosPorCar.AutoSize = true;
-            this.Lbl_KilosPorCar.Location = new System.Drawing.Point(104, 157);
+            this.Lbl_KilosPorCar.Location = new System.Drawing.Point(88, 157);
             this.Lbl_KilosPorCar.Name = "Lbl_KilosPorCar";
             this.Lbl_KilosPorCar.Size = new System.Drawing.Size(31, 13);
             this.Lbl_KilosPorCar.TabIndex = 30;
@@ -486,7 +491,7 @@
             // Lbl_PiezasPorCar
             // 
             this.Lbl_PiezasPorCar.AutoSize = true;
-            this.Lbl_PiezasPorCar.Location = new System.Drawing.Point(20, 157);
+            this.Lbl_PiezasPorCar.Location = new System.Drawing.Point(4, 157);
             this.Lbl_PiezasPorCar.Name = "Lbl_PiezasPorCar";
             this.Lbl_PiezasPorCar.Size = new System.Drawing.Size(31, 13);
             this.Lbl_PiezasPorCar.TabIndex = 29;
@@ -495,7 +500,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(103, 139);
+            this.label20.Location = new System.Drawing.Point(87, 139);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(55, 13);
             this.label20.TabIndex = 28;
@@ -504,7 +509,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(19, 139);
+            this.label21.Location = new System.Drawing.Point(3, 139);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(61, 13);
             this.label21.TabIndex = 27;
@@ -513,9 +518,9 @@
             // label12
             // 
             this.label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label12.Location = new System.Drawing.Point(13, 16);
+            this.label12.Location = new System.Drawing.Point(3, 16);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(249, 16);
+            this.label12.Size = new System.Drawing.Size(234, 16);
             this.label12.TabIndex = 26;
             this.label12.Text = "Detalle Carga Camión";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -523,9 +528,9 @@
             // label8
             // 
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label8.Location = new System.Drawing.Point(13, 70);
+            this.label8.Location = new System.Drawing.Point(3, 70);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(249, 16);
+            this.label8.Size = new System.Drawing.Size(234, 16);
             this.label8.TabIndex = 25;
             this.label8.Text = "Detalle Viaje";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -533,7 +538,7 @@
             // Lbl_TotalPaq
             // 
             this.Lbl_TotalPaq.AutoSize = true;
-            this.Lbl_TotalPaq.Location = new System.Drawing.Point(175, 106);
+            this.Lbl_TotalPaq.Location = new System.Drawing.Point(163, 106);
             this.Lbl_TotalPaq.Name = "Lbl_TotalPaq";
             this.Lbl_TotalPaq.Size = new System.Drawing.Size(31, 13);
             this.Lbl_TotalPaq.TabIndex = 24;
@@ -542,7 +547,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(174, 88);
+            this.label10.Location = new System.Drawing.Point(162, 88);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(79, 13);
             this.label10.TabIndex = 23;
@@ -551,7 +556,7 @@
             // Lbl_TotalKgs
             // 
             this.Lbl_TotalKgs.AutoSize = true;
-            this.Lbl_TotalKgs.Location = new System.Drawing.Point(103, 106);
+            this.Lbl_TotalKgs.Location = new System.Drawing.Point(91, 106);
             this.Lbl_TotalKgs.Name = "Lbl_TotalKgs";
             this.Lbl_TotalKgs.Size = new System.Drawing.Size(31, 13);
             this.Lbl_TotalKgs.TabIndex = 22;
@@ -560,7 +565,7 @@
             // Lbl_NroPiezas
             // 
             this.Lbl_NroPiezas.AutoSize = true;
-            this.Lbl_NroPiezas.Location = new System.Drawing.Point(19, 106);
+            this.Lbl_NroPiezas.Location = new System.Drawing.Point(7, 106);
             this.Lbl_NroPiezas.Name = "Lbl_NroPiezas";
             this.Lbl_NroPiezas.Size = new System.Drawing.Size(31, 13);
             this.Lbl_NroPiezas.TabIndex = 21;
@@ -569,7 +574,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(102, 88);
+            this.label7.Location = new System.Drawing.Point(90, 88);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 20;
@@ -578,7 +583,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 88);
+            this.label6.Location = new System.Drawing.Point(6, 88);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 13);
             this.label6.TabIndex = 19;
@@ -587,7 +592,7 @@
             // lbl_TotalPaqCar
             // 
             this.lbl_TotalPaqCar.AutoSize = true;
-            this.lbl_TotalPaqCar.Location = new System.Drawing.Point(174, 54);
+            this.lbl_TotalPaqCar.Location = new System.Drawing.Point(162, 54);
             this.lbl_TotalPaqCar.Name = "lbl_TotalPaqCar";
             this.lbl_TotalPaqCar.Size = new System.Drawing.Size(31, 13);
             this.lbl_TotalPaqCar.TabIndex = 18;
@@ -596,7 +601,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(173, 36);
+            this.label11.Location = new System.Drawing.Point(161, 36);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 13);
             this.label11.TabIndex = 17;
@@ -605,7 +610,7 @@
             // lbl_TotalKgsCar
             // 
             this.lbl_TotalKgsCar.AutoSize = true;
-            this.lbl_TotalKgsCar.Location = new System.Drawing.Point(102, 54);
+            this.lbl_TotalKgsCar.Location = new System.Drawing.Point(90, 54);
             this.lbl_TotalKgsCar.Name = "lbl_TotalKgsCar";
             this.lbl_TotalKgsCar.Size = new System.Drawing.Size(31, 13);
             this.lbl_TotalKgsCar.TabIndex = 16;
@@ -614,7 +619,7 @@
             // lbl_NroPiezasCar
             // 
             this.lbl_NroPiezasCar.AutoSize = true;
-            this.lbl_NroPiezasCar.Location = new System.Drawing.Point(18, 54);
+            this.lbl_NroPiezasCar.Location = new System.Drawing.Point(6, 54);
             this.lbl_NroPiezasCar.Name = "lbl_NroPiezasCar";
             this.lbl_NroPiezasCar.Size = new System.Drawing.Size(31, 13);
             this.lbl_NroPiezasCar.TabIndex = 15;
@@ -623,7 +628,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(101, 36);
+            this.label14.Location = new System.Drawing.Point(89, 36);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(55, 13);
             this.label14.TabIndex = 14;
@@ -632,7 +637,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(17, 36);
+            this.label15.Location = new System.Drawing.Point(5, 36);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 13);
             this.label15.TabIndex = 13;
@@ -742,7 +747,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 269);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1121, 203);
+            this.panel2.Size = new System.Drawing.Size(1370, 203);
             this.panel2.TabIndex = 27;
             // 
             // dgvEtiquetasPiezas
@@ -756,7 +761,7 @@
             this.dgvEtiquetasPiezas.Name = "dgvEtiquetasPiezas";
             this.dgvEtiquetasPiezas.ReadOnly = true;
             this.dgvEtiquetasPiezas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1121, 143);
+            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1370, 143);
             this.dgvEtiquetasPiezas.TabIndex = 1;
             this.dgvEtiquetasPiezas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEtiquetasPiezas_CellClick);
             // 
@@ -769,7 +774,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1121, 30);
+            this.panel4.Size = new System.Drawing.Size(1370, 30);
             this.panel4.TabIndex = 7;
             // 
             // Gr_Avance
@@ -838,7 +843,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 173);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1121, 30);
+            this.panel3.Size = new System.Drawing.Size(1370, 30);
             this.panel3.TabIndex = 6;
             // 
             // lblCantidadEtiquetasPiezas
@@ -855,14 +860,36 @@
             this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ctlInformacionUsuario1.Location = new System.Drawing.Point(0, 0);
             this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
-            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1121, 36);
+            this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1370, 36);
             this.ctlInformacionUsuario1.TabIndex = 23;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.Dtg_ResumenCarga);
+            this.groupBox5.Location = new System.Drawing.Point(819, 5);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(486, 179);
+            this.groupBox5.TabIndex = 19;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Resumen Carga";
+            // 
+            // Dtg_ResumenCarga
+            // 
+            this.Dtg_ResumenCarga.AllowUserToAddRows = false;
+            this.Dtg_ResumenCarga.AllowUserToDeleteRows = false;
+            this.Dtg_ResumenCarga.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_ResumenCarga.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dtg_ResumenCarga.Location = new System.Drawing.Point(3, 16);
+            this.Dtg_ResumenCarga.Name = "Dtg_ResumenCarga";
+            this.Dtg_ResumenCarga.ReadOnly = true;
+            this.Dtg_ResumenCarga.Size = new System.Drawing.Size(480, 160);
+            this.Dtg_ResumenCarga.TabIndex = 0;
             // 
             // frmDespachoCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 494);
+            this.ClientSize = new System.Drawing.Size(1370, 494);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.stsStatusStrip);
@@ -899,6 +926,8 @@
             this.Gr_Avance.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -977,5 +1006,7 @@
         private System.Windows.Forms.RadioButton RB_TOSOL;
         private System.Windows.Forms.RadioButton Rb_TO;
         private System.Windows.Forms.ComboBox Cmb_Patentes;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DataGridView Dtg_ResumenCarga;
     }
 }

@@ -66,6 +66,7 @@ namespace Metalurgica.Bascula
             {
                 lRes = lTbl.Rows[0]["PesoBruto"].ToString();
                 mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
+                Tx_IdCorrCarga.Text = mIdCorrelativo;
             }
             return lRes;
         }
@@ -90,7 +91,8 @@ namespace Metalurgica.Bascula
                 if (lTbl.Rows.Count > 0)
                 {
                     lRes = lTbl.Rows[0]["PesoBruto"].ToString();
-
+                    Tx_IdCorrTara.Text = lTbl.Rows[0]["Correlativo"].ToString();
+                    mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
                 }
             }
             return lRes;
@@ -214,8 +216,8 @@ namespace Metalurgica.Bascula
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lTx_Caso = "";
             string lPatente = ""; string lFechaDespacho = ""; string lPesoGuia = "";string lKgsNeto = ""; string lKgsDesarrollo = "";
             string lDesviacion= ""; string lJefeTurno = "Sin Datos "; string lResultadoPesaje = "";string lObra = " Sin Datos ";
-            string lPorDesviacion = "";  double  lPGD = 0; double lPN = 0; double lPD = 0;
-            int lPs = 0;
+            string lPorDesviacion = "";  double  lPGD = 0; double lPbascula = 0; double lPD = 0;
+            int lPs = 0; string lDesviacionDesa = ""; string lPorDesviacionDesa = "";
 
            lResultadoPesaje = Btn_PesoBruto.Tag.ToString ();
 
@@ -238,8 +240,13 @@ namespace Metalurgica.Bascula
             lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso GD&nbsp; (KG)</td> ");
             lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso Desarrollo (KG)</td> ");
             lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Peso Báscula(KG)</td> ");
-            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación(KG)</td>");
-            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación(%)</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación Teórica (KG)</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación Teórica(%)</td>");
+
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación Desarrollo (KG)</td>");
+            lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Desviación Desarrollo (%)</td>");
+
+
             lTx = string.Concat(lTx, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;' > Nombre Jefe Turno</td>");
             lTx = string.Concat(lTx, "  </tr> ");
 
@@ -247,20 +254,29 @@ namespace Metalurgica.Bascula
             {
                 lTbl = lDts.Tables[0].Copy();
                 lPatente = lTbl.Rows[0]["Patente"].ToString();
-                lPs = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
-                lPesoGuia = lPs.ToString("N0");
-                lPs = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
-                lKgsNeto = lPs.ToString("N0");
-                lPs = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
-                lKgsDesarrollo = lPs.ToString("N0");
                 lPGD = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
-                lPN = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
+                lPbascula = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
+                lPesoGuia = lPbascula.ToString("N0");
+               
+                lKgsNeto = lPGD.ToString("N0");
                 lPD = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
+                lKgsDesarrollo = lPD.ToString("N0");
+               
+                //lPN = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
 
-                lDesviacion = (lPD - lPN).ToString ();
-                lPorDesviacion = Math.Round ((((lPD - lPN) * 100) / lPD),2).ToString();
-                // % diferencia = ((Peso Guía de Despacho - Peso Neto)*100)/ (Peso Guía de Despacho) 
-                
+                // % respecto al peso teórico (Peso GD) = (peso teórico – peso báscula)/Peso teórico
+                lDesviacion = (lPGD - lPbascula).ToString();
+                lPorDesviacion = Math.Round((((lPGD - lPbascula) * 100) / lPGD), 2).ToString();
+
+                // calculo  desviación desarrollo
+                // % respecto al peso con desarrollo = (peso con desarrollo – peso báscula)/ Peso con desarrollo
+                lDesviacionDesa= (lPD - lPbascula).ToString();
+
+                lPorDesviacionDesa = Math.Round((((lPD - lPbascula) * 100) / lPD), 2).ToString();
+
+                //lPD = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());                                
+                //lDesviacionDesa = ""; lPorDesviacionDesa = "";
+
                 lTx = string.Concat(lTx, "  <tr> ");
                 lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["Patente"].ToString()  , "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["FechaPesoBruto"].ToString() , "</td> ");
@@ -269,6 +285,9 @@ namespace Metalurgica.Bascula
                 lTx = string.Concat(lTx, "  <td>", lKgsNeto, "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lDesviacion, "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lPorDesviacion.ToString(), "</td>  ");
+
+                lTx = string.Concat(lTx, "  <td>", lDesviacionDesa, "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lPorDesviacionDesa.ToString(), "</td>  ");
 
                 if ((lDts.Tables.Count == 2) && (lDts.Tables[1].Rows.Count > 0))
                 {
@@ -354,13 +373,11 @@ namespace Metalurgica.Bascula
                 {
                     Tx_Tara.Text = lTbl.Rows[0]["PesoTara"].ToString();
                     mIdPesajeCamion = int.Parse(lTbl.Rows[0]["IdPesajeCamion"].ToString());
-                    mKilosCargadosCamion= int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
+                    Tx_IdCorrTara.Text = mIdPesajeCamion.ToString ();
+                    mKilosCargadosCamion = int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
                     Tx_Tara.ReadOnly = true;
                 }
             }
-
-
-
         }
 
         private void Btn_PesoBruto_Click(object sender, EventArgs e)
@@ -369,15 +386,18 @@ namespace Metalurgica.Bascula
             //ObtenerPesoBruto
             int lPesoBruto = int.Parse(ObtenerPesoBruto());
             int lPesoTara = int.Parse(Tx_Tara.Text);
+            int lPesoGD = int.Parse(mKilosCargadosCamion.ToString ());
+
             this.Tx_Bruto.Text = lPesoBruto.ToString();
             this.Tx_Carga.Text = (lPesoBruto - lPesoTara).ToString();
-            lDiferencia = Math.Abs (mKilosCargadosCamion - int.Parse (Tx_Carga.Text));
+
+            lDiferencia = Math.Abs (lPesoGD - int.Parse (Tx_Carga.Text));
             Tx_DiferenciaKilos.Text = lDiferencia.ToString();
             if (lDiferencia > 0)
             {
                 // % diferencia = ((Peso Guía de Despacho - Peso Neto)*100)/ (Peso Guía de Despacho) 
 
-                lToleranciaReal = (double.Parse (lDiferencia.ToString ()) / double.Parse (mKilosCargadosCamion.ToString ())) * 100;
+                lToleranciaReal = (double.Parse (lDiferencia.ToString ()) / double.Parse (lPesoGD.ToString ())) * 100;
                 Tx_ToleranciaReal.Text = Math.Round (lToleranciaReal,2).ToString();
                 Tx_KgsCargados.Text = mKilosCargadosCamion.ToString();
                 if (lToleranciaReal > Double .Parse(Tx_ToleranciaBascula.Text))
@@ -390,20 +410,64 @@ namespace Metalurgica.Bascula
                 //Obtenemos el dato para el correo electronico
                 Btn_PesoBruto.Tag = " ";
                 if ((double.Parse(Tx_Carga.Text) > mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
-                    {
-                    Btn_PesoBruto.Tag = "+";
-                    }
+                {
+                     Btn_PesoBruto.Tag = "+";
+                }
 
                 if ((double.Parse(Tx_Carga.Text) < mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
                 {
                     Btn_PesoBruto.Tag = "-";
                 }
-
-
-
             }
 
             Tx_Carga.ReadOnly = true;
+
+        }
+
+        private void Btn_GeneraDatos_Click(object sender, EventArgs e)
+        {
+            GeneraDatos();
+        }
+
+        private void GeneraDatos ()
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            string lSql = ""; DataTable lTbl = new DataTable();string lIdPesaje = "";int i = 0;
+            DataTable lTblTmp = new DataTable();
+            string lNroGD = ""; string lPesoGD = ""; string lDif_basculaGD=""; string lDesviacion_GD_Bascula = "";
+            string lPesoConDesarrollo = ""; string lDesviacion_PD_Bascula = "";
+
+            try
+            {
+                lSql = String.Concat(" SP_CRUD_PesajeCamion 0, ' ',0,'',0,0,'',0,0,'',0,8 ");
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    //NroGD - PesoGD - Dif_basculaGD - Desviación_GD_Bascula - PesoConDesarrollo  - Desviacion_PD_Bascula
+                    lTbl = lDts.Tables[0].Copy();
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        lIdPesaje = lTbl.Rows[i]["Id"].ToString();
+                        lSql = String.Concat(" SP_CRUD_PesajeCamion ", lIdPesaje, ", ' ',0,'',0,0,'',0,0,'',0,9 ");
+                        lDts = lPx.ObtenerDatos(lSql);
+                        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                        {
+                            lTblTmp = lDts.Tables[0].Copy();
+                            lNroGD = lTblTmp.Rows[0]["NroGuiaInet"].ToString(); lPesoGD = lTblTmp.Rows[0]["KgsGD"].ToString();
+                            lDif_basculaGD = lTbl.Rows[i]["Dif KgsGD"].ToString(); lDesviacion_GD_Bascula = lTbl.Rows[i]["% Dif KgsGD"].ToString().Replace(",", ".");
+                            lPesoConDesarrollo = lTbl.Rows[i]["ConDesarrollo"].ToString(); lDesviacion_PD_Bascula = lTbl.Rows[i]["% Dif KgsDesa"].ToString().Replace(",", ".");
+                            lSql = string.Concat(" Update PesajeCamion set NroGD='", lNroGD, "',PesoGD=", lPesoGD, " ,Dif_basculaGD=", lDif_basculaGD);
+                            lSql = string.Concat(lSql, ",Desviacion_GD_Bascula='", lDesviacion_GD_Bascula, "',PesoConDesarrollo=", lPesoConDesarrollo);
+                            lSql = string.Concat(lSql, ",Desviacion_PD_Bascula='", lDesviacion_PD_Bascula, "' where id=", lIdPesaje);
+                            lDts = lPx.ObtenerDatos(lSql);
+                        }
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
     }

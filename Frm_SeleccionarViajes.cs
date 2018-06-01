@@ -56,16 +56,16 @@ namespace Metalurgica
             {
                 if (lRow.Cells[0].Value != null)
                     if (lRow.Cells[0].Value.ToString() == "True")
-                        if (lViajes .ToString().Trim().Length ==0)
-                        {
+                        //if (lViajes .ToString().Trim().Length ==0)
+                        //{
                             lViajes = string.Concat(lViajes, "'", lRow.Cells["codigo"].Value.ToString(), "'|", lRow.Cells["Id"].Value.ToString(), ",");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Solo se puede Seleccionar un Viaje para despachar. Seleccionar nuevamente el viaje a Despachar", "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            lViajes = "";
-                            lContinuar = false;
-                        }
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("Solo se puede Seleccionar un Viaje para despachar. Seleccionar nuevamente el viaje a Despachar", "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //    lViajes = "";
+                        //    lContinuar = false;
+                        //}
             }
             if (lContinuar == true)
             {
