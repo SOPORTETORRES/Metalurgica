@@ -30,7 +30,17 @@ namespace Metalurgica.Bascula
         {
             string lTara = ObtenerTara();
             this.Tx_Tara.Text = lTara;
-            
+            Tx_Carga.Text = "";
+
+            Tx_Carga.Text = "";
+            Tx_ToleranciaReal.Text = "";
+
+            Tx_KgsCargados.Text = "";
+            Tx_DiferenciaKilos.Text = "";
+
+            Tx_Bruto.Text = "";
+            this.Tx_IdCorrCarga.Text = "";
+
 
         }
 

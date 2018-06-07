@@ -723,89 +723,98 @@ namespace Metalurgica
             DataTable lTblDatos = new DataTable(); int k = 0; DataView lVista = null; string lCodigo = "";
             string lWheres = ""; DataRow lFila = null; Clases.ClsComun lCom = new Clases.ClsComun();
             double lKilosDesa = 0; double lKilosViaje = 0; double lPiezasViaje = 0;double lAvance = 0;
-
-
-            for (i = 0; i < dgvEtiquetasPiezas.RowCount; i++)
+            try
             {
-                if (lViajes.IndexOf(dgvEtiquetasPiezas.Rows[i].Cells["Codigo"].Value.ToString()) == -1)
+
+                for (i = 0; i < dgvEtiquetasPiezas.RowCount; i++)
                 {
-                    lViajes = string.Concat(dgvEtiquetasPiezas.Rows[i].Cells["Codigo"].Value.ToString(),"|", lViajes);
-                }
-            }
-
-            mTblResumenDespacho.Columns.Add("Viaje", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("Nro.Piezas", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("Kgs. Teorico", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("Kgs. Desa", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("Kgs. Cargados", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("Avance", Type.GetType("System.String"));
-            mTblResumenDespacho.Columns.Add("KgsXCargar", Type.GetType("System.String"));
-
-            lTblDatos = (DataTable) dgvEtiquetasPiezas.DataSource;
-            lPartes = lViajes.Split(new Char[] { '|' });
-            for (i = 0; i < lPartes.Length ; i++)
-            {
-                if (lPartes[i].ToString().Length >0 )
-                { 
-                lCodigo = lPartes[i].ToString();
-                lWheres = string.Concat("Codigo='", lCodigo, "'");
-                lPiezasCargadas = 0; lPaquetesCargados = 0; lKilosDesa = 0; lKilosViaje = 0;   lPiezasViaje = 0;
-                lVista = new DataView(lTblDatos, lWheres, "", DataViewRowState.CurrentRows);
+                    if (lViajes.IndexOf(dgvEtiquetasPiezas.Rows[i].Cells["Codigo"].Value.ToString()) == -1)
                     {
-                        lKilosCargados = 0; lPiezasCargadas = 0;
-                        for (k = 0; k < lVista.Count; k++)
-                        {
-                            lPiezasViaje = lPiezasViaje + lCom.Val(lVista[k]["NroPiezas"].ToString());
-                            lKilosViaje = lKilosViaje + lCom.Val(lVista[k]["KgsPaquete1"].ToString());
-                            lKilosDesa = lKilosDesa + lCom.Val(lVista[k]["KgsReales"].ToString());
-                            if (lVista[k]["Estado1"].ToString().Equals("POK") || lVista[k]["Estado2"].ToString().Equals("O60"))
-                            {
-                                lKilosCargados = lKilosCargados + int.Parse(lVista[k]["KgsPaquete1"].ToString());
-                                lPiezasCargadas = lPiezasCargadas + int.Parse(lVista[k]["NroPiezas"].ToString());
-                            }
-                        }
-                        lFila = mTblResumenDespacho.NewRow();
-                        lFila["Viaje"] = lCodigo;
-                        lFila["Nro.Piezas"] = lPiezasViaje;
-                        lFila["Kgs. Teorico"] = lKilosViaje;
-                        lFila["Kgs. Desa"] = lKilosDesa;
-                        lFila["Kgs. Cargados"] = lKilosCargados;
-                        lAvance = Math .Round ((lKilosCargados / lKilosViaje) * 100,2);
-                        lFila["Avance"] = lAvance;
-                        lAvance = lKilosViaje - lKilosCargados;
-                        lFila["KgsXCargar"] = lAvance;
-                        mTblResumenDespacho.Rows.Add(lFila);
+                        lViajes = string.Concat(dgvEtiquetasPiezas.Rows[i].Cells["Codigo"].Value.ToString(), "|", lViajes);
                     }
                 }
+
+                mTblResumenDespacho.Columns.Add("Viaje", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Nro.Piezas", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Kgs. Teorico", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Kgs. Desa", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Kgs. Cargados", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Avance", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("KgsXCargar", Type.GetType("System.String"));
+
+                lTblDatos = (DataTable)dgvEtiquetasPiezas.DataSource;
+                lPartes = lViajes.Split(new Char[] { '|' });
+                for (i = 0; i < lPartes.Length; i++)
+                {
+                    if (lPartes[i].ToString().Length > 0)
+                    {
+                        lCodigo = lPartes[i].ToString();
+                        lWheres = string.Concat("Codigo='", lCodigo, "'");
+                        lPiezasCargadas = 0; lPaquetesCargados = 0; lKilosDesa = 0; lKilosViaje = 0; lPiezasViaje = 0;
+                        lVista = new DataView(lTblDatos, lWheres, "", DataViewRowState.CurrentRows);
+                        {
+                            lKilosCargados = 0; lPiezasCargadas = 0;
+                            for (k = 0; k < lVista.Count; k++)
+                            {
+                                lPiezasViaje = lPiezasViaje + lCom.Val(lVista[k]["NroPiezas"].ToString());
+                                lKilosViaje = lKilosViaje + lCom.Val(lVista[k]["KgsPaquete1"].ToString());
+                                lKilosDesa = lKilosDesa + lCom.Val(lVista[k]["KgsReales"].ToString());
+                                if (lVista[k]["Estado1"].ToString().Equals("POK") || lVista[k]["Estado2"].ToString().Equals("O60"))
+                                {
+                                    lKilosCargados = lKilosCargados + int.Parse(lVista[k]["KgsPaquete1"].ToString());
+                                    lPiezasCargadas = lPiezasCargadas + int.Parse(lVista[k]["NroPiezas"].ToString());
+                                }
+                            }
+                            //  lPesoGuia = lPbascula.ToString("N0");
+                            lFila = mTblResumenDespacho.NewRow();
+                            lFila["Viaje"] = lCodigo;
+                            lFila["Nro.Piezas"] = lPiezasViaje;
+                            lFila["Kgs. Teorico"] = lKilosViaje;
+                            lFila["Kgs. Desa"] = lKilosDesa;
+                            lFila["Kgs. Cargados"] = lKilosCargados;
+                            lAvance = Math.Round((lKilosCargados / lKilosViaje) * 100, 2);
+                            lFila["Avance"] = lAvance;
+                            lAvance = lKilosViaje - lKilosCargados;
+                            lFila["KgsXCargar"] = lAvance;
+                            mTblResumenDespacho.Rows.Add(lFila);
+                        }
+                    }
+                }
+                double lTotalDesa = 0; double lTotlaKilosViaje = 0; double lTotalPiezasViaje = 0; double lTotalKgsCargados = 0;
+                for (i = 0; i < mTblResumenDespacho.Rows.Count; i++)
+                {
+                    lTotlaKilosViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Teorico"].ToString()) + lTotlaKilosViaje;
+                    lTotalDesa = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Desa"].ToString()) + lTotalDesa;
+
+                    lTotalPiezasViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Nro.Piezas"].ToString()) + lTotalPiezasViaje;
+                    lTotalKgsCargados = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Cargados"].ToString()) + lTotalKgsCargados;
+                }
+
+                lFila = mTblResumenDespacho.NewRow();
+                lFila["Viaje"] = "Totales:";
+                lFila["Nro.Piezas"] = lTotalPiezasViaje;
+                lFila["Kgs. Teorico"] = lTotlaKilosViaje;//.ToString("N0");
+                lFila["Kgs. Desa"] = lTotalDesa;//.ToString("N0");
+                lFila["Kgs. Cargados"] = lTotalKgsCargados;//.ToString("N0");
+                lFila["Avance"] = "";
+                lAvance = Math.Round((lTotalKgsCargados / lTotlaKilosViaje) * 100, 2);
+                lFila["Avance"] = lAvance;
+                lAvance = lTotlaKilosViaje - lTotalKgsCargados;
+                lFila["KgsXCargar"] = lAvance;//.ToString("N0");
+
+                mTblResumenDespacho.Rows.Add(lFila);
+
+                Dtg_ResumenCarga.DataSource = mTblResumenDespacho;
+                FormateaGrilla();
+
+                //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
+                lblCantidadEtiquetasPiezas.Text = "Regstro(s): " + lPaquetesCargados.ToString();
             }
-            double lTotalDesa = 0; double lTotlaKilosViaje = 0; double lTotalPiezasViaje = 0; double lTotalKgsCargados = 0;
-            for (i = 0; i < mTblResumenDespacho.Rows .Count ; i++)
+            catch (Exception exc)
             {
-                lTotlaKilosViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Teorico"].ToString()) + lTotlaKilosViaje;
-                lTotalDesa = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Desa"].ToString())+ lTotalDesa;
-
-                lTotalPiezasViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Nro.Piezas"].ToString() ) + lTotalPiezasViaje;
-                lTotalKgsCargados = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Cargados"].ToString()) + lTotalKgsCargados;
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            lFila = mTblResumenDespacho.NewRow();
-            lFila["Viaje"] = "Totales:";
-            lFila["Nro.Piezas"] = lTotalPiezasViaje;
-            lFila["Kgs. Teorico"] = lTotlaKilosViaje;
-            lFila["Kgs. Desa"] = lTotalDesa;
-            lFila["Kgs. Cargados"] = lTotalKgsCargados;
-            lFila["Avance"] = "";
-            lAvance = Math.Round((lTotalKgsCargados / lTotlaKilosViaje) * 100, 2);
-            lFila["Avance"] = lAvance;
-            lAvance = lTotlaKilosViaje - lTotalKgsCargados;
-            lFila["KgsXCargar"] = lAvance;
-
-            mTblResumenDespacho.Rows.Add(lFila);
-            Dtg_ResumenCarga.DataSource = mTblResumenDespacho;
-            FormateaGrilla();
-
-            //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
-            lblCantidadEtiquetasPiezas.Text = "Regstro(s): " + lPaquetesCargados.ToString ();
         }
 
         private void FormateaGrilla()

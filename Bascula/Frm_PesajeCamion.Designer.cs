@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Tx_IdCorrCarga = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.Tx_IdCorrTara = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.Tx_sql = new System.Windows.Forms.TextBox();
             this.Tx_DiferenciaKilos = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -61,10 +65,6 @@
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
             this.Btn_GeneraDatos = new System.Windows.Forms.Button();
-            this.Tx_IdCorrCarga = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.Tx_IdCorrTara = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -113,12 +113,49 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
             // 
+            // Tx_IdCorrCarga
+            // 
+            this.Tx_IdCorrCarga.Location = new System.Drawing.Point(27, 266);
+            this.Tx_IdCorrCarga.MaxLength = 7;
+            this.Tx_IdCorrCarga.Name = "Tx_IdCorrCarga";
+            this.Tx_IdCorrCarga.Size = new System.Drawing.Size(72, 23);
+            this.Tx_IdCorrCarga.TabIndex = 32;
+            this.Tx_IdCorrCarga.Text = "-";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 246);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 17);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Id Corr. Carga";
+            // 
+            // Tx_IdCorrTara
+            // 
+            this.Tx_IdCorrTara.Location = new System.Drawing.Point(29, 215);
+            this.Tx_IdCorrTara.MaxLength = 7;
+            this.Tx_IdCorrTara.Name = "Tx_IdCorrTara";
+            this.Tx_IdCorrTara.Size = new System.Drawing.Size(72, 23);
+            this.Tx_IdCorrTara.TabIndex = 30;
+            this.Tx_IdCorrTara.Text = "-";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(26, 195);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(88, 17);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Id Corr. Tara";
+            // 
             // Tx_sql
             // 
             this.Tx_sql.Location = new System.Drawing.Point(356, 388);
             this.Tx_sql.Name = "Tx_sql";
             this.Tx_sql.Size = new System.Drawing.Size(175, 23);
             this.Tx_sql.TabIndex = 28;
+            this.Tx_sql.Visible = false;
             // 
             // Tx_DiferenciaKilos
             // 
@@ -420,42 +457,6 @@
             this.Btn_GeneraDatos.Text = "Genera Datos";
             this.Btn_GeneraDatos.UseVisualStyleBackColor = true;
             this.Btn_GeneraDatos.Click += new System.EventHandler(this.Btn_GeneraDatos_Click);
-            // 
-            // Tx_IdCorrCarga
-            // 
-            this.Tx_IdCorrCarga.Location = new System.Drawing.Point(27, 266);
-            this.Tx_IdCorrCarga.MaxLength = 7;
-            this.Tx_IdCorrCarga.Name = "Tx_IdCorrCarga";
-            this.Tx_IdCorrCarga.Size = new System.Drawing.Size(72, 23);
-            this.Tx_IdCorrCarga.TabIndex = 32;
-            this.Tx_IdCorrCarga.Text = "-";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(14, 246);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(96, 17);
-            this.label13.TabIndex = 31;
-            this.label13.Text = "Id Corr. Carga";
-            // 
-            // Tx_IdCorrTara
-            // 
-            this.Tx_IdCorrTara.Location = new System.Drawing.Point(29, 215);
-            this.Tx_IdCorrTara.MaxLength = 7;
-            this.Tx_IdCorrTara.Name = "Tx_IdCorrTara";
-            this.Tx_IdCorrTara.Size = new System.Drawing.Size(72, 23);
-            this.Tx_IdCorrTara.TabIndex = 30;
-            this.Tx_IdCorrTara.Text = "-";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(26, 195);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(88, 17);
-            this.label14.TabIndex = 29;
-            this.label14.Text = "Id Corr. Tara";
             // 
             // Frm_PesajeCamion
             // 

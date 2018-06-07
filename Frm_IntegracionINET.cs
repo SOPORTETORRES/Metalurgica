@@ -377,7 +377,12 @@ namespace Metalurgica
                     }
                 }
 
-            }           
+            }
+            //  ******* cerramos el proceso de despacho de camion  ***************************
+
+            lSQl = string.Concat(" SP_CRUD_PesajeCamion 0,'", Tx_Patente.Text, "',0,'',0,0,'',0,0,'',0,11 ");
+            lDal.ObtenerDatos(lSQl);
+            //********************************************************************************
             Btn_INET.Enabled = true ;
             CargaCamiones(mSucursalTO ,mEmpresa );
         }
