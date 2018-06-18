@@ -44,6 +44,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Dtg_ResumenCarga = new System.Windows.Forms.DataGridView();
             this.Gr_empresa = new System.Windows.Forms.GroupBox();
             this.RB_TOSOL = new System.Windows.Forms.RadioButton();
             this.Rb_TO = new System.Windows.Forms.RadioButton();
@@ -100,12 +102,13 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCantidadEtiquetasPiezas = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.Dtg_ResumenCarga = new System.Windows.Forms.DataGridView();
+            this.Btn_Cambiar_A_PR = new System.Windows.Forms.Button();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).BeginInit();
             this.Gr_empresa.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -115,8 +118,6 @@
             this.panel4.SuspendLayout();
             this.Gr_Avance.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).BeginInit();
             this.SuspendLayout();
             // 
             // tlsToolBar
@@ -261,10 +262,9 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.Btn_Cambiar_A_PR);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.Gr_empresa);
-            this.groupBox3.Controls.Add(this.Btn_ITDESP);
-            this.groupBox3.Controls.Add(this.Btn_DevuelveCamion);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.groupBox2);
@@ -276,6 +276,28 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos del Despacho a Camión";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.Dtg_ResumenCarga);
+            this.groupBox5.Location = new System.Drawing.Point(819, 5);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(486, 179);
+            this.groupBox5.TabIndex = 19;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Resumen Carga";
+            // 
+            // Dtg_ResumenCarga
+            // 
+            this.Dtg_ResumenCarga.AllowUserToAddRows = false;
+            this.Dtg_ResumenCarga.AllowUserToDeleteRows = false;
+            this.Dtg_ResumenCarga.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_ResumenCarga.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dtg_ResumenCarga.Location = new System.Drawing.Point(3, 16);
+            this.Dtg_ResumenCarga.Name = "Dtg_ResumenCarga";
+            this.Dtg_ResumenCarga.ReadOnly = true;
+            this.Dtg_ResumenCarga.Size = new System.Drawing.Size(480, 160);
+            this.Dtg_ResumenCarga.TabIndex = 0;
             // 
             // Gr_empresa
             // 
@@ -314,17 +336,18 @@
             // 
             // Btn_ITDESP
             // 
-            this.Btn_ITDESP.Location = new System.Drawing.Point(697, 142);
+            this.Btn_ITDESP.Location = new System.Drawing.Point(388, -9);
             this.Btn_ITDESP.Name = "Btn_ITDESP";
             this.Btn_ITDESP.Size = new System.Drawing.Size(75, 36);
             this.Btn_ITDESP.TabIndex = 17;
             this.Btn_ITDESP.Text = "Dejar IT  despachada";
             this.Btn_ITDESP.UseVisualStyleBackColor = true;
+            this.Btn_ITDESP.Visible = false;
             this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Btn_DevuelveCamion
             // 
-            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(616, 136);
+            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(307, -15);
             this.Btn_DevuelveCamion.Name = "Btn_DevuelveCamion";
             this.Btn_DevuelveCamion.Size = new System.Drawing.Size(75, 42);
             this.Btn_DevuelveCamion.TabIndex = 16;
@@ -769,7 +792,9 @@
             // 
             this.panel4.Controls.Add(this.Gr_Avance);
             this.panel4.Controls.Add(this.Btn_EliminaPaq);
+            this.panel4.Controls.Add(this.Btn_ITDESP);
             this.panel4.Controls.Add(this.txtEtiquetaPieza);
+            this.panel4.Controls.Add(this.Btn_DevuelveCamion);
             this.panel4.Controls.Add(this.label9);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
@@ -863,27 +888,15 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1370, 36);
             this.ctlInformacionUsuario1.TabIndex = 23;
             // 
-            // groupBox5
+            // Btn_Cambiar_A_PR
             // 
-            this.groupBox5.Controls.Add(this.Dtg_ResumenCarga);
-            this.groupBox5.Location = new System.Drawing.Point(819, 5);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(486, 179);
-            this.groupBox5.TabIndex = 19;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Resumen Carga";
-            // 
-            // Dtg_ResumenCarga
-            // 
-            this.Dtg_ResumenCarga.AllowUserToAddRows = false;
-            this.Dtg_ResumenCarga.AllowUserToDeleteRows = false;
-            this.Dtg_ResumenCarga.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dtg_ResumenCarga.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Dtg_ResumenCarga.Location = new System.Drawing.Point(3, 16);
-            this.Dtg_ResumenCarga.Name = "Dtg_ResumenCarga";
-            this.Dtg_ResumenCarga.ReadOnly = true;
-            this.Dtg_ResumenCarga.Size = new System.Drawing.Size(480, 160);
-            this.Dtg_ResumenCarga.TabIndex = 0;
+            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(701, 138);
+            this.Btn_Cambiar_A_PR.Name = "Btn_Cambiar_A_PR";
+            this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(112, 40);
+            this.Btn_Cambiar_A_PR.TabIndex = 20;
+            this.Btn_Cambiar_A_PR.Text = "Cambiar a Producción";
+            this.Btn_Cambiar_A_PR.UseVisualStyleBackColor = true;
+            this.Btn_Cambiar_A_PR.Click += new System.EventHandler(this.Btn_Cambiar_A_PR_Click);
             // 
             // frmDespachoCamion
             // 
@@ -911,6 +924,8 @@
             this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).EndInit();
             this.Gr_empresa.ResumeLayout(false);
             this.Gr_empresa.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -926,8 +941,6 @@
             this.Gr_Avance.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1008,5 +1021,6 @@
         private System.Windows.Forms.ComboBox Cmb_Patentes;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView Dtg_ResumenCarga;
+        private System.Windows.Forms.Button Btn_Cambiar_A_PR;
     }
 }

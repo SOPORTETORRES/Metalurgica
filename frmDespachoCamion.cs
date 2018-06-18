@@ -83,6 +83,13 @@ namespace Metalurgica
                 HabilitaDesplegablePatentes(false);
             }
 
+            string lCambiarProduccion = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
+
+            if (lCambiarProduccion.ToUpper().Equals("S"))
+                Btn_Cambiar_A_PR.Visible = true;
+            else
+                Btn_Cambiar_A_PR.Visible  = false;
+
         }
         private void dgvEtiquetasPiezas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
@@ -274,7 +281,7 @@ namespace Metalurgica
 
 
             //Invocamos el metodo que revisa los bloqueos
-          //  wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
+            wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
 
         }
 
@@ -1818,6 +1825,22 @@ namespace Metalurgica
                     MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void Btn_Cambiar_A_PR_Click(object sender, EventArgs e)
+        {
+            string lPath = ""; string lApp = "";
+            if (MessageBox.Show("¿ Esta seguro que desea cambiar el sistema a modo Producción ? ", "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                 MessageBox.Show("Cuando el sistema le indique menu de confirmación, Presaionar SI ", "Avisos Sistema", MessageBoxButtons.OK);
+                lPath = ConfigurationManager.AppSettings["Path_Regedit"].ToString();
+                lApp = "Regedit.exe";
+                lPath = string.Concat(lPath, "PR_SM.reg");
+                System.Diagnostics.Process.Start(lApp, lPath);
+                System.Threading.Thread.Sleep(3000);
+                MessageBox.Show("El Sistema se cerrara, debe iniciar nuevamente el sistema, para cambiar a Modo Producción   ", "Avisos Sistema", MessageBoxButtons.OK);
+                Application.Exit();
             }
         }
     }

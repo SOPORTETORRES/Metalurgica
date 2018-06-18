@@ -16,14 +16,14 @@ namespace Metalurgica.Informes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Rpt_DetalleDespacho : ReportClass {
+    public class Rpt_PortadaPLDesp : ReportClass {
         
-        public Rpt_DetalleDespacho() {
+        public Rpt_PortadaPLDesp() {
         }
         
         public override string ResourceName {
             get {
-                return "Rpt_DetalleDespacho.rpt";
+                return "Rpt_PortadaPLDesp.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Metalurgica.Informes {
         
         public override string FullResourceName {
             get {
-                return "Metalurgica.Informes.Rpt_DetalleDespacho.rpt";
+                return "Metalurgica.Informes.Rpt_PortadaPLDesp.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace Metalurgica.Informes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRpt_DetalleDespacho : Component, ICachedReport {
+    public class CachedRpt_PortadaPLDesp : Component, ICachedReport {
         
-        public CachedRpt_DetalleDespacho() {
+        public CachedRpt_PortadaPLDesp() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace Metalurgica.Informes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Rpt_DetalleDespacho rpt = new Rpt_DetalleDespacho();
+            Rpt_PortadaPLDesp rpt = new Rpt_PortadaPLDesp();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -456,6 +456,7 @@
             this.Btn_GeneraDatos.TabIndex = 14;
             this.Btn_GeneraDatos.Text = "Genera Datos";
             this.Btn_GeneraDatos.UseVisualStyleBackColor = true;
+            this.Btn_GeneraDatos.Visible = false;
             this.Btn_GeneraDatos.Click += new System.EventHandler(this.Btn_GeneraDatos_Click);
             // 
             // Frm_PesajeCamion

@@ -372,19 +372,36 @@ namespace Metalurgica
                         NroGuiasCreadas = NroGuiasCreadas+ lListaOC.Count;
                         //*************************************************************************************************************************
 
+                        MessageBox.Show(string.Concat("Se han Creado ", NroGuiasCreadas, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        MessageBox.Show(string.Concat("Se han Creado ", NroGuiasCreadas, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);                       
+                        if (lRes.Err.ToString().ToUpper().Equals("N"))
+                        {   //No hay Error en la invicación a INET
+
+
+                        }
+                        //******************************************************************************
+                        // aca debemos enviara a imprimir el informe de despacho de camion. 14/06/2018
+                        //https://social.msdn.microsoft.com/Forums/es-ES/898271af-4622-4165-a50d-ccbbc4d3609b/imprimir-crystal-report-por-impresora-sin-que-se-vea-en-pantalla?forum=vsrepcrystales
+                        //*****************************************************************************
                     }
                 }
 
             }
             //  ******* cerramos el proceso de despacho de camion  ***************************
-
             lSQl = string.Concat(" SP_CRUD_PesajeCamion 0,'", Tx_Patente.Text, "',0,'',0,0,'',0,0,'',0,11 ");
             lDal.ObtenerDatos(lSQl);
             //********************************************************************************
             Btn_INET.Enabled = true ;
             CargaCamiones(mSucursalTO ,mEmpresa );
+        }
+
+        private void  ImprimeDocumentos()
+        {
+            //1.- primero Resumen Despacho
+            ImprimeResumenDespacho();
+
+            //2.- los PL Despachados de cada viaje
+
         }
 
         private string ObtenerIdDespachoCamion(string lViaje)
@@ -1562,6 +1579,13 @@ namespace Metalurgica
 
         private void Btn_Imprimir_Click(object sender, EventArgs e)
         {
+            ImprimeResumenDespacho();
+
+        }
+
+        private void ImprimeResumenDespacho()
+        {
+
             string lIdDespachos = "";
             if (ValidaDatos() == true)
             {
@@ -1578,10 +1602,12 @@ namespace Metalurgica
                 {
                     lIdDespachos = lIdDespachos.Substring(0, lIdDespachos.Length - 1);
                     ImprimeInformeCarga(lIdDespachos);
-                    
+
                 }
 
             }
+
+
 
         }
 
@@ -1609,7 +1635,7 @@ namespace Metalurgica
                     }
                     else
                     {
-                     lIdWsINET = "9999999";
+                     lIdWsINET = "000000";
                     }
                         lSql = string.Concat(" update Viaje set idlogWsINET=", lIdWsINET, "  where Codigo='", Dtg_Camiones.Rows[i].Cells["Codigo"].Value.ToString(), "'");
                         lDts = lPx.ObtenerDatos(lSql);

@@ -16,14 +16,14 @@ namespace Metalurgica.Informes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Rpt_DetalleDespacho : ReportClass {
+    public class Rpt_DetallePLDesp : ReportClass {
         
-        public Rpt_DetalleDespacho() {
+        public Rpt_DetallePLDesp() {
         }
         
         public override string ResourceName {
             get {
-                return "Rpt_DetalleDespacho.rpt";
+                return "Rpt_DetallePLDesp.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Metalurgica.Informes {
         
         public override string FullResourceName {
             get {
-                return "Metalurgica.Informes.Rpt_DetalleDespacho.rpt";
+                return "Metalurgica.Informes.Rpt_DetallePLDesp.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace Metalurgica.Informes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace Metalurgica.Informes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,17 +82,33 @@ namespace Metalurgica.Informes {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[4];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[5];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[6];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRpt_DetalleDespacho : Component, ICachedReport {
+    public class CachedRpt_DetallePLDesp : Component, ICachedReport {
         
-        public CachedRpt_DetalleDespacho() {
+        public CachedRpt_DetallePLDesp() {
         }
         
         [Browsable(false)]
@@ -129,7 +145,7 @@ namespace Metalurgica.Informes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Rpt_DetalleDespacho rpt = new Rpt_DetalleDespacho();
+            Rpt_DetallePLDesp rpt = new Rpt_DetallePLDesp();
             rpt.Site = this.Site;
             return rpt;
         }

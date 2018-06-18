@@ -23,6 +23,8 @@ namespace Metalurgica
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmLogin());
 
+            //Application.Run(new Pruebas.Frm_Impresion() );
+
             string accion = "RECEPCIONCOLADA";
             String[] arguments = Environment.GetCommandLineArgs();
             if (arguments.Length > 1)
@@ -37,6 +39,8 @@ namespace Metalurgica
             {
                 case "RECEPCIONCOLADA":
                     form = new frmRecepcionColada();
+                    //form = new Code128.FrmGeneraCode128();
+
                     break;
                 case "PRODUCCION":
                     form = new frmProduccion();
@@ -53,7 +57,7 @@ namespace Metalurgica
                     break;
                 case "VBDESPACHOCAMION":
                     form = new frmVbDespachoCamion();
-                    break;
+                                        break;
             }
 
             if (form != null)

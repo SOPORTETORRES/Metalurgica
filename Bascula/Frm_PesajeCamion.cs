@@ -290,9 +290,9 @@ namespace Metalurgica.Bascula
                 lTx = string.Concat(lTx, "  <tr> ");
                 lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["Patente"].ToString()  , "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lTbl.Rows[0]["FechaPesoBruto"].ToString() , "</td> ");
-                lTx = string.Concat(lTx, "  <td>", lPesoGuia , "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lPGD.ToString("N0"), "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lKgsDesarrollo, "</td> ");
-                lTx = string.Concat(lTx, "  <td>", lKgsNeto, "</td> ");
+                lTx = string.Concat(lTx, "  <td>", lPbascula.ToString("N0"), "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lDesviacion, "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lPorDesviacion.ToString(), "</td>  ");
 

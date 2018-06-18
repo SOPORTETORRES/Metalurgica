@@ -94,6 +94,7 @@
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_A_Despacho = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -334,6 +335,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Btn_A_Despacho);
             this.groupBox1.Controls.Add(this.Btn_NotificaAveriaElemento);
             this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.Btn_MtoTotem);
@@ -395,7 +397,7 @@
             // 
             // Btn_MtoTotem
             // 
-            this.Btn_MtoTotem.Location = new System.Drawing.Point(808, 44);
+            this.Btn_MtoTotem.Location = new System.Drawing.Point(828, 15);
             this.Btn_MtoTotem.Name = "Btn_MtoTotem";
             this.Btn_MtoTotem.Size = new System.Drawing.Size(66, 23);
             this.Btn_MtoTotem.TabIndex = 54;
@@ -405,7 +407,7 @@
             // 
             // Btn_MtoMaq
             // 
-            this.Btn_MtoMaq.Location = new System.Drawing.Point(748, 44);
+            this.Btn_MtoMaq.Location = new System.Drawing.Point(730, 14);
             this.Btn_MtoMaq.Name = "Btn_MtoMaq";
             this.Btn_MtoMaq.Size = new System.Drawing.Size(57, 23);
             this.Btn_MtoMaq.TabIndex = 53;
@@ -795,6 +797,16 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
             // 
+            // Btn_A_Despacho
+            // 
+            this.Btn_A_Despacho.Location = new System.Drawing.Point(722, 44);
+            this.Btn_A_Despacho.Name = "Btn_A_Despacho";
+            this.Btn_A_Despacho.Size = new System.Drawing.Size(160, 23);
+            this.Btn_A_Despacho.TabIndex = 57;
+            this.Btn_A_Despacho.Text = "Cambiar a Despacho";
+            this.Btn_A_Despacho.UseVisualStyleBackColor = true;
+            this.Btn_A_Despacho.Click += new System.EventHandler(this.Btn_A_Despacho_Click);
+            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -902,5 +914,6 @@
         private System.Windows.Forms.Label lbl_MsgBloqueo;
         private System.Windows.Forms.ToolStripButton TlbVer;
         private System.Windows.Forms.Button Btn_NotificaAveriaElemento;
+        private System.Windows.Forms.Button Btn_A_Despacho;
     }
 }

@@ -178,8 +178,9 @@ namespace Metalurgica
         {
             if (iIdTipoTotem == 1)
             {
-                frmRecepcionColada lFrm = new frmRecepcionColada();
-                lFrm.IniciaFormulario(iUserLog);
+                 frmRecepcionColada lFrm = new frmRecepcionColada();
+                 lFrm.IniciaFormulario(iUserLog);
+                //Code128.FrmGeneraCode128  lFrm = new Code128.FrmGeneraCode128();
                 lFrm.ShowDialog();
             }
             if (iIdTipoTotem == 2)

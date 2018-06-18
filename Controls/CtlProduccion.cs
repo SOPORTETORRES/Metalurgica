@@ -893,7 +893,7 @@ namespace Metalurgica.Controls
                 listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
                 if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {
-                    mEstadoMaquina = listaDataSet.DataSet.Tables[0].Rows[0]["Estado"].ToString().ToUpper();
+                    mEstadoMaquina = listaDataSet.DataSet.Tables[0].Rows[0]["EstadoMaq"].ToString().ToUpper();
                     if (listaDataSet.DataSet.Tables[0].Rows[0]["TextoIncidencia"].ToString().Equals("Cambio de Rollo"))
                     { mTipoAveria = "CB"; }
                     else
@@ -1123,7 +1123,16 @@ namespace Metalurgica.Controls
                         }
                     }
                 }
-                }
+                //para la contrata
+                    //< add key = "CambioPR_Desp" value = "S" />
+                string lPuedeCambiar = mSoloDiamPermitidos = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
+                if (lPuedeCambiar.ToUpper().Equals("S"))
+                    Btn_A_Despacho.Visible = true;
+                else
+                    Btn_A_Despacho.Visible = false;
+
+
+            }
                       
             catch (Exception exc)
             {
@@ -1564,6 +1573,22 @@ namespace Metalurgica.Controls
                     lFrms.IniciaReparacion_EP( lSolucion, mUserTmp);
                     lFrms.ShowDialog();
                 }
+            }
+        }
+
+        private void Btn_A_Despacho_Click(object sender, EventArgs e)
+        {
+            string lPath = ""; string lApp = "";
+            if (MessageBox.Show("¿ Esta seguro que desea cambiar el sistema a modo Despacho? ", "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                  MessageBox.Show("Cuando el sistema le indique menu de confirmación, Presaionar SI ", "Avisos Sistema", MessageBoxButtons.OK);
+                lPath = ConfigurationManager.AppSettings["Path_Regedit"].ToString();
+                lApp = "Regedit.exe";
+                lPath = string .Concat (lPath,"DC.reg");
+                System.Diagnostics.Process.Start(lApp, lPath);
+                System.Threading.Thread.Sleep(3000);
+                MessageBox.Show("El Sistema se cerrara, debe iniciar nuevamente el sistema, para cambiar a Modo Despacho  ", "Avisos Sistema", MessageBoxButtons.OK);
+                Application.Exit();
             }
         }
     }
