@@ -1677,6 +1677,8 @@ namespace Metalurgica.Informes {
             
             private global::System.Data.DataColumn columnKilos;
             
+            private global::System.Data.DataColumn columnKilosDesp;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public KilosPorDiametroDataTable() {
@@ -1728,6 +1730,14 @@ namespace Metalurgica.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn KilosDespColumn {
+                get {
+                    return this.columnKilosDesp;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1763,11 +1773,12 @@ namespace Metalurgica.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public KilosPorDiametroRow AddKilosPorDiametroRow(string Diametro, string Kilos) {
+            public KilosPorDiametroRow AddKilosPorDiametroRow(string Diametro, string Kilos, string KilosDesp) {
                 KilosPorDiametroRow rowKilosPorDiametroRow = ((KilosPorDiametroRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Diametro,
-                        Kilos};
+                        Kilos,
+                        KilosDesp};
                 rowKilosPorDiametroRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowKilosPorDiametroRow);
                 return rowKilosPorDiametroRow;
@@ -1792,6 +1803,7 @@ namespace Metalurgica.Informes {
             internal void InitVars() {
                 this.columnDiametro = base.Columns["Diametro"];
                 this.columnKilos = base.Columns["Kilos"];
+                this.columnKilosDesp = base.Columns["KilosDesp"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1801,6 +1813,8 @@ namespace Metalurgica.Informes {
                 base.Columns.Add(this.columnDiametro);
                 this.columnKilos = new global::System.Data.DataColumn("Kilos", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKilos);
+                this.columnKilosDesp = new global::System.Data.DataColumn("KilosDesp", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKilosDesp);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2679,6 +2693,22 @@ namespace Metalurgica.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string KilosDesp {
+                get {
+                    try {
+                        return ((string)(this[this.tableKilosPorDiametro.KilosDespColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'KilosDesp\' de la tabla \'KilosPorDiametro\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableKilosPorDiametro.KilosDespColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsDiametroNull() {
                 return this.IsNull(this.tableKilosPorDiametro.DiametroColumn);
             }
@@ -2699,6 +2729,18 @@ namespace Metalurgica.Informes {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetKilosNull() {
                 this[this.tableKilosPorDiametro.KilosColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsKilosDespNull() {
+                return this.IsNull(this.tableKilosPorDiametro.KilosDespColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetKilosDespNull() {
+                this[this.tableKilosPorDiametro.KilosDespColumn] = global::System.Convert.DBNull;
             }
         }
         

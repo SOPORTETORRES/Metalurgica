@@ -279,6 +279,12 @@
       <DependentUpon>Rpt_DetallePLDesp.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Informes\Rpt_KilosPorDiamDesp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_KilosPorDiamDesp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Informes\Rpt_PortadaPLDesp.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -617,6 +623,10 @@
     <EmbeddedResource Include="Informes\Rpt_DetallePLDesp.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_DetallePLDesp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Rpt_KilosPorDiamDesp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_KilosPorDiamDesp.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Informes\Rpt_PortadaPLDesp.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

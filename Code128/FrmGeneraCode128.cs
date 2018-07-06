@@ -32,7 +32,7 @@ namespace Metalurgica.Code128
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.BackColor = Color.White;
-            pictureBox1.Image = Code128("walter", PrintTextInCode: true, Height: 100);
+            pictureBox1.Image = Code128("1MK22100510-2210_MB002RR28001", PrintTextInCode: true, Height: 100);
 
         }
 

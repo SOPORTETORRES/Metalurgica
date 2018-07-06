@@ -21,9 +21,9 @@ namespace Metalurgica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
-
-            //Application.Run(new Pruebas.Frm_Impresion() );
+             Application.Run(new frmLogin());
+            //Application.Run(new Code128 .FrmGeneraCode128 ()  );
+             //Application.Run(new Pruebas.Frm_Impresion());
 
             string accion = "RECEPCIONCOLADA";
             String[] arguments = Environment.GetCommandLineArgs();

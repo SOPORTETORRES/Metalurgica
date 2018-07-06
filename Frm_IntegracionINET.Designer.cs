@@ -48,6 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Camiones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -183,7 +184,6 @@
             this.Btn_Imprimir.Text = "Informe Carga";
             this.Btn_Imprimir.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Btn_Imprimir.UseVisualStyleBackColor = true;
-            this.Btn_Imprimir.Visible = false;
             this.Btn_Imprimir.Click += new System.EventHandler(this.Btn_Imprimir_Click);
             // 
             // label5
@@ -250,11 +250,22 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "Guías Facturables FE en Punta";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(980, 23);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(60, 32);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Frm_IntegracionINET
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 560);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -302,5 +313,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO ;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +12,7 @@ using System.Xml.Serialization;
 using CommonLibrary2;
 using Metalurgica.Informes;
 using System.Configuration;
+using System.Collections;
 
 namespace Metalurgica
 {
@@ -395,14 +396,315 @@ namespace Metalurgica
             CargaCamiones(mSucursalTO ,mEmpresa );
         }
 
-        private void  ImprimeDocumentos()
+
+
+
+        #region Impresion de Informes
+
+        private void ImprimeDocumentos()
         {
             //1.- primero Resumen Despacho
-            ImprimeResumenDespacho();
+           // ImprimeResumenDespacho(false);
 
             //2.- los PL Despachados de cada viaje
+            ImprimirInforme("SGO-67/1", true);
+            //3.- Unimos los Archivos en uno 
+            TerminaProceso();
+        }
+
+
+        private DataTable ImpresorasInstaladas()
+        {
+            DataTable lTbl = new DataTable(); DataRow lFila = null;
+            lTbl.Columns.Add("Impresora");
+
+            foreach (String strPrinter in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+
+            {
+                lFila = lTbl.NewRow();
+                lFila["Impresora"] = strPrinter;
+                lTbl.Rows.Add(lFila);
+                // MessageBox.Show(strPrinter);
+            }
+            return  lTbl;
+        }
+        private void TerminaProceso()
+        {
+            string lPathArchivo = string.Concat("C:\\Informes\\TMP\\");
+            Clases.ClsComun lCom = new Clases.ClsComun(); string lImp = "";int i = 0;
+            string lres = ""; DataTable lTblImp = new DataTable();
+            lres = lCom.UnirOdf(lPathArchivo);
+
+            //Aqui debemos enviar a imprimir el archivo a la impresora indicada.
+            lTblImp = ImpresorasInstaladas();
+            for (i = 0; i < lTblImp.Rows.Count; i++)
+            {
+                lImp = string.Concat(lImp, lTblImp.Rows[i]["impresora"].ToString(), " - ");
+
+            }
+            MessageBox.Show(lImp);
 
         }
+
+        public void ImprimirInforme(string iViaje, Boolean iEliminaArchivo)
+        {
+            string iIdIt = ""; string iIdObra = ""; DtsInformes lDtsPortada = new DtsInformes();
+            DtsInformes lDtsDetalle = new DtsInformes(); Char Delimitador = '/'; Clases.ClsComun lComun = new Clases.ClsComun();
+            Frm_Visualizador lFrmInf = new Frm_Visualizador();
+            try
+            {
+                String[] lPartes = iViaje.Split(Delimitador);
+                if (lPartes.Length > 0)
+                {
+                    if (lComun.Val(lPartes[1]) == 1)
+                    {
+                        lDtsPortada = CargaDatosPortada_ViajeOriginal(iViaje);
+                        lFrmInf.InicializaInforme("P", lDtsPortada, iViaje, iEliminaArchivo);
+                        lFrmInf.GeneraPdf();
+                        lDtsDetalle = CargaDatosDetalleViajeOriginal(iViaje);
+                        lFrmInf.InicializaInforme("D", lDtsDetalle, iViaje, iEliminaArchivo);
+                        lFrmInf.GeneraPdf();
+                        lFrmInf.Close();
+                    }
+                    else
+                    {
+                        //CargaDatosDetalle_ViajeSaldo
+                        lDtsPortada = CargaDatosPortada_ViajeSaldo(iViaje);
+                        //lDtsPortada = CargaDatosDetalle_ViajeSaldo(iViaje);
+                        lFrmInf.InicializaInforme("P", lDtsPortada, iViaje, iEliminaArchivo);
+                        lFrmInf.GeneraPdf();
+                        lDtsDetalle = CargaDatosDetalle_ViajeSaldo(iViaje);
+                        lFrmInf.InicializaInforme("D", lDtsDetalle, iViaje, iEliminaArchivo);
+                        lFrmInf.GeneraPdf();
+                        lFrmInf.Close();
+                    }
+                }
+
+            }
+            catch (Exception exc)
+            {
+                //MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw exc;
+            }
+
+            //**************************************************************************
+        }
+
+        private DtsInformes CargaDatosDetalle_ViajeSaldo(string iViaje)
+        {
+            string iIdIt = ""; string iIdObra = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
+            Frm_Visualizador lFrmInf = new Frm_Visualizador();
+            DtsInformes lDts = new DtsInformes(); DataSet lDtsTmp = new DataSet();
+
+            string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
+            lDtsTmp = lPx.ObtenerDatos(lSql);
+            if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+            {
+                iIdIt = lDtsTmp.Tables[0].Rows[0]["IdIT"].ToString();
+                iIdObra = lDtsTmp.Tables[0].Rows[0]["IdObra"].ToString();
+
+                lDts.EnforceConstraints = false;
+
+            }
+            lDts.Merge(lPx.ObtenerDtsPL_ConDet_SaldosViaje("", iIdIt, iViaje, "I", iIdObra, "DESP"));
+
+            return lDts;
+        }
+
+        private DtsInformes CargaDatosPortada_ViajeSaldo(string iViaje)
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
+            ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
+            string lTmp = ""; DataSet lDtsTmp = new DataSet();
+            DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
+      
+            string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
+            lDtsTmp = lPx.ObtenerDatos(lSql);
+            if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+            {
+                iIdIt = lDtsTmp.Tables[0].Rows[0]["IdIT"].ToString();
+                iIdObra = lDtsTmp.Tables[0].Rows[0]["IdObra"].ToString();
+
+                dtsPl.EnforceConstraints = false;
+                dtsPl.Merge(lPx.ObtenerDtsPL_ViajeDesp_ConSaldos("", iIdIt, iViaje, iIdObra));
+
+                //'22/10/2012  ---- cargamos los datos del subreport   
+                DataSet lDtsTablas = new DataSet(); DtsInformes.KilosPorDiametroRow lFila = null;
+                //Dim lDtsTablas As New DataSet, lFila As Dts_PL.KilosPorDiametroRow // ', lFilaIT As Dts_PL.ResumenDespRow
+                lDtsTablas = lPx.ObtenerDiametros_SaldosViaje(iViaje);
+                if (lDtsTablas.Tables.Count > 0)
+                {
+                    for (i = 0; i < lDtsTablas.Tables[0].Rows.Count; i++)
+                    {
+                        lFila = dtsPl.KilosPorDiametro.NewKilosPorDiametroRow();
+                        lFila["Diametro"] = lDtsTablas.Tables[0].Rows[i]["Diametro"].ToString();
+                        lFila["Kilos"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["Kilos"].ToString(), " Kilos");
+                        lFila["KilosDesp"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["KilosDesp"].ToString(), " Kilos");
+                        dtsPl.KilosPorDiametro.Rows.Add(lFila);
+                    }
+                }
+
+                if (dtsPl.ResumenDesp.Rows.Count > 0)
+                {
+                    dtsPl.ResumenDesp.Rows[0]["ObsIt"] = ObtenerObsITAprobada(iViaje);
+                }
+            }
+            DataTable lTblTmp = new DataTable(); // string lStrTmp = "";
+            Clases.ClsComun lUtil = new Clases.ClsComun();
+
+
+            lTblTmp = ObtenerDatosViajeDespachado_Saldos(iViaje);
+            if (lTblTmp.Rows.Count > 0)
+            {
+                
+                dtsPl.ResumenDesp.Rows[0]["PesoTotalDesp"] = lTblTmp.Rows[0]["KILOS"].ToString();
+                dtsPl.ResumenDesp.Rows[0]["NroEtiquetasDesp"] = lTblTmp.Rows[0]["NroEtiquetas"].ToString();
+                dtsPl.ResumenDesp.Rows[0]["ValorTotal_ITDesp"] = lUtil.Val(OBtenerValorKilo(iIdObra)) * lUtil.Val(lTblTmp.Rows[0]["KILOS"].ToString());
+            }
+
+            return dtsPl;
+
+        }
+
+        private DataTable ObtenerDatosViajeDespachado_Saldos(String iViaje)
+        {
+            String lSql = ""; Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            DataSet lDts = new DataSet(); DataTable lRes = new DataTable();
+            //'ALTER  PROCEDURE [dbo].[SP_ConsultasGenerales]
+            //'@Opcion INT,        '@Par1 Varchar(100),        '@Par2 Varchar(100),
+            //'@Par3 Varchar(100),        '@Par4 Varchar(100),  '@Par5 Varchar(100)
+            try
+            {
+                lSql = string.Concat("exec SP_Consultas_WS 24,'", iViaje, "','','','','','',''");
+                lDts = lPx.ObtenerDatos(lSql);
+                if (lDts.Tables.Count > 0)
+                    lRes = lDts.Tables[0].Copy();
+
+            }
+            catch (Exception exc)
+            { }
+
+            return lRes;
+        }
+        private string OBtenerValorKilo(string iIdObra)
+        {
+            string lSql = ""; Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();  DataTable lTblRes = new DataTable(); string lValorKilo = "";
+            //Dim lSql As String = "", lPx As New Px_Ws.Ws_ToSoapClient, lTblRes As New DataTable, lValorKilo As String = "0"
+            DataSet lDts = new DataSet();
+            lSql = string.Concat("Exec SP_CRUD_SERVICIOS_OBRA  0,", iIdObra, ",'',0,0,'','',3");
+            //'       @Id int,             '   @IdObra int,	            '@Servicio VARCHAR(50),
+            //'   @Importe int,	         '@IdUsuario int,              '@NombreUsuario VARCHAR(50),
+            //'@OPCION INT
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0)
+            {
+                lValorKilo = lDts.Tables[0].Rows[0][0].ToString();
+            }
+
+            return lValorKilo;
+
+        }
+        private string ObtenerObsITAprobada(string iViaje)
+        {
+            string lSql = ""; Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            DataSet lDts = new DataSet(); string lRes = "";
+
+
+            try
+            {
+                lSql = string.Concat("exec SP_Consultas_WS 3,'", iViaje, "','','','','','',''");
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    lRes = lDts.Tables[0].Rows[0][0].ToString();
+                }
+            }
+
+            catch (Exception exc)
+            {
+                lRes = "Error al Obtener la Obs de la IT";
+            }
+            return lRes;
+        }
+        private DtsInformes CargaDatosDetalleViajeOriginal(string iViaje)
+        {
+            string iIdIt = ""; string iIdObra = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
+            Frm_Visualizador lFrmInf = new Frm_Visualizador();
+            DtsInformes lDts = new DtsInformes(); DataSet lDtsTmp = new DataSet();
+
+            string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
+            lDtsTmp = lPx.ObtenerDatos(lSql);
+            if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+            {
+                iIdIt = lDtsTmp.Tables[0].Rows[0]["IdIT"].ToString();
+                iIdObra = lDtsTmp.Tables[0].Rows[0]["IdObra"].ToString();
+
+                lDts.EnforceConstraints = false;
+
+            }
+
+            lDts.Merge(lPx.ObtenerDtsPL_ConDet("", iIdIt, iViaje, "I", iIdObra, "DESP"));
+
+            return lDts;
+        }
+
+        private DtsInformes CargaDatosPortada_ViajeOriginal(string iViaje)
+        {
+            string iIdIt = ""; string iIdObra = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
+            Frm_Visualizador lFrmInf = new Frm_Visualizador();
+            DtsInformes lDts = new DtsInformes(); DataSet lDtsTmp = new DataSet();
+            try
+            {
+                string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
+                lDtsTmp = lPx.ObtenerDatos(lSql);
+                if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                {
+                    iIdIt = lDtsTmp.Tables[0].Rows[0]["IdIT"].ToString();
+                    iIdObra = lDtsTmp.Tables[0].Rows[0]["IdObra"].ToString();
+
+                    lDts.EnforceConstraints = false;
+                    //lDts.Merge(lPx.ObtenerDtsPL_ViajeDesp_ConSaldos("", iIdIt, iViaje, iIdObra));
+                    lDts.Merge(lPx.ObtenerDtsPL_ViajeDesp("", iIdIt, iViaje, iIdObra));
+                    //************************************************************************
+                    DataSet lDtsTablas = new System.Data.DataSet(); DtsInformes.KilosPorDiametroRow lFila = null;
+                    //Dim lDtsTablas As New DataSet, lFila As Dts_PL.KilosPorDiametroRow 
+                    lDtsTablas = lPx.ObtenerDiametros_SaldosViaje(iViaje);
+
+                    if (lDtsTablas.Tables.Count > 0)
+                    {
+                        for (i = 0; i < lDtsTablas.Tables[0].Rows.Count; i++)
+                        {
+                            lFila = lDts.KilosPorDiametro.NewKilosPorDiametroRow();
+                            lFila["Diametro"] = lDtsTablas.Tables[0].Rows[i]["Diametro"].ToString();
+                            lFila["Kilos"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["Kilos"].ToString(), " Kilos");
+                            lFila["KilosDesp"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["KilosDesp"].ToString(), " Kilos");
+                            lDts.KilosPorDiametro.Rows.Add(lFila);
+                        }
+                        lDts.ResumenDesp.Rows[0]["ObsIt"] = ObtenerObsITAprobada(iViaje);
+                        DataTable lTblTmp = new DataTable(); String lStrTmp = ""; string lTmp = "";
+                        lTblTmp = ObtenerDatosViajeDespachado_Saldos(iViaje);
+                        if (lTblTmp.Rows.Count > 0)
+                        {
+                            lTmp = lTblTmp.Rows[0]["KILOS"].ToString();// 0);// ",", "."
+                            lDts.ResumenDesp.Rows[0]["PesoTotalDesp"] = lTmp;
+                            lDts.ResumenDesp.Rows[0]["NroEtiquetasDesp"] = lTblTmp.Rows[0]["NroEtiquetas"].ToString();
+                            //  lTmp = Replace(FormatNumber(Val(OBtenerValorKilo(IdObra)) * Val(lTblTmp.Rows(0)("KILOS").ToString), 0), ",", ".")
+                            lDts.ResumenDesp.Rows[0]["ValorTotal_ITDesp"] = String.Concat("$ ", lTmp);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                //MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return lDts;
+        }
+        #endregion
 
         private string ObtenerIdDespachoCamion(string lViaje)
         {
@@ -1491,8 +1793,14 @@ namespace Metalurgica
            
         }
 
-
-        private void ImprimeInformeCarga(string iIdDespachos)
+        /// <summary>
+        /// Imprime el  informe de despacho de carga
+        /// </summary>
+        /// <param name="iIdDespachos"> lista con los despachos que se cargaran en el informe</param>
+        /// <param name="VerInforme"> True, para ver el informe y que el usuario lo imprima, 
+        /// en caso contrario se genera el informe en un archivo </param>
+        private void ImprimeInformeCarga(string iIdDespachos, Boolean VerInforme)
+       
         {
 
             DtsInformes lDts = new DtsInformes();
@@ -1568,22 +1876,29 @@ namespace Metalurgica
             lDtsRpt.Merge(lTblCab);
 
             Frm_Visualizador lForm = new Frm_Visualizador();
-            lForm.CargarInforme(lDtsRpt);
-              lForm.ShowDialog ();
+            
+            if (VerInforme==true )
+            {
+                lForm.CargarInforme(lDtsRpt);
+                lForm.ShowDialog();
+            }
+            else
+            {
+                lForm.GeneraPdf_DetalleDespacho(lDtsRpt);
+                lForm.Close();
+                lForm.Dispose();
+            }
+              
 
-
-        //      Dim frmVisualiza As FRm_Visualizadorvb = New FRm_Visualizadorvb()
-        //frmVisualiza.CargarInforme(lDtsPL)
-        //frmVisualiza.Show()
         }
 
         private void Btn_Imprimir_Click(object sender, EventArgs e)
         {
-            ImprimeResumenDespacho();
+            ImprimeResumenDespacho(true);
 
         }
 
-        private void ImprimeResumenDespacho()
+        private void ImprimeResumenDespacho(Boolean iVerInforme)
         {
 
             string lIdDespachos = "";
@@ -1601,7 +1916,7 @@ namespace Metalurgica
                 if (lIdDespachos.Trim().Length > 3)
                 {
                     lIdDespachos = lIdDespachos.Substring(0, lIdDespachos.Length - 1);
-                    ImprimeInformeCarga(lIdDespachos);
+                    ImprimeInformeCarga(lIdDespachos, iVerInforme);
 
                 }
 
@@ -1647,6 +1962,12 @@ namespace Metalurgica
             
             }
             CargaCamiones(mSucursalTO ,mEmpresa );
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //ImprimeResumenDespacho(false);
+            ImprimeDocumentos();
         }
     }
 }

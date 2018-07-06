@@ -7,6 +7,8 @@ using CommonLibrary2;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using System.IO;
+using iTextSharp.text.pdf;
 
 namespace Metalurgica.Clases
 {
@@ -29,11 +31,11 @@ namespace Metalurgica.Clases
         {
 
             string miVariable = ConfigurationManager.AppSettings["Version"];
-         return miVariable;
+            return miVariable;
 
         }
 
-        public string ObtenerParametroAppConfig( string iParam)
+        public string ObtenerParametroAppConfig(string iParam)
         {
 
             string miVariable = ConfigurationManager.AppSettings[iParam];
@@ -111,7 +113,7 @@ namespace Metalurgica.Clases
             //  //lPath = string.Concat(quote, Application.StartupPath, "\\Integracion_INET.exe", quote, " '", lPar, "'");
             // lPath = string.Concat(quote, iPathIni, "\\Integracion_INET.exe", qte, " '", lPar, "'");
             //lPath = string.Concat(iPathIni, "\\Integracion_INET.exe");
-            lPath = string.Concat(iPathIni, "\\",lArchivoIntINET );
+            lPath = string.Concat(iPathIni, "\\", lArchivoIntINET);
             System.Diagnostics.Process Proceso = new System.Diagnostics.Process();         ////  startInfo = new System.Diagnostics.ProcessStartInfo(lPath);
             //  pStart.StartInfo.FileName = lPath;
             //  pStart.StartInfo.Arguments = "";
@@ -155,12 +157,12 @@ namespace Metalurgica.Clases
             //Sencillamente, si se logra hacer la conversión, entonces es número
             try
             {
-                decimal resp = Convert.ToInt64 (iValor);
-                iRes= true;
+                decimal resp = Convert.ToInt64(iValor);
+                iRes = true;
             }
             catch //caso contrario, es falso.
             {
-                iRes= false;
+                iRes = false;
             }
 
             return iRes;
@@ -176,7 +178,7 @@ namespace Metalurgica.Clases
         //    try
         //    {
         //         iRes = Convert.ToDateTime(iValor);
-               
+
         //    }
         //    catch //caso contrario, es falso.
         //    {
@@ -187,13 +189,13 @@ namespace Metalurgica.Clases
 
         //}
 
-        public int  Val(string iValor)
+        public int Val(string iValor)
         {
-            int  iRes = 0;
+            int iRes = 0;
 
             //Sencillamente, si se logra hacer la conversión, entonces es número
             try
-            {                
+            {
                 iRes = int.Parse(iValor);
             }
             catch //caso contrario, es falso.
@@ -205,12 +207,12 @@ namespace Metalurgica.Clases
 
         }
 
-        public string  ParteEntera(string iValor)
+        public string ParteEntera(string iValor)
         {
             string iRes = "";
             char[] delimiterChars = { ',', '\t' };
             char[] delimiterChars2 = { '.', '\t' };
-            
+
 
             //Sencillamente, si se logra hacer la conversión, entonces es número
             try
@@ -226,19 +228,26 @@ namespace Metalurgica.Clases
             }
             catch //caso contrario, es falso.
             {
-                iRes ="";
+                iRes = "";
             }
 
             return iRes;
 
         }
 
-        public  DataTable CargaTablaObras()
+        public DataTable CargaTablaObras()
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
-            lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
+            string lCambiarProduccion = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
+
+            if (lCambiarProduccion.ToUpper().Equals("S"))  // solo mostramos la obra de la contrata
+                lSql = string.Concat("  Select id, Nombre Obra  from Obras where  id=610  ");
+            else
+                lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
+
+
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
             {
@@ -267,14 +276,14 @@ namespace Metalurgica.Clases
             return lTbl;
         }
 
-        public string ObtenerKilos (string iLargo,string iDiametro, int  iCantidad)
+        public string ObtenerKilos(string iLargo, string iDiametro, int iCantidad)
         {
             //El largo debe esta en Metros
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lRes = "";
 
-            lRes = lPx.ObtenerPesoBechtell(iLargo, iDiametro, iCantidad).ToString ();
+            lRes = lPx.ObtenerPesoBechtell(iLargo, iDiametro, iCantidad).ToString();
 
             return lRes;
         }
@@ -300,7 +309,7 @@ namespace Metalurgica.Clases
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
-            lSql= string.Concat ("SP_ConsultasGenerales 53,'','','','',''");            
+            lSql = string.Concat("SP_ConsultasGenerales 53,'','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
             {
@@ -316,7 +325,7 @@ namespace Metalurgica.Clases
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
-            lSql = string.Concat("SP_ConsultasGenerales 70,'",lIdSucursal,"','','','',''");
+            lSql = string.Concat("SP_ConsultasGenerales 70,'", lIdSucursal, "','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
             if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
             {
@@ -343,12 +352,12 @@ namespace Metalurgica.Clases
 
         public string ObtenerTipoPorProducto(string iCodProducto)
         {
-//  ALTER PROCEDURE [dbo].[SP_Consultas_WS]
-//@Opcion INT,          //@Par1 Varchar(100),       //@Par2 Varchar(100),       //@Par3 Varchar(150),
-//@Par4 Varchar(100),   //@Par5 Varchar(100),       //@Par6 Varchar(100),       //@Par7 Varchar(100)
+            //  ALTER PROCEDURE [dbo].[SP_Consultas_WS]
+            //@Opcion INT,          //@Par1 Varchar(100),       //@Par2 Varchar(100),       //@Par3 Varchar(150),
+            //@Par4 Varchar(100),   //@Par5 Varchar(100),       //@Par6 Varchar(100),       //@Par7 Varchar(100)
 
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();  string lRes = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lRes = "";
 
             lSql = string.Concat("SP_Consultas_WS 60,'", iCodProducto, "','','','','','',''");
             lDts = lPx.ObtenerDatos(lSql);
@@ -365,7 +374,7 @@ namespace Metalurgica.Clases
         {
 
             DataTable lTbl = new DataTable(); string lError = "";
-            string lPath = ConfigurationManager.AppSettings["PathDBRomana"].ToString(); int i = 0;                                
+            string lPath = ConfigurationManager.AppSettings["PathDBRomana"].ToString(); int i = 0;
             string lCnnstr = string.Concat(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=", lPath);
             //@"Provider=Microsoft.ACE.OLEDB.12.0;  Data Source=D:\BDPROBANDO2007.accdb;Persist Security Info=False";
             OleDbConnection lCnn = new OleDbConnection(lCnnstr);
@@ -384,34 +393,257 @@ namespace Metalurgica.Clases
 
 
 
-         private DataTable   CargaTabla( string  iSql ) 
-    {
-        DataTable lTbl = new DataTable(); string lError = "";
-        //'Dim lCnnStr As String = "Data Source=localhost\SQLExpress;Initial Catalog=CubiCad;User id=CnnCubicad;Password=t.o2011;"
-        string  lCnnStrs = "Persist Security Info=False;Trusted_Connection=True; database=Pruebas;server=DES-RBECERRA";
-        System.Data.SqlClient.SqlConnection lCnn=new System.Data.SqlClient.SqlConnection(lCnnStrs.ToString ());
-         //System  lCnn As New SqlClient.SqlConnection(lCnnStr)
-        SqlDataAdapter lAdp = new SqlDataAdapter(iSql, lCnn);
-        //Dim lAdp As New SqlClient.SqlDataAdapter(iSql, lCnn)
-        //Dim lTabla As New Data.DataTable
-        try
+        private DataTable CargaTabla(string iSql)
         {
-            lAdp.Fill(lTbl);
+            DataTable lTbl = new DataTable(); string lError = "";
+            //'Dim lCnnStr As String = "Data Source=localhost\SQLExpress;Initial Catalog=CubiCad;User id=CnnCubicad;Password=t.o2011;"
+            string lCnnStrs = "Persist Security Info=False;Trusted_Connection=True; database=Pruebas;server=DES-RBECERRA";
+            System.Data.SqlClient.SqlConnection lCnn = new System.Data.SqlClient.SqlConnection(lCnnStrs.ToString());
+            //System  lCnn As New SqlClient.SqlConnection(lCnnStr)
+            SqlDataAdapter lAdp = new SqlDataAdapter(iSql, lCnn);
+            //Dim lAdp As New SqlClient.SqlDataAdapter(iSql, lCnn)
+            //Dim lTabla As New Data.DataTable
+            try
+            {
+                lAdp.Fill(lTbl);
+            }
+            catch (Exception ex)
+            {
+                lError = string.Concat("ClsDatos.CargaTabla ", ex.Message.ToString(), " sql: ", iSql);
+            }
+            //Catch ex As Exception
+            //    Dim lErrror As String = "ClsDatos.CargaTabla " & ex.Message.ToString & " sql: " & iSql            
+            //End Try
+
+            //Return lTabla
+
+            return lTbl;
         }
-        catch (Exception ex)
+
+
+
+        #region Unir varios archivos PDF
+
+       private string  PadExt(string iss )
         {
-            lError = string.Concat("ClsDatos.CargaTabla ", ex.Message.ToString(), " sql: ", iSql);
-        }
-        //Catch ex As Exception
-        //    Dim lErrror As String = "ClsDatos.CargaTabla " & ex.Message.ToString & " sql: " & iSql            
-        //End Try
+            iss = iss.ToUpper();
 
-        //Return lTabla
+            if (iss.Length > 3)
+            {
+                iss = iss.Substring(1, 3);
+            }
 
-        return   lTbl;
+        //If s.Length > 3 Then
+        //    s = s.Substring(1, 3)
+
+        //End If
+
+        return iss;
+
         }
+
+
+
+           private int   GetPageCount(string  sFolderPath )
+        {
+            int iRet = 0; int i = 0;
+            String[] oFiles = Directory.GetFiles(sFolderPath);
+            // Dim sFromFilePath As String = oFiles(i)
+            string sFromFilePath = "";
+           
+            //  Dim sFileType As String = cbFileType.SelectedItem
+            string sExt = "";
+
+            for (i = 0; i < oFiles.Length; i++)
+            {
+                sFromFilePath = oFiles[i];
+                FileInfo oFileInfo = new FileInfo(sFromFilePath);
+                sExt = "";
+                sExt = PadExt(oFileInfo.Extension);
+
+                if (sExt == "PDF")
+                    iRet += 1;
+                        
+               }
+
+            return iRet;
+          }
+
+        //ProccessFolder(sFromPath)
+        private string AddBookmark(ref iTextSharp.text.Document oPdfDoc, string sFromFilePath)
+        {
+              iTextSharp.text.Chapter oChapter = new iTextSharp.text.Chapter("", 0);
+             oChapter.NumberDepth = 0;
+            FileInfo oFileInfo = new FileInfo(sFromFilePath);
+
+            oChapter.BookmarkTitle = oFileInfo.Name;
+            oPdfDoc.Add(oChapter);
+                return "";
+   }
+
+        private string  AddPdf(string  sInFilePath , ref iTextSharp.text.Document  oPdfDoc  , ref PdfWriter oPdfWriter  )
+        {
+
+
+            AddBookmark(ref oPdfDoc, sInFilePath);
+
+
+            iTextSharp.text.pdf.PdfContentByte oDirectContent = oPdfWriter.DirectContent;
+            iTextSharp.text.pdf.PdfReader oPdfReader = new iTextSharp.text.pdf.PdfReader(sInFilePath);
+
+            int iNumberOfPages = oPdfReader.NumberOfPages;  int iPage = 0;
+
+
+            //Do While(iPage<iNumberOfPages)
+            while (iPage < iNumberOfPages)
+            {
+                iPage += 1;
+                int iRotation = oPdfReader.GetPageRotation(iPage);
+                iTextSharp.text.pdf.PdfImportedPage oPdfImportedPage = oPdfWriter.GetImportedPage(oPdfReader, iPage);
+
+
+                //If chkResize.Checked Then
+                if (oPdfImportedPage.Width <= oPdfImportedPage.Height)
+                    oPdfDoc.SetPageSize(iTextSharp.text.PageSize.LETTER);
+                else
+                    oPdfDoc.SetPageSize(iTextSharp.text.PageSize.LETTER.Rotate());
+
+
+               oPdfDoc.NewPage();
+                Single iWidthFactor = oPdfDoc.PageSize.Width / oPdfReader.GetPageSize(iPage).Width;
+                Single iHeightFactor = oPdfDoc.PageSize.Height / oPdfReader.GetPageSize(iPage).Height;
+                Single iFactor = Math.Min(iWidthFactor, iHeightFactor);
+                Single iOffsetX = (oPdfDoc.PageSize.Width - (oPdfImportedPage.Width * iFactor)) / 2;
+                Single iOffsetY = (oPdfDoc.PageSize.Height - (oPdfImportedPage.Height * iFactor)) / 2;
+
+
+                oDirectContent.AddTemplate(oPdfImportedPage, iFactor, 0, 0, iFactor, iOffsetX, iOffsetY);
+
+			//Else
+   //             oPdfDoc.SetPageSize(oPdfReader.GetPageSizeWithRotation(iPage))
+			//	oPdfDoc.NewPage()
+
+
+   //             If(iRotation = 90) Or(iRotation = 270) Then
+   //               oDirectContent.AddTemplate(oPdfImportedPage, 0, -1.0F, 1.0F, 0, 0, oPdfReader.GetPageSizeWithRotation(iPage).Height)
+			//	Else
+   //                 oDirectContent.AddTemplate(oPdfImportedPage, 1.0F, 0, 0, 1.0F, 0, 0)
+
+   //             End If
+
+   //         End If
+
+      }
+
+            return "";
+   }
+
+
+        public string UnirOdf(String sFolderPath)
+        {
+            DataTable lTblArchivos = new DataTable(); DataRow lFila = null; DataView lVista = null;
+            Boolean bOutputfileAlreadyExists = false;
+            DirectoryInfo oFolderInfo = new DirectoryInfo(sFolderPath);
+            String sOutFilePath = string.Concat(sFolderPath,  oFolderInfo.Name, ".pdf");
+
+            if (File.Exists(sOutFilePath))
+            {
+                try
+                {
+                    File.Delete(sOutFilePath);
+                }
+                catch (Exception exc)
+                {
+                    throw exc;
+                }
+            }
+
+            iTextSharp.text.Document oPdfDoc = new iTextSharp.text.Document(); int i = 0; string sFromFilePath = "";
+            PdfWriter oPdfWriter = PdfWriter.GetInstance(oPdfDoc, new FileStream(sOutFilePath, FileMode.Create));
+            int iPageCount = GetPageCount(sFolderPath);int lCont = 1;
+            if ((iPageCount > 0) && (bOutputfileAlreadyExists == false))
+            {
+                string[] oFiles = Directory.GetFiles(sFolderPath);
+                lTblArchivos.Columns.Add("Nombre", Type.GetType("System.String"));
+                lTblArchivos.Columns.Add("Orden", Type.GetType("System.Int32"));
+
+                for (i = 0; i < oFiles.Length; i++)
+                {
+                    lFila = lTblArchivos.NewRow();
+                    lFila["Nombre"]= oFiles[i].ToString ();
+                    if (oFiles[i].ToString().IndexOf("P.pdf") > -1)
+                        lFila["Orden"] = 1;
+                    if (oFiles[i].ToString().IndexOf("D.pdf") > -1)
+                        lFila["Orden"] = 2;
+
+                    // agregamos la fila a la tabla
+                    lTblArchivos.Rows.Add(lFila);
+                }
+
+                    oPdfDoc.Open();
+                //System.Array.Sort(Of String)(oFiles)
+                // Debemos Ordenar los pdf para crear el nuevo
+                lVista = new DataView(lTblArchivos, "", "Orden asc ", DataViewRowState.CurrentRows);
+                for (i = 0; i < lVista.Count ; i++)
+                //for (i = 0; i< oFiles.Length; i++)
+                {
+                    //sFromFilePath = oFiles[i];
+                    sFromFilePath = lVista[i]["Nombre"].ToString ();
+                    if (!sOutFilePath.ToString().Equals(sFromFilePath))
+                    { 
+                    FileInfo oFileInfo = new FileInfo(sFromFilePath);
+                    string sExt = PadExt(oFileInfo.Extension);
+                    string sFileType = "PDF";
+
+                    try
+                    {
+                        if (sExt == "PDF")
+                            AddPdf(sFromFilePath, ref oPdfDoc, ref oPdfWriter);
+                    }
+
+                    catch (Exception exc)
+                    {
+                        throw exc;
+                    }
+                    }
+                }
+            }
+
+            try
+            {
+                oPdfDoc.Close();
+                oPdfWriter.Close();
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+
+            //  If chkDeleteSourceFiles.Checked Then
+            //          For i As Integer = 0 To oFiles.Length - 1
+
+            //              Dim sFromFilePath As String = oFiles(i)
+
+            //              If IO.File.Exists(sFromFilePath) Then
+            //                  Try
+
+            //                      IO.File.Delete(sFromFilePath)
+            //Catch ex As Exception
+
+            //                      txtOutput.Text += "Could not delete " & sFromFilePath & _
+            //	 ", " & ex.Message & vbCrLf
+            //                  End Try
+            //              End If
+            //          Next
+
+            //ProgressBar1.Value = 0
+            //End If
+            return sOutFilePath.ToString() ;
+        }
+
+        #endregion
+
     }
 
 
-  
 }

@@ -44,13 +44,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Btn_Cambiar_A_PR = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.Dtg_ResumenCarga = new System.Windows.Forms.DataGridView();
+            this.Btn_ITDESP = new System.Windows.Forms.Button();
             this.Gr_empresa = new System.Windows.Forms.GroupBox();
             this.RB_TOSOL = new System.Windows.Forms.RadioButton();
             this.Rb_TO = new System.Windows.Forms.RadioButton();
-            this.Btn_ITDESP = new System.Windows.Forms.Button();
-            this.Btn_DevuelveCamion = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.Btn_SelViajes = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
@@ -90,6 +90,7 @@
             this.txtPatente = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtObs = new System.Windows.Forms.TextBox();
+            this.Btn_DevuelveCamion = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvEtiquetasPiezas = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -102,7 +103,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCantidadEtiquetasPiezas = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.Btn_Cambiar_A_PR = new System.Windows.Forms.Button();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -264,6 +264,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.Btn_Cambiar_A_PR);
             this.groupBox3.Controls.Add(this.groupBox5);
+            this.groupBox3.Controls.Add(this.Btn_ITDESP);
             this.groupBox3.Controls.Add(this.Gr_empresa);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.groupBox1);
@@ -276,6 +277,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos del Despacho a Camión";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // Btn_Cambiar_A_PR
+            // 
+            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(701, 138);
+            this.Btn_Cambiar_A_PR.Name = "Btn_Cambiar_A_PR";
+            this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(112, 40);
+            this.Btn_Cambiar_A_PR.TabIndex = 20;
+            this.Btn_Cambiar_A_PR.Text = "Cambiar a Producción";
+            this.Btn_Cambiar_A_PR.UseVisualStyleBackColor = true;
+            this.Btn_Cambiar_A_PR.Click += new System.EventHandler(this.Btn_Cambiar_A_PR_Click);
             // 
             // groupBox5
             // 
@@ -298,6 +309,17 @@
             this.Dtg_ResumenCarga.ReadOnly = true;
             this.Dtg_ResumenCarga.Size = new System.Drawing.Size(480, 160);
             this.Dtg_ResumenCarga.TabIndex = 0;
+            // 
+            // Btn_ITDESP
+            // 
+            this.Btn_ITDESP.Location = new System.Drawing.Point(730, 96);
+            this.Btn_ITDESP.Name = "Btn_ITDESP";
+            this.Btn_ITDESP.Size = new System.Drawing.Size(75, 36);
+            this.Btn_ITDESP.TabIndex = 17;
+            this.Btn_ITDESP.Text = "Dejar IT  despachada";
+            this.Btn_ITDESP.UseVisualStyleBackColor = true;
+            this.Btn_ITDESP.Visible = false;
+            this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Gr_empresa
             // 
@@ -333,28 +355,6 @@
             this.Rb_TO.Text = "Torres Ocaranza";
             this.Rb_TO.UseVisualStyleBackColor = true;
             this.Rb_TO.CheckedChanged += new System.EventHandler(this.Rb_TO_CheckedChanged);
-            // 
-            // Btn_ITDESP
-            // 
-            this.Btn_ITDESP.Location = new System.Drawing.Point(388, -9);
-            this.Btn_ITDESP.Name = "Btn_ITDESP";
-            this.Btn_ITDESP.Size = new System.Drawing.Size(75, 36);
-            this.Btn_ITDESP.TabIndex = 17;
-            this.Btn_ITDESP.Text = "Dejar IT  despachada";
-            this.Btn_ITDESP.UseVisualStyleBackColor = true;
-            this.Btn_ITDESP.Visible = false;
-            this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
-            // 
-            // Btn_DevuelveCamion
-            // 
-            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(307, -15);
-            this.Btn_DevuelveCamion.Name = "Btn_DevuelveCamion";
-            this.Btn_DevuelveCamion.Size = new System.Drawing.Size(75, 42);
-            this.Btn_DevuelveCamion.TabIndex = 16;
-            this.Btn_DevuelveCamion.Text = "Devolución de Camión";
-            this.Btn_DevuelveCamion.UseVisualStyleBackColor = true;
-            this.Btn_DevuelveCamion.Visible = false;
-            this.Btn_DevuelveCamion.Click += new System.EventHandler(this.Btn_DevuelveCamion_Click);
             // 
             // groupBox4
             // 
@@ -762,6 +762,17 @@
             this.txtObs.TabIndex = 2;
             this.txtObs.Leave += new System.EventHandler(this.txtObs_Leave);
             // 
+            // Btn_DevuelveCamion
+            // 
+            this.Btn_DevuelveCamion.Location = new System.Drawing.Point(307, -15);
+            this.Btn_DevuelveCamion.Name = "Btn_DevuelveCamion";
+            this.Btn_DevuelveCamion.Size = new System.Drawing.Size(75, 42);
+            this.Btn_DevuelveCamion.TabIndex = 16;
+            this.Btn_DevuelveCamion.Text = "Devolución de Camión";
+            this.Btn_DevuelveCamion.UseVisualStyleBackColor = true;
+            this.Btn_DevuelveCamion.Visible = false;
+            this.Btn_DevuelveCamion.Click += new System.EventHandler(this.Btn_DevuelveCamion_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.dgvEtiquetasPiezas);
@@ -792,7 +803,6 @@
             // 
             this.panel4.Controls.Add(this.Gr_Avance);
             this.panel4.Controls.Add(this.Btn_EliminaPaq);
-            this.panel4.Controls.Add(this.Btn_ITDESP);
             this.panel4.Controls.Add(this.txtEtiquetaPieza);
             this.panel4.Controls.Add(this.Btn_DevuelveCamion);
             this.panel4.Controls.Add(this.label9);
@@ -887,16 +897,6 @@
             this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1370, 36);
             this.ctlInformacionUsuario1.TabIndex = 23;
-            // 
-            // Btn_Cambiar_A_PR
-            // 
-            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(701, 138);
-            this.Btn_Cambiar_A_PR.Name = "Btn_Cambiar_A_PR";
-            this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(112, 40);
-            this.Btn_Cambiar_A_PR.TabIndex = 20;
-            this.Btn_Cambiar_A_PR.Text = "Cambiar a Producción";
-            this.Btn_Cambiar_A_PR.UseVisualStyleBackColor = true;
-            this.Btn_Cambiar_A_PR.Click += new System.EventHandler(this.Btn_Cambiar_A_PR_Click);
             // 
             // frmDespachoCamion
             // 

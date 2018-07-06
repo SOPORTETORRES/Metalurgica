@@ -65,18 +65,41 @@
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
             this.Btn_GeneraDatos = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.Dtg_CamionEnPlanta = new System.Windows.Forms.DataGridView();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.Tx_IdPesaje = new System.Windows.Forms.TextBox();
+            this.Tx_patenteCamion = new System.Windows.Forms.TextBox();
+            this.Tx_pesoTara = new System.Windows.Forms.TextBox();
+            this.Tx_fechaTara = new System.Windows.Forms.TextBox();
+            this.Tx_usuario = new System.Windows.Forms.TextBox();
+            this.Btn_eliminar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionEnPlanta)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.Tx_IdCorrCarga);
+            this.groupBox1.Controls.Add(this.Btn_GeneraDatos);
             this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.Btn_Salir);
             this.groupBox1.Controls.Add(this.Tx_IdCorrTara);
+            this.groupBox1.Controls.Add(this.Btn_Grabar);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.Tx_sql);
             this.groupBox1.Controls.Add(this.Tx_DiferenciaKilos);
@@ -106,9 +129,9 @@
             this.groupBox1.Controls.Add(this.Tx_Patente);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(8, 5);
+            this.groupBox1.Location = new System.Drawing.Point(6, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(579, 437);
+            this.groupBox1.Size = new System.Drawing.Size(1069, 437);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
@@ -428,7 +451,7 @@
             // Btn_Grabar
             // 
             this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Grabar.Location = new System.Drawing.Point(600, 83);
+            this.Btn_Grabar.Location = new System.Drawing.Point(652, 51);
             this.Btn_Grabar.Name = "Btn_Grabar";
             this.Btn_Grabar.Size = new System.Drawing.Size(82, 52);
             this.Btn_Grabar.TabIndex = 12;
@@ -439,7 +462,7 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(600, 279);
+            this.Btn_Salir.Location = new System.Drawing.Point(652, 206);
             this.Btn_Salir.Name = "Btn_Salir";
             this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 13;
@@ -450,24 +473,188 @@
             // Btn_GeneraDatos
             // 
             this.Btn_GeneraDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_GeneraDatos.Location = new System.Drawing.Point(600, 389);
+            this.Btn_GeneraDatos.Location = new System.Drawing.Point(652, 342);
             this.Btn_GeneraDatos.Name = "Btn_GeneraDatos";
             this.Btn_GeneraDatos.Size = new System.Drawing.Size(82, 53);
             this.Btn_GeneraDatos.TabIndex = 14;
             this.Btn_GeneraDatos.Text = "Genera Datos";
             this.Btn_GeneraDatos.UseVisualStyleBackColor = true;
-            this.Btn_GeneraDatos.Visible = false;
             this.Btn_GeneraDatos.Click += new System.EventHandler(this.Btn_GeneraDatos_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(776, 490);
+            this.tabControl1.TabIndex = 15;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(768, 464);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Pesaje Camión";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(768, 464);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Camiones en Planta";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.Btn_eliminar);
+            this.panel1.Controls.Add(this.Tx_usuario);
+            this.panel1.Controls.Add(this.Tx_fechaTara);
+            this.panel1.Controls.Add(this.Tx_pesoTara);
+            this.panel1.Controls.Add(this.Tx_patenteCamion);
+            this.panel1.Controls.Add(this.Tx_IdPesaje);
+            this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.Dtg_CamionEnPlanta);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(762, 458);
+            this.panel1.TabIndex = 0;
+            // 
+            // Dtg_CamionEnPlanta
+            // 
+            this.Dtg_CamionEnPlanta.AllowUserToAddRows = false;
+            this.Dtg_CamionEnPlanta.AllowUserToDeleteRows = false;
+            this.Dtg_CamionEnPlanta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Dtg_CamionEnPlanta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_CamionEnPlanta.Location = new System.Drawing.Point(5, 103);
+            this.Dtg_CamionEnPlanta.Name = "Dtg_CamionEnPlanta";
+            this.Dtg_CamionEnPlanta.ReadOnly = true;
+            this.Dtg_CamionEnPlanta.Size = new System.Drawing.Size(750, 350);
+            this.Dtg_CamionEnPlanta.TabIndex = 0;
+            this.Dtg_CamionEnPlanta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_CamionEnPlanta_CellContentClick);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(30, 31);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(51, 13);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "Id Pesaje";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(149, 31);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 13);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Patente";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(273, 31);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(56, 13);
+            this.label17.TabIndex = 3;
+            this.label17.Text = "Peso Tara";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(409, 31);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(62, 13);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Fecha Tara";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(554, 31);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(43, 13);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "Usuario";
+            // 
+            // Tx_IdPesaje
+            // 
+            this.Tx_IdPesaje.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_IdPesaje.Location = new System.Drawing.Point(24, 50);
+            this.Tx_IdPesaje.Name = "Tx_IdPesaje";
+            this.Tx_IdPesaje.ReadOnly = true;
+            this.Tx_IdPesaje.Size = new System.Drawing.Size(72, 20);
+            this.Tx_IdPesaje.TabIndex = 6;
+            // 
+            // Tx_patenteCamion
+            // 
+            this.Tx_patenteCamion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_patenteCamion.Location = new System.Drawing.Point(135, 50);
+            this.Tx_patenteCamion.Name = "Tx_patenteCamion";
+            this.Tx_patenteCamion.ReadOnly = true;
+            this.Tx_patenteCamion.Size = new System.Drawing.Size(72, 20);
+            this.Tx_patenteCamion.TabIndex = 7;
+            // 
+            // Tx_pesoTara
+            // 
+            this.Tx_pesoTara.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_pesoTara.Location = new System.Drawing.Point(267, 50);
+            this.Tx_pesoTara.Name = "Tx_pesoTara";
+            this.Tx_pesoTara.ReadOnly = true;
+            this.Tx_pesoTara.Size = new System.Drawing.Size(72, 20);
+            this.Tx_pesoTara.TabIndex = 8;
+            // 
+            // Tx_fechaTara
+            // 
+            this.Tx_fechaTara.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_fechaTara.Location = new System.Drawing.Point(390, 50);
+            this.Tx_fechaTara.Name = "Tx_fechaTara";
+            this.Tx_fechaTara.ReadOnly = true;
+            this.Tx_fechaTara.Size = new System.Drawing.Size(128, 20);
+            this.Tx_fechaTara.TabIndex = 9;
+            // 
+            // Tx_usuario
+            // 
+            this.Tx_usuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Tx_usuario.Location = new System.Drawing.Point(541, 50);
+            this.Tx_usuario.Name = "Tx_usuario";
+            this.Tx_usuario.ReadOnly = true;
+            this.Tx_usuario.Size = new System.Drawing.Size(72, 20);
+            this.Tx_usuario.TabIndex = 10;
+            // 
+            // Btn_eliminar
+            // 
+            this.Btn_eliminar.Location = new System.Drawing.Point(664, 16);
+            this.Btn_eliminar.Name = "Btn_eliminar";
+            this.Btn_eliminar.Size = new System.Drawing.Size(75, 64);
+            this.Btn_eliminar.TabIndex = 11;
+            this.Btn_eliminar.Text = "Eliminar";
+            this.Btn_eliminar.UseVisualStyleBackColor = true;
+            this.Btn_eliminar.Click += new System.EventHandler(this.Btn_eliminar_Click);
             // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 446);
-            this.Controls.Add(this.Btn_GeneraDatos);
-            this.Controls.Add(this.Btn_Salir);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Btn_Grabar);
+            this.ClientSize = new System.Drawing.Size(776, 490);
+            this.Controls.Add(this.tabControl1);
             this.Name = "Frm_PesajeCamion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formulario de ingreso de pesaje de Camión";
@@ -476,6 +663,12 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionEnPlanta)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -519,5 +712,21 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox Tx_IdCorrTara;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView Dtg_CamionEnPlanta;
+        private System.Windows.Forms.Button Btn_eliminar;
+        private System.Windows.Forms.TextBox Tx_usuario;
+        private System.Windows.Forms.TextBox Tx_fechaTara;
+        private System.Windows.Forms.TextBox Tx_pesoTara;
+        private System.Windows.Forms.TextBox Tx_patenteCamion;
+        private System.Windows.Forms.TextBox Tx_IdPesaje;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
     }
 }

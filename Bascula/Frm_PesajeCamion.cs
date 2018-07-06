@@ -19,6 +19,7 @@ namespace Metalurgica.Bascula
         private int mToleranciaBascula = 0;
         private int mKilosCargadosCamion = 0;
         private string mIdCorrelativo = "";
+        private DataTable mTblCamiones = new DataTable();
 
 
         public Frm_PesajeCamion()
@@ -59,10 +60,37 @@ namespace Metalurgica.Bascula
 
             Tx_ToleranciaBascula.Text = mToleranciaBascula.ToString();
 
+            mTblCamiones = ObtenerCamionesEnPlanta();
+            Dtg_CamionEnPlanta.DataSource = mTblCamiones;
+
         }
 
 
         #region Metodos privados de la clase
+
+        private DataTable ObtenerCamionesEnPlanta()
+        {
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+
+            lLIstaDts = wsOperacion.ObtenerCamionesEnPlanta();
+
+            if ((lLIstaDts.DataSet != null) && (lLIstaDts.DataSet.Tables.Count > 0))
+                lTbl = lLIstaDts.DataSet.Tables[0].Copy();
+
+            return lTbl;
+        }
+
+
+        private void  EliminaRegistroPesaje( string lIdPesaje)
+        {
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+
+            lLIstaDts = wsOperacion.EliminaRegistroCamion(lIdPesaje);
+
+           
+        }
 
         private string ObtenerPesoBruto()
         {
@@ -477,6 +505,45 @@ namespace Metalurgica.Bascula
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void Dtg_CamionEnPlanta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int lIndex = e.RowIndex;
+            if (lIndex > -1)
+            {
+                Tx_fechaTara.Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["FechaTara"].Value.ToString();
+                Tx_IdPesaje .Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["Id"].Value.ToString();
+                Tx_pesoTara .Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["PesoTara"].Value.ToString();
+                Tx_patenteCamion.Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["Patente"].Value.ToString();
+                Tx_usuario.Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["Usuario"].Value.ToString();
+            }
+
+            
+        }
+
+        private string EliminaRegistroCamion(string  iIdPesaje)
+        {
+            string lres = "";
+            EliminaRegistroPesaje(iIdPesaje);
+            mTblCamiones = ObtenerCamionesEnPlanta();
+            Dtg_CamionEnPlanta.DataSource = mTblCamiones;
+
+            return lres;
+
+        }
+
+        private void Btn_eliminar_Click(object sender, EventArgs e)
+        {
+            if (Tx_IdPesaje.Text .Length >0 )
+            { 
+
+            if (MessageBox .Show ("¿Esta Seguro que desea Eliminar el Registro Seleccionado?","Avisos Sistema",MessageBoxButtons.YesNo ,MessageBoxIcon.Question )== DialogResult.Yes )
+              {
+                    EliminaRegistroCamion(Tx_IdPesaje.Text);
+            }
             }
 
         }

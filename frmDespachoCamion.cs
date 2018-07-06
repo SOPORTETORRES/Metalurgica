@@ -171,7 +171,7 @@ namespace Metalurgica
         private void tlbGuardar_Click(object sender, EventArgs e)
         {
             string mensaje = validarControlesRequeridos(); string lEtiColada="";
-            string lIdObra = ""; int idDespacho = 0;
+            string lIdObra = ""; int idDespacho = 0; DataTable lTbl = new DataTable(); DataRow lFila = null;
             string lOpcionUSer = ""; string lEstado = "";
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
@@ -179,6 +179,10 @@ namespace Metalurgica
 
             //Integracion_INET.Cls_LN lLogInet = new Integracion_INET.Cls_LN();
             //Integracion_INET.Tipo_InvocaWS lResWS = new Integracion_INET.Tipo_InvocaWS();
+
+            lTbl.Columns.Add("usuario", Type.GetType("System.String"));
+            lTbl.Columns.Add("colada", Type.GetType("System.String"));
+            lTbl.Columns.Add("etiqueta_pieza", Type.GetType("System.String"));
 
             Frm_ResumenDespacho lFrm=new Frm_ResumenDespacho ();            
             DataTable dataTable = (DataTable)dgvEtiquetasPiezas.DataSource;
@@ -216,50 +220,72 @@ namespace Metalurgica
                         despacho_Camion.Obs = txtObs.Text;
                         lDespachoCamion.Obs = despacho_Camion.Obs ;
 
-                        //Insertamos la cabecera  del despacho
-                        despacho_Camion = wsOperacion.GuardarDespachoPiezaCamion(despacho_Camion, Program.currentUser.ComputerName);
-                        if (despacho_Camion.MensajeError.Equals(""))
+                        //Grabmos el despacho de Camion*************************
+                        foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
                         {
-                             idDespacho = despacho_Camion.Id;
-                             lDespachoCamion.Id = despacho_Camion.Id;
-                             lDespachoCamion.CodigoViaje = Lbl_Viajes.Text;
-                            foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
+                            //Solo se deben procersar las que tienen el campo Estado1=POK
+                            lEstado = row.Cells["ESTADO1"].Value.ToString();
+                            if (lEstado.ToString().Equals("POK"))
                             {
-                                //Solo se deben procersar las que tienen el campo Estado1=POK
-                                lEstado = row.Cells["ESTADO1"].Value.ToString();
-                                if (lEstado.ToString().Equals("POK"))
-                                { 
-                                
-                                lEtiColada = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
-                                //'despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString(), row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
+                                lFila = lTbl.NewRow();
+                                lFila["usuario"] = Program.currentUser.Login;
+                                lFila["colada"] = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
+                                lFila["etiqueta_pieza"] = row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString();
 
-                               //Asociamos el detalle a la cabecera
-                                despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, lEtiColada, row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
-                                if (despacho_Camion.MensajeError.Equals(""))
-                                {
-                                    //tlbActualizar.PerformClick();
-                                    //MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                    MessageBox.Show(despacho_Camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                lTbl.Rows.Add(lFila);
+                               
 
-                                }
                             }
+                        }
 
-                            //invocamos el servicion que revisa el viaje una vez grabado para crear el nuevo viajesi corresponde
-                            // Debemos recorrer todos los viajes de la grilla 
-                            string lViaje = "";
-                            foreach (DataGridViewRow row in this .Dtg_ResumenCarga .Rows)
-                            {
-                                lViaje = row.Cells["Viaje"].Value.ToString();
-                                if (lViaje.ToString().IndexOf("Tot") == -1)
-                                {
-                                    SP_VERIFICA_VIAJE_DESPACHO(lViaje);
-                                }
-                            }
-                            //SP_VERIFICA_VIAJE_DESPACHO(Lbl_Viajes.Text);
-                            // Debemos consumir el WS de Integración con INET                            
-                                              
+
+                        //Insertamos la cabecera  del despacho*******************************************+
+                        //despacho_Camion = wsOperacion.GuardarDespachoPiezaCamion(despacho_Camion, Program.currentUser.ComputerName);
+                        //if (despacho_Camion.MensajeError.Equals(""))
+                        //{
+                        //     idDespacho = despacho_Camion.Id;
+                        //     lDespachoCamion.Id = despacho_Camion.Id;
+                        //     lDespachoCamion.CodigoViaje = Lbl_Viajes.Text;
+                        //    foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
+                        //    {
+                        //        //Solo se deben procersar las que tienen el campo Estado1=POK
+                        //        lEstado = row.Cells["ESTADO1"].Value.ToString();
+                        //        if (lEstado.ToString().Equals("POK"))
+                        //        { 
+
+                        //        lEtiColada = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
+                        //        //'despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString(), row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
+
+                        //       //Asociamos el detalle a la cabecera
+                        //        despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, lEtiColada, row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
+                        //        if (despacho_Camion.MensajeError.Equals(""))
+                        //        {
+                        //            //tlbActualizar.PerformClick();
+                        //            //MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //        }
+                        //        else
+                        //            MessageBox.Show(despacho_Camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        //        }
+                        //    }
+
+                        //    //invocamos el servicion que revisa el viaje una vez grabado para crear el nuevo viaje si corresponde
+                        //    // Debemos recorrer todos los viajes de la grilla 
+                        //    string lViaje = "";
+                        //    foreach (DataGridViewRow row in this .Dtg_ResumenCarga .Rows)
+                        //    {
+                        //        lViaje = row.Cells["Viaje"].Value.ToString();
+                        //        if (lViaje.ToString().IndexOf("Tot") == -1)
+                        //        {
+                        //            SP_VERIFICA_VIAJE_DESPACHO(lViaje);
+                        //        }
+                        //    }
+
+                        //***********************fin Modificaciones
+
+                        //Invocamos el metodo que revisa los bloqueos
+                        wsOperacion.RevisaRN(lIdObra);
+
                             //***************************************
                             tlbNuevo_Click(sender, e);
                             MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -279,11 +305,8 @@ namespace Metalurgica
             else
                 MessageBox.Show(" No se realizara la grabación de los datos ya que se Selecciono CANCELAR en el Resumen Despacho:\n\n" , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
-            //Invocamos el metodo que revisa los bloqueos
-            wsOperacion.RevisaRN(despacho_Camion.Obra_Destino);
-
         }
+
 
 
         private void SP_VERIFICA_VIAJE_DESPACHO(string lCodViajes)
@@ -813,6 +836,11 @@ namespace Metalurgica
 
                 Dtg_ResumenCarga.DataSource = mTblResumenDespacho;
                 FormateaGrilla();
+
+                Lbl_TotalKgs.Text = lTotlaKilosViaje.ToString ();
+                lbl_TotalKgsCar.Text = lTotalKgsCargados.ToString();
+                Lbl_TotalPaq.Text = lTotalPiezasViaje.ToString();
+                lbl_TotalPaqCar.Text = "0";
 
                 //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
                 lblCantidadEtiquetasPiezas.Text = "Regstro(s): " + lPaquetesCargados.ToString();

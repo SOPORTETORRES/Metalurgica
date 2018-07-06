@@ -1092,6 +1092,7 @@ namespace Metalurgica.Controls
                 this.Text += " - versión: " + lCom.ObtenerVersion();  //Application.ProductVersion;
                 ctlInformacionUsuario1.CargaDatosUserLog(iUserLog);
                 mUserLog = iUserLog;
+                Lbl_Usuario.Text = mUserLog.Login; 
 
                 //Cargar motivos/excepciones
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
@@ -1125,7 +1126,7 @@ namespace Metalurgica.Controls
                 }
                 //para la contrata
                     //< add key = "CambioPR_Desp" value = "S" />
-                string lPuedeCambiar = mSoloDiamPermitidos = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
+                string lPuedeCambiar =  ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
                 if (lPuedeCambiar.ToUpper().Equals("S"))
                     Btn_A_Despacho.Visible = true;
                 else
@@ -1231,7 +1232,8 @@ namespace Metalurgica.Controls
         {
             mUserLog = iUsuarioActual;
             mIdUser = iUsuarioActual.Iduser;
-            ctlInformacionUsuario1.CargaDatosUserLog(iUsuarioActual);  
+            ctlInformacionUsuario1.CargaDatosUserLog(iUsuarioActual);
+            Lbl_Usuario.Text = iUsuarioActual.Login;
         }
 
         public void CargaMaqActual(string iIdMaq, string iNomreMaq)

@@ -2,17 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ObtenerDetalleProduccionPorColada">
+      <s:element name="ListarPiezasNoDespachadasBodegaAcopio">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idMaquina" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
+      <s:element name="ListarPiezasNoDespachadasBodegaAcopioResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListarPiezasNoDespachadasBodegaAcopioResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,6 +38,34 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerDatosProduccionPorColada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosProduccionPorColadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosProduccionPorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerResumanPiezasPorViaje">
         <s:complexType>
           <s:sequence>
@@ -122,6 +150,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="NroCertificado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdForma" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="FueImpresa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrdenCompra" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="ConsultarITRecepcion">
@@ -1261,6 +1290,30 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerCamionesEnPlanta">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerCamionesEnPlantaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerCamionesEnPlantaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminaRegistroCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdPesaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminaRegistroCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EliminaRegistroCamionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerPatentesParaDespacho">
         <s:complexType />
       </s:element>
@@ -1829,36 +1882,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ListarPiezasNoDespachadasBodegaAcopio">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idMaquina" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ListarPiezasNoDespachadasBodegaAcopioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ListarPiezasNoDespachadasBodegaAcopioResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerDatosProduccionPorColada">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerDatosProduccionPorColadaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosProduccionPorColadaResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ListarPiezasNoDespachadasBodegaAcopioSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarPiezasNoDespachadasBodegaAcopio" />
+  </wsdl:message>
+  <wsdl:message name="ListarPiezasNoDespachadasBodegaAcopioSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarPiezasNoDespachadasBodegaAcopioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosProduccionPorColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColada" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
   </wsdl:message>
@@ -2255,6 +2292,18 @@
   <wsdl:message name="GrabarDatosPesajeCamionSoapOut">
     <wsdl:part name="parameters" element="tns:GrabarDatosPesajeCamionResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerCamionesEnPlantaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerCamionesEnPlanta" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerCamionesEnPlantaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerCamionesEnPlantaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminaRegistroCamionSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminaRegistroCamion" />
+  </wsdl:message>
+  <wsdl:message name="EliminaRegistroCamionSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminaRegistroCamionResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerPatentesParaDespachoSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerPatentesParaDespacho" />
   </wsdl:message>
@@ -2459,19 +2508,15 @@
   <wsdl:message name="ListarDespachoBodegaAcopioSoapOut">
     <wsdl:part name="parameters" element="tns:ListarDespachoBodegaAcopioResponse" />
   </wsdl:message>
-  <wsdl:message name="ListarPiezasNoDespachadasBodegaAcopioSoapIn">
-    <wsdl:part name="parameters" element="tns:ListarPiezasNoDespachadasBodegaAcopio" />
-  </wsdl:message>
-  <wsdl:message name="ListarPiezasNoDespachadasBodegaAcopioSoapOut">
-    <wsdl:part name="parameters" element="tns:ListarPiezasNoDespachadasBodegaAcopioResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerDatosProduccionPorColadaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColada" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
+      <wsdl:input message="tns:ListarPiezasNoDespachadasBodegaAcopioSoapIn" />
+      <wsdl:output message="tns:ListarPiezasNoDespachadasBodegaAcopioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosProduccionPorColada">
+      <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
@@ -2736,6 +2781,14 @@
       <wsdl:input message="tns:GrabarDatosPesajeCamionSoapIn" />
       <wsdl:output message="tns:GrabarDatosPesajeCamionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerCamionesEnPlanta">
+      <wsdl:input message="tns:ObtenerCamionesEnPlantaSoapIn" />
+      <wsdl:output message="tns:ObtenerCamionesEnPlantaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaRegistroCamion">
+      <wsdl:input message="tns:EliminaRegistroCamionSoapIn" />
+      <wsdl:output message="tns:EliminaRegistroCamionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPatentesParaDespacho">
       <wsdl:input message="tns:ObtenerPatentesParaDespachoSoapIn" />
       <wsdl:output message="tns:ObtenerPatentesParaDespachoSoapOut" />
@@ -2872,17 +2925,27 @@
       <wsdl:input message="tns:ListarDespachoBodegaAcopioSoapIn" />
       <wsdl:output message="tns:ListarDespachoBodegaAcopioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
-      <wsdl:input message="tns:ListarPiezasNoDespachadasBodegaAcopioSoapIn" />
-      <wsdl:output message="tns:ListarPiezasNoDespachadasBodegaAcopioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosProduccionPorColada">
-      <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
-      <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
+      <soap:operation soapAction="http://tempuri.org/ListarPiezasNoDespachadasBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosProduccionPorColada">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
       <wsdl:input>
@@ -3477,6 +3540,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerCamionesEnPlanta">
+      <soap:operation soapAction="http://tempuri.org/ObtenerCamionesEnPlanta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaRegistroCamion">
+      <soap:operation soapAction="http://tempuri.org/EliminaRegistroCamion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPatentesParaDespacho">
       <soap:operation soapAction="http://tempuri.org/ObtenerPatentesParaDespacho" style="document" />
       <wsdl:input>
@@ -3783,27 +3864,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
-      <soap:operation soapAction="http://tempuri.org/ListarPiezasNoDespachadasBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosProduccionPorColada">
-      <soap:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
+      <soap12:operation soapAction="http://tempuri.org/ListarPiezasNoDespachadasBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosProduccionPorColada">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
       <wsdl:input>
@@ -4398,6 +4479,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerCamionesEnPlanta">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerCamionesEnPlanta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaRegistroCamion">
+      <soap12:operation soapAction="http://tempuri.org/EliminaRegistroCamion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPatentesParaDespacho">
       <soap12:operation soapAction="http://tempuri.org/ObtenerPatentesParaDespacho" style="document" />
       <wsdl:input>
@@ -4697,24 +4796,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListarDespachoBodegaAcopio">
       <soap12:operation soapAction="http://tempuri.org/ListarDespachoBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListarPiezasNoDespachadasBodegaAcopio">
-      <soap12:operation soapAction="http://tempuri.org/ListarPiezasNoDespachadasBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosProduccionPorColada">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

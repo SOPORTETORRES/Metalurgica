@@ -63,33 +63,40 @@ namespace Metalurgica
         public void IniciaForm(string iViajesSel, string iOtrasObs, string iKilosPorCargar, string iKilosCargados, string iPaqPorCargar, string iPaqCargados, DataTable iTblDatos)
         {
             int Diferencia = 0;
-            Tx_viajes .Text  = iViajesSel;
-            MuestraOtrosErrores(iOtrasObs);
-            //Tx_OtrasObs.Text  = iOtrasObs;
-            Tx_KgsPorCargar.Text  = iKilosPorCargar.ToString ();
-            Tx_KgsCargados.Text = iKilosCargados.ToString();
-            Tx_PaqPorCargar.Text = iPaqPorCargar.ToString();
-            Tx_PaqCargados.Text = iPaqCargados.ToString();
-            Tx_PaqOk.Text = "0";
-            Tx_PaqOk.Text = "0";
+            try
+            {
+                Tx_viajes.Text = iViajesSel;
+                MuestraOtrosErrores(iOtrasObs);
+                //Tx_OtrasObs.Text  = iOtrasObs;
+                Tx_KgsPorCargar.Text = iKilosPorCargar.ToString();
+                Tx_KgsCargados.Text = iKilosCargados.ToString();
+                Tx_PaqPorCargar.Text = iPaqPorCargar.ToString();
+                Tx_PaqCargados.Text = iPaqCargados.ToString();
+                Tx_PaqOk.Text = "0";
+                Tx_PaqOk.Text = "0";
 
-            Diferencia = int.Parse(iKilosPorCargar) - int.Parse(iKilosCargados);
-            Tx_difKgs.Text = Diferencia.ToString();
+                Diferencia = int.Parse(iKilosPorCargar) - int.Parse(iKilosCargados);
+                Tx_difKgs.Text = Diferencia.ToString();
 
-            Diferencia = int.Parse(iPaqPorCargar) - int.Parse(iPaqCargados);
-            Tx_DifPaq.Text = Diferencia.ToString();
+                Diferencia = int.Parse(iPaqPorCargar) - int.Parse(iPaqCargados);
+                Tx_DifPaq.Text = Diferencia.ToString();
 
 
-            if (iTblDatos!=null)
+                if (iTblDatos != null)
                 {
-            DataView lVistaPaqOK = new DataView (iTblDatos,"Estado1='POK'","", DataViewRowState.CurrentRows  );
-            Tx_PaqOk.Text = lVistaPaqOK.Count.ToString ();
-            DataView lVistaPaqOtrosViajes = new DataView(iTblDatos, "Estado1='PNV'", "", DataViewRowState.CurrentRows);
-            Tx_paqOtrosViajes.Text = lVistaPaqOtrosViajes.Count.ToString();
-            dgvEtiquetasPiezas.DataSource = iTblDatos;
-            OcultaColumnas();
-                }    
-        //
+                    DataView lVistaPaqOK = new DataView(iTblDatos, "Estado1='POK'", "", DataViewRowState.CurrentRows);
+                    Tx_PaqOk.Text = lVistaPaqOK.Count.ToString();
+                    DataView lVistaPaqOtrosViajes = new DataView(iTblDatos, "Estado1='PNV'", "", DataViewRowState.CurrentRows);
+                    Tx_paqOtrosViajes.Text = lVistaPaqOtrosViajes.Count.ToString();
+                    dgvEtiquetasPiezas.DataSource = iTblDatos;
+                    OcultaColumnas();
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //
         }
 
         private void OcultaColumnas()
