@@ -172,7 +172,7 @@ namespace Metalurgica
         {
             string mensaje = validarControlesRequeridos(); string lEtiColada="";
             string lIdObra = ""; int idDespacho = 0; DataTable lTbl = new DataTable(); DataRow lFila = null;
-            string lOpcionUSer = ""; string lEstado = "";
+            string lOpcionUSer = ""; string lEstado = ""; DataTable lTblViajes = new DataTable();DataSet lDtsDatos = new DataSet();
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
             WsOperacion.Despacho_Camion lDespachoCamion = new WsOperacion.Despacho_Camion();
@@ -180,9 +180,13 @@ namespace Metalurgica
             //Integracion_INET.Cls_LN lLogInet = new Integracion_INET.Cls_LN();
             //Integracion_INET.Tipo_InvocaWS lResWS = new Integracion_INET.Tipo_InvocaWS();
 
+            lTbl.TableName = "Piezas";
             lTbl.Columns.Add("usuario", Type.GetType("System.String"));
             lTbl.Columns.Add("colada", Type.GetType("System.String"));
             lTbl.Columns.Add("etiqueta_pieza", Type.GetType("System.String"));
+
+            lTblViajes.TableName = "Viajes";
+            lTblViajes.Columns.Add("Codigo", Type.GetType("System.String"));
 
             Frm_ResumenDespacho lFrm=new Frm_ResumenDespacho ();            
             DataTable dataTable = (DataTable)dgvEtiquetasPiezas.DataSource;
@@ -221,6 +225,7 @@ namespace Metalurgica
                         lDespachoCamion.Obs = despacho_Camion.Obs ;
 
                         //Grabmos el despacho de Camion*************************
+                        // *primero las piezas que se despachan***************
                         foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
                         {
                             //Solo se deben procersar las que tienen el campo Estado1=POK
@@ -231,12 +236,28 @@ namespace Metalurgica
                                 lFila["usuario"] = Program.currentUser.Login;
                                 lFila["colada"] = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
                                 lFila["etiqueta_pieza"] = row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString();
-
                                 lTbl.Rows.Add(lFila);
-                               
-
                             }
                         }
+                        lDtsDatos.Tables.Add(lTbl);
+                        //******ahora los Viajes
+                        // Debemos recorrer todos los viajes de la grilla 
+                        string lViaje = "";
+                        foreach (DataGridViewRow row in this.Dtg_ResumenCarga.Rows)
+                        {
+                            lViaje = row.Cells["Viaje"].Value.ToString();
+                            if (lViaje.ToString().IndexOf("Tot") == -1)
+                            {
+                                //  SP_VERIFICA_VIAJE_DESPACHO(lViaje);
+                                lFila = lTblViajes .NewRow();
+                                lFila["Codigo"] = lViaje;
+                                lTblViajes.Rows .Add(lFila);
+                            }
+                        }
+                        lDtsDatos.Tables.Add(lTblViajes);
+
+                        despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
+
 
 
                         //Insertamos la cabecera  del despacho*******************************************+
@@ -270,28 +291,19 @@ namespace Metalurgica
                         //    }
 
                         //    //invocamos el servicion que revisa el viaje una vez grabado para crear el nuevo viaje si corresponde
-                        //    // Debemos recorrer todos los viajes de la grilla 
-                        //    string lViaje = "";
-                        //    foreach (DataGridViewRow row in this .Dtg_ResumenCarga .Rows)
-                        //    {
-                        //        lViaje = row.Cells["Viaje"].Value.ToString();
-                        //        if (lViaje.ToString().IndexOf("Tot") == -1)
-                        //        {
-                        //            SP_VERIFICA_VIAJE_DESPACHO(lViaje);
-                        //        }
-                        //    }
+                        //   
 
                         //***********************fin Modificaciones
 
                         //Invocamos el metodo que revisa los bloqueos
                         wsOperacion.RevisaRN(lIdObra);
 
-                            //***************************************
-                            tlbNuevo_Click(sender, e);
-                            MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                            MessageBox.Show(despacho_Camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    //***************************************
+                        tlbNuevo_Click(sender, e);
+                        MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //}
+                        //else
+                        //    MessageBox.Show(despacho_Camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (Exception exc)
                     {

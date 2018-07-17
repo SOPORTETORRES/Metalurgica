@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaAcopio", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarPiezasNoDespachadasBodegaAcopio", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarPiezasNoDespachadasBodegaAcopio(int idMaquina);
@@ -380,6 +384,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string SP_VERIFICA_VIAJE_DESPACHO(string iViaje);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoPiezaCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoPiezaCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal);
@@ -427,10 +435,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaMP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaAcopio", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega);
     }
     
     /// <remarks/>
@@ -2998,6 +3002,10 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega) {
+            return base.Channel.ListarDespachoBodegaAcopio(idBodega);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ListarPiezasNoDespachadasBodegaAcopio(int idMaquina) {
             return base.Channel.ListarPiezasNoDespachadasBodegaAcopio(idMaquina);
         }
@@ -3362,6 +3370,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.SP_VERIFICA_VIAJE_DESPACHO(iViaje);
         }
         
+        public Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos) {
+            return base.Channel.GuardarDespachoCamion(despacho_Camion, terminal, iDtsDatos);
+        }
+        
         public Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoPiezaCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal) {
             return base.Channel.GuardarDespachoPiezaCamion(despacho_Camion, terminal);
         }
@@ -3408,10 +3420,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega) {
             return base.Channel.ListarDespachoBodegaMP(idBodega);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega) {
-            return base.Channel.ListarDespachoBodegaAcopio(idBodega);
         }
     }
 }
