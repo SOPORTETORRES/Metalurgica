@@ -1593,5 +1593,12 @@ namespace Metalurgica.Controls
                 Application.Exit();
             }
         }
+
+        private void Btn_CheckList_Click(object sender, EventArgs e)
+        {
+            Maquinas.CheckList lFrm = new Maquinas.CheckList();
+            lFrm.IniciaForm(mUserLog);
+            lFrm.ShowDialog();
+        }
     }
 }

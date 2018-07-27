@@ -235,7 +235,7 @@ namespace Metalurgica.Clases
 
         }
 
-        public DataTable CargaTablaObras()
+        public DataTable CargaTablaObras_PorUsuario(string iIdUser)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
@@ -243,18 +243,55 @@ namespace Metalurgica.Clases
             string lCambiarProduccion = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
 
             if (lCambiarProduccion.ToUpper().Equals("S"))  // solo mostramos la obra de la contrata
-                lSql = string.Concat("  Select id, Nombre Obra  from Obras where  id=610  ");
-            else
-                lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
-
-
-            lDts = lPx.ObtenerDatos(lSql);
-            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            //lSql = string.Concat("  Select id, Nombre Obra  from Obras where  id=610  ");
             {
-                lTbl = lDts.Tables[0].Copy();
+                lTbl = CargaTablaObrasPorUsuario(iIdUser);
             }
+            else
+            {
+                lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
+                lDts = lPx.ObtenerDatos(lSql);
+                if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+                {
+                    lTbl = lDts.Tables[0].Copy();
+                }
+            }
+            return lTbl;
+        }
 
-
+        public DataTable CargaTablaObrasPorUsuario(String lIdUser)
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+            string lCambiarProduccion = ConfigurationManager.AppSettings["CambioPR_Desp"].ToString();
+            try
+            {
+                if (lCambiarProduccion.ToUpper().Equals("S"))  // solo mostramos la obra de la contrata
+                {
+                    //  lSql = " exec SP_CRUD_Obras_Usuarios 0,0," & iUser & ",0,0,4"
+                    //lTbl = lDal.CargaTabla(lSql)
+                    lSql = string.Concat("  exec SP_CRUD_Obras_Usuarios 0,0," , lIdUser, ",0,0,5 ");
+                    lDts = lPx.ObtenerDatos(lSql);
+                    if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+                    {
+                        lTbl = lDts.Tables[0].Copy();
+                    }
+                }
+                else
+                {
+                    lSql = string.Concat("  Select id, Nombre Obra  from Obras where empresa='", lEmpresa, "' and  EstadoAlta not in ('FIN') order by nombre ");
+                    lDts = lPx.ObtenerDatos(lSql);
+                    if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+                    {
+                        lTbl = lDts.Tables[0].Copy();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+               throw exc;
+            }
             return lTbl;
         }
 

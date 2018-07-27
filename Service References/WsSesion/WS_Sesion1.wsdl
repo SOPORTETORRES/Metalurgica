@@ -87,6 +87,37 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerDatosUsuarioLogeado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iNroMaquina" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosUsuarioLogeadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosUsuarioLogeadoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iNroMaquina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iPc_Accede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraLoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="IniciarSoapIn">
@@ -113,6 +144,18 @@
   <wsdl:message name="ObtenerUsuarioSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerDatosUsuarioLogeadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosUsuarioLogeado" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosUsuarioLogeadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosUsuarioLogeadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraLogin" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraLoginResponse" />
+  </wsdl:message>
   <wsdl:portType name="WS_SesionSoap">
     <wsdl:operation name="Iniciar">
       <wsdl:input message="tns:IniciarSoapIn" />
@@ -129,6 +172,14 @@
     <wsdl:operation name="ObtenerUsuario">
       <wsdl:input message="tns:ObtenerUsuarioSoapIn" />
       <wsdl:output message="tns:ObtenerUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosUsuarioLogeado">
+      <wsdl:input message="tns:ObtenerDatosUsuarioLogeadoSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosUsuarioLogeadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogin">
+      <wsdl:input message="tns:RegistraLoginSoapIn" />
+      <wsdl:output message="tns:RegistraLoginSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WS_SesionSoap" type="tns:WS_SesionSoap">
@@ -162,6 +213,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerUsuario">
       <soap:operation soapAction="http://tempuri.org/ObtenerUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosUsuarioLogeado">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosUsuarioLogeado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogin">
+      <soap:operation soapAction="http://tempuri.org/RegistraLogin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -208,13 +277,31 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosUsuarioLogeado">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosUsuarioLogeado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogin">
+      <soap12:operation soapAction="http://tempuri.org/RegistraLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WS_Sesion">
     <wsdl:port name="WS_SesionSoap" binding="tns:WS_SesionSoap">
-      <soap:address location="http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx" />
+      <soap:address location="http://localhost:55038/WS/WS_Sesion.asmx" />
     </wsdl:port>
     <wsdl:port name="WS_SesionSoap12" binding="tns:WS_SesionSoap12">
-      <soap12:address location="http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx" />
+      <soap12:address location="http://localhost:55038/WS/WS_Sesion.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

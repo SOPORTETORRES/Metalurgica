@@ -1078,7 +1078,7 @@ namespace Metalurgica
             else
             {
                 Gr_empresa.Visible = false;
-                lTbl = lcom.CargaTablaObras();
+                lTbl = lcom.CargaTablaObrasPorUsuario(mUserLog .Iduser .ToString ());
             }
 
             return lTbl;

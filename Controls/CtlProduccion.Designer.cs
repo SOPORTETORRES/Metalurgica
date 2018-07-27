@@ -50,6 +50,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Lbl_Usuario = new System.Windows.Forms.Label();
             this.Btn_A_Despacho = new System.Windows.Forms.Button();
             this.Btn_NotificaAveriaElemento = new System.Windows.Forms.Button();
             this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
@@ -95,8 +97,7 @@
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.Lbl_Usuario = new System.Windows.Forms.Label();
+            this.Btn_CheckList = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -109,9 +110,9 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -260,7 +261,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(912, 350);
+            this.tabPage2.Size = new System.Drawing.Size(1319, 350);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Excepciones";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -276,7 +277,7 @@
             this.dgvEtiquetasPiezasExcepciones.Name = "dgvEtiquetasPiezasExcepciones";
             this.dgvEtiquetasPiezasExcepciones.ReadOnly = true;
             this.dgvEtiquetasPiezasExcepciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEtiquetasPiezasExcepciones.Size = new System.Drawing.Size(906, 284);
+            this.dgvEtiquetasPiezasExcepciones.Size = new System.Drawing.Size(1313, 284);
             this.dgvEtiquetasPiezasExcepciones.TabIndex = 19;
             // 
             // panel6
@@ -285,7 +286,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel6.Location = new System.Drawing.Point(3, 317);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(906, 30);
+            this.panel6.Size = new System.Drawing.Size(1313, 30);
             this.panel6.TabIndex = 21;
             // 
             // lblCantidadEtiquetasPiezasExcepciones
@@ -304,7 +305,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(906, 30);
+            this.panel2.Size = new System.Drawing.Size(1313, 30);
             this.panel2.TabIndex = 0;
             // 
             // cboExcepciones
@@ -338,6 +339,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Btn_CheckList);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.Btn_A_Despacho);
             this.groupBox1.Controls.Add(this.Btn_NotificaAveriaElemento);
@@ -374,6 +376,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Lbl_Usuario);
+            this.groupBox2.Location = new System.Drawing.Point(966, 20);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(297, 101);
+            this.groupBox2.TabIndex = 58;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Datos del usuario ";
+            // 
+            // Lbl_Usuario
+            // 
+            this.Lbl_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Usuario.ForeColor = System.Drawing.Color.Red;
+            this.Lbl_Usuario.Location = new System.Drawing.Point(6, 25);
+            this.Lbl_Usuario.Name = "Lbl_Usuario";
+            this.Lbl_Usuario.Size = new System.Drawing.Size(285, 61);
+            this.Lbl_Usuario.TabIndex = 51;
+            this.Lbl_Usuario.Text = "Nro. Etiquetas";
             // 
             // Btn_A_Despacho
             // 
@@ -811,25 +833,15 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1327, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
             // 
-            // groupBox2
+            // Btn_CheckList
             // 
-            this.groupBox2.Controls.Add(this.Lbl_Usuario);
-            this.groupBox2.Location = new System.Drawing.Point(966, 20);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(297, 101);
-            this.groupBox2.TabIndex = 58;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Datos del usuario ";
-            // 
-            // Lbl_Usuario
-            // 
-            this.Lbl_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl_Usuario.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_Usuario.Location = new System.Drawing.Point(6, 25);
-            this.Lbl_Usuario.Name = "Lbl_Usuario";
-            this.Lbl_Usuario.Size = new System.Drawing.Size(285, 61);
-            this.Lbl_Usuario.TabIndex = 51;
-            this.Lbl_Usuario.Text = "Nro. Etiquetas";
+            this.Btn_CheckList.Location = new System.Drawing.Point(895, 56);
+            this.Btn_CheckList.Name = "Btn_CheckList";
+            this.Btn_CheckList.Size = new System.Drawing.Size(57, 50);
+            this.Btn_CheckList.TabIndex = 59;
+            this.Btn_CheckList.Text = "Check List Maq";
+            this.Btn_CheckList.UseVisualStyleBackColor = true;
+            this.Btn_CheckList.Click += new System.EventHandler(this.Btn_CheckList_Click);
             // 
             // CtlProduccion
             // 
@@ -861,11 +873,11 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.tlsToolBar.ResumeLayout(false);
             this.tlsToolBar.PerformLayout();
             this.stsStatusStrip.ResumeLayout(false);
             this.stsStatusStrip.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -942,5 +954,6 @@
         private System.Windows.Forms.Button Btn_A_Despacho;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label Lbl_Usuario;
+        private System.Windows.Forms.Button Btn_CheckList;
     }
 }

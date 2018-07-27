@@ -152,6 +152,8 @@ namespace Metalurgica
 
                             Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
 
+                            ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.Machine.ToString());
+
                             //ObtenerPerfilUsuario
                             logon = true;
                             this.Hide();
@@ -172,6 +174,36 @@ namespace Metalurgica
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }            Application.Exit();
+        }
+
+        private void ValidaAccesoProduccion(string iIdUsuario, string iNroMaquina, string iPcAccede)
+        {
+            DataTable lTbl = new DataTable(); string lIdAccesoUser = "";
+            WsSesion.WS_SesionSoapClient wsSesions = new WsSesion.WS_SesionSoapClient();
+            WsSesion.ListaDataSet listaDataSet = new WsSesion.ListaDataSet();
+            DataTable lTblUser = new DataTable();
+
+            listaDataSet = wsSesions.ObtenerDatosUsuarioLogeado(iIdUsuario, iNroMaquina);
+            if (listaDataSet.MensajeError.ToString().Trim().Length == 0)
+            {
+                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                {
+                    lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                    listaDataSet = new WsSesion.ListaDataSet();
+                    if (lTbl.Rows.Count > 0)  // ya estaba logeado en el Pc
+                        lTblUser = lTbl.Copy();
+                    else   //no estaba logeado
+                        lIdAccesoUser = wsSesions.RegistraLogin(iIdUsuario, iNroMaquina, iPcAccede);
+
+
+
+                }
+
+            }
+            else
+                MessageBox.Show(string.Concat ("Ha Ocurrido el Siguiente Error: ",listaDataSet .MensajeError ), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
         }
 
         private void IniciaApp(int iIdTipoTotem,CurrentUser iUserLog)

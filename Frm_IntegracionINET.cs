@@ -1,18 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Metalurgica.Models;
-using System.Xml.Serialization;
 using CommonLibrary2;
 using Metalurgica.Informes;
 using System.Configuration;
 using System.Collections;
+using System.Drawing.Printing;
+using System.Diagnostics;
+//using Spire.Pdf;
 
 namespace Metalurgica
 {
@@ -410,6 +409,8 @@ namespace Metalurgica
             ImprimirInforme("SGO-67/1", true);
             //3.- Unimos los Archivos en uno 
             TerminaProceso();
+
+
         }
 
 
@@ -442,8 +443,42 @@ namespace Metalurgica
                 lImp = string.Concat(lImp, lTblImp.Rows[i]["impresora"].ToString(), " - ");
 
             }
+            //PrintDocument pd = new PrintDocument();
+            //pd.DocumentName = @"C:\TMP\a.txt";
+            //// Specify the printer to use.
+            //pd.PrinterSettings.PrinterName = "HP LaserJet Professional P1606dn";
+
+            //if (pd.PrinterSettings.IsValid)
+            //{
+            //    pd.Print();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Printer is invalid.");
+            //}
+
+            SendToPrinter(lres);
+
             MessageBox.Show(lImp);
 
+        }
+
+        private void SendToPrinter(string iPath)
+        {
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.Verb = "print";                          // Seleccionar el programa para imprimir PDF por defecto
+            info.FileName = iPath; //@"C:\Informes\TMP\1.pdf";         // Ruta hacia el fichero que quieres imprimir
+            info.CreateNoWindow = true;                   // Hacerlo sin mostrar ventana
+            info.WindowStyle = ProcessWindowStyle.Hidden; // Y de forma oculta
+            //"C:\\Informes\\TMP\\"
+            Process p = new Process();
+            p.StartInfo = info;
+            p.Start();  // Lanza el proceso
+
+            p.WaitForInputIdle();
+            System.Threading.Thread.Sleep(3000);          // Espera 3 segundos
+            if (false == p.CloseMainWindow())
+                p.Kill();                                  // Y cierra el programa de imprimir PDF's
         }
 
         public void ImprimirInforme(string iViaje, Boolean iEliminaArchivo)
@@ -1967,7 +2002,13 @@ namespace Metalurgica
         private void button1_Click(object sender, EventArgs e)
         {
             //ImprimeResumenDespacho(false);
+
             ImprimeDocumentos();
+        }
+
+        private void PDoc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            String m = "";
         }
     }
 }

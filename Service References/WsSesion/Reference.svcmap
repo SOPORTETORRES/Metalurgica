@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:55038/WS/WS_Sesion.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WS_Sesion.wsdl" MetadataType="Wsdl" ID="59544bc0-7875-4db7-ba2c-8716f834e01a" SourceId="1" SourceUrl="http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx?wsdl" />
-    <MetadataFile FileName="WS_Sesion.disco" MetadataType="Disco" ID="3eeb5c6a-6747-476b-b0b5-5df62721e6e9" SourceId="1" SourceUrl="http://localhost:47827/CUbigest2008/WS/WS_Sesion.asmx?disco" />
+    <MetadataFile FileName="WS_Sesion1.disco" MetadataType="Disco" ID="4723d8f4-5d26-4e9e-9c3e-829caead6fbb" SourceId="1" SourceUrl="http://localhost:55038/WS/WS_Sesion.asmx?disco" />
+    <MetadataFile FileName="WS_Sesion1.wsdl" MetadataType="Wsdl" ID="be027a3e-6fad-4414-800f-ec23e10fc74d" SourceId="1" SourceUrl="http://localhost:55038/WS/WS_Sesion.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

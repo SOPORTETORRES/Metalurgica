@@ -291,6 +291,12 @@
       <DependentUpon>Rpt_PortadaPLDesp.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Maquinas\CheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\CheckList.Designer.cs">
+      <DependentUpon>CheckList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Maquinas\Frm_Desbloqueo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -632,6 +638,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Rpt_PortadaPLDesp.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\CheckList.resx">
+      <DependentUpon>CheckList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maquinas\Frm_Desbloqueo.resx">
       <DependentUpon>Frm_Desbloqueo.cs</DependentUpon>
     </EmbeddedResource>
@@ -864,7 +873,7 @@
     <None Include="Service References\WsSesion\Metalurgica.WsSesion.Sesion.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\WsSesion\WS_Sesion.wsdl" />
+    <None Include="Service References\WsSesion\WS_Sesion1.wsdl" />
     <None Include="Service References\Ws_TO\Dts_PL.xsd" />
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Dts_PL.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -921,6 +930,7 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\WsSesion\WS_Sesion1.disco" />
     <None Include="Service References\Ws_TO\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -950,7 +960,6 @@
     <None Include="Service References\Coladas_Px_WS_Ws_To\configuration.svcinfo" />
     <None Include="Service References\Coladas_Px_WS_Ws_To\configuration91.svcinfo" />
     <None Include="Service References\Coladas_Px_WS_Ws_To\Ws_To.disco" />
-    <None Include="Service References\WsSesion\WS_Sesion.disco" />
     <None Include="Service References\WsCrud\Crud1.disco" />
     <None Include="Service References\Px_MovExistenciasINET\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
