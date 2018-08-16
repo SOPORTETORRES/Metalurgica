@@ -408,6 +408,61 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GrabarChequeoMaquina">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Dts">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarChequeoMaquinaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarChequeoMaquinaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaChequeo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdMaquina" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaChequeoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificaChequeoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerSupervisores">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerSupervisoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerSupervisoresResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosParaEnvioMail">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerDatosParaEnvioMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosParaEnvioMailResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerAsignacionITMaq">
         <s:complexType>
           <s:sequence>
@@ -1295,6 +1350,10 @@
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="errors" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="IdCorrelativo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroEstrobos" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroCuartones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KgsEstrobos" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KgsCuartones" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GrabarDatosPesajeCamionResponse">
@@ -2027,6 +2086,30 @@
   <wsdl:message name="ObtenerDatosInicialesSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosInicialesResponse" />
   </wsdl:message>
+  <wsdl:message name="GrabarChequeoMaquinaSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarChequeoMaquina" />
+  </wsdl:message>
+  <wsdl:message name="GrabarChequeoMaquinaSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarChequeoMaquinaResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificaChequeoSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificaChequeo" />
+  </wsdl:message>
+  <wsdl:message name="VerificaChequeoSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificaChequeoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerSupervisoresSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerSupervisores" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerSupervisoresSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerSupervisoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosParaEnvioMailSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosParaEnvioMail" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosParaEnvioMailSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosParaEnvioMailResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerAsignacionITMaqSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaq" />
   </wsdl:message>
@@ -2618,6 +2701,22 @@
       <wsdl:input message="tns:ObtenerDatosInicialesSoapIn" />
       <wsdl:output message="tns:ObtenerDatosInicialesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina">
+      <wsdl:input message="tns:GrabarChequeoMaquinaSoapIn" />
+      <wsdl:output message="tns:GrabarChequeoMaquinaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificaChequeo">
+      <wsdl:input message="tns:VerificaChequeoSoapIn" />
+      <wsdl:output message="tns:VerificaChequeoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisores">
+      <wsdl:input message="tns:ObtenerSupervisoresSoapIn" />
+      <wsdl:output message="tns:ObtenerSupervisoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaEnvioMail">
+      <wsdl:input message="tns:ObtenerDatosParaEnvioMailSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosParaEnvioMailSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <wsdl:input message="tns:ObtenerAsignacionITMaqSoapIn" />
       <wsdl:output message="tns:ObtenerAsignacionITMaqSoapOut" />
@@ -3134,6 +3233,42 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosIniciales">
       <soap:operation soapAction="http://tempuri.org/ObtenerDatosIniciales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina">
+      <soap:operation soapAction="http://tempuri.org/GrabarChequeoMaquina" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaChequeo">
+      <soap:operation soapAction="http://tempuri.org/VerificaChequeo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisores">
+      <soap:operation soapAction="http://tempuri.org/ObtenerSupervisores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaEnvioMail">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosParaEnvioMail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4082,6 +4217,42 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosIniciales">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosIniciales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina">
+      <soap12:operation soapAction="http://tempuri.org/GrabarChequeoMaquina" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaChequeo">
+      <soap12:operation soapAction="http://tempuri.org/VerificaChequeo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisores">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerSupervisores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaEnvioMail">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosParaEnvioMail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

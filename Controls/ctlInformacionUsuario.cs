@@ -6,6 +6,8 @@ namespace Metalurgica
     public partial class ctlInformacionUsuario : UserControl
     {
         private CurrentUser mUserlog = new CurrentUser();
+        private  int mContador= 0;
+
         public ctlInformacionUsuario()
         {
             InitializeComponent();
@@ -53,6 +55,19 @@ namespace Metalurgica
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("H:mm:ss");
+            //if (mContador > 60)
+            //{
+            //    VerificaChequeoMaquina();
+            //    mContador = 0;
+            //}
+            //else
+            //    mContador++;
         }
+
+       
+
+
+
+
     }
 }

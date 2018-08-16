@@ -118,6 +118,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RegistraLogOUT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iNroMaquina" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLogOUTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraLogOUTResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="IniciarSoapIn">
@@ -156,6 +171,12 @@
   <wsdl:message name="RegistraLoginSoapOut">
     <wsdl:part name="parameters" element="tns:RegistraLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="RegistraLogOUTSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraLogOUT" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLogOUTSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraLogOUTResponse" />
+  </wsdl:message>
   <wsdl:portType name="WS_SesionSoap">
     <wsdl:operation name="Iniciar">
       <wsdl:input message="tns:IniciarSoapIn" />
@@ -180,6 +201,10 @@
     <wsdl:operation name="RegistraLogin">
       <wsdl:input message="tns:RegistraLoginSoapIn" />
       <wsdl:output message="tns:RegistraLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogOUT">
+      <wsdl:input message="tns:RegistraLogOUTSoapIn" />
+      <wsdl:output message="tns:RegistraLogOUTSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WS_SesionSoap" type="tns:WS_SesionSoap">
@@ -238,6 +263,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RegistraLogOUT">
+      <soap:operation soapAction="http://tempuri.org/RegistraLogOUT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WS_SesionSoap12" type="tns:WS_SesionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -288,6 +322,15 @@
     </wsdl:operation>
     <wsdl:operation name="RegistraLogin">
       <soap12:operation soapAction="http://tempuri.org/RegistraLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogOUT">
+      <soap12:operation soapAction="http://tempuri.org/RegistraLogOUT" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

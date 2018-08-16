@@ -13,6 +13,7 @@ namespace Metalurgica
         private string _PerfilUsuario = "";
         private int  _IdMaquina = -1;
         private int _IdTotem = -1;
+        private int _IdAccesoTotem = -1;
 
         public string Login
         {
@@ -73,7 +74,11 @@ namespace Metalurgica
             get { return _IdTotem; }
             set { _IdTotem = value; }
         }
-
-
+        //
+        public int IdAccesoTotem
+        {
+            get { return _IdTotem; }
+            set { _IdTotem = value; }
+        }
     }
 }

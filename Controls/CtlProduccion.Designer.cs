@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.Btn_Desbloquea = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btn_CheckList = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Lbl_Usuario = new System.Windows.Forms.Label();
             this.Btn_A_Despacho = new System.Windows.Forms.Button();
@@ -96,8 +98,8 @@
             this.tlbSalir = new System.Windows.Forms.ToolStripButton();
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.Btn_CheckList = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -376,6 +378,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
+            // 
+            // Btn_CheckList
+            // 
+            this.Btn_CheckList.Location = new System.Drawing.Point(895, 56);
+            this.Btn_CheckList.Name = "Btn_CheckList";
+            this.Btn_CheckList.Size = new System.Drawing.Size(57, 50);
+            this.Btn_CheckList.TabIndex = 59;
+            this.Btn_CheckList.Text = "Check List Maq";
+            this.Btn_CheckList.UseVisualStyleBackColor = true;
+            this.Btn_CheckList.Click += new System.EventHandler(this.Btn_CheckList_Click);
             // 
             // groupBox2
             // 
@@ -825,6 +837,12 @@
             this.tlsEstado.Size = new System.Drawing.Size(32, 17);
             this.tlsEstado.Text = "Listo";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 300000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // ctlInformacionUsuario1
             // 
             this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -832,16 +850,6 @@
             this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1327, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
-            // 
-            // Btn_CheckList
-            // 
-            this.Btn_CheckList.Location = new System.Drawing.Point(895, 56);
-            this.Btn_CheckList.Name = "Btn_CheckList";
-            this.Btn_CheckList.Size = new System.Drawing.Size(57, 50);
-            this.Btn_CheckList.TabIndex = 59;
-            this.Btn_CheckList.Text = "Check List Maq";
-            this.Btn_CheckList.UseVisualStyleBackColor = true;
-            this.Btn_CheckList.Click += new System.EventHandler(this.Btn_CheckList_Click);
             // 
             // CtlProduccion
             // 
@@ -955,5 +963,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label Lbl_Usuario;
         private System.Windows.Forms.Button Btn_CheckList;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -67,6 +67,16 @@ namespace Metalurgica.Clases
             return lSq;
         }
 
+        public string ObtenerSqlEstadoProceso(string iCorrelativo)
+        {
+            string lSq = "";
+
+                lSq = string.Concat(" select  *  from correlativos where correlativo=",iCorrelativo    );
+              
+
+            return lSq;
+        }
+
 
     }
 }

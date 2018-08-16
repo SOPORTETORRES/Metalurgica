@@ -147,6 +147,8 @@
             this.RB_CU_PM_N = new System.Windows.Forms.RadioButton();
             this.RB_CU_PM_S = new System.Windows.Forms.RadioButton();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Cmb_Supervisor = new System.Windows.Forms.ComboBox();
             this.Lbl_DiaSemana = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Lbl_Hora = new System.Windows.Forms.Label();
@@ -161,9 +163,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Btn_grabar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.Gr_RA.SuspendLayout();
             this.Gr_RM.SuspendLayout();
             this.Gr_RP.SuspendLayout();
@@ -864,7 +863,7 @@
             this.SP_Cortadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SP_Cortadora.Location = new System.Drawing.Point(4, 22);
             this.SP_Cortadora.Name = "SP_Cortadora";
-            this.SP_Cortadora.Size = new System.Drawing.Size(743, 340);
+            this.SP_Cortadora.Size = new System.Drawing.Size(773, 340);
             this.SP_Cortadora.TabIndex = 2;
             this.SP_Cortadora.Text = "Cortadora";
             // 
@@ -1544,7 +1543,7 @@
             // groupBox36
             // 
             this.groupBox36.Controls.Add(this.label3);
-            this.groupBox36.Controls.Add(this.comboBox1);
+            this.groupBox36.Controls.Add(this.Cmb_Supervisor);
             this.groupBox36.Controls.Add(this.Lbl_DiaSemana);
             this.groupBox36.Controls.Add(this.label13);
             this.groupBox36.Controls.Add(this.Lbl_Hora);
@@ -1563,6 +1562,24 @@
             this.groupBox36.TabIndex = 10;
             this.groupBox36.TabStop = false;
             this.groupBox36.Text = "Datos Generales";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(768, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 17);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Supervisor";
+            // 
+            // Cmb_Supervisor
+            // 
+            this.Cmb_Supervisor.FormattingEnabled = true;
+            this.Cmb_Supervisor.Location = new System.Drawing.Point(765, 43);
+            this.Cmb_Supervisor.Name = "Cmb_Supervisor";
+            this.Cmb_Supervisor.Size = new System.Drawing.Size(88, 21);
+            this.Cmb_Supervisor.TabIndex = 12;
             // 
             // Lbl_DiaSemana
             // 
@@ -1708,40 +1725,13 @@
             this.Btn_Salir.TabIndex = 12;
             this.Btn_Salir.Text = "Salir";
             this.Btn_Salir.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(804, 367);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 61);
-            this.button3.TabIndex = 13;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(765, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(88, 21);
-            this.comboBox1.TabIndex = 12;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(768, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 17);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Supervisor";
+            this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
             // CheckList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 490);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.Btn_Salir);
             this.Controls.Add(this.Btn_grabar);
             this.Controls.Add(this.groupBox36);
@@ -1972,10 +1962,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Btn_grabar;
         private System.Windows.Forms.Button Btn_Salir;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label Lbl_DiaSemana;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox Cmb_Supervisor;
     }
 }

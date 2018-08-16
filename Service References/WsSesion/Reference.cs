@@ -39,6 +39,10 @@ namespace Metalurgica.WsSesion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistraLogin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string RegistraLogin(string iUser, string iNroMaquina, string iPc_Accede);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistraLogOUT", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string RegistraLogOUT(string iUser, string iNroMaquina);
     }
     
     /// <remarks/>
@@ -224,6 +228,10 @@ namespace Metalurgica.WsSesion {
         
         public string RegistraLogin(string iUser, string iNroMaquina, string iPc_Accede) {
             return base.Channel.RegistraLogin(iUser, iNroMaquina, iPc_Accede);
+        }
+        
+        public string RegistraLogOUT(string iUser, string iNroMaquina) {
+            return base.Channel.RegistraLogOUT(iUser, iNroMaquina);
         }
     }
 }

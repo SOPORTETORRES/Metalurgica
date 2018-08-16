@@ -12,6 +12,7 @@ namespace Metalurgica.Controls
     public partial class CtlProduccion : UserControl
     {
         private CurrentUser mUserLog = new CurrentUser();
+        private Boolean EvaluaTimer = true;
         private const string COLUMNNAME_ETIQUETA_PIEZA = "ETIQUETA_PIEZA";
         private const string COLUMNNAME_PIE_ESTADO = "PIE_ESTADO";
         private const string COLUMNNAME_ESTADO = "ESTADO";
@@ -1493,19 +1494,28 @@ namespace Metalurgica.Controls
                     {
                         //3.- Si cerro, sale de la aplicacion
                         //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
-                        BotonClick(this, e);
+                        ValidarSalir();
+                        // BotonClick(this, e);
                     }
                 }
                 else
-                    BotonClick(this, e);
+                    ValidarSalir(); //BotonClick(this, e);
             }
             else
-                BotonClick(this, e);
+                ValidarSalir(); //BotonClick(this, e);
         }
 
         protected virtual void ValidarSalir()
         {
             //Salir();
+            // registramos que el usuario  salio de sistema 
+            WsSesion.WS_SesionSoapClient lSesion = new WsSesion.WS_SesionSoapClient();
+            string lRes = "";
+
+            lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
+
+            BotonClick(this, null);
+
         }
 
         private bool TurnoEstaCerrado()
@@ -1599,6 +1609,37 @@ namespace Metalurgica.Controls
             Maquinas.CheckList lFrm = new Maquinas.CheckList();
             lFrm.IniciaForm(mUserLog);
             lFrm.ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (EvaluaTimer==true )
+            {
+                EvaluaTimer = false;
+                VerificaChequeoMaquina();
+                EvaluaTimer = true;
+            }
+            
+
+
+        }
+        private void VerificaChequeoMaquina()
+        {
+            WsOperacion.OperacionSoapClient lWs = new WsOperacion.OperacionSoapClient();
+            string lRes = "";
+
+            lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString());
+
+            if (lRes.ToString().ToUpper().Equals("S"))
+            {
+                MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción. Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
+                Maquinas.CheckList lForm = new Maquinas.CheckList();
+                lForm.IniciaForm(mUserLog);
+                lForm.ShowDialog();
+            }
+
+
+
         }
     }
 }

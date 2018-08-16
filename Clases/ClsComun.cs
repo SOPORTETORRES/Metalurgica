@@ -198,9 +198,27 @@ namespace Metalurgica.Clases
             {
                 iRes = int.Parse(iValor);
             }
-            catch //caso contrario, es falso.
+            catch (Exception exc)  //caso contrario, es falso.
             {
                 iRes = -1;
+            }
+
+            return iRes;
+
+        }
+
+        public double  CDBL(string iValor)
+        {
+            double  iRes = 0;
+
+            //Sencillamente, si se logra hacer la conversión, entonces es número
+            try
+            {
+                iRes = double .Parse(iValor);
+            }
+            catch (Exception exc)  //caso contrario, es falso.
+            {
+                iRes = 0;
             }
 
             return iRes;

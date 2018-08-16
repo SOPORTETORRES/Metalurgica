@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="/n3YzAT0yOGFUKLl2wsFfpYgM7Q=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="rHxQ6UVsHrWz1b5rb2Ons1Nu1jA=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="WS_SesionSoap1">
       <properties>
@@ -112,7 +112,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WS_SesionSoap1" contract="WsSesion.WS_SesionSoap" bindingType="basicHttpBinding" address="http://localhost:55038/WS/WS_Sesion.asmx" bindingConfiguration="WS_SesionSoap1">
+    <endpoint name="WS_SesionSoap" contract="WsSesion.WS_SesionSoap" bindingType="basicHttpBinding" address="http://localhost:55038/WS/WS_Sesion.asmx" bindingConfiguration="WS_SesionSoap1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:55038/WS/WS_Sesion.asmx</serializedValue>
@@ -187,7 +187,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>WS_SesionSoap1</serializedValue>
+          <serializedValue>WS_SesionSoap</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -96,6 +96,22 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet ObtenerDatosIniciales(string iTipo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarChequeoMaquina", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet GrabarChequeoMaquina(System.Data.DataSet Dts);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VerificaChequeo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string VerificaChequeo(string IdMaquina);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerSupervisores", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerSupervisores();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosParaEnvioMail", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
@@ -1309,6 +1325,14 @@ namespace Metalurgica.WsOperacion {
         
         private string idCorrelativoField;
         
+        private string nroEstrobosField;
+        
+        private string nroCuartonesField;
+        
+        private string kgsEstrobosField;
+        
+        private string kgsCuartonesField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
@@ -1450,6 +1474,54 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.idCorrelativoField = value;
                 this.RaisePropertyChanged("IdCorrelativo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
+        public string NroEstrobos {
+            get {
+                return this.nroEstrobosField;
+            }
+            set {
+                this.nroEstrobosField = value;
+                this.RaisePropertyChanged("NroEstrobos");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
+        public string NroCuartones {
+            get {
+                return this.nroCuartonesField;
+            }
+            set {
+                this.nroCuartonesField = value;
+                this.RaisePropertyChanged("NroCuartones");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
+        public string KgsEstrobos {
+            get {
+                return this.kgsEstrobosField;
+            }
+            set {
+                this.kgsEstrobosField = value;
+                this.RaisePropertyChanged("KgsEstrobos");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=15)]
+        public string KgsCuartones {
+            get {
+                return this.kgsCuartonesField;
+            }
+            set {
+                this.kgsCuartonesField = value;
+                this.RaisePropertyChanged("KgsCuartones");
             }
         }
         
@@ -3080,6 +3152,22 @@ namespace Metalurgica.WsOperacion {
         
         public System.Data.DataSet ObtenerDatosIniciales(string iTipo) {
             return base.Channel.ObtenerDatosIniciales(iTipo);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet GrabarChequeoMaquina(System.Data.DataSet Dts) {
+            return base.Channel.GrabarChequeoMaquina(Dts);
+        }
+        
+        public string VerificaChequeo(string IdMaquina) {
+            return base.Channel.VerificaChequeo(IdMaquina);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerSupervisores() {
+            return base.Channel.ObtenerSupervisores();
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail() {
+            return base.Channel.ObtenerDatosParaEnvioMail();
         }
         
         public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {

@@ -20,6 +20,10 @@ namespace Metalurgica.Bascula
         private int mKilosCargadosCamion = 0;
         private string mIdCorrelativo = "";
         private DataTable mTblCamiones = new DataTable();
+        private DataTable mTblCamionesDespachados = new DataTable();
+        private DataTable mTblKgsAdicionales = new DataTable();
+        private DataTable mTblParametro = new DataTable();
+        private DataTable mTblConfTolerancia = new DataTable();
 
 
         public Frm_PesajeCamion()
@@ -27,13 +31,29 @@ namespace Metalurgica.Bascula
             InitializeComponent();
         }
 
+        private void ObtenerTaraDesdeAccess()
+        {
+            string lTara = ObtenerTara();
+            this.Tx_Tara.Text = lTara;
+            Tx_PesoNeto.Text = "";
+
+            Tx_PesoNeto.Text = "";
+            Tx_ToleranciaReal.Text = "";
+
+            Tx_KgsCargados.Text = "";
+            Tx_DiferenciaKilos.Text = "";
+
+            Tx_Bruto.Text = "";
+            this.Tx_IdCorrCarga.Text = "";
+        }
+
         private void Btn_ObtenerTara_Click(object sender, EventArgs e)
         {
             string lTara = ObtenerTara();
             this.Tx_Tara.Text = lTara;
-            Tx_Carga.Text = "";
+            Tx_PesoNeto.Text = "";
 
-            Tx_Carga.Text = "";
+            Tx_PesoNeto.Text = "";
             Tx_ToleranciaReal.Text = "";
 
             Tx_KgsCargados.Text = "";
@@ -60,25 +80,181 @@ namespace Metalurgica.Bascula
 
             Tx_ToleranciaBascula.Text = mToleranciaBascula.ToString();
 
-            mTblCamiones = ObtenerCamionesEnPlanta();
+             ObtenerCamionesEnPlanta();
             Dtg_CamionEnPlanta.DataSource = mTblCamiones;
 
+            Dtg_CamionDespachados.DataSource = mTblCamionesDespachados ;
+            Dtg_Parametros.DataSource = mTblParametro;
+
+           // formateaGrillas();
         }
 
 
         #region Metodos privados de la clase
 
-        private DataTable ObtenerCamionesEnPlanta()
+        private void ValidaElementosAdicionales(string iTipo)
+        {
+            int lValor = 0;string lMsg = "";int lKgsCuartones = 0; DataView lVista = null;
+            int lKgsEstrobos = 0;
+            // Validamos el Ingreso de Nro de Cuartones
+            if (iTipo == "C")
+            {
+                try
+                {
+                    lValor = int.Parse(Tx_nroCuartones.Text);
+                    if (lValor < 0)
+                        lMsg = " Solo debe Ingresar valores Enteros mayor que cero y menor que 10";
+                    else
+                    {
+                        if (lValor > 10)
+                            lMsg = " El máximo de cuartones es 10, NO puede ingresar mas de 10, Modifique la  cantidad";
+                        else
+                        {
+                            lVista = new DataView(mTblKgsAdicionales, "Subtabla='KgsCuartones'", "", DataViewRowState.CurrentRows);
+                            if (lVista.Count > 0)
+                            {
+                                lKgsCuartones = int.Parse(lVista[0]["Par1"].ToString());
+                                lKgsCuartones = lKgsCuartones * lValor;
+                                Tx_KgsCuartones.Text = lKgsCuartones.ToString();
+                            }
+                        }
+                    }
+
+                }
+                catch
+                {
+                    lMsg = " Solo debe Ingresar valores Enteros mayor que cero";
+                }
+                if (lMsg.Trim().Length > 0)
+                {
+                    MessageBox.Show(lMsg, "Avisos Sistemas", MessageBoxButtons.OK);
+                    Tx_nroCuartones .Focus();
+                }
+            }
+
+            // Validamos el Ingreso de Nro de Estrobos
+            if (iTipo == "E")
+            {
+                try
+                {
+                    lValor = int.Parse(Tx_nroEstrobos.Text);
+                    if (lValor < 0)
+                        lMsg = " Solo debe Ingresar valores Enteros mayor que cero";
+                    else
+                    {
+                        if (lValor > 100)
+                            lMsg = " El máximo de cuartones es 100, NO puede ingresar mas de 100, Modifique la  cantidad";
+                        else
+                        {
+                                lVista = new DataView(mTblKgsAdicionales, "Subtabla='KgsEstrobos'", "", DataViewRowState.CurrentRows);
+                                if (lVista.Count > 0)
+                                {
+                                    lKgsEstrobos = int.Parse(lVista[0]["Par1"].ToString());
+                                    lKgsEstrobos = lKgsEstrobos * lValor;
+                                    Tx_KgsEstrobos.Text = lKgsEstrobos.ToString();
+                                }
+                        }
+                    }
+                }
+                catch
+                {
+                    lMsg = " Solo debe Ingresar valores Enteros mayor que cero";
+                }
+
+                if (lMsg.Trim().Length > 0)
+                {
+                    MessageBox.Show(lMsg, "Avisos Sistemas", MessageBoxButtons.OK);
+                    Tx_nroEstrobos.Focus();
+                }
+
+            }
+            SumaKgsAdicionales();
+        }
+
+        private void SumaKgsAdicionales()
+        {
+            Clases.ClsComun lCom = new Clases.ClsComun();
+            int lKgsC = 0; int lKgsE = 0;
+            try
+            {
+                lKgsC = int.Parse(Tx_KgsCuartones.Text  );
+            }
+            catch
+            {
+                lKgsC = 0;
+            }
+
+            try
+            {
+                lKgsE = int.Parse(Tx_KgsEstrobos.Text );
+            }
+            catch
+            {
+                lKgsE = 0;
+            }
+
+            Tx_TotalKgs.Text = (lKgsC + lKgsE).ToString();
+            Tx_PesoAdicional .Text = (lKgsC + lKgsE).ToString();
+            Tx_PesoSoloFierro.Text = (lCom.Val(Tx_PesoNeto.Text) - lCom.Val(Tx_PesoAdicional.Text)).ToString ();
+            CargaPesoBruto();
+
+        }
+
+        private void  ObtenerCamionesEnPlanta()
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
-
+            int i = 0; DataTable lTblParametro = new DataTable();
             lLIstaDts = wsOperacion.ObtenerCamionesEnPlanta();
 
             if ((lLIstaDts.DataSet != null) && (lLIstaDts.DataSet.Tables.Count > 0))
-                lTbl = lLIstaDts.DataSet.Tables[0].Copy();
+            {
+                mTblCamiones = lLIstaDts.DataSet.Tables["CamionesEnPlanta"].Copy();
+                mTblCamionesDespachados = lLIstaDts.DataSet.Tables["DespachosRealizados"].Copy();
+                mTblKgsAdicionales = lLIstaDts.DataSet.Tables["KgsAdicionales"].Copy();
+                mTblConfTolerancia = lLIstaDts.DataSet.Tables["ConfigTolerancia"].Copy();
 
-            return lTbl;
+                mTblParametro = new DataTable();
+                mTblParametro.Columns.Add("Parametro",Type.GetType("System.String"));
+                mTblParametro.Columns.Add("Valor", Type.GetType("System.String"));
+
+                //Obtenemos Columna EstadoBascula
+               // ObtenerEstadoProcesoBascula
+               //lTbl = mTblCamiones;
+                for (i = 0; i < mTblCamiones.Rows.Count; i++)
+                {
+                    mTblCamiones.Rows[i]["ProcesoBascula"] = ObtenerEstadoProcesoBascula(mTblCamiones.Rows[i]["IdCorrelativo"].ToString());
+                }
+
+                // Agregamos los datos de Parametros
+                // Kilos adicionales
+                lTbl = mTblKgsAdicionales;
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    DataRow lFila = mTblParametro.NewRow();
+                    lFila["Parametro"] = lTbl.Rows [i]["SubTabla"].ToString ();
+                    lFila["Valor"] = string.Concat(lTbl.Rows[i]["Par1"].ToString(), " Kgs");
+                    mTblParametro.Rows.Add(lFila);
+                }
+                // Tolerancia bascula
+                lTbl = mTblConfTolerancia.Copy ();
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    DataRow lFila = mTblParametro.NewRow();
+                    lFila["Parametro"] = lTbl.Rows[i]["SubTabla"].ToString();
+                    lFila["Valor"] = string.Concat(lTbl.Rows[i]["Par1"].ToString(), " %");
+                    mTblParametro.Rows.Add(lFila);
+                }
+
+
+            }
+
+
+            //return lTbl;
+
+            //        private DataTable  = new DataTable();
+            //private DataTable mTblCamionesDespachados = new DataTable();
+
         }
 
 
@@ -105,6 +281,25 @@ namespace Metalurgica.Bascula
                 lRes = lTbl.Rows[0]["PesoBruto"].ToString();
                 mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
                 Tx_IdCorrCarga.Text = mIdCorrelativo;
+            }
+            return lRes;
+        }
+
+        private string ObtenerEstadoProcesoBascula( string IdCorrelativo)
+        {
+            string lRes = "0"; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
+            DataTable lTbl = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun(); int lPesoNeto = 0;
+            //string lFecha = DateTime.Now.ToShortDateString(); int lPesoTara = int.Parse(Tx_Tara.Text);
+
+            lTbl = lDAL.CargaTablaRomana(lTipoSql.ObtenerSqlEstadoProceso(IdCorrelativo));
+
+            if (lTbl.Rows.Count > 0)
+            {
+                lPesoNeto = lDAL .Val ( lTbl.Rows[0]["PesoTara"].ToString());
+                if (lPesoNeto > 0)
+                    lRes = "S";
+                else
+                    lRes = "N";
             }
             return lRes;
         }
@@ -153,12 +348,16 @@ namespace Metalurgica.Bascula
             {
                 if (Rb_Tara.Checked == true)
                 {
-                    Cmb_Patente.Visible = false;
-                    Btn_ObtenerTara.Enabled = true;
+                    //Cmb_Patente.Visible = false;
+                    //Btn_ObtenerTara.Enabled = true;
+                    Gr_Tara.Enabled = true;
+                    Gr_Bruto.Enabled = false;
                 }
 
                 if (Rb_Carga.Checked == true)
                 {
+                    Gr_Tara.Enabled = false;
+                    Gr_Bruto.Enabled = true;
                     //cargamos el desplegable con los datos de las patentes con camion cargado
                     WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                     WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
@@ -204,10 +403,14 @@ namespace Metalurgica.Bascula
                     lObjCam.IdDespachoCam = 0;
                     lObjCam.Estado = "PesoTara";
                     lObjCam.IdCorrelativo = lCom.Val(mIdCorrelativo.ToString ()).ToString ();
+                    lObjCam.NroCuartones = lCom.Val(Tx_nroCuartones.Text).ToString();
+                    lObjCam.NroEstrobos = lCom.Val(Tx_nroEstrobos.Text).ToString();
+                    lObjCam.KgsCuartones = lCom.Val(Tx_KgsCuartones.Text).ToString();
+                    lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
                     lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
                     if (lObjCam.errors.Trim().Length == 0)
                     {
-                        MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
+                        MessageBox.Show(" El Camión puede  posicionarse en muelle de carga ", "Avisos Sistema", MessageBoxButtons.OK);
                         mIdCorrelativo = "0";
                         Btn_Grabar.Enabled = false;
                     }
@@ -226,6 +429,11 @@ namespace Metalurgica.Bascula
                     lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
                     lObjCam.Estado = "PesoCarga";
                     lObjCam.IdCorrelativo = mIdCorrelativo;
+                    lObjCam.NroCuartones = lCom.Val(Tx_nroCuartones.Text).ToString ();
+                    lObjCam.NroEstrobos  = lCom.Val(Tx_nroEstrobos .Text).ToString();
+                    lObjCam.KgsCuartones  = lCom.Val(Tx_KgsCuartones.Text).ToString();
+                    lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
+
                     lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
                     if (lObjCam.Id > 0)
                     {
@@ -362,6 +570,7 @@ namespace Metalurgica.Bascula
         private void Btn_Grabar_Click(object sender, EventArgs e)
         {
             GrabarDatos();
+            button1.Enabled = false;
         }
 
         private void Btn_Salir_Click(object sender, EventArgs e)
@@ -371,7 +580,7 @@ namespace Metalurgica.Bascula
 
         private void Frm_PesajeCamion_Load(object sender, EventArgs e)
         {
-
+              formateaGrillas();
         }
 
         private void Rb_Tara_CheckedChanged(object sender, EventArgs e)
@@ -402,7 +611,7 @@ namespace Metalurgica.Bascula
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
-
+            LimpiaDatosPesoBruto();
             lLIstaDts = wsOperacion.ObtenerPesoTaraPorPatente(iPatente);
             if (lLIstaDts.DataSet.Tables.Count > 0)
             {
@@ -414,52 +623,138 @@ namespace Metalurgica.Bascula
                     Tx_IdCorrTara.Text = mIdPesajeCamion.ToString ();
                     mKilosCargadosCamion = int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
                     Tx_Tara.ReadOnly = true;
+                    CargaPesoBruto();
                 }
             }
         }
 
-        private void Btn_PesoBruto_Click(object sender, EventArgs e)
+        private void LimpiaDatosPesoBruto()
         {
-            int lDiferencia = 0;Double lToleranciaReal = 0;
+            Tx_Bruto.Text = "0";
+
+            Tx_Bruto.Text = "0";
+            Tx_PesoNeto.Text = "0";
+            Tx_PesoAdicional.Text = "0";
+            Tx_PesoSoloFierro.Text = "0";
+            Tx_KgsCargados.Text = "0";
+            Tx_DiferenciaKilos.Text = "0";
+            Tx_ToleranciaReal.Text = "0";
+            
+
+        }
+
+
+        private void CargaPesoBruto()
+        {
+            Clases.ClsComun lCom = new Clases.ClsComun();
+            int lDiferencia = 0; Double lToleranciaReal = 0;
             //ObtenerPesoBruto
             int lPesoBruto = int.Parse(ObtenerPesoBruto());
             int lPesoTara = int.Parse(Tx_Tara.Text);
-            int lPesoGD = int.Parse(mKilosCargadosCamion.ToString ());
+            int lPesoGD = int.Parse(mKilosCargadosCamion.ToString());
+            int lPesoAdicional = lCom.Val(Tx_PesoAdicional.Text );
 
+            //Peso Bruto
             this.Tx_Bruto.Text = lPesoBruto.ToString();
-            this.Tx_Carga.Text = (lPesoBruto - lPesoTara).ToString();
+            //Peso Neto
+            this.Tx_PesoNeto.Text = (lPesoBruto - lPesoTara).ToString();
+            //Peso Adicional
+            if (Tx_TotalKgs.Text.Trim().Length == 0)
+                Tx_TotalKgs.Text = "0";
 
-            lDiferencia = Math.Abs (lPesoGD - int.Parse (Tx_Carga.Text));
-            Tx_DiferenciaKilos.Text = lDiferencia.ToString();
-            if (lDiferencia > 0)
+            Tx_PesoAdicional.Text = Tx_TotalKgs.Text ;
+            //Peso Solo Fierro
+            Tx_PesoSoloFierro.Text = (lCom.Val(Tx_PesoNeto.Text) - lCom.Val(Tx_PesoAdicional.Text)).ToString();
+            //Peso Guia Despacho
+            Tx_KgsCargados.Text = lPesoGD.ToString ();
+            //Diferencia Kg
+            lDiferencia =  lCom.Val(Tx_PesoSoloFierro.Text)- lPesoGD;
+            Tx_DiferenciaKilos.Text = lDiferencia.ToString ();
+            //Tolerancia Real
+            int lSoloFierro = int.Parse(Tx_PesoSoloFierro.Text);
+            lToleranciaReal = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
+            Tx_ToleranciaReal.Text = Math.Round(lToleranciaReal, 2).ToString();
+            if (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text))
             {
-                // % diferencia = ((Peso Guía de Despacho - Peso Neto)*100)/ (Peso Guía de Despacho) 
+                Tx_Semaforo.BackColor = Color.Red;
+            }
+            else
+                Tx_Semaforo.BackColor = Color.Green;
 
-                lToleranciaReal = (double.Parse (lDiferencia.ToString ()) / double.Parse (lPesoGD.ToString ())) * 100;
-                Tx_ToleranciaReal.Text = Math.Round (lToleranciaReal,2).ToString();
-                Tx_KgsCargados.Text = mKilosCargadosCamion.ToString();
-                if (lToleranciaReal > Double .Parse(Tx_ToleranciaBascula.Text))
-                {
-                    Tx_Semaforo.BackColor = Color.Red;
-                } else
-                    Tx_Semaforo.BackColor = Color.Green ;
-
+            PintaSemaforo(lToleranciaReal, 0);
 
                 //Obtenemos el dato para el correo electronico
-                Btn_PesoBruto.Tag = " ";
-                if ((double.Parse(Tx_Carga.Text) > mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+            Btn_PesoBruto.Tag = " ";
+                if ((double.Parse(Tx_PesoNeto.Text) > mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
                 {
-                     Btn_PesoBruto.Tag = "+";
+                    Btn_PesoBruto.Tag = "+";
                 }
 
-                if ((double.Parse(Tx_Carga.Text) < mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+                if ((double.Parse(Tx_PesoNeto.Text) < mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
                 {
                     Btn_PesoBruto.Tag = "-";
                 }
+            Tx_PesoNeto.ReadOnly = true;
+
+
+        }
+
+        private void PintaSemaforo(double iTolCal, double iTolBascula)
+        {
+            Color lColor = new Color();DataView lVista = null; Clases.ClsComun lCom = new Clases.ClsComun();
+            double lTolSuperior = 0; double lTolInferior = 0;
+
+            if (mTblConfTolerancia.Rows.Count > 0)
+            {
+                //Obtemos la tolerancia  Inferior
+                lVista = new DataView(mTblConfTolerancia, "SubTabla='ToleranciaInferior'", "", DataViewRowState.CurrentRows);
+                if (lVista.Count > 0)
+                    lTolInferior = lCom .CDBL (lVista[0]["Par1"].ToString ());
+
+                //Obtemos la tolerancia Superior
+                lVista = new DataView(mTblConfTolerancia, "SubTabla='ToleranciaSuperior'", "", DataViewRowState.CurrentRows);
+                if (lVista.Count > 0)
+                    lTolSuperior = lCom.CDBL(lVista[0]["Par1"].ToString());
+
+
+            }
+            Btn_Grabar.Enabled = false;
+
+            if (iTolCal > lTolSuperior)   // Esta por sobre la cota superior
+                lColor = Color.Red;
+
+            if (iTolCal < lTolInferior)   // Esta por bajo la cota inferior
+                lColor = Color.Red;
+
+            if ((iTolCal < lTolSuperior) && (iTolCal > 0))   // Esta  entre 0 y 2 
+            {
+                lColor = Color.Yellow;
+                Btn_Grabar.Enabled = true;
             }
 
-            Tx_Carga.ReadOnly = true;
 
+            if ((iTolCal > lTolInferior) && (iTolCal < 0))   // Esta  entre 0 y  -2 
+            {
+                lColor = Color.Green;
+                Btn_Grabar.Enabled = true;
+            }
+               
+
+            if ((iTolCal  == 0))   // Esta  entre 0 y  -2 
+            {
+                lColor = Color.Green;
+                Btn_Grabar.Enabled = true;
+            }
+
+
+            Tx_Semaforo.BackColor = lColor;
+
+
+        }
+
+        private void Btn_PesoBruto_Click(object sender, EventArgs e)
+        {
+            CargaPesoBruto();
         }
 
         private void Btn_GeneraDatos_Click(object sender, EventArgs e)
@@ -519,16 +814,100 @@ namespace Metalurgica.Bascula
                 Tx_pesoTara .Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["PesoTara"].Value.ToString();
                 Tx_patenteCamion.Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["Patente"].Value.ToString();
                 Tx_usuario.Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["Usuario"].Value.ToString();
+                Tx_KilosCargados .Text = Dtg_CamionEnPlanta.Rows[lIndex].Cells["KgsCargados"].Value.ToString();
+
+                if (int.Parse(Tx_KilosCargados.Text) > 0)
+                    Btn_eliminar.Enabled = false;
+                else
+                    Btn_eliminar.Enabled = true ;
+
+
             }
 
             
+        }
+
+        private void formateaGrillas()
+        {
+            try
+            {
+                int i = 0; int lKgscargados = 0;
+                Dtg_CamionEnPlanta.Columns[0].Width = 40;
+                Dtg_CamionEnPlanta.Columns[1].Width = 70;
+                Dtg_CamionEnPlanta.Columns[2].Width = 110;
+                Dtg_CamionEnPlanta.Columns[3].Width = 60;
+                Dtg_CamionEnPlanta.Columns[4].Width = 60;
+                Dtg_CamionEnPlanta.Columns[5].Width = 60;
+                Dtg_CamionEnPlanta.Columns[6].Width = 80;
+                Dtg_CamionEnPlanta.Columns[7].Width = 110;
+
+                for (i = 0; i < Dtg_CamionEnPlanta.Rows.Count; i++)
+                {
+                    lKgscargados = int.Parse(Dtg_CamionEnPlanta.Rows[i].Cells["KgsCargados"].Value.ToString());
+                    if (lKgscargados > 0)
+                        PintaFila(ref Dtg_CamionEnPlanta, i, Color.LightSalmon);
+                    else
+                        PintaFila(ref Dtg_CamionEnPlanta, i, Color.LightGreen);
+
+                }
+
+
+                Dtg_CamionDespachados.Columns[0].Width = 40;
+                Dtg_CamionDespachados.Columns[1].Width = 70;
+                Dtg_CamionDespachados.Columns[2].Width = 100;
+                Dtg_CamionDespachados.Columns[3].Width = 60;
+                Dtg_CamionDespachados.Columns[4].Width = 60;
+                Dtg_CamionDespachados.Columns[5].Width = 60;
+                Dtg_CamionDespachados.Columns[6].Width = 80;
+                Dtg_CamionDespachados.Columns[7].Width = 100;
+
+                string lToleranciaBascula = ConfigurationManager.AppSettings["ToleranciaBascula"].ToString();
+                decimal lTolerancia = decimal.Parse(lToleranciaBascula); decimal lPorcent = 0;
+                for (i = 0; i < Dtg_CamionDespachados.Rows.Count; i++)
+                {
+                    lPorcent = Math.Abs(decimal.Parse(Dtg_CamionDespachados.Rows[i].Cells["% Dif KgsGD"].Value.ToString()));
+                    if (lPorcent > lTolerancia)
+                        PintaFila(ref Dtg_CamionDespachados, i, Color.LightSalmon);
+                    else
+                        PintaFila(ref Dtg_CamionDespachados, i, Color.LightGreen);
+
+                }
+
+                //Font lFuente = new Font("Arial", 10); Font lFuente2 = new Font("Arial",8);
+                //Dtg_Parametros.Rows[0].Cells[1].Style.Font  = lFuente;
+                //Dtg_Parametros.Rows[1].Cells[1].Style.Font = lFuente2;
+
+                Dtg_Parametros.Columns[0].Width = 140;
+                Dtg_Parametros.Columns[1].Width = 80;
+               
+            }
+
+            catch (Exception exc)
+            {
+               MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
+            }
+
+        }
+
+        private void PintaFila(ref DataGridView iGrilla , int iFila, Color iColor)
+        {
+            int lCol = 0;
+
+            for (lCol = 0; lCol < iGrilla .ColumnCount ; lCol++)
+            {
+                iGrilla.Rows[iFila].Cells[lCol].Style.BackColor = iColor;
+            }
+            
+
+
         }
 
         private string EliminaRegistroCamion(string  iIdPesaje)
         {
             string lres = "";
             EliminaRegistroPesaje(iIdPesaje);
-            mTblCamiones = ObtenerCamionesEnPlanta();
+             ObtenerCamionesEnPlanta();
             Dtg_CamionEnPlanta.DataSource = mTblCamiones;
 
             return lres;
@@ -546,6 +925,36 @@ namespace Metalurgica.Bascula
             }
             }
 
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            formateaGrillas();
+        }
+
+        private void label27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Tx_nroCuartones_Validating(object sender, CancelEventArgs e)
+        {
+            ValidaElementosAdicionales("C");
+        }
+
+        private void Tx_nroEstrobos_Validating(object sender, CancelEventArgs e)
+        {
+            ValidaElementosAdicionales("E");
+        }
+
+        private void Tx_Patente_Validating(object sender, CancelEventArgs e)
+        {
+            ObtenerTaraDesdeAccess();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Btn_Grabar_Click(null, null);
         }
     }
 }

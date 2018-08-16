@@ -152,7 +152,7 @@ namespace Metalurgica
 
                             Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
 
-                            ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.Machine.ToString());
+                            ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName .ToString());
 
                             //ObtenerPerfilUsuario
                             logon = true;
@@ -181,7 +181,7 @@ namespace Metalurgica
             DataTable lTbl = new DataTable(); string lIdAccesoUser = "";
             WsSesion.WS_SesionSoapClient wsSesions = new WsSesion.WS_SesionSoapClient();
             WsSesion.ListaDataSet listaDataSet = new WsSesion.ListaDataSet();
-            DataTable lTblUser = new DataTable();
+            DataTable lTblUser = new DataTable(); int i = 0; string lMsg = "";
 
             listaDataSet = wsSesions.ObtenerDatosUsuarioLogeado(iIdUsuario, iNroMaquina);
             if (listaDataSet.MensajeError.ToString().Trim().Length == 0)
@@ -191,14 +191,41 @@ namespace Metalurgica
                     lTbl = listaDataSet.DataSet.Tables[0].Copy();
                     listaDataSet = new WsSesion.ListaDataSet();
                     if (lTbl.Rows.Count > 0)  // ya estaba logeado en el Pc
+                    {
                         lTblUser = lTbl.Copy();
+                        for (i = 0; i < lTbl.Rows.Count; i++)
+                        {
+                            //NroMaquina  , FechaEntrada, PC_Accede
+                            if (lTbl.Rows[i]["NroMaquina"].ToString() != iNroMaquina)
+                            {
+                                lMsg = string .Concat (lMsg, " El Usuario ya ha iniciado Sesion en el Totem: ", lTbl.Rows[i]["PC_accede"].ToString(), Environment .NewLine ) ;
+                                lIdAccesoUser = "";
+                            }
+                            lIdAccesoUser = lTbl.Rows[0]["id"].ToString();
+                        }
+                        
+                    }
+                     
                     else   //no estaba logeado
                         lIdAccesoUser = wsSesions.RegistraLogin(iIdUsuario, iNroMaquina, iPcAccede);
 
-
-
+                }
+                else
+                {
+                    lIdAccesoUser = wsSesions.RegistraLogin(iIdUsuario, iNroMaquina, iPcAccede);
                 }
 
+                if (lMsg.Trim().Length > 0)
+                {
+                    MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                    Application.Exit();
+                }
+                else
+                {
+                    Program.currentUser.IdAccesoTotem = int.Parse(lIdAccesoUser);
+                }
+               
+            
             }
             else
                 MessageBox.Show(string.Concat ("Ha Ocurrido el Siguiente Error: ",listaDataSet .MensajeError ), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
