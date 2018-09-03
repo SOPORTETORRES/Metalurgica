@@ -107,11 +107,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bascula\Frm_PatentesBascula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_PatentesBascula.Designer.cs">
+      <DependentUpon>Frm_PatentesBascula.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bascula\Frm_PesajeCamion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Bascula\Frm_PesajeCamion.Designer.cs">
       <DependentUpon>Frm_PesajeCamion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_Regularizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_Regularizar.Designer.cs">
+      <DependentUpon>Frm_Regularizar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerBascula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerBascula.Designer.cs">
+      <DependentUpon>Frm_VerBascula.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\ClsComun.cs" />
     <Compile Include="Clases\ObjetoWsINET.cs" />
@@ -538,8 +556,17 @@
     <Compile Include="SolicitudMP\frmVisializar.Designer.cs">
       <DependentUpon>frmVisializar.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Bascula\Frm_PatentesBascula.resx">
+      <DependentUpon>Frm_PatentesBascula.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bascula\Frm_PesajeCamion.resx">
       <DependentUpon>Frm_PesajeCamion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_Regularizar.resx">
+      <DependentUpon>Frm_Regularizar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_VerBascula.resx">
+      <DependentUpon>Frm_VerBascula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Code128\FrmGeneraCode128.resx">
       <DependentUpon>FrmGeneraCode128.cs</DependentUpon>

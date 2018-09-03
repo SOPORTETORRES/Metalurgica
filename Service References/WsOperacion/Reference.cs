@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaMP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaAcopio", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega);
@@ -304,6 +308,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string ObtenerEmpresaPor_EP(string Id_Obra);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosGuiasSinVincular", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosGuiasSinVincular();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarDatosPesajeCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.PesajeCamion GrabarDatosPesajeCamion(Metalurgica.WsOperacion.PesajeCamion iObjPC);
@@ -447,10 +455,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VbDespachoPiezaCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Camion VbDespachoPiezaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string obs, string terminal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoBodegaMP", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega);
     }
     
     /// <remarks/>
@@ -3074,6 +3078,10 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega) {
+            return base.Channel.ListarDespachoBodegaMP(idBodega);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaAcopio(int idBodega) {
             return base.Channel.ListarDespachoBodegaAcopio(idBodega);
         }
@@ -3362,6 +3370,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerEmpresaPor_EP(Id_Obra);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosGuiasSinVincular() {
+            return base.Channel.ObtenerDatosGuiasSinVincular();
+        }
+        
         public Metalurgica.WsOperacion.PesajeCamion GrabarDatosPesajeCamion(Metalurgica.WsOperacion.PesajeCamion iObjPC) {
             return base.Channel.GrabarDatosPesajeCamion(iObjPC);
         }
@@ -3504,10 +3516,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.Despacho_Camion VbDespachoPiezaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string obs, string terminal) {
             return base.Channel.VbDespachoPiezaCamion(idDespacho, etiqueta_colada, etiqueta_pieza, usuario, obs, terminal);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoBodegaMP(int idBodega) {
-            return base.Channel.ListarDespachoBodegaMP(idBodega);
         }
     }
 }

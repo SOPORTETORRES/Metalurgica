@@ -673,10 +673,24 @@ namespace Metalurgica
         }
 
         private void tlbSalir_Click(object sender, EventArgs e)
+
         {
+            ValidarSalir();
             Application.Exit();
         }
 
+        protected virtual void ValidarSalir()
+        {
+            //Salir();
+            // registramos que el usuario  salio de sistema 
+            WsSesion.WS_SesionSoapClient lSesion = new WsSesion.WS_SesionSoapClient();
+            string lRes = "";
+
+            lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
+
+
+
+        }
         private void dgvDetalle_DoubleClick(object sender, EventArgs e)
         {
             DataGridViewRow currentRow = dgvRecepciones.CurrentRow;
@@ -1175,7 +1189,14 @@ namespace Metalurgica
         lFrm.ShowDialog(this );
     }
 
-   
+        private void Btn_RegularizaDespachos_Click(object sender, EventArgs e)
+        {
+            Bascula.Frm_Regularizar lFrm = new Bascula.Frm_Regularizar();
+            lFrm.ShowDialog(this);
+
+        }
+
+
 
         //private void button1_Click_1(object sender, EventArgs e)
         //{

@@ -2,17 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ListarDespachoBodegaAcopio">
+      <s:element name="ListarDespachoBodegaMP">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idBodega" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ListarDespachoBodegaAcopioResponse">
+      <s:element name="ListarDespachoBodegaMPResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ListarDespachoBodegaAcopioResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListarDespachoBodegaMPResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,6 +38,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ListarDespachoBodegaAcopio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idBodega" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarDespachoBodegaAcopioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarDespachoBodegaAcopioResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ListarPiezasNoDespachadasBodegaAcopio">
         <s:complexType>
           <s:sequence>
@@ -1329,6 +1343,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerDatosGuiasSinVincular">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerDatosGuiasSinVincularResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosGuiasSinVincularResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GrabarDatosPesajeCamion">
         <s:complexType>
           <s:sequence>
@@ -1950,22 +1974,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ListarDespachoBodegaMP">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idBodega" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ListarDespachoBodegaMPResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ListarDespachoBodegaMPResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ListarDespachoBodegaMPSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarDespachoBodegaMP" />
+  </wsdl:message>
+  <wsdl:message name="ListarDespachoBodegaMPSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarDespachoBodegaMPResponse" />
+  </wsdl:message>
   <wsdl:message name="ListarDespachoBodegaAcopioSoapIn">
     <wsdl:part name="parameters" element="tns:ListarDespachoBodegaAcopio" />
   </wsdl:message>
@@ -2398,6 +2414,12 @@
   <wsdl:message name="ObtenerEmpresaPor_EPSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerEmpresaPor_EPResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerDatosGuiasSinVincularSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosGuiasSinVincular" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosGuiasSinVincularSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosGuiasSinVincularResponse" />
+  </wsdl:message>
   <wsdl:message name="GrabarDatosPesajeCamionSoapIn">
     <wsdl:part name="parameters" element="tns:GrabarDatosPesajeCamion" />
   </wsdl:message>
@@ -2614,13 +2636,11 @@
   <wsdl:message name="VbDespachoPiezaCamionSoapOut">
     <wsdl:part name="parameters" element="tns:VbDespachoPiezaCamionResponse" />
   </wsdl:message>
-  <wsdl:message name="ListarDespachoBodegaMPSoapIn">
-    <wsdl:part name="parameters" element="tns:ListarDespachoBodegaMP" />
-  </wsdl:message>
-  <wsdl:message name="ListarDespachoBodegaMPSoapOut">
-    <wsdl:part name="parameters" element="tns:ListarDespachoBodegaMPResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ListarDespachoBodegaMP">
+      <wsdl:input message="tns:ListarDespachoBodegaMPSoapIn" />
+      <wsdl:output message="tns:ListarDespachoBodegaMPSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ListarDespachoBodegaAcopio">
       <wsdl:input message="tns:ListarDespachoBodegaAcopioSoapIn" />
       <wsdl:output message="tns:ListarDespachoBodegaAcopioSoapOut" />
@@ -2909,6 +2929,10 @@
       <wsdl:input message="tns:ObtenerEmpresaPor_EPSoapIn" />
       <wsdl:output message="tns:ObtenerEmpresaPor_EPSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosGuiasSinVincular">
+      <wsdl:input message="tns:ObtenerDatosGuiasSinVincularSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosGuiasSinVincularSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GrabarDatosPesajeCamion">
       <wsdl:input message="tns:GrabarDatosPesajeCamionSoapIn" />
       <wsdl:output message="tns:GrabarDatosPesajeCamionSoapOut" />
@@ -3053,13 +3077,18 @@
       <wsdl:input message="tns:VbDespachoPiezaCamionSoapIn" />
       <wsdl:output message="tns:VbDespachoPiezaCamionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ListarDespachoBodegaMP">
-      <wsdl:input message="tns:ListarDespachoBodegaMPSoapIn" />
-      <wsdl:output message="tns:ListarDespachoBodegaMPSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarDespachoBodegaMP">
+      <soap:operation soapAction="http://tempuri.org/ListarDespachoBodegaMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarDespachoBodegaAcopio">
       <soap:operation soapAction="http://tempuri.org/ListarDespachoBodegaAcopio" style="document" />
       <wsdl:input>
@@ -3708,6 +3737,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosGuiasSinVincular">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosGuiasSinVincular" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GrabarDatosPesajeCamion">
       <soap:operation soapAction="http://tempuri.org/GrabarDatosPesajeCamion" style="document" />
       <wsdl:input>
@@ -4032,18 +4070,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListarDespachoBodegaMP">
-      <soap:operation soapAction="http://tempuri.org/ListarDespachoBodegaMP" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarDespachoBodegaMP">
+      <soap12:operation soapAction="http://tempuri.org/ListarDespachoBodegaMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarDespachoBodegaAcopio">
       <soap12:operation soapAction="http://tempuri.org/ListarDespachoBodegaAcopio" style="document" />
       <wsdl:input>
@@ -4692,6 +4730,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosGuiasSinVincular">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosGuiasSinVincular" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GrabarDatosPesajeCamion">
       <soap12:operation soapAction="http://tempuri.org/GrabarDatosPesajeCamion" style="document" />
       <wsdl:input>
@@ -5009,15 +5056,6 @@
     </wsdl:operation>
     <wsdl:operation name="VbDespachoPiezaCamion">
       <soap12:operation soapAction="http://tempuri.org/VbDespachoPiezaCamion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ListarDespachoBodegaMP">
-      <soap12:operation soapAction="http://tempuri.org/ListarDespachoBodegaMP" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

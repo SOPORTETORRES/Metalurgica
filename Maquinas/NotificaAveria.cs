@@ -683,6 +683,7 @@ namespace Metalurgica.Maquinas
 
         public  void IniciaForm(CurrentUser iUser)
         {
+            AppDomain.CurrentDomain.SetData("TipoAveria","EP") ;
             mUserLog = iUser;
             mIdMaquina = mUserLog.IdMaquina.ToString () ;
             mIdMecanico = iUser.Iduser;           
@@ -738,67 +739,89 @@ namespace Metalurgica.Maquinas
         private void GrabaSolucionAveria()
         {
             string lTipoNot = "";
-            if (DatosOKParaGrabar("SA") == true)
+            try
             {
-                string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
-                Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
-                DataTable lTblOperario = new DataTable(); string lMsg = ""; string EstadoMaq = "";
-                string lTexto = ""; string lTxMsg = ""; string lTitulo = ""; string lRes = "";
-                lTexto = Tx_TextoAveria.Text.Replace("\n", Environment.NewLine);
-
-                if (Rb_RepOperativa.Checked == true)
-                    EstadoMaq = "OP";
-
-                if (this.Rb_RepDetenida.Checked == true)
-                    EstadoMaq = "DET";
-
-                //*****************************************************
-                lSql = string.Concat("exec SP_CRUD_SOLUCION_AVERIA ", lCom.Val(Tx_IdSolucion.Text), ",", Tx_Id.Text,",'" );
-                lSql = string.Concat(lSql, Tx_ReparacionAveria.Text, "','", lCom.Val(mIdMecanico), "','", EstadoMaq, "','SA','',1");
-                lDts = lPx.ObtenerDatos(lSql);
-                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                if (DatosOKParaGrabar("SA") == true)
                 {
-                    lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
-                    //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
-                    lTxMsg = ObtenerCuerpoMailSolucionAveria();
-                    lTitulo = "Notificación por Solución  de Averias: ";
-                    lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
-                    if (lRes.ToUpper().Equals("OK"))
-                   {
-                        lMsg = "La Solución  de Averia fue procesada  correctamente";
-                        if (Rb_Averia.Checked == true)
+                    string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
+                    Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+                    DataTable lTblOperario = new DataTable(); string lMsg = ""; string EstadoMaq = "";
+                    string lTexto = ""; string lTxMsg = ""; string lTitulo = ""; string lRes = "";
+                    lTexto = Tx_TextoAveria.Text.Replace("\n", Environment.NewLine);
+
+                    if (Rb_RepOperativa.Checked == true)
+                        EstadoMaq = "OP";
+
+                    if (this.Rb_RepDetenida.Checked == true)
+                        EstadoMaq = "DET";
+
+                    //*****************************************************
+                    lSql = string.Concat("exec SP_CRUD_SOLUCION_AVERIA ", lCom.Val(Tx_IdSolucion.Text), ",", Tx_Id.Text, ",'");
+                    lSql = string.Concat(lSql, Tx_ReparacionAveria.Text, "','", lCom.Val(mIdMecanico), "','", EstadoMaq, "','SA','',1");
+                    lDts = lPx.ObtenerDatos(lSql);
+                    if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                    {
+                        lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
+                        //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
+                        lTxMsg = ObtenerCuerpoMailSolucionAveria();
+                        lTitulo = "Notificación por Solución  de Averias: ";
+                        lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
+                        if (lRes.ToUpper().Equals("OK"))
                         {
+                            lMsg = "La Solución  de Averia fue procesada  correctamente";
+                            if (Rb_Averia.Checked == true)
+                            {
+                                if (EstadoMaq.Equals("OP"))
+                                    lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
+                            }
+
+
+                            MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
                             if (EstadoMaq.Equals("OP"))
-                                lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
-                        }
-
-
-                        MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information );
-
-
-                        if (EstadoMaq.Equals("OP"))
-                        {
-                            lTipoNot = AppDomain.CurrentDomain.GetData ("TipoAveria" ).ToString ();
-                            if ((mTipoAveria == "EP") )
-                                this.Close();
+                            {
+                                lTipoNot = AppDomain.CurrentDomain.GetData("TipoAveria").ToString();
+                                if ((mTipoAveria == "EP"))
+                                    this.Close();
+                                else
+                                     if ((lTipoNot == "MM"))
+                                    this.Close();
+                                else
+                                {
+                                    LogOut();
+                                    Application.Exit();
+                                }
+                            }
                             else
-                                 if ((lTipoNot == "MM"))
+                            {
                                 this.Close();
-                            else
-                                   Application.Exit();
-                         }
-                        else
-                        {
-                            this.Close();
+                            }
+
                         }
-                    
                     }
                 }
             }
+            catch (Exception exc)
+            {
+                MessageBox .Show (string.Concat ("Ha ocurrido el siguiente error: " , exc.Message.ToString()));
+            }
         }
+
+        private void LogOut()
+        {
+            WsSesion.WS_SesionSoapClient lSesion = new WsSesion.WS_SesionSoapClient();
+            string lRes = "";
+
+        lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
+        }
+        
 
         private void GrabaLiberacionAveria()
         {
+            try
+            { 
+
             if (DatosOKParaGrabar("LA") == true)
             {
                 string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
@@ -850,8 +873,11 @@ namespace Metalurgica.Maquinas
                                 if (lTipoAv =="MM")
                                 this.Close();
                             else
-
+                                {
+                                    LogOut();
                                     Application.Exit();
+                                }
+                                    
                         }
                         else
                         {
@@ -860,6 +886,12 @@ namespace Metalurgica.Maquinas
 
                     }
                 }
+
+            }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(string.Concat("Ha ocurrido el siguiente error: ", exc.Message.ToString()));
             }
         }
 

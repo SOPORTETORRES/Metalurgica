@@ -37,6 +37,7 @@
             this.Tx_PesoAdicional = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Cmb_Patente = new System.Windows.Forms.ComboBox();
             this.Tx_Bruto = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,15 +55,17 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.Tx_Patente = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.Tx_Tara = new System.Windows.Forms.TextBox();
+            this.Tx_kilosAdicionales = new System.Windows.Forms.TextBox();
             this.Btn_ObtenerTara = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.Tx_IdCorrTara = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.Tx_kilosAdicionales = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
+            this.Tx_ToleranciaBascula = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.Tx_TotalKgs = new System.Windows.Forms.TextBox();
             this.Tx_KgsEstrobos = new System.Windows.Forms.TextBox();
@@ -76,12 +79,9 @@
             this.label26 = new System.Windows.Forms.Label();
             this.Btn_GeneraDatos = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
-            this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Tx_sql = new System.Windows.Forms.TextBox();
             this.Tx_Semaforo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.Tx_ToleranciaBascula = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Rb_Carga = new System.Windows.Forms.RadioButton();
             this.Rb_Tara = new System.Windows.Forms.RadioButton();
@@ -91,6 +91,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Btn_VerBascula = new System.Windows.Forms.Button();
             this.Tx_KilosCargados = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.Btn_eliminar = new System.Windows.Forms.Button();
@@ -119,6 +120,22 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.Dtg_CamionDespachados = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.Btn_GrabarVin = new System.Windows.Forms.Button();
+            this.Tx_viajeV = new System.Windows.Forms.TextBox();
+            this.Btn_Buscar = new System.Windows.Forms.Button();
+            this.Tx_obsDos = new System.Windows.Forms.TextBox();
+            this.Tx_kgsINET_V = new System.Windows.Forms.TextBox();
+            this.Tx_NroGuiaINET_V = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Dtg_INET = new System.Windows.Forms.DataGridView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.Dtg_SinVincular = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Parametros)).BeginInit();
@@ -134,6 +151,11 @@
             this.tabPage3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionDespachados)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_INET)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -252,6 +274,17 @@
             this.label1.Size = new System.Drawing.Size(57, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Patente";
+            // 
+            // Btn_Grabar
+            // 
+            this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Grabar.Location = new System.Drawing.Point(135, 307);
+            this.Btn_Grabar.Name = "Btn_Grabar";
+            this.Btn_Grabar.Size = new System.Drawing.Size(82, 34);
+            this.Btn_Grabar.TabIndex = 12;
+            this.Btn_Grabar.Text = "Grabar";
+            this.Btn_Grabar.UseVisualStyleBackColor = true;
+            this.Btn_Grabar.Click += new System.EventHandler(this.Btn_Grabar_Click);
             // 
             // Cmb_Patente
             // 
@@ -433,6 +466,16 @@
             this.Tx_Patente.TabIndex = 1;
             this.Tx_Patente.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_Patente_Validating);
             // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(147, 285);
+            this.textBox6.MaxLength = 7;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(57, 23);
+            this.textBox6.TabIndex = 37;
+            this.textBox6.Visible = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -442,6 +485,16 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Tara";
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 286);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(133, 17);
+            this.label32.TabIndex = 36;
+            this.label32.Text = "Total Kgs Cargados";
+            this.label32.Visible = false;
+            // 
             // Tx_Tara
             // 
             this.Tx_Tara.Location = new System.Drawing.Point(80, 71);
@@ -449,7 +502,17 @@
             this.Tx_Tara.Name = "Tx_Tara";
             this.Tx_Tara.Size = new System.Drawing.Size(72, 23);
             this.Tx_Tara.TabIndex = 6;
-            this.Tx_Tara.Text = "-";
+            this.Tx_Tara.Text = "0";
+            // 
+            // Tx_kilosAdicionales
+            // 
+            this.Tx_kilosAdicionales.Location = new System.Drawing.Point(139, 256);
+            this.Tx_kilosAdicionales.MaxLength = 7;
+            this.Tx_kilosAdicionales.Name = "Tx_kilosAdicionales";
+            this.Tx_kilosAdicionales.ReadOnly = true;
+            this.Tx_kilosAdicionales.Size = new System.Drawing.Size(43, 23);
+            this.Tx_kilosAdicionales.TabIndex = 35;
+            this.Tx_kilosAdicionales.Visible = false;
             // 
             // Btn_ObtenerTara
             // 
@@ -462,6 +525,17 @@
             this.Btn_ObtenerTara.UseVisualStyleBackColor = true;
             this.Btn_ObtenerTara.Visible = false;
             this.Btn_ObtenerTara.Click += new System.EventHandler(this.Btn_ObtenerTara_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(25, 252);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(100, 15);
+            this.label31.TabIndex = 34;
+            this.label31.Text = "Kilos adicionales";
+            this.label31.Visible = false;
             // 
             // label14
             // 
@@ -480,49 +554,28 @@
             this.Tx_IdCorrTara.Name = "Tx_IdCorrTara";
             this.Tx_IdCorrTara.Size = new System.Drawing.Size(72, 23);
             this.Tx_IdCorrTara.TabIndex = 30;
-            this.Tx_IdCorrTara.Text = "-";
+            this.Tx_IdCorrTara.Text = "0";
             this.Tx_IdCorrTara.Visible = false;
             // 
-            // textBox6
+            // Tx_ToleranciaBascula
             // 
-            this.textBox6.Location = new System.Drawing.Point(147, 285);
-            this.textBox6.MaxLength = 7;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(57, 23);
-            this.textBox6.TabIndex = 37;
-            this.textBox6.Visible = false;
+            this.Tx_ToleranciaBascula.Location = new System.Drawing.Point(140, 230);
+            this.Tx_ToleranciaBascula.MaxLength = 7;
+            this.Tx_ToleranciaBascula.Name = "Tx_ToleranciaBascula";
+            this.Tx_ToleranciaBascula.ReadOnly = true;
+            this.Tx_ToleranciaBascula.Size = new System.Drawing.Size(42, 23);
+            this.Tx_ToleranciaBascula.TabIndex = 19;
+            this.Tx_ToleranciaBascula.Visible = false;
             // 
-            // label32
+            // label8
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 286);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(133, 17);
-            this.label32.TabIndex = 36;
-            this.label32.Text = "Total Kgs Cargados";
-            this.label32.Visible = false;
-            // 
-            // Tx_kilosAdicionales
-            // 
-            this.Tx_kilosAdicionales.Location = new System.Drawing.Point(139, 256);
-            this.Tx_kilosAdicionales.MaxLength = 7;
-            this.Tx_kilosAdicionales.Name = "Tx_kilosAdicionales";
-            this.Tx_kilosAdicionales.ReadOnly = true;
-            this.Tx_kilosAdicionales.Size = new System.Drawing.Size(43, 23);
-            this.Tx_kilosAdicionales.TabIndex = 35;
-            this.Tx_kilosAdicionales.Visible = false;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(25, 252);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(100, 15);
-            this.label31.TabIndex = 34;
-            this.label31.Text = "Kilos adicionales";
-            this.label31.Visible = false;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(25, 210);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(155, 17);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Tolerancia Bascula (%)";
+            this.label8.Visible = false;
             // 
             // groupBox3
             // 
@@ -657,17 +710,6 @@
             this.Btn_Salir.UseVisualStyleBackColor = true;
             this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
-            // Btn_Grabar
-            // 
-            this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Grabar.Location = new System.Drawing.Point(135, 307);
-            this.Btn_Grabar.Name = "Btn_Grabar";
-            this.Btn_Grabar.Size = new System.Drawing.Size(82, 34);
-            this.Btn_Grabar.TabIndex = 12;
-            this.Btn_Grabar.Text = "Grabar";
-            this.Btn_Grabar.UseVisualStyleBackColor = true;
-            this.Btn_Grabar.Click += new System.EventHandler(this.Btn_Grabar_Click);
-            // 
             // Tx_sql
             // 
             this.Tx_sql.Location = new System.Drawing.Point(665, 479);
@@ -694,26 +736,6 @@
             this.label9.Size = new System.Drawing.Size(218, 22);
             this.label9.TabIndex = 20;
             this.label9.Text = "Estado Despacho Camión";
-            // 
-            // Tx_ToleranciaBascula
-            // 
-            this.Tx_ToleranciaBascula.Location = new System.Drawing.Point(140, 230);
-            this.Tx_ToleranciaBascula.MaxLength = 7;
-            this.Tx_ToleranciaBascula.Name = "Tx_ToleranciaBascula";
-            this.Tx_ToleranciaBascula.ReadOnly = true;
-            this.Tx_ToleranciaBascula.Size = new System.Drawing.Size(42, 23);
-            this.Tx_ToleranciaBascula.TabIndex = 19;
-            this.Tx_ToleranciaBascula.Visible = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(25, 210);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(155, 17);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Tolerancia Bascula (%)";
-            this.label8.Visible = false;
             // 
             // groupBox2
             // 
@@ -775,11 +797,12 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(965, 566);
+            this.tabControl1.Size = new System.Drawing.Size(961, 604);
             this.tabControl1.TabIndex = 15;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -789,7 +812,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(957, 540);
+            this.tabPage1.Size = new System.Drawing.Size(953, 578);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Pesaje Camión";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -800,13 +823,14 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(957, 540);
+            this.tabPage2.Size = new System.Drawing.Size(953, 578);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Camiones en Planta";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Btn_VerBascula);
             this.panel1.Controls.Add(this.Tx_KilosCargados);
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.Btn_eliminar);
@@ -824,8 +848,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(951, 534);
+            this.panel1.Size = new System.Drawing.Size(947, 572);
             this.panel1.TabIndex = 0;
+            // 
+            // Btn_VerBascula
+            // 
+            this.Btn_VerBascula.Location = new System.Drawing.Point(815, 16);
+            this.Btn_VerBascula.Name = "Btn_VerBascula";
+            this.Btn_VerBascula.Size = new System.Drawing.Size(75, 64);
+            this.Btn_VerBascula.TabIndex = 14;
+            this.Btn_VerBascula.Text = "Ver Datos Bascula";
+            this.Btn_VerBascula.UseVisualStyleBackColor = true;
+            this.Btn_VerBascula.Click += new System.EventHandler(this.Btn_VerBascula_Click);
             // 
             // Tx_KilosCargados
             // 
@@ -847,7 +881,7 @@
             // 
             // Btn_eliminar
             // 
-            this.Btn_eliminar.Location = new System.Drawing.Point(719, 26);
+            this.Btn_eliminar.Location = new System.Drawing.Point(690, 16);
             this.Btn_eliminar.Name = "Btn_eliminar";
             this.Btn_eliminar.Size = new System.Drawing.Size(75, 64);
             this.Btn_eliminar.TabIndex = 11;
@@ -956,7 +990,7 @@
             this.Dtg_CamionEnPlanta.Location = new System.Drawing.Point(5, 103);
             this.Dtg_CamionEnPlanta.Name = "Dtg_CamionEnPlanta";
             this.Dtg_CamionEnPlanta.ReadOnly = true;
-            this.Dtg_CamionEnPlanta.Size = new System.Drawing.Size(939, 426);
+            this.Dtg_CamionEnPlanta.Size = new System.Drawing.Size(935, 464);
             this.Dtg_CamionEnPlanta.TabIndex = 0;
             this.Dtg_CamionEnPlanta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_CamionEnPlanta_CellContentClick);
             // 
@@ -965,7 +999,7 @@
             this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(957, 540);
+            this.tabPage3.Size = new System.Drawing.Size(953, 578);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Pesajes Realizados";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -987,7 +1021,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(957, 540);
+            this.panel2.Size = new System.Drawing.Size(953, 578);
             this.panel2.TabIndex = 1;
             // 
             // Btn_ReDespacho
@@ -1100,14 +1134,170 @@
             this.Dtg_CamionDespachados.Location = new System.Drawing.Point(5, 103);
             this.Dtg_CamionDespachados.Name = "Dtg_CamionDespachados";
             this.Dtg_CamionDespachados.ReadOnly = true;
-            this.Dtg_CamionDespachados.Size = new System.Drawing.Size(945, 432);
+            this.Dtg_CamionDespachados.Size = new System.Drawing.Size(941, 470);
             this.Dtg_CamionDespachados.TabIndex = 0;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox6);
+            this.tabPage4.Controls.Add(this.groupBox5);
+            this.tabPage4.Controls.Add(this.groupBox4);
+            this.tabPage4.Controls.Add(this.Dtg_SinVincular);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(953, 578);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Vincular Guía Despacho";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.Btn_GrabarVin);
+            this.groupBox6.Controls.Add(this.Tx_viajeV);
+            this.groupBox6.Controls.Add(this.Btn_Buscar);
+            this.groupBox6.Controls.Add(this.Tx_obsDos);
+            this.groupBox6.Controls.Add(this.Tx_kgsINET_V);
+            this.groupBox6.Controls.Add(this.Tx_NroGuiaINET_V);
+            this.groupBox6.Controls.Add(this.label37);
+            this.groupBox6.Controls.Add(this.label12);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.label2);
+            this.groupBox6.Location = new System.Drawing.Point(8, 19);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(462, 178);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Grabación de Datos";
+            // 
+            // Btn_GrabarVin
+            // 
+            this.Btn_GrabarVin.Location = new System.Drawing.Point(326, 141);
+            this.Btn_GrabarVin.Name = "Btn_GrabarVin";
+            this.Btn_GrabarVin.Size = new System.Drawing.Size(75, 23);
+            this.Btn_GrabarVin.TabIndex = 9;
+            this.Btn_GrabarVin.Text = "Grabar";
+            this.Btn_GrabarVin.UseVisualStyleBackColor = true;
+            // 
+            // Tx_viajeV
+            // 
+            this.Tx_viajeV.Location = new System.Drawing.Point(118, 143);
+            this.Tx_viajeV.Name = "Tx_viajeV";
+            this.Tx_viajeV.Size = new System.Drawing.Size(153, 20);
+            this.Tx_viajeV.TabIndex = 8;
+            // 
+            // Btn_Buscar
+            // 
+            this.Btn_Buscar.Location = new System.Drawing.Point(196, 20);
+            this.Btn_Buscar.Name = "Btn_Buscar";
+            this.Btn_Buscar.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Buscar.TabIndex = 7;
+            this.Btn_Buscar.Text = "Buscar";
+            this.Btn_Buscar.UseVisualStyleBackColor = true;
+            // 
+            // Tx_obsDos
+            // 
+            this.Tx_obsDos.Location = new System.Drawing.Point(97, 72);
+            this.Tx_obsDos.Multiline = true;
+            this.Tx_obsDos.Name = "Tx_obsDos";
+            this.Tx_obsDos.Size = new System.Drawing.Size(340, 65);
+            this.Tx_obsDos.TabIndex = 6;
+            // 
+            // Tx_kgsINET_V
+            // 
+            this.Tx_kgsINET_V.Location = new System.Drawing.Point(119, 46);
+            this.Tx_kgsINET_V.Name = "Tx_kgsINET_V";
+            this.Tx_kgsINET_V.Size = new System.Drawing.Size(55, 20);
+            this.Tx_kgsINET_V.TabIndex = 5;
+            // 
+            // Tx_NroGuiaINET_V
+            // 
+            this.Tx_NroGuiaINET_V.Location = new System.Drawing.Point(119, 18);
+            this.Tx_NroGuiaINET_V.Name = "Tx_NroGuiaINET_V";
+            this.Tx_NroGuiaINET_V.Size = new System.Drawing.Size(55, 20);
+            this.Tx_NroGuiaINET_V.TabIndex = 4;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(22, 81);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(35, 13);
+            this.label37.TabIndex = 3;
+            this.label37.Text = "Obs 2";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(24, 150);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(80, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Viaje a Vincular";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(16, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Kilos Guía INET";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Nro. Guía INET";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.Dtg_INET);
+            this.groupBox5.Location = new System.Drawing.Point(8, 379);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(934, 192);
+            this.groupBox5.TabIndex = 17;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Datos INET";
+            // 
+            // Dtg_INET
+            // 
+            this.Dtg_INET.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_INET.Location = new System.Drawing.Point(6, 19);
+            this.Dtg_INET.Name = "Dtg_INET";
+            this.Dtg_INET.Size = new System.Drawing.Size(922, 156);
+            this.Dtg_INET.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Location = new System.Drawing.Point(8, 253);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(462, 109);
+            this.groupBox4.TabIndex = 16;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Datos Bascula";
+            // 
+            // Dtg_SinVincular
+            // 
+            this.Dtg_SinVincular.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Dtg_SinVincular.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_SinVincular.Location = new System.Drawing.Point(488, 19);
+            this.Dtg_SinVincular.Name = "Dtg_SinVincular";
+            this.Dtg_SinVincular.Size = new System.Drawing.Size(457, 352);
+            this.Dtg_SinVincular.TabIndex = 0;
+            this.Dtg_SinVincular.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_SinVincular_CellContentClick);
             // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 566);
+            this.ClientSize = new System.Drawing.Size(961, 604);
             this.Controls.Add(this.tabControl1);
             this.Name = "Frm_PesajeCamion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1134,6 +1324,12 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionDespachados)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_INET)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1232,5 +1428,22 @@
         private System.Windows.Forms.Label label33;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView Dtg_Parametros;
+        private System.Windows.Forms.Button Btn_VerBascula;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button Btn_GrabarVin;
+        private System.Windows.Forms.TextBox Tx_viajeV;
+        private System.Windows.Forms.Button Btn_Buscar;
+        private System.Windows.Forms.TextBox Tx_obsDos;
+        private System.Windows.Forms.TextBox Tx_kgsINET_V;
+        private System.Windows.Forms.TextBox Tx_NroGuiaINET_V;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DataGridView Dtg_INET;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView Dtg_SinVincular;
     }
 }

@@ -917,8 +917,10 @@ namespace Metalurgica.Controls
                         lbl_MsgBloqueo.Visible = true;
                         txtEtiquetaPieza.Enabled = false;
                         Chk_MultiplesColadas.Enabled = false;
-                        //groupBox1.Visible = false;
+                        groupBox2.Visible = false;
+                        Btn_CheckList.Visible = false;
                         Btn_Desbloquea.Visible = true;
+
                         this.Refresh();
                     }
                     else
@@ -938,6 +940,8 @@ namespace Metalurgica.Controls
                             lbl_MsgBloqueo.Visible = true;
                             txtEtiquetaPieza.Enabled = false;
                             Chk_MultiplesColadas.Enabled = false;
+                            groupBox2.Visible = false;
+                            Btn_CheckList.Visible = false;
                             //groupBox1.Visible = false;
                             if (mUserLog.PerfilUsuario.ToUpper().Equals("SUPERVISOR"))
                             {
@@ -955,6 +959,8 @@ namespace Metalurgica.Controls
                             lbl_MsgBloqueo.Visible = false;
                             txtEtiquetaPieza.Enabled = true;
                             Chk_MultiplesColadas.Enabled = true;
+                            groupBox2.Visible = true ;
+                            Btn_CheckList.Visible = true;
                         }
                     }
                 }
@@ -966,6 +972,8 @@ namespace Metalurgica.Controls
                     lbl_MsgBloqueo.Visible = false;
                     txtEtiquetaPieza.Enabled = true;
                     Chk_MultiplesColadas.Enabled = true;
+                    groupBox2.Visible = true;
+                    Btn_CheckList.Visible = true;
                 }
             }
             catch (Exception exc)
@@ -1018,6 +1026,8 @@ namespace Metalurgica.Controls
                         lbl_MsgBloqueo.Visible = true;
                         txtEtiquetaPieza.Enabled = false;
                         Chk_MultiplesColadas.Enabled = false;
+                        groupBox2.Visible = false;
+                        Btn_CheckList.Visible = false;
                         //groupBox1.Visible = false;
                         Btn_Desbloquea.Visible = true;
                         this.Refresh();
@@ -1031,7 +1041,9 @@ namespace Metalurgica.Controls
                             lbl_MsgBloqueo.Visible = false;
                             txtEtiquetaPieza.Enabled = true;
                             Chk_MultiplesColadas.Enabled = true;
-                        }
+                        groupBox2.Visible = true ;
+                        Btn_CheckList.Visible = true;
+                    }
                     
                 }
                 else
@@ -1042,6 +1054,8 @@ namespace Metalurgica.Controls
                     lbl_MsgBloqueo.Visible = false;
                     txtEtiquetaPieza.Enabled = true;
                     Chk_MultiplesColadas.Enabled = true;
+                    groupBox2.Visible = true;
+                    Btn_CheckList.Visible = true;
                 }
             }
             catch (Exception exc)

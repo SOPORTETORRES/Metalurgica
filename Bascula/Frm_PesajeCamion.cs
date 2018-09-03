@@ -24,7 +24,7 @@ namespace Metalurgica.Bascula
         private DataTable mTblKgsAdicionales = new DataTable();
         private DataTable mTblParametro = new DataTable();
         private DataTable mTblConfTolerancia = new DataTable();
-
+        private Boolean mBuscaDatosPatente = false;
 
         public Frm_PesajeCamion()
         {
@@ -86,7 +86,8 @@ namespace Metalurgica.Bascula
             Dtg_CamionDespachados.DataSource = mTblCamionesDespachados ;
             Dtg_Parametros.DataSource = mTblParametro;
 
-           // formateaGrillas();
+            // formateaGrillas();
+            CargaDatosDespachosSinGuiaINET();
         }
 
 
@@ -168,7 +169,9 @@ namespace Metalurgica.Bascula
                 }
 
             }
+            mBuscaDatosPatente = false;
             SumaKgsAdicionales();
+            mBuscaDatosPatente = true ;
         }
 
         private void SumaKgsAdicionales()
@@ -282,6 +285,26 @@ namespace Metalurgica.Bascula
                 mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
                 Tx_IdCorrCarga.Text = mIdCorrelativo;
             }
+            else
+            {
+                if (Tx_IdCorrCarga.Text.Equals("-"))
+                {
+                    lTbl = lDAL.CargaTablaRomana(lTipoSql.ObtenerSqlPesoBrutoPorFecha(Cmb_Patente.SelectedValue.ToString(), lFecha));
+                    Bascula.Frm_PatentesBascula lFrm = new Bascula.Frm_PatentesBascula();
+                    lFrm.IniciaForm(lTbl);
+                    lFrm.ShowDialog();
+                    string lCorr = ""; string lPB = "";
+                    lCorr = AppDomain.CurrentDomain.GetData("Correlativo").ToString();
+                    lPB = AppDomain.CurrentDomain.GetData("PesoBruto").ToString();
+
+                    lRes = lPB;
+                    mIdCorrelativo = lCorr;
+                    Tx_IdCorrCarga.Text = mIdCorrelativo;
+                }
+                else
+                    lRes = Tx_Bruto.Text;
+
+            }
             return lRes;
         }
 
@@ -362,7 +385,7 @@ namespace Metalurgica.Bascula
                     WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                     WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
                     DataRow lFila = null;
-
+                    mBuscaDatosPatente = false;
                     lLIstaDts = wsOperacion.ObtenerPatentesParaCalculoCarga();
                     if (lLIstaDts.DataSet.Tables.Count > 0)
                     {
@@ -376,6 +399,7 @@ namespace Metalurgica.Bascula
 
                     Cmb_Patente.Visible = true;
                     Btn_ObtenerTara.Enabled = false;
+                    mBuscaDatosPatente = true ;
                 }
             }
             catch (Exception exc)
@@ -603,7 +627,11 @@ namespace Metalurgica.Bascula
         {
             if ((Cmb_Patente.SelectedValue!=null ) && (Cmb_Patente .SelectedValue.ToString ()!="Seleccionar" ))
                 {
-                CargaDatosPesoTaraPorPatente(Cmb_Patente.SelectedValue.ToString ());
+                if (mBuscaDatosPatente == true)
+                {
+                    CargaDatosPesoTaraPorPatente(Cmb_Patente.SelectedValue.ToString());
+                }
+              
             }
         }
 
@@ -623,9 +651,30 @@ namespace Metalurgica.Bascula
                     Tx_IdCorrTara.Text = mIdPesajeCamion.ToString ();
                     mKilosCargadosCamion = int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
                     Tx_Tara.ReadOnly = true;
-                    CargaPesoBruto();
+                   
                 }
             }
+
+             CargaPesoBruto();
+        }
+
+        private void CargaDatosDespachosSinGuiaINET()
+        {
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+            LimpiaDatosPesoBruto();
+            lLIstaDts = wsOperacion.ObtenerDatosGuiasSinVincular( );
+            if (lLIstaDts.DataSet.Tables.Count > 0)
+            {
+                lTbl = lLIstaDts.DataSet.Tables[0].Copy();
+                if (lTbl.Rows.Count > 0)
+                {
+                    Dtg_SinVincular.DataSource = lTbl;
+
+                }
+            }
+
+         
         }
 
         private void LimpiaDatosPesoBruto()
@@ -956,5 +1005,25 @@ namespace Metalurgica.Bascula
         {
             Btn_Grabar_Click(null, null);
         }
+
+        private void Btn_VerBascula_Click(object sender, EventArgs e)
+        {
+            Frm_VerBascula lFrm = new Bascula.Frm_VerBascula();
+            lFrm.ShowDialog();
+        }
+
+        private void Dtg_SinVincular_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int lIndex = e.RowIndex;
+
+            if (lIndex > -1)
+            {
+
+
+            }
+
+        }
+
+
     }
 }

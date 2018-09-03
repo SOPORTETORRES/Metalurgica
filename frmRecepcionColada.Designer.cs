@@ -80,6 +80,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Btn_RegularizaDespachos = new System.Windows.Forms.Button();
             this.Btn_ImportarRomana = new System.Windows.Forms.Button();
             this.Btn_IngPeso = new System.Windows.Forms.Button();
             this.Btn_Consignacion = new System.Windows.Forms.Button();
@@ -538,6 +539,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.Btn_RegularizaDespachos);
             this.groupBox2.Controls.Add(this.Btn_ImportarRomana);
             this.groupBox2.Controls.Add(this.Btn_IngPeso);
             this.groupBox2.Controls.Add(this.Btn_Consignacion);
@@ -554,6 +556,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transportista";
             // 
+            // Btn_RegularizaDespachos
+            // 
+            this.Btn_RegularizaDespachos.Location = new System.Drawing.Point(730, 13);
+            this.Btn_RegularizaDespachos.Name = "Btn_RegularizaDespachos";
+            this.Btn_RegularizaDespachos.Size = new System.Drawing.Size(85, 37);
+            this.Btn_RegularizaDespachos.TabIndex = 14;
+            this.Btn_RegularizaDespachos.Text = "Regularizar Despachos";
+            this.Btn_RegularizaDespachos.UseVisualStyleBackColor = true;
+            this.Btn_RegularizaDespachos.Click += new System.EventHandler(this.Btn_RegularizaDespachos_Click);
+            // 
             // Btn_ImportarRomana
             // 
             this.Btn_ImportarRomana.Location = new System.Drawing.Point(440, 13);
@@ -562,7 +574,6 @@
             this.Btn_ImportarRomana.TabIndex = 13;
             this.Btn_ImportarRomana.Text = "Importar Datos Romana";
             this.Btn_ImportarRomana.UseVisualStyleBackColor = true;
-            this.Btn_ImportarRomana.Visible = false;
             this.Btn_ImportarRomana.Click += new System.EventHandler(this.Btn_ImportarRomana_Click);
             // 
             // Btn_IngPeso
@@ -1065,6 +1076,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(918, 576);
+            this.ControlBox = false;
             this.Controls.Add(this.tabOperaciones);
             this.Controls.Add(this.tlsToolBar);
             this.Controls.Add(this.ctlInformacionUsuario1);
@@ -1199,5 +1211,6 @@
         private System.Windows.Forms.Button Btn_Consignacion;
         private System.Windows.Forms.Button Btn_IngPeso;
         private System.Windows.Forms.Button Btn_ImportarRomana;
+        private System.Windows.Forms.Button Btn_RegularizaDespachos;
     }
 }
