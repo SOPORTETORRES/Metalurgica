@@ -25,7 +25,7 @@ namespace Metalurgica.Bascula
         private DataTable mTblParametro = new DataTable();
         private DataTable mTblConfTolerancia = new DataTable();
         private Boolean mBuscaDatosPatente = false;
-
+        private string mUserAutoriza = "";
         public Frm_PesajeCamion()
         {
             InitializeComponent();
@@ -88,6 +88,8 @@ namespace Metalurgica.Bascula
 
             // formateaGrillas();
             CargaDatosDespachosSinGuiaINET();
+
+            RevisionGuias();
         }
 
 
@@ -457,8 +459,8 @@ namespace Metalurgica.Bascula
                     lObjCam.NroEstrobos  = lCom.Val(Tx_nroEstrobos .Text).ToString();
                     lObjCam.KgsCuartones  = lCom.Val(Tx_KgsCuartones.Text).ToString();
                     lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
-
-                    lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
+                    lObjCam.UsuarioAutoriza = mUserAutoriza;
+                       lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
                     if (lObjCam.Id > 0)
                     {
                         //enviar Correo para informar.
@@ -586,15 +588,61 @@ namespace Metalurgica.Bascula
 
         }
 
-        
+
 
 
         #endregion
 
+        private Boolean RevisaDatosAntesGrabacion()
+        {
+            Boolean lRes = true; string lMsg = "";
+
+
+            if (Tx_Semaforo.BackColor == Color.Red)
+            {
+                WsOperacion.PesajeCamion lObjCam = new WsOperacion.PesajeCamion();
+                Clases.ClsComun lCom = new Clases.ClsComun();
+                lObjCam.Id = mIdPesajeCamion;
+                lObjCam.Patente = Cmb_Patente.SelectedValue.ToString();
+                lObjCam.PesoTara = int.Parse(Tx_Tara.Text);
+                lObjCam.PesoBruto = int.Parse(Tx_Bruto.Text); ;
+                lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
+                lObjCam.Estado = "PesoCarga";
+                lObjCam.IdCorrelativo = mIdCorrelativo;
+                lObjCam.NroCuartones = lCom.Val(Tx_nroCuartones.Text).ToString();
+                lObjCam.NroEstrobos = lCom.Val(Tx_nroEstrobos.Text).ToString();
+                lObjCam.KgsCuartones = lCom.Val(Tx_KgsCuartones.Text).ToString();
+                lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
+
+                lMsg = string.Concat (" El Despacho del Camión esta por Sobre lo Permitido.", Environment .NewLine ,"   Para Realizar el Despacho debe Ingresar una Clave de Supervisor");
+                lMsg = string.Concat(lMsg , Environment.NewLine,  " Para poder realizar el despacho, Ingrese Clave de supervisor ");
+                lRes = false;
+                MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+
+                Bascula.Frm_AutorizaDespacho lFrm = new Frm_AutorizaDespacho();
+                lFrm.IniciaFormulario(lObjCam, mKilosCargadosCamion.ToString(), Tx_ToleranciaReal.Text, Dtp_FechaActual.Value.ToShortDateString() );
+                lFrm.ShowDialog();
+                 mUserAutoriza = AppDomain.CurrentDomain.GetData ("UserAutoriza").ToString ();
+                if (mUserAutoriza.Trim().Length > 0)
+                {
+                    GrabarDatos();
+                    button1.Enabled = false;
+
+                }
+
+            }
+            return lRes;
+
+        }
+
         private void Btn_Grabar_Click(object sender, EventArgs e)
         {
-            GrabarDatos();
-            button1.Enabled = false;
+            if (RevisaDatosAntesGrabacion ()==true )
+            {
+                GrabarDatos();
+                button1.Enabled = false;
+            }
+           
         }
 
         private void Btn_Salir_Click(object sender, EventArgs e)
@@ -670,11 +718,44 @@ namespace Metalurgica.Bascula
                 if (lTbl.Rows.Count > 0)
                 {
                     Dtg_SinVincular.DataSource = lTbl;
+                    Dtg_SinVincular.Columns[0].Width = 50;
+                    Dtg_SinVincular.Columns[1].Width = 70;
+                    Dtg_SinVincular.Columns[2].Width = 70;
+                    Dtg_SinVincular.Columns[3].Width = 50;
+                    //Dtg_SinVincular.Columns[0].Width = 50;
+                    //Dtg_SinVincular.Columns[0].Width = 50;
 
                 }
             }
 
          
+        }
+
+        private void RevisionGuias()
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();DataSet lDts = new DataSet();
+            DataTable lTbl = new DataTable();
+
+        string lSql= "  SP_ConsultasGenerales 116,' ','','','',''";
+            lDts = lPx.ObtenerDatos(lSql);
+       
+            if (lDts.Tables.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+                if (lTbl.Rows.Count > 0)
+                {
+                    Dtg_GuiasINET.DataSource = lTbl;
+                    //Dtg_SinVincular.Columns[0].Width = 50;
+                    //Dtg_SinVincular.Columns[1].Width = 70;
+                    //Dtg_SinVincular.Columns[2].Width = 70;
+                    //Dtg_SinVincular.Columns[3].Width = 50;
+                    ////Dtg_SinVincular.Columns[0].Width = 50;
+                    ////Dtg_SinVincular.Columns[0].Width = 50;
+
+                }
+            }
+
+
         }
 
         private void LimpiaDatosPesoBruto()
@@ -767,7 +848,7 @@ namespace Metalurgica.Bascula
 
 
             }
-            Btn_Grabar.Enabled = false;
+            //Btn_Grabar.Enabled = false;
 
             if (iTolCal > lTolSuperior)   // Esta por sobre la cota superior
                 lColor = Color.Red;
@@ -1012,18 +1093,119 @@ namespace Metalurgica.Bascula
             lFrm.ShowDialog();
         }
 
+      
+
         private void Dtg_SinVincular_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int lIndex = e.RowIndex;
+            int lIndex = e.RowIndex; int i = 0; DataRow lFila = null; int lKgs = 0;Clases.ClsComun lcom = new Clases.ClsComun();
+           
+            try
+            { 
 
             if (lIndex > -1)
             {
+                Cursor.Current = Cursors.WaitCursor;
+                string lViaje = Dtg_SinVincular.Rows[lIndex].Cells["Viajes"].Value.ToString();
+                string lIdDespacho = Dtg_SinVincular.Rows[lIndex].Cells["IdDespachoCamion"].Value.ToString();
+                string lIdPesajeC = Dtg_SinVincular.Rows[lIndex].Cells["IdPesajeCamion"].Value.ToString();
+                WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                WsOperacion.ListaDataSet lLIstaDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+                lLIstaDts = wsOperacion.ObtenerDatosPorIdDespacho(lIdDespacho, lViaje, lIdPesajeC);
+                if (lLIstaDts.MensajeError.ToString().Length == 0)
+                {
+                    if (lLIstaDts.DataSet.Tables.Count == 4)
+                    {
+                        Tx_NroGuiaINET_V.Text = lLIstaDts.DataSet.Tables["DatosINET"].Rows[0]["NroGuia"].ToString();
+                        Tx_kgsINET_V.Text = lLIstaDts.DataSet.Tables["DatosINET"].Rows[0]["KgsGuia"].ToString();
+                        Tx_PatenteINET_V.Text = lLIstaDts.DataSet.Tables["DatosINET"].Rows[0]["Patente"].ToString();
+
+                        Tx_obsDos.Text = lLIstaDts.DataSet.Tables["DatosINET_OBS"].Rows[0][0].ToString();
+
+                        Dtg_Bascula.DataSource = lLIstaDts.DataSet.Tables["DatosBascula"].Copy();
+
+                        for (i=0;i< lLIstaDts.DataSet.Tables["DetallePC"].Rows .Count;i++)
+                        {
+                            lKgs = lKgs + lcom.Val(lLIstaDts.DataSet.Tables["DetallePC"].Rows[i]["PesoGuiaINET"].ToString());
+                        }
+
+                        lFila = lLIstaDts.DataSet.Tables["DetallePC"].NewRow();
+                        lFila["NroGuiaINET"] = "Total";
+                        lFila["PesoGuiaINET"] = lKgs;
+                        lLIstaDts.DataSet.Tables["DetallePC"].Rows.Add(lFila);
+
+                        Dtg_DetallePesaje.DataSource = lLIstaDts.DataSet.Tables["DetallePC"].Copy();
+
+                        Dtg_DetallePesaje.Columns[0].Width = 50;
+                        Dtg_DetallePesaje.Columns[1].Width = 70;
+                        Dtg_DetallePesaje.Columns[2].Width = 70;
+
+                        Dtg_Bascula.Columns[0].Width = 10;
+                        Dtg_Bascula.Columns[1].Width = 50;
+                        Dtg_Bascula.Columns[2].Width = 50;
+                        Dtg_Bascula.Columns[3].Width = 50;
+                        Dtg_Bascula.Columns[4].Width = 50;
+                        Dtg_Bascula.Columns[5].Width = 50;
+                        Dtg_Bascula.Columns[6].Width = 50;
+                    }
+
+                }
 
 
+                Cursor.Current = Cursors.Default ;
+
+            }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
 
         }
 
+        private void LimpiaObjGrillaVinculacion()
+        {
+            Dtg_DetallePesaje.DataSource = null;
+            Dtg_Bascula.DataSource = null;
+            Tx_NroGuiaINET_V.Text = "";
+            Tx_kgsINET_V.Text = "";
+            Tx_obsDos.Text = "";
 
+        }
+
+        private void Btn_GrabarVin_Click(object sender, EventArgs e)
+        {
+            int i = 0;  string lSql = ""; Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            string lMsg = string.Concat("¿Esta seguro que desea Vincular el Nro de guía ", Tx_NroGuiaINET_V.Text, " al detalle de Despacho Camión?");
+
+            if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo,MessageBoxIcon.Question)==  DialogResult.Yes )
+           {
+                for (i=0; i<Dtg_DetallePesaje .Rows .Count;i++ )
+                {
+                    if (Dtg_DetallePesaje.Rows[i].Cells["IdPesajeCamion"].Value.ToString().Trim().Length > 0)
+                    {
+                        lSql = String.Concat(" SP_ConsultasGenerales 115,'", Tx_NroGuiaINET_V.Text, "','", Dtg_DetallePesaje.Rows[i].Cells["IdPesajeCamion"].Value.ToString(), "','", Dtg_DetallePesaje.Rows[i].Cells["Id"].Value.ToString(), "','',''");
+
+                        lPx.ObtenerDatos(lSql);
+                    }
+                    else
+                        i = Dtg_DetallePesaje.Rows.Count;
+
+
+                }
+
+            }
+
+            CargaDatosDespachosSinGuiaINET();
+            LimpiaObjGrillaVinculacion();
+        }
+
+        private void Dtg_GuiasINET_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int lIndx = e.RowIndex;
+            string lGuia = Dtg_GuiasINET.Rows[lIndx].Cells["atenum"].Value.ToString();
+            Bascula.Frm_Regularizar lFrm = new Frm_Regularizar();
+            lFrm.CargaDatosPorGuiaINET(lGuia,"","","");
+            lFrm.ShowDialog();
+        }
     }
 }

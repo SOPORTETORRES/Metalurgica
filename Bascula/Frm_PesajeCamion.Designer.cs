@@ -122,6 +122,8 @@
             this.Dtg_CamionDespachados = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.Tx_PatenteINET_V = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
             this.Btn_GrabarVin = new System.Windows.Forms.Button();
             this.Tx_viajeV = new System.Windows.Forms.TextBox();
             this.Btn_Buscar = new System.Windows.Forms.Button();
@@ -135,8 +137,15 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.Dtg_INET = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.Dtg_Bascula = new System.Windows.Forms.DataGridView();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.Dtg_SinVincular = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.Dtg_DetallePesaje = new System.Windows.Forms.DataGridView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.Dtg_GuiasINET = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Parametros)).BeginInit();
             this.Gr_Bruto.SuspendLayout();
@@ -155,7 +164,13 @@
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_INET)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Bascula)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_GuiasINET)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -177,7 +192,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(6, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1258, 529);
+            this.groupBox1.Size = new System.Drawing.Size(1312, 529);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
@@ -690,7 +705,7 @@
             // Btn_GeneraDatos
             // 
             this.Btn_GeneraDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_GeneraDatos.Location = new System.Drawing.Point(863, 342);
+            this.Btn_GeneraDatos.Location = new System.Drawing.Point(917, 342);
             this.Btn_GeneraDatos.Name = "Btn_GeneraDatos";
             this.Btn_GeneraDatos.Size = new System.Drawing.Size(82, 53);
             this.Btn_GeneraDatos.TabIndex = 14;
@@ -702,7 +717,7 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(861, 97);
+            this.Btn_Salir.Location = new System.Drawing.Point(915, 97);
             this.Btn_Salir.Name = "Btn_Salir";
             this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 13;
@@ -798,11 +813,12 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(961, 604);
+            this.tabControl1.Size = new System.Drawing.Size(1092, 636);
             this.tabControl1.TabIndex = 15;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -812,7 +828,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(953, 578);
+            this.tabPage1.Size = new System.Drawing.Size(1084, 610);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Pesaje Camión";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -823,7 +839,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(953, 578);
+            this.tabPage2.Size = new System.Drawing.Size(1084, 610);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Camiones en Planta";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -848,7 +864,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(947, 572);
+            this.panel1.Size = new System.Drawing.Size(1078, 604);
             this.panel1.TabIndex = 0;
             // 
             // Btn_VerBascula
@@ -990,7 +1006,7 @@
             this.Dtg_CamionEnPlanta.Location = new System.Drawing.Point(5, 103);
             this.Dtg_CamionEnPlanta.Name = "Dtg_CamionEnPlanta";
             this.Dtg_CamionEnPlanta.ReadOnly = true;
-            this.Dtg_CamionEnPlanta.Size = new System.Drawing.Size(935, 464);
+            this.Dtg_CamionEnPlanta.Size = new System.Drawing.Size(1066, 496);
             this.Dtg_CamionEnPlanta.TabIndex = 0;
             this.Dtg_CamionEnPlanta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_CamionEnPlanta_CellContentClick);
             // 
@@ -999,7 +1015,7 @@
             this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(953, 578);
+            this.tabPage3.Size = new System.Drawing.Size(1084, 610);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Pesajes Realizados";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1021,7 +1037,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(953, 578);
+            this.panel2.Size = new System.Drawing.Size(1084, 610);
             this.panel2.TabIndex = 1;
             // 
             // Btn_ReDespacho
@@ -1134,24 +1150,27 @@
             this.Dtg_CamionDespachados.Location = new System.Drawing.Point(5, 103);
             this.Dtg_CamionDespachados.Name = "Dtg_CamionDespachados";
             this.Dtg_CamionDespachados.ReadOnly = true;
-            this.Dtg_CamionDespachados.Size = new System.Drawing.Size(941, 470);
+            this.Dtg_CamionDespachados.Size = new System.Drawing.Size(1072, 502);
             this.Dtg_CamionDespachados.TabIndex = 0;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox6);
             this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Controls.Add(this.groupBox4);
             this.tabPage4.Controls.Add(this.Dtg_SinVincular);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(953, 578);
+            this.tabPage4.Size = new System.Drawing.Size(1084, 610);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Vincular Guía Despacho";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.Tx_PatenteINET_V);
+            this.groupBox6.Controls.Add(this.label38);
             this.groupBox6.Controls.Add(this.Btn_GrabarVin);
             this.groupBox6.Controls.Add(this.Tx_viajeV);
             this.groupBox6.Controls.Add(this.Btn_Buscar);
@@ -1164,19 +1183,36 @@
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Location = new System.Drawing.Point(8, 19);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(462, 178);
+            this.groupBox6.Size = new System.Drawing.Size(525, 178);
             this.groupBox6.TabIndex = 18;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Grabación de Datos";
             // 
+            // Tx_PatenteINET_V
+            // 
+            this.Tx_PatenteINET_V.Location = new System.Drawing.Point(313, 46);
+            this.Tx_PatenteINET_V.Name = "Tx_PatenteINET_V";
+            this.Tx_PatenteINET_V.Size = new System.Drawing.Size(86, 20);
+            this.Tx_PatenteINET_V.TabIndex = 11;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(239, 49);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(44, 13);
+            this.label38.TabIndex = 10;
+            this.label38.Text = "Patente";
+            // 
             // Btn_GrabarVin
             // 
-            this.Btn_GrabarVin.Location = new System.Drawing.Point(326, 141);
+            this.Btn_GrabarVin.Location = new System.Drawing.Point(283, 141);
             this.Btn_GrabarVin.Name = "Btn_GrabarVin";
             this.Btn_GrabarVin.Size = new System.Drawing.Size(75, 23);
             this.Btn_GrabarVin.TabIndex = 9;
             this.Btn_GrabarVin.Text = "Grabar";
             this.Btn_GrabarVin.UseVisualStyleBackColor = true;
+            this.Btn_GrabarVin.Click += new System.EventHandler(this.Btn_GrabarVin_Click);
             // 
             // Tx_viajeV
             // 
@@ -1187,7 +1223,7 @@
             // 
             // Btn_Buscar
             // 
-            this.Btn_Buscar.Location = new System.Drawing.Point(196, 20);
+            this.Btn_Buscar.Location = new System.Drawing.Point(232, 16);
             this.Btn_Buscar.Name = "Btn_Buscar";
             this.Btn_Buscar.Size = new System.Drawing.Size(75, 23);
             this.Btn_Buscar.TabIndex = 7;
@@ -1206,14 +1242,14 @@
             // 
             this.Tx_kgsINET_V.Location = new System.Drawing.Point(119, 46);
             this.Tx_kgsINET_V.Name = "Tx_kgsINET_V";
-            this.Tx_kgsINET_V.Size = new System.Drawing.Size(55, 20);
+            this.Tx_kgsINET_V.Size = new System.Drawing.Size(86, 20);
             this.Tx_kgsINET_V.TabIndex = 5;
             // 
             // Tx_NroGuiaINET_V
             // 
             this.Tx_NroGuiaINET_V.Location = new System.Drawing.Point(119, 18);
             this.Tx_NroGuiaINET_V.Name = "Tx_NroGuiaINET_V";
-            this.Tx_NroGuiaINET_V.Size = new System.Drawing.Size(55, 20);
+            this.Tx_NroGuiaINET_V.Size = new System.Drawing.Size(85, 20);
             this.Tx_NroGuiaINET_V.TabIndex = 4;
             // 
             // label37
@@ -1258,46 +1294,120 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.Dtg_INET);
-            this.groupBox5.Location = new System.Drawing.Point(8, 379);
+            this.groupBox5.Location = new System.Drawing.Point(546, 379);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(934, 192);
+            this.groupBox5.Size = new System.Drawing.Size(535, 223);
             this.groupBox5.TabIndex = 17;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Datos INET";
             // 
             // Dtg_INET
             // 
+            this.Dtg_INET.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Dtg_INET.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dtg_INET.Location = new System.Drawing.Point(6, 19);
             this.Dtg_INET.Name = "Dtg_INET";
-            this.Dtg_INET.Size = new System.Drawing.Size(922, 156);
+            this.Dtg_INET.Size = new System.Drawing.Size(523, 187);
             this.Dtg_INET.TabIndex = 0;
             // 
             // groupBox4
             // 
-            this.groupBox4.Location = new System.Drawing.Point(8, 253);
+            this.groupBox4.Controls.Add(this.Dtg_Bascula);
+            this.groupBox4.Controls.Add(this.textBox7);
+            this.groupBox4.Controls.Add(this.label39);
+            this.groupBox4.Location = new System.Drawing.Point(8, 203);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(462, 109);
+            this.groupBox4.Size = new System.Drawing.Size(525, 159);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Datos Bascula";
+            // 
+            // Dtg_Bascula
+            // 
+            this.Dtg_Bascula.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_Bascula.Location = new System.Drawing.Point(8, 48);
+            this.Dtg_Bascula.Name = "Dtg_Bascula";
+            this.Dtg_Bascula.Size = new System.Drawing.Size(511, 102);
+            this.Dtg_Bascula.TabIndex = 7;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(118, 22);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(85, 20);
+            this.textBox7.TabIndex = 6;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(16, 25);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(82, 13);
+            this.label39.TabIndex = 5;
+            this.label39.Text = "Nro. Guía INET";
             // 
             // Dtg_SinVincular
             // 
             this.Dtg_SinVincular.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Dtg_SinVincular.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dtg_SinVincular.Location = new System.Drawing.Point(488, 19);
+            this.Dtg_SinVincular.Location = new System.Drawing.Point(552, 19);
             this.Dtg_SinVincular.Name = "Dtg_SinVincular";
-            this.Dtg_SinVincular.Size = new System.Drawing.Size(457, 352);
+            this.Dtg_SinVincular.Size = new System.Drawing.Size(524, 352);
             this.Dtg_SinVincular.TabIndex = 0;
             this.Dtg_SinVincular.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_SinVincular_CellContentClick);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox7.Controls.Add(this.Dtg_DetallePesaje);
+            this.groupBox7.Location = new System.Drawing.Point(6, 369);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(525, 223);
+            this.groupBox7.TabIndex = 19;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Detalle Pesaje Camion";
+            // 
+            // Dtg_DetallePesaje
+            // 
+            this.Dtg_DetallePesaje.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Dtg_DetallePesaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_DetallePesaje.Location = new System.Drawing.Point(6, 19);
+            this.Dtg_DetallePesaje.Name = "Dtg_DetallePesaje";
+            this.Dtg_DetallePesaje.Size = new System.Drawing.Size(513, 187);
+            this.Dtg_DetallePesaje.TabIndex = 0;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.Dtg_GuiasINET);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1084, 610);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Revisión Guías";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // Dtg_GuiasINET
+            // 
+            this.Dtg_GuiasINET.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_GuiasINET.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dtg_GuiasINET.Location = new System.Drawing.Point(0, 0);
+            this.Dtg_GuiasINET.Name = "Dtg_GuiasINET";
+            this.Dtg_GuiasINET.Size = new System.Drawing.Size(1084, 610);
+            this.Dtg_GuiasINET.TabIndex = 0;
+            this.Dtg_GuiasINET.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_GuiasINET_CellContentClick);
             // 
             // Frm_PesajeCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(961, 604);
+            this.ClientSize = new System.Drawing.Size(1092, 636);
             this.Controls.Add(this.tabControl1);
             this.Name = "Frm_PesajeCamion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1329,7 +1439,14 @@
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_INET)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Bascula)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_GuiasINET)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1445,5 +1562,14 @@
         private System.Windows.Forms.DataGridView Dtg_INET;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView Dtg_SinVincular;
+        private System.Windows.Forms.TextBox Tx_PatenteINET_V;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.DataGridView Dtg_Bascula;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataGridView Dtg_DetallePesaje;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView Dtg_GuiasINET;
     }
 }

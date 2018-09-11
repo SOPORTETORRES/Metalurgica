@@ -107,6 +107,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bascula\Frm_AutorizaDespacho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_AutorizaDespacho.Designer.cs">
+      <DependentUpon>Frm_AutorizaDespacho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_CargaBasculaMovil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_CargaBasculaMovil.Designer.cs">
+      <DependentUpon>Frm_CargaBasculaMovil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bascula\Frm_PatentesBascula.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -556,6 +568,12 @@
     <Compile Include="SolicitudMP\frmVisializar.Designer.cs">
       <DependentUpon>frmVisializar.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Bascula\Frm_AutorizaDespacho.resx">
+      <DependentUpon>Frm_AutorizaDespacho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_CargaBasculaMovil.resx">
+      <DependentUpon>Frm_CargaBasculaMovil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Bascula\Frm_PatentesBascula.resx">
       <DependentUpon>Frm_PatentesBascula.cs</DependentUpon>
     </EmbeddedResource>

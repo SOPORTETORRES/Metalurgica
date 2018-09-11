@@ -35,7 +35,7 @@ namespace Metalurgica
 
         private void HabilitaDesplegablePatentes(Boolean iSoloCamionesBascula)
         {
-            DataTable lTbl = new DataTable();
+            DataTable lTbl = new DataTable();DataRow lFila = null;
             if (iSoloCamionesBascula == true)
             {
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
@@ -48,7 +48,13 @@ namespace Metalurgica
                     {
                         mPrimeraVez = true;
                         lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                        lFila = lTbl.NewRow();
+                        lFila["Patente"] = "Seleccionar";
+                        lTbl.Rows.Add(lFila);
+
                         new Forms().comboBoxFill(Cmb_Patentes, lTbl, "patente", "patente", 0);
+
+                        Cmb_Patentes.SelectedIndex = lTbl.Rows.Count - 1;
                         mPrimeraVez = false;
                     }
                 }
@@ -59,14 +65,14 @@ namespace Metalurgica
                 txtPatente.Visible = false;
                 Cmb_Patentes.Visible = true;
                 btnHlpCamion.Visible = true;
-                btnCrudCamion.Visible = true;
+                //btnCrudCamion.Visible = true;
             }
             else
             {
                 txtPatente.Visible = true;
                 Cmb_Patentes.Visible = false ;
                 btnHlpCamion.Visible = true;
-                btnCrudCamion.Visible = true;
+                //btnCrudCamion.Visible = true;
             }
         }
         public void IniciaFormulario(CurrentUser iUserLog)
@@ -1027,7 +1033,7 @@ namespace Metalurgica
                 //Px_Ws_InterfazProd.Ws_InterfazProdSoapClient ldal = new Px_Ws_InterfazProd.Ws_InterfazProdSoapClient();
                 //DataSet lDts = ldal.ObtenerTodasObrasVigentes();
                 //DataTable dt = lDts.Tables[0];
-                DataTable lTbl = new DataTable();
+                DataTable lTbl = new DataTable(); DataRow lFila;
 
                 //WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                 //WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
@@ -1037,9 +1043,13 @@ namespace Metalurgica
                 //if (listaDataSet.MensajeError.Equals(""))
                 if (lTbl .Rows .Count >0)
                 {
+                    lFila = lTbl.NewRow();
+                    lFila["Id"] = 0; lFila["Obra"] = "Seleccionar";
+                    lTbl.Rows.Add(lFila);
                     //lTbl = CargaTablaObras(listaDataSet.DataSet.Tables[0]);
                     //new Forms().comboBoxFill(cboObraDestino, listaDataSet.DataSet.Tables[0], "Id", "Obra", 0);
                     new Forms().comboBoxFill(cboObraDestino, lTbl, "Id", "Obra", 0);
+                    cboObraDestino.SelectedIndex = lTbl.Rows.Count - 1;
                 }
 
             }
@@ -1187,7 +1197,7 @@ namespace Metalurgica
 
        private void cboObraDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboObraDestino.SelectedValue != null)
+            if ((cboObraDestino.SelectedValue != null) && (cboObraDestino.SelectedValue.ToString () !="0"))
             {
                 cargaViaje(cboObraDestino.SelectedValue.ToString());
                 txtObs.Focus();
@@ -1719,6 +1729,7 @@ namespace Metalurgica
                                 //********************************************
                             }
                         Lbl_Viajes.Text = lTmp;
+                        Btn_BasculaMovil.Enabled = true;
                         //+++++++++++++++++++++
                         //if (mViajesSel.Trim().Length > 0)
                         
@@ -1898,5 +1909,55 @@ namespace Metalurgica
                 Application.Exit();
             }
         }
+
+        private void Btn_BasculaMovil_Click(object sender, EventArgs e)
+        {
+            Screen[] iMonitores;
+
+            iMonitores = Screen.AllScreens;
+
+            DataTable lTbl = new DataTable(); string lEtiquetasOK = "";string  lVolver = "N";
+            //  dgvEtiquetasPiezas.DataSource = lTblTmp;
+            Bascula.Frm_CargaBasculaMovil lFrm = new Bascula.Frm_CargaBasculaMovil();
+            lTbl = (DataTable)dgvEtiquetasPiezas.DataSource;
+            lFrm.IniciaForm(lTbl);
+            lFrm.Left = iMonitores[1].Bounds.Left;
+            lFrm.Top = iMonitores[1].Bounds.Top;
+            lFrm.ShowDialog ();
+
+            
+            lEtiquetasOK=AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString ();
+            lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
+            ProcesaEtiquetasOK(lEtiquetasOK);
+            while (lVolver == "S")
+            {
+                lFrm = new Bascula.Frm_CargaBasculaMovil();
+                lFrm.IniciaForm(lTbl);
+                lFrm.Left = iMonitores[1].Bounds.Left;
+                lFrm.Top = iMonitores[1].Bounds.Top;
+                lFrm.ShowDialog();
+
+                lEtiquetasOK = AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString();
+                lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
+                ProcesaEtiquetasOK(lEtiquetasOK);
+
+            }             
+        }
+
+        private void ProcesaEtiquetasOK(string iEtiquetas)
+        {
+            string[] split = iEtiquetas.ToString().Split(new Char[] { '|' });
+            int i = 0;Clases.ClsComun lCom = new Clases.ClsComun();
+
+            for (i = 0; i < split.Length; i++)
+            { 
+                if (lCom.EsNumero (split [i].ToString ())==true )
+                {
+                    txtEtiquetaPieza.Text = split[i].ToString();
+                    txtEtiquetaPieza_Validating(null, null);
+                }
+            }
+        }
+
     }
 }

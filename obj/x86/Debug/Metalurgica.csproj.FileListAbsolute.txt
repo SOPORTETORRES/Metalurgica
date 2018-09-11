@@ -106,3 +106,5 @@ D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\D
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_Regularizar.resources
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\ExceptionUtility2.dll
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_PatentesBascula.resources
+D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_AutorizaDespacho.resources
+D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_CargaBasculaMovil.resources

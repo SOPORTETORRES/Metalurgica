@@ -82,6 +82,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Btn_BasculaMovil = new System.Windows.Forms.Button();
             this.Cmb_Patentes = new System.Windows.Forms.ComboBox();
             this.lblTransportista = new System.Windows.Forms.Label();
             this.btnCrudCamion = new System.Windows.Forms.Button();
@@ -280,9 +281,9 @@
             // 
             // Btn_Cambiar_A_PR
             // 
-            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(701, 138);
+            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(721, 138);
             this.Btn_Cambiar_A_PR.Name = "Btn_Cambiar_A_PR";
-            this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(112, 40);
+            this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(87, 40);
             this.Btn_Cambiar_A_PR.TabIndex = 20;
             this.Btn_Cambiar_A_PR.Text = "Cambiar a Producción";
             this.Btn_Cambiar_A_PR.UseVisualStyleBackColor = true;
@@ -318,6 +319,7 @@
             this.Btn_ITDESP.TabIndex = 17;
             this.Btn_ITDESP.Text = "Dejar IT  despachada";
             this.Btn_ITDESP.UseVisualStyleBackColor = true;
+            this.Btn_ITDESP.Visible = false;
             this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Gr_empresa
@@ -667,6 +669,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Btn_BasculaMovil);
             this.groupBox2.Controls.Add(this.Cmb_Patentes);
             this.groupBox2.Controls.Add(this.lblTransportista);
             this.groupBox2.Controls.Add(this.btnCrudCamion);
@@ -680,6 +683,17 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transportista";
+            // 
+            // Btn_BasculaMovil
+            // 
+            this.Btn_BasculaMovil.Enabled = false;
+            this.Btn_BasculaMovil.Location = new System.Drawing.Point(221, 63);
+            this.Btn_BasculaMovil.Name = "Btn_BasculaMovil";
+            this.Btn_BasculaMovil.Size = new System.Drawing.Size(141, 40);
+            this.Btn_BasculaMovil.TabIndex = 12;
+            this.Btn_BasculaMovil.Text = "Despacho Desde Bascula Móvil";
+            this.Btn_BasculaMovil.UseVisualStyleBackColor = true;
+            this.Btn_BasculaMovil.Click += new System.EventHandler(this.Btn_BasculaMovil_Click);
             // 
             // Cmb_Patentes
             // 
@@ -710,6 +724,7 @@
             this.btnCrudCamion.TabIndex = 2;
             this.btnCrudCamion.Text = "Crear nuevo camión...";
             this.btnCrudCamion.UseVisualStyleBackColor = true;
+            this.btnCrudCamion.Visible = false;
             this.btnCrudCamion.Click += new System.EventHandler(this.btnCrudCamion_Click);
             // 
             // btnHlpCamion
@@ -849,10 +864,12 @@
             this.Btn_EliminaPaq.Text = "Eliminar Paquete del Viaje";
             this.Btn_EliminaPaq.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Btn_EliminaPaq.UseVisualStyleBackColor = true;
+            this.Btn_EliminaPaq.Visible = false;
             this.Btn_EliminaPaq.Click += new System.EventHandler(this.Btn_EliminaPaq_Click);
             // 
             // txtEtiquetaPieza
             // 
+            this.txtEtiquetaPieza.Enabled = false;
             this.txtEtiquetaPieza.Location = new System.Drawing.Point(114, 3);
             this.txtEtiquetaPieza.MaxLength = 50;
             this.txtEtiquetaPieza.Name = "txtEtiquetaPieza";
@@ -1022,5 +1039,6 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView Dtg_ResumenCarga;
         private System.Windows.Forms.Button Btn_Cambiar_A_PR;
+        private System.Windows.Forms.Button Btn_BasculaMovil;
     }
 }

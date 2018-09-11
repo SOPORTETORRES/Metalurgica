@@ -31,7 +31,7 @@ namespace Metalurgica.Bascula
             lSql = " select DES_CAM_ID IdDesp, DES_CAM_CAMION Patente, DES_CAM_FECHA, NroGuiaInet, Codigo, ";
             lSql = String.Concat(lSql, "(Select round(SUM(d.kgspaquete), 1)  from DetallePaquetesPieza d where d.IdViaje = v.Id) KgsCUB, ");
             lSql = String.Concat(lSql, "(Select a.AteProCan from TORRESOCARANZA.dbo.ATECLIEN A where a.ATENUM = NroGuiaInet ) KgsINET ,v.cuadradoConINET , '' GuiasCorr");
-            lSql = String.Concat(lSql, " from DESPACHO_CAMION  , Viaje v where DES_CAM_FECHA > '31/07/2018 23:59' "); // and (v.cuadradoConINET is null or v.cuadradoConINET<>'S') ");
+            lSql = String.Concat(lSql, " from DESPACHO_CAMION  , Viaje v where DES_CAM_FECHA > '31/07/2018 23:59'  and (v.cuadradoConINET is null or v.cuadradoConINET<>'S') ");
             lSql = String.Concat(lSql, " and DES_CAM_USUARIO not in ('cmamani','lyanez') and DES_CAM_ID not in (32862,33152) and v.IdDespachoCamion = DES_CAM_ID ");
             lSql = String.Concat(lSql, " Order by  NroGuiaInet  , DES_CAM_FECHA,  DES_CAM_CAMION  ");
 
@@ -59,11 +59,24 @@ namespace Metalurgica.Bascula
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int lIndex = e.RowIndex;
-            Cursor.Current = Cursors.WaitCursor;
             string lGuiaINET = dataGridView1.Rows[lIndex].Cells["NroGuiaInet"].Value.ToString();
             string lCorrelativo = dataGridView1.Rows[lIndex].Cells["GuiasCorr"].Value.ToString();
             string lFechaDesp = dataGridView1.Rows[lIndex].Cells["des_Cam_Fecha"].Value.ToString();
             string lPatente = dataGridView1.Rows[lIndex].Cells["Patente"].Value.ToString();
+
+            CargaDatosPorGuiaINET(lGuiaINET, lCorrelativo, lFechaDesp, lPatente);
+         
+       }
+
+        public void CargaDatosPorGuiaINET(string lGuiaINET, string lCorrelativo, string lFechaDesp, string lPatente)
+        {
+            //string  lIndex = lfila;
+          //  int lIndice = int.Parse(lIndex);
+            Cursor.Current = Cursors.WaitCursor;
+            //string lGuiaINET = dataGridView1.Rows[lIndice].Cells["NroGuiaInet"].Value.ToString();
+            //string lCorrelativo = dataGridView1.Rows[lIndice].Cells["GuiasCorr"].Value.ToString();
+            //string lFechaDesp = dataGridView1.Rows[lIndice].Cells["des_Cam_Fecha"].Value.ToString();
+            //string lPatente = dataGridView1.Rows[lIndice].Cells["Patente"].Value.ToString();
 
             string[] split = lFechaDesp.ToString().Split(new Char[] { ' ' });
 
@@ -71,7 +84,7 @@ namespace Metalurgica.Bascula
             if (split.Length == 2)
             {
                 Tx_FechaDesp.Text = split[0];
-                Tx_HoraDesp .Text = split[1];
+                Tx_HoraDesp.Text = split[1];
             }
 
             Lbl_nroGuia.Text = lGuiaINET;
@@ -81,7 +94,10 @@ namespace Metalurgica.Bascula
             Cursor.Current = Cursors.Default;
 
 
+
+
         }
+
         private void CargaDatosBascula(string iNroGuiaINET)
         {
 
