@@ -108,3 +108,4 @@ D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_PatentesBascula.resources
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_AutorizaDespacho.resources
 D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_CargaBasculaMovil.resources
+D:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Bascula.Frm_DetalleGrabacion.resources

@@ -16,6 +16,14 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ValidarRN", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string ValidarRN(string iIdObra, int iNroRN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerColadasPorNro", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPiezasDespachoCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerPiezasDespachoCamion(int idDespachoCamion);
@@ -316,6 +324,14 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string ObtenerEmpresaPor_EP(string Id_Obra);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTotelaciaExtra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        double ObtenerTotelaciaExtra();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPesoMaxBasculaMovil", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string ObtenerPesoMaxBasculaMovil();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ValidaUsuario", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         bool ValidaUsuario(string IUser, string iPs);
@@ -455,14 +471,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPiezasDespacho", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.PiezaTipoB[] ObtenerPiezasDespacho(string iCodViaje, string iIdIt);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ValidarRN", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string ValidarRN(string iIdObra, int iNroRN);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerColadasPorNro", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada);
     }
     
     /// <remarks/>
@@ -989,6 +997,8 @@ namespace Metalurgica.WsOperacion {
         
         private string usuarioAutorizaField;
         
+        private string obsAutorizacionField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
@@ -1190,6 +1200,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.usuarioAutorizaField = value;
                 this.RaisePropertyChanged("UsuarioAutoriza");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
+        public string ObsAutorizacion {
+            get {
+                return this.obsAutorizacionField;
+            }
+            set {
+                this.obsAutorizacionField = value;
+                this.RaisePropertyChanged("ObsAutorizacion");
             }
         }
         
@@ -3100,6 +3122,14 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public string ValidarRN(string iIdObra, int iNroRN) {
+            return base.Channel.ValidarRN(iIdObra, iNroRN);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada) {
+            return base.Channel.ObtenerColadasPorNro(colada);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerPiezasDespachoCamion(int idDespachoCamion) {
             return base.Channel.ObtenerPiezasDespachoCamion(idDespachoCamion);
         }
@@ -3400,6 +3430,14 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerEmpresaPor_EP(Id_Obra);
         }
         
+        public double ObtenerTotelaciaExtra() {
+            return base.Channel.ObtenerTotelaciaExtra();
+        }
+        
+        public string ObtenerPesoMaxBasculaMovil() {
+            return base.Channel.ObtenerPesoMaxBasculaMovil();
+        }
+        
         public bool ValidaUsuario(string IUser, string iPs) {
             return base.Channel.ValidaUsuario(IUser, iPs);
         }
@@ -3538,14 +3576,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.PiezaTipoB[] ObtenerPiezasDespacho(string iCodViaje, string iIdIt) {
             return base.Channel.ObtenerPiezasDespacho(iCodViaje, iIdIt);
-        }
-        
-        public string ValidarRN(string iIdObra, int iNroRN) {
-            return base.Channel.ValidarRN(iIdObra, iNroRN);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada) {
-            return base.Channel.ObtenerColadasPorNro(colada);
         }
     }
 }

@@ -98,6 +98,12 @@ namespace Metalurgica.Bascula
                 lMsg = " Debe ingresar  una clave valida para poder grabar";
                 lPuedeGrabar = false;
             }
+            if (Tx_Obs.Text.Trim().Length == 5)
+            {
+                lMsg = " Debe ingresar  una Observación de minimo 5 caracteres,  para poder grabar";
+                lPuedeGrabar = false;
+            }
+
             if (Cmb_Supervisor.SelectedValue.ToString () == "Seleccionar")
             {
                 lMsg = string .Concat (lMsg ,Environment .NewLine ," Debe ingresar  una clave valida para poder grabar");
@@ -111,6 +117,7 @@ namespace Metalurgica.Bascula
                     DatosGrabados = true;
                     lUserAutoriza=Cmb_Supervisor.SelectedValue.ToString();
                     AppDomain.CurrentDomain.SetData("UserAutoriza", lUserAutoriza);
+                    AppDomain.CurrentDomain.SetData("ObsUserAutoriza", Tx_Obs.Text);
                     this.Close();
 
                 }

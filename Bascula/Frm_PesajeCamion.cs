@@ -26,6 +26,9 @@ namespace Metalurgica.Bascula
         private DataTable mTblConfTolerancia = new DataTable();
         private Boolean mBuscaDatosPatente = false;
         private string mUserAutoriza = "";
+        private string mObsUserAutoriza = "";
+        private double  mToteranciaExtra= 0;
+        private Double mToleranciaReal = 0;
         public Frm_PesajeCamion()
         {
             InitializeComponent();
@@ -251,6 +254,9 @@ namespace Metalurgica.Bascula
                     mTblParametro.Rows.Add(lFila);
                 }
 
+                //tolerancia sobre cotas.
+                mToteranciaExtra = wsOperacion.ObtenerTotelaciaExtra();
+
 
             }
 
@@ -296,12 +302,18 @@ namespace Metalurgica.Bascula
                     lFrm.IniciaForm(lTbl);
                     lFrm.ShowDialog();
                     string lCorr = ""; string lPB = "";
-                    lCorr = AppDomain.CurrentDomain.GetData("Correlativo").ToString();
-                    lPB = AppDomain.CurrentDomain.GetData("PesoBruto").ToString();
 
-                    lRes = lPB;
-                    mIdCorrelativo = lCorr;
-                    Tx_IdCorrCarga.Text = mIdCorrelativo;
+                    if (AppDomain.CurrentDomain.GetData("Correlativo")!=null)
+                    {
+                        lCorr = AppDomain.CurrentDomain.GetData("Correlativo").ToString();
+                        lPB = AppDomain.CurrentDomain.GetData("PesoBruto").ToString();
+
+                        lRes = lPB;
+                        mIdCorrelativo = lCorr;
+                        Tx_IdCorrCarga.Text = mIdCorrelativo;
+
+                    }
+                   
                 }
                 else
                     lRes = Tx_Bruto.Text;
@@ -410,12 +422,24 @@ namespace Metalurgica.Bascula
             }
 
         }
-        private String GrabarDatos()
+
+
+        private void IniciaProcesoGrabacion()
+        {
+            //IniciaForm
+
+
+
+
+        }
+
+
+        private Boolean  GrabarDatos()
         {
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                 WsOperacion.PesajeCamion lObjCam = new WsOperacion.PesajeCamion();
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();Clases.ClsComun lCom = new Clases.ClsComun();
-            string lTxMsg = "";
+            string lTxMsg = ""; Boolean lRes = false;
             try
             {
                 if (Rb_Tara.Checked == true)
@@ -439,6 +463,7 @@ namespace Metalurgica.Bascula
                         MessageBox.Show(" El Camión puede  posicionarse en muelle de carga ", "Avisos Sistema", MessageBoxButtons.OK);
                         mIdCorrelativo = "0";
                         Btn_Grabar.Enabled = false;
+                        lRes = true;
                     }
                     else
                     {
@@ -460,6 +485,10 @@ namespace Metalurgica.Bascula
                     lObjCam.KgsCuartones  = lCom.Val(Tx_KgsCuartones.Text).ToString();
                     lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
                     lObjCam.UsuarioAutoriza = mUserAutoriza;
+                    lObjCam.ObsAutorizacion = mObsUserAutoriza;
+
+                    //
+  
                        lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
                     if (lObjCam.Id > 0)
                     {
@@ -472,6 +501,7 @@ namespace Metalurgica.Bascula
                         MessageBox.Show("Los Datos han sido Grabados Correctamente ", "Avisos Sistema", MessageBoxButtons.OK);
                         mIdCorrelativo = "0";
                         Btn_Grabar.Enabled = false;
+                        lRes = true;
                     }
                 }
             }
@@ -479,28 +509,51 @@ namespace Metalurgica.Bascula
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return "";
+            return lRes;
         }
 
         private string EnviaCorreoNotificacion(DataSet lDts  )
         {
             string lTx = "";string lRes = "";DataTable lTbl = new DataTable();DataTable lTblDespacho = new DataTable();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lTx_Caso = "";
-            string lPatente = ""; string lFechaDespacho = ""; string lPesoGuia = "";string lKgsNeto = ""; string lKgsDesarrollo = "";
+            string lPatente = "";  string lPesoGuia = "";string lKgsNeto = ""; string lKgsDesarrollo = "";
             string lDesviacion= ""; string lJefeTurno = "Sin Datos "; string lResultadoPesaje = "";string lObra = " Sin Datos ";
             string lPorDesviacion = "";  double  lPGD = 0; double lPbascula = 0; double lPD = 0;
-            int lPs = 0; string lDesviacionDesa = ""; string lPorDesviacionDesa = "";
+              string lDesviacionDesa = ""; string lPorDesviacionDesa = "";
+            string lTxAutoriza = "";
 
            lResultadoPesaje = Btn_PesoBruto.Tag.ToString ();
 
 
-            switch (lResultadoPesaje.ToUpper())
+            // Concatenamos La parte de la Autorización
+            DataTable lTblAut = new DataTable(); DataTable lTblDatos = new DataTable(); DataTable lTblUser = new DataTable();
+
+            if ((lDts.Tables.Count==3)  )
+            {
+                lTblAut = lDts.Tables["Autoriza"].Copy();
+                lTblDatos = lDts.Tables["Datos"].Copy();
+                lTblUser = lDts.Tables["Usuario"].Copy();
+                lTxAutoriza = "";
+                if (lTblAut.Rows.Count > 0)
+                {
+                    lTxAutoriza = string.Concat(" Usuario: ", lTblAut.Rows[0]["SupervisorAutoriza"].ToString(), " <BR>");
+                    lTxAutoriza = string.Concat(lTxAutoriza, " Fecha Autorizacion: ", lTblAut.Rows[0]["FechaAutoriza"].ToString(), " <BR>");
+                    lTxAutoriza = string.Concat(lTxAutoriza , " Observacion: ", lTblAut.Rows[0]["ObsAutoriza"].ToString(), " <BR>");
+                    lTxAutoriza = string.Concat(lTxAutoriza, " Nro. Estrobos: ", lTblDatos.Rows[0]["NroEstrobos"].ToString(), " <BR>");
+                    lTxAutoriza = string.Concat(lTxAutoriza, " Nro. Cuartones: ", lTblDatos.Rows[0]["NroCuartones"].ToString(), " <BR>");
+                }
+            }
+
+                switch (lResultadoPesaje.ToUpper())
             {
                 case "+":   //Se despacha mas 
                     lTx_Caso = " Para la Obra xxx  se ha generado un <b> despacho con sobre peso </b> con los siguientes resultados";
+                    lTx_Caso = string.Concat(lTx_Caso , " <BR> ", lTxAutoriza , " <BR>");
+                    
                     break;
                 case "-":      // Se despacha menos
                     lTx_Caso = " Para la Obra xxx  se ha generado un <b>  despacho con Ausencia de Material  </b> con los siguientes resultados";
+                    lTx_Caso = string.Concat(lTx_Caso, " <BR> ", lTxAutoriza, " <BR>");
                     break;
                 default:
                     lTx_Caso = " Para la Obra xxx  se ha realizado un <b> despacho conforme </b> con los siguientes resultados";
@@ -524,7 +577,7 @@ namespace Metalurgica.Bascula
 
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
-                lTbl = lDts.Tables[0].Copy();
+                lTbl = lTblDatos;// lDts.Tables[0].Copy();
                 lPatente = lTbl.Rows[0]["Patente"].ToString();
                 lPGD = int.Parse(lTbl.Rows[0]["KgsSistema"].ToString());
                 lPbascula = int.Parse(lTbl.Rows[0]["KsgBascula"].ToString());
@@ -561,12 +614,12 @@ namespace Metalurgica.Bascula
                 lTx = string.Concat(lTx, "  <td>", lDesviacionDesa, "</td> ");
                 lTx = string.Concat(lTx, "  <td>", lPorDesviacionDesa.ToString(), "</td>  ");
 
-                if ((lDts.Tables.Count == 2) && (lDts.Tables[1].Rows.Count > 0))
-                {
-                    lTblDespacho = lDts.Tables[1].Copy();
+                //if ((lDts.Tables.Count == 2) && (lDts.Tables[1].Rows.Count > 0))
+                //{
+                    lTblDespacho = lTblUser;// lDts.Tables[1].Copy();
                     lJefeTurno = lTblDespacho.Rows[0]["UsuarioDespacha"].ToString();
                     lObra = lTblDespacho.Rows[0]["Nombre"].ToString();
-                }
+                //}
                 lTx = string.Concat(lTx, "  <td>", lJefeTurno.ToString(), "</td>   </tr>   </table>  ");
 
                 //lTx = string.Concat(lTx, " Jefe de Turno a Cargo    :", lJefeTurno, "<Br>");
@@ -614,21 +667,43 @@ namespace Metalurgica.Bascula
                 lObjCam.KgsCuartones = lCom.Val(Tx_KgsCuartones.Text).ToString();
                 lObjCam.KgsEstrobos = lCom.Val(Tx_KgsEstrobos.Text).ToString();
 
-                lMsg = string.Concat (" El Despacho del Camión esta por Sobre lo Permitido.", Environment .NewLine ,"   Para Realizar el Despacho debe Ingresar una Clave de Supervisor");
-                lMsg = string.Concat(lMsg , Environment.NewLine,  " Para poder realizar el despacho, Ingrese Clave de supervisor ");
-                lRes = false;
-                MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
-
-                Bascula.Frm_AutorizaDespacho lFrm = new Frm_AutorizaDespacho();
-                lFrm.IniciaFormulario(lObjCam, mKilosCargadosCamion.ToString(), Tx_ToleranciaReal.Text, Dtp_FechaActual.Value.ToShortDateString() );
-                lFrm.ShowDialog();
-                 mUserAutoriza = AppDomain.CurrentDomain.GetData ("UserAutoriza").ToString ();
-                if (mUserAutoriza.Trim().Length > 0)
+                // Tx_ToleranciaReal.Text 
+                if (Tx_Semaforo .BackColor == Color.Red)
                 {
-                    GrabarDatos();
-                    button1.Enabled = false;
+                    if ((mToleranciaReal - mToteranciaExtra) < Double.Parse(Tx_ToleranciaBascula.Text))
+                    {
+                        //********Solicitamos autorización del supervisor ************
+                        lMsg = string.Concat(" El Despacho del Camión esta por Sobre lo Permitido.", Environment.NewLine, "   Para Realizar el Despacho debe Ingresar una Clave de Supervisor");
+                        lMsg = string.Concat(lMsg, Environment.NewLine, " Para poder realizar el despacho, Ingrese Clave de supervisor ");
+                        lRes = false;
+                        MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
 
+                        Bascula.Frm_AutorizaDespacho lFrm = new Frm_AutorizaDespacho();
+                        lFrm.IniciaFormulario(lObjCam, mKilosCargadosCamion.ToString(), Tx_ToleranciaReal.Text, Dtp_FechaActual.Value.ToShortDateString());
+                        lFrm.ShowDialog();
+                        if (AppDomain.CurrentDomain.GetData("UserAutoriza") != null)
+                        {
+                            mUserAutoriza = AppDomain.CurrentDomain.GetData("UserAutoriza").ToString();
+                            mObsUserAutoriza = AppDomain.CurrentDomain.GetData("ObsUserAutoriza").ToString();
+                            if (mUserAutoriza.Trim().Length > 0)
+                            {
+                                GrabarDatos();
+                                button1.Enabled = false;
+                            }
+                        }
+                        //************************
+                    }
+                    else
+                    {
+                        //********Mensaje de No se puede Grabar ************
+                        MessageBox.Show("NO se puede realizar la Grabación de datos ya que el Camión Excede la tolerancia permitida", "Avisos Sistema", MessageBoxButtons.OK);
+                    }
                 }
+               
+
+                    //     if (mToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text))
+
+                 
 
             }
             return lRes;
@@ -639,10 +714,11 @@ namespace Metalurgica.Bascula
         {
             if (RevisaDatosAntesGrabacion ()==true )
             {
-                GrabarDatos();
-                button1.Enabled = false;
+                if (GrabarDatos() == true)
+                {
+                    button1.Enabled = false;
+                }
             }
-           
         }
 
         private void Btn_Salir_Click(object sender, EventArgs e)
@@ -777,7 +853,7 @@ namespace Metalurgica.Bascula
         private void CargaPesoBruto()
         {
             Clases.ClsComun lCom = new Clases.ClsComun();
-            int lDiferencia = 0; Double lToleranciaReal = 0;
+            int lDiferencia = 0;
             //ObtenerPesoBruto
             int lPesoBruto = int.Parse(ObtenerPesoBruto());
             int lPesoTara = int.Parse(Tx_Tara.Text);
@@ -802,25 +878,25 @@ namespace Metalurgica.Bascula
             Tx_DiferenciaKilos.Text = lDiferencia.ToString ();
             //Tolerancia Real
             int lSoloFierro = int.Parse(Tx_PesoSoloFierro.Text);
-            lToleranciaReal = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
-            Tx_ToleranciaReal.Text = Math.Round(lToleranciaReal, 2).ToString();
-            if (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text))
+            mToleranciaReal = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
+            Tx_ToleranciaReal.Text = Math.Round(mToleranciaReal, 2).ToString();
+            if (mToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text))
             {
                 Tx_Semaforo.BackColor = Color.Red;
             }
             else
                 Tx_Semaforo.BackColor = Color.Green;
 
-            PintaSemaforo(lToleranciaReal, 0);
+            PintaSemaforo(mToleranciaReal, 0);
 
                 //Obtenemos el dato para el correo electronico
             Btn_PesoBruto.Tag = " ";
-                if ((double.Parse(Tx_PesoNeto.Text) > mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+                if ((double.Parse(Tx_PesoNeto.Text) > mKilosCargadosCamion) && (mToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
                 {
                     Btn_PesoBruto.Tag = "+";
                 }
 
-                if ((double.Parse(Tx_PesoNeto.Text) < mKilosCargadosCamion) && (lToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
+                if ((double.Parse(Tx_PesoNeto.Text) < mKilosCargadosCamion) && (mToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text)))
                 {
                     Btn_PesoBruto.Tag = "-";
                 }
@@ -1207,5 +1283,25 @@ namespace Metalurgica.Bascula
             lFrm.CargaDatosPorGuiaINET(lGuia,"","","");
             lFrm.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            IntegrarConINET();
+        }
+
+        private void IntegrarConINET()
+        {
+            Frm_IntegracionINET lFrm = new Frm_IntegracionINET(); string iEmpresa = "";
+            if (Rb_TO.Checked == true)
+                iEmpresa = "TO";
+
+            if (RB_TOSOL.Checked == true)
+                iEmpresa = "TOSOL";
+
+            lFrm.IniciaForm(iEmpresa, "S");
+            lFrm.ShowDialog(this);
+
+        }
+
     }
 }

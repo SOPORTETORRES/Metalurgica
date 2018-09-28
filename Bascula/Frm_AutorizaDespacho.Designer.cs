@@ -54,6 +54,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Tx_Obs = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -90,22 +92,24 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Tx_Obs);
+            this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.Btn_salir);
             this.groupBox2.Controls.Add(this.Btn_Grabar);
             this.groupBox2.Controls.Add(this.Tx_Clave);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.Cmb_Supervisor);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(310, 33);
+            this.groupBox2.Location = new System.Drawing.Point(310, 26);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(330, 299);
+            this.groupBox2.Size = new System.Drawing.Size(353, 326);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Autorización Supervisor";
             // 
             // Btn_salir
             // 
-            this.Btn_salir.Location = new System.Drawing.Point(196, 223);
+            this.Btn_salir.Location = new System.Drawing.Point(241, 262);
             this.Btn_salir.Name = "Btn_salir";
             this.Btn_salir.Size = new System.Drawing.Size(75, 55);
             this.Btn_salir.TabIndex = 15;
@@ -115,7 +119,7 @@
             // 
             // Btn_Grabar
             // 
-            this.Btn_Grabar.Location = new System.Drawing.Point(57, 227);
+            this.Btn_Grabar.Location = new System.Drawing.Point(32, 262);
             this.Btn_Grabar.Name = "Btn_Grabar";
             this.Btn_Grabar.Size = new System.Drawing.Size(75, 55);
             this.Btn_Grabar.TabIndex = 14;
@@ -125,7 +129,7 @@
             // 
             // Tx_Clave
             // 
-            this.Tx_Clave.Location = new System.Drawing.Point(102, 133);
+            this.Tx_Clave.Location = new System.Drawing.Point(198, 79);
             this.Tx_Clave.Name = "Tx_Clave";
             this.Tx_Clave.PasswordChar = '*';
             this.Tx_Clave.Size = new System.Drawing.Size(100, 24);
@@ -135,16 +139,16 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(54, 110);
+            this.label11.Location = new System.Drawing.Point(39, 79);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(196, 17);
+            this.label11.Size = new System.Drawing.Size(94, 17);
             this.label11.TabIndex = 9;
-            this.label11.Text = "Ingrese Clave de Autorización";
+            this.label11.Text = "Ingrese Clave";
             // 
             // Cmb_Supervisor
             // 
             this.Cmb_Supervisor.FormattingEnabled = true;
-            this.Cmb_Supervisor.Location = new System.Drawing.Point(71, 59);
+            this.Cmb_Supervisor.Location = new System.Drawing.Point(198, 31);
             this.Cmb_Supervisor.Name = "Cmb_Supervisor";
             this.Cmb_Supervisor.Size = new System.Drawing.Size(149, 26);
             this.Cmb_Supervisor.TabIndex = 8;
@@ -153,7 +157,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(67, 36);
+            this.label10.Location = new System.Drawing.Point(17, 36);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(149, 17);
             this.label10.TabIndex = 7;
@@ -313,6 +317,25 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Fecha";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(27, 131);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(139, 17);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Ingrese Observación";
+            // 
+            // Tx_Obs
+            // 
+            this.Tx_Obs.Location = new System.Drawing.Point(22, 155);
+            this.Tx_Obs.MaxLength = 300;
+            this.Tx_Obs.Multiline = true;
+            this.Tx_Obs.Name = "Tx_Obs";
+            this.Tx_Obs.Size = new System.Drawing.Size(316, 92);
+            this.Tx_Obs.TabIndex = 17;
+            // 
             // Frm_AutorizaDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,5 +382,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox Cmb_Supervisor;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox Tx_Obs;
+        private System.Windows.Forms.Label label12;
     }
 }

@@ -1920,7 +1920,7 @@ namespace Metalurgica
             //  dgvEtiquetasPiezas.DataSource = lTblTmp;
             Bascula.Frm_CargaBasculaMovil lFrm = new Bascula.Frm_CargaBasculaMovil();
             lTbl = (DataTable)dgvEtiquetasPiezas.DataSource;
-            lFrm.IniciaForm(lTbl);
+            lFrm.IniciaForm(lTbl,mUserLog);
             lFrm.Left = iMonitores[1].Bounds.Left;
             lFrm.Top = iMonitores[1].Bounds.Top;
             lFrm.ShowDialog ();
@@ -1932,7 +1932,7 @@ namespace Metalurgica
             while (lVolver == "S")
             {
                 lFrm = new Bascula.Frm_CargaBasculaMovil();
-                lFrm.IniciaForm(lTbl);
+                lFrm.IniciaForm(lTbl, mUserLog);
                 lFrm.Left = iMonitores[1].Bounds.Left;
                 lFrm.Top = iMonitores[1].Bounds.Top;
                 lFrm.ShowDialog();

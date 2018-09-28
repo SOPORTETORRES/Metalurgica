@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Configuration;
 
 namespace Metalurgica.Informes
 {
@@ -16,6 +17,7 @@ namespace Metalurgica.Informes
         DataSet mDatos = new DataSet();
         string mInforme = "";
         string mViaje = "";
+        string mPathPdf = "";
         Boolean mEliminaArchivo = false;
         private string mDespachos="";
 
@@ -33,6 +35,15 @@ namespace Metalurgica.Informes
             mInforme = lTipoInf;
             mViaje = lVIaje;
             mEliminaArchivo = iEliminaArchivo;
+            mPathPdf = ConfigurationManager.AppSettings["PathPdf"].ToString();
+        }
+
+        public void InciaPathPdf()
+        {
+            //value="C:\Cubigest\Informes\" 
+
+
+
         }
 
         public void CargarInforme(DataSet  lDts ) 
@@ -72,7 +83,7 @@ namespace Metalurgica.Informes
         public void GeneraPdf_DetalleDespacho(DataSet lDts )
         {
             //este Siempre sera un Archivo
-            string lPathArchivo = string.Concat("c:\\Informes\\TMP\\");
+            string lPathArchivo = mPathPdf; //string.Concat("c:\\Informes\\TMP\\");
             string lArchivo = "";
             try
             {
@@ -110,7 +121,7 @@ namespace Metalurgica.Informes
             if (mDtsInforme != null)
             {
                 //string lPathArchivo = "X:\\Gerencia de Logistica\\Guias de Despacho\\Escaneados\\IT\\";
-                string lPathArchivo = string.Concat ("C:\\Informes\\TMP\\") ;
+                string lPathArchivo = mPathPdf;//string.Concat ("C:\\Informes\\TMP\\") ;
                 string lArchivo = "";
                 // CargarInforme(mDtsInforme, lInforme);
                 Cursor = Cursors.WaitCursor;
@@ -132,7 +143,7 @@ namespace Metalurgica.Informes
                         switch (mInforme.ToUpper())
                         {
                             case "P":
-                                lArchivo = string.Concat(lPathArchivo, mViaje.Replace("/", "_"), "P.pdf");
+                                lArchivo = string.Concat(lPathArchivo, mViaje.Replace("/", "_"), "C.pdf");
                                 if (mEliminaArchivo == true)
                                 {
                                     if (File.Exists(lArchivo) == true)

@@ -2,17 +2,32 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="ObtenerPiezasDespachoCamion">
+      <s:element name="ValidarRN">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idDespachoCamion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroRN" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerPiezasDespachoCamionResponse">
+      <s:element name="ValidarRNResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezasDespachoCamionResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ValidarRNResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerColadasPorNro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="colada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerColadasPorNroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerColadasPorNroResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,6 +53,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerPiezasDespachoCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idDespachoCamion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPiezasDespachoCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezasDespachoCamionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="VbDespachoPiezaCamion">
         <s:complexType>
           <s:sequence>
@@ -1412,6 +1441,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerTotelaciaExtra">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerTotelaciaExtraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ObtenerTotelaciaExtraResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPesoMaxBasculaMovil">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerPesoMaxBasculaMovilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPesoMaxBasculaMovilResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ValidaUsuario">
         <s:complexType>
           <s:sequence>
@@ -1479,6 +1528,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="KgsEstrobos" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="KgsCuartones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UsuarioAutoriza" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ObsAutorizacion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GrabarDatosPesajeCamionResponse">
@@ -1977,37 +2027,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ValidarRN">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="iNroRN" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ValidarRNResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ValidarRNResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerColadasPorNro">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="colada" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerColadasPorNroResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerColadasPorNroResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ValidarRNSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidarRN" />
+  </wsdl:message>
+  <wsdl:message name="ValidarRNSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidarRNResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerColadasPorNroSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerColadasPorNro" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerColadasPorNroSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerColadasPorNroResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerPiezasDespachoCamionSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerPiezasDespachoCamion" />
   </wsdl:message>
@@ -2458,6 +2491,18 @@
   <wsdl:message name="ObtenerEmpresaPor_EPSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerEmpresaPor_EPResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerTotelaciaExtraSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerTotelaciaExtra" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerTotelaciaExtraSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerTotelaciaExtraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPesoMaxBasculaMovilSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerPesoMaxBasculaMovil" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPesoMaxBasculaMovilSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerPesoMaxBasculaMovilResponse" />
+  </wsdl:message>
   <wsdl:message name="ValidaUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:ValidaUsuario" />
   </wsdl:message>
@@ -2668,19 +2713,15 @@
   <wsdl:message name="ObtenerPiezasDespachoSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerPiezasDespachoResponse" />
   </wsdl:message>
-  <wsdl:message name="ValidarRNSoapIn">
-    <wsdl:part name="parameters" element="tns:ValidarRN" />
-  </wsdl:message>
-  <wsdl:message name="ValidarRNSoapOut">
-    <wsdl:part name="parameters" element="tns:ValidarRNResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerColadasPorNroSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerColadasPorNro" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerColadasPorNroSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerColadasPorNroResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ValidarRN">
+      <wsdl:input message="tns:ValidarRNSoapIn" />
+      <wsdl:output message="tns:ValidarRNSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerColadasPorNro">
+      <wsdl:input message="tns:ObtenerColadasPorNroSoapIn" />
+      <wsdl:output message="tns:ObtenerColadasPorNroSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezasDespachoCamion">
       <wsdl:input message="tns:ObtenerPiezasDespachoCamionSoapIn" />
       <wsdl:output message="tns:ObtenerPiezasDespachoCamionSoapOut" />
@@ -2981,6 +3022,14 @@
       <wsdl:input message="tns:ObtenerEmpresaPor_EPSoapIn" />
       <wsdl:output message="tns:ObtenerEmpresaPor_EPSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerTotelaciaExtra">
+      <wsdl:input message="tns:ObtenerTotelaciaExtraSoapIn" />
+      <wsdl:output message="tns:ObtenerTotelaciaExtraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPesoMaxBasculaMovil">
+      <wsdl:input message="tns:ObtenerPesoMaxBasculaMovilSoapIn" />
+      <wsdl:output message="tns:ObtenerPesoMaxBasculaMovilSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ValidaUsuario">
       <wsdl:input message="tns:ValidaUsuarioSoapIn" />
       <wsdl:output message="tns:ValidaUsuarioSoapOut" />
@@ -3121,17 +3170,27 @@
       <wsdl:input message="tns:ObtenerPiezasDespachoSoapIn" />
       <wsdl:output message="tns:ObtenerPiezasDespachoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ValidarRN">
-      <wsdl:input message="tns:ValidarRNSoapIn" />
-      <wsdl:output message="tns:ValidarRNSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerColadasPorNro">
-      <wsdl:input message="tns:ObtenerColadasPorNroSoapIn" />
-      <wsdl:output message="tns:ObtenerColadasPorNroSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidarRN">
+      <soap:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerColadasPorNro">
+      <soap:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezasDespachoCamion">
       <soap:operation soapAction="http://tempuri.org/ObtenerPiezasDespachoCamion" style="document" />
       <wsdl:input>
@@ -3807,6 +3866,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerTotelaciaExtra">
+      <soap:operation soapAction="http://tempuri.org/ObtenerTotelaciaExtra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPesoMaxBasculaMovil">
+      <soap:operation soapAction="http://tempuri.org/ObtenerPesoMaxBasculaMovil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidaUsuario">
       <soap:operation soapAction="http://tempuri.org/ValidaUsuario" style="document" />
       <wsdl:input>
@@ -4122,27 +4199,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidarRN">
-      <soap:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerColadasPorNro">
-      <soap:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidarRN">
+      <soap12:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerColadasPorNro">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezasDespachoCamion">
       <soap12:operation soapAction="http://tempuri.org/ObtenerPiezasDespachoCamion" style="document" />
       <wsdl:input>
@@ -4818,6 +4895,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerTotelaciaExtra">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerTotelaciaExtra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPesoMaxBasculaMovil">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerPesoMaxBasculaMovil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidaUsuario">
       <soap12:operation soapAction="http://tempuri.org/ValidaUsuario" style="document" />
       <wsdl:input>
@@ -5126,24 +5221,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPiezasDespacho">
       <soap12:operation soapAction="http://tempuri.org/ObtenerPiezasDespacho" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarRN">
-      <soap12:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerColadasPorNro">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

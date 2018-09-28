@@ -363,10 +363,12 @@ namespace Metalurgica
 
         private void BtnPrueba_Click(object sender, EventArgs e)
         {
-              
+
             //Clases.ClsComun lComun = new Clases.ClsComun();
             //string lParam= Application.StartupPath;
             //lComun.EjecutaShell(lParam);
+            Bascula.Frm_DetalleGrabacion lFrm = new Bascula.Frm_DetalleGrabacion();
+            lFrm.ShowDialog();
 
         }
 

@@ -11,6 +11,9 @@ namespace Metalurgica.Bascula
 {
     public partial class Frm_CargaBasculaMovil : Form
     {
+        private CurrentUser mUserLog = new CurrentUser();
+        private int mPesoMaxBascula = 0;
+        private string mUnidadMedidaBascula = "";
         private DataTable mTblDatos = new DataTable();
         private DataTable mTblDatosOK = new DataTable();
         private  int mTotalKgs = 0;
@@ -25,13 +28,28 @@ namespace Metalurgica.Bascula
             Tx_idPaq.Focus();
         }
 
-        public  void IniciaForm( DataTable lTbl )
+        public  void IniciaForm( DataTable lTbl, CurrentUser iUserLog)
         {
+            mUserLog = iUserLog;
+         
+            WsOperacion.OperacionSoapClient PxOperacion = new WsOperacion.OperacionSoapClient();
+            Clases.ClsComun lCom = new Clases.ClsComun();
+            string lKgsMaxBascula = "";
             mTblDatos = lTbl;
 
             mTblDatosOK = mTblDatos.Copy();
             mTblDatosOK.Clear();
-
+            //Debemos OBtener los Parametros 
+            //1.- Peso Maximo Bascula Movil
+            lKgsMaxBascula = PxOperacion.ObtenerPesoMaxBasculaMovil ();
+            string[] split = lKgsMaxBascula.ToString().Split(new Char[] { '|' });
+            if (split.Length > 1)
+            {
+                 mPesoMaxBascula = lCom .Val (split [0].ToString ());
+                 mUnidadMedidaBascula = split[1].ToString();
+                Lbl_Msg.Text = string.Concat(" El peso máximo a cargar en Báscula Móvil es de: ", mPesoMaxBascula, " ", mUnidadMedidaBascula);
+            }
+            Lbl_Usuario .Text = string.Concat("Usuario Responsable: ", mUserLog .Name  );
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -58,21 +76,29 @@ namespace Metalurgica.Bascula
                 //Revisamos que no este ya Registrada
                 DataView lVista = new DataView(mTblDatosOK, String.Concat("Etiqueta_Pieza=", iIdOaq), "", DataViewRowState.CurrentRows);
                 if (lVista.Count == 0)
-                {         
-                lVista = new DataView(mTblDatos, String.Concat("Etiqueta_Pieza=", iIdOaq), "", DataViewRowState.CurrentRows);
-                if (lVista.Count > 0)
                 {
-                    lFila = mTblDatosOK.NewRow();
-                    for (i = 0; i < mTblDatos.Columns.Count; i++)
+                    lVista = new DataView(mTblDatos, String.Concat("Etiqueta_Pieza=", iIdOaq), "", DataViewRowState.CurrentRows);
+                    if (lVista.Count > 0)
                     {
-                        lFila[i] = lVista[0][i];
+                        lFila = mTblDatosOK.NewRow();
+                        for (i = 0; i < mTblDatos.Columns.Count; i++)
+                        {
+                            lFila[i] = lVista[0][i];
+                        }
+
+                        if (mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString())) > mPesoMaxBascula)
+                        {
+                            MessageBox.Show(" EL Peso máximo a Cargar en la Bascula Móvil es de: " + mPesoMaxBascula.ToString(), "Avisos Sistema ", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            mTblDatosOK.Rows.Add(lFila);
+                            mTotalKgs = mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString()));
+                            Lbl_totalKgs.Text = mTotalKgs.ToString();
+                            Dtg_OK.DataSource = mTblDatosOK;
+                            FormateaGrilla();
+                        }
                     }
-                    mTblDatosOK.Rows.Add(lFila);
-                    mTotalKgs = mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString()));
-                    Lbl_totalKgs.Text = mTotalKgs.ToString();
-                    Dtg_OK.DataSource = mTblDatosOK;
-                    FormateaGrilla();
-                }
                 }
             }
             catch (Exception ex)
@@ -113,17 +139,27 @@ namespace Metalurgica.Bascula
             Dtg_OK.Columns["KgsPaquete1"].Visible = false;
             Dtg_OK.Columns["Etiqueta_Colada"].Visible = false;
             Dtg_OK.Columns["FechaCreacion"].Visible = false;
-            Dtg_OK.Columns["Codigo"].Width = 70;
-            Dtg_OK.Columns["KgsPaquete"].Width = 70;
-            Dtg_OK.Columns["NroPiezas"].Width = 70;
-            Dtg_OK.Columns["KgsReales"].Width = 70;
-            Dtg_OK.Columns["Estado2"].Width = 70;
-            Dtg_OK.Columns["Diametro"].Width = 70;
-            Dtg_OK.Columns["Imagen"].Width = 150;
+            Dtg_OK.Columns["Codigo"].Width = 120;
+            Dtg_OK.Columns["KgsPaquete"].Width = 150;
+            Dtg_OK.Columns["NroPiezas"].Width = 120;
+            Dtg_OK.Columns["KgsReales"].Width = 130;
+            Dtg_OK.Columns["Estado2"].Width = 120;
+            Dtg_OK.Columns["Diametro"].Width = 120;
+            Dtg_OK.Columns["Imagen"].Width = 180;
+            Dtg_OK.Columns["Etiqueta"].Width = 200;
+            Dtg_OK.Columns["Etiqueta_Pieza"].Width = 200;
             for (i = 0; i < Dtg_OK.Rows .Count-1; i++)
             {
-                Dtg_OK.Rows[i].Height = 80;
+                Dtg_OK.Rows[i].Height = 90;
             }
+
+            Font lFuente = new Font("Arial", 15);
+            Font lFuente18 = new Font("Arial", 18);
+
+            Dtg_OK.Rows[1].Cells[1].Style.Font = lFuente;
+            Dtg_OK.Rows[1].Cells[2].Style.Font = lFuente;
+
+            Dtg_OK.Font = new Font("Arial", 17, FontStyle.Regular);
 
         }
 
@@ -185,6 +221,11 @@ namespace Metalurgica.Bascula
         private void Frm_CargaBasculaMovil_Activated(object sender, EventArgs e)
         {
             Tx_idPaq.Focus();
+        }
+
+        private void Tx_idPaq_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

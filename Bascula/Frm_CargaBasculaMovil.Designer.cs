@@ -37,6 +37,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.Tx_idPaq = new System.Windows.Forms.TextBox();
+            this.Lbl_Msg = new System.Windows.Forms.Label();
+            this.Lbl_Usuario = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_OK)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +50,7 @@
             this.Dtg_OK.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dtg_OK.Location = new System.Drawing.Point(12, 12);
             this.Dtg_OK.Name = "Dtg_OK";
-            this.Dtg_OK.Size = new System.Drawing.Size(857, 458);
+            this.Dtg_OK.Size = new System.Drawing.Size(870, 458);
             this.Dtg_OK.TabIndex = 0;
             // 
             // label2
@@ -77,7 +79,7 @@
             // Btn_OK
             // 
             this.Btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Btn_OK.Location = new System.Drawing.Point(261, 535);
+            this.Btn_OK.Location = new System.Drawing.Point(261, 520);
             this.Btn_OK.Name = "Btn_OK";
             this.Btn_OK.Size = new System.Drawing.Size(90, 61);
             this.Btn_OK.TabIndex = 4;
@@ -88,7 +90,7 @@
             // Btn_Limpiar
             // 
             this.Btn_Limpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Btn_Limpiar.Location = new System.Drawing.Point(396, 535);
+            this.Btn_Limpiar.Location = new System.Drawing.Point(396, 520);
             this.Btn_Limpiar.Name = "Btn_Limpiar";
             this.Btn_Limpiar.Size = new System.Drawing.Size(90, 61);
             this.Btn_Limpiar.TabIndex = 5;
@@ -99,7 +101,7 @@
             // Btn_NO_OK
             // 
             this.Btn_NO_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Btn_NO_OK.Location = new System.Drawing.Point(534, 535);
+            this.Btn_NO_OK.Location = new System.Drawing.Point(534, 520);
             this.Btn_NO_OK.Name = "Btn_NO_OK";
             this.Btn_NO_OK.Size = new System.Drawing.Size(90, 61);
             this.Btn_NO_OK.TabIndex = 6;
@@ -110,7 +112,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(705, 535);
+            this.button3.Location = new System.Drawing.Point(705, 520);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(90, 61);
             this.button3.TabIndex = 7;
@@ -136,15 +138,40 @@
             this.Tx_idPaq.Name = "Tx_idPaq";
             this.Tx_idPaq.Size = new System.Drawing.Size(162, 20);
             this.Tx_idPaq.TabIndex = 9;
+            this.Tx_idPaq.TextChanged += new System.EventHandler(this.Tx_idPaq_TextChanged);
             this.Tx_idPaq.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tx_idPaq_KeyPress);
             this.Tx_idPaq.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_idPaq_Validating);
+            // 
+            // Lbl_Msg
+            // 
+            this.Lbl_Msg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Lbl_Msg.AutoSize = true;
+            this.Lbl_Msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Msg.Location = new System.Drawing.Point(447, 586);
+            this.Lbl_Msg.Name = "Lbl_Msg";
+            this.Lbl_Msg.Size = new System.Drawing.Size(47, 15);
+            this.Lbl_Msg.TabIndex = 10;
+            this.Lbl_Msg.Text = "label1";
+            // 
+            // Lbl_Usuario
+            // 
+            this.Lbl_Usuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Lbl_Usuario.AutoSize = true;
+            this.Lbl_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Usuario.Location = new System.Drawing.Point(173, 586);
+            this.Lbl_Usuario.Name = "Lbl_Usuario";
+            this.Lbl_Usuario.Size = new System.Drawing.Size(47, 15);
+            this.Lbl_Usuario.TabIndex = 11;
+            this.Lbl_Usuario.Text = "label1";
             // 
             // Frm_CargaBasculaMovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 610);
+            this.ClientSize = new System.Drawing.Size(894, 610);
             this.ControlBox = false;
+            this.Controls.Add(this.Lbl_Usuario);
+            this.Controls.Add(this.Lbl_Msg);
             this.Controls.Add(this.Tx_idPaq);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button3);
@@ -157,6 +184,7 @@
             this.Name = "Frm_CargaBasculaMovil";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Carga de Paquetes desde Bascula Móvil";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Frm_CargaBasculaMovil_Activated);
             this.Load += new System.EventHandler(this.Frm_CargaBasculaMovil_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_OK)).EndInit();
@@ -176,5 +204,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox Tx_idPaq;
+        private System.Windows.Forms.Label Lbl_Msg;
+        private System.Windows.Forms.Label Lbl_Usuario;
     }
 }

@@ -207,6 +207,28 @@ namespace Metalurgica.Clases
 
         }
 
+
+        public string  FormateaMiles(string iValor)
+        {
+            int iRes = 0;string lNumFormateado = "";
+
+            //Si es un numero se debe formatear en formato de miles 1.000
+            try
+            {
+                iRes = int.Parse(iValor);
+                lNumFormateado = iRes.ToString("N0");
+                lNumFormateado = lNumFormateado.Replace(",", ".");
+
+            }
+            catch (Exception exc)  //caso contrario, es falso.
+            {
+                lNumFormateado = iValor;
+            }
+
+            return lNumFormateado;
+
+        }
+
         public double  CDBL(string iValor)
         {
             double  iRes = 0;
@@ -638,7 +660,7 @@ namespace Metalurgica.Clases
                     oPdfDoc.Open();
                 //System.Array.Sort(Of String)(oFiles)
                 // Debemos Ordenar los pdf para crear el nuevo
-                lVista = new DataView(lTblArchivos, "", "Orden asc ", DataViewRowState.CurrentRows);
+                lVista = new DataView(lTblArchivos, "", "Nombre asc ", DataViewRowState.CurrentRows);
                 for (i = 0; i < lVista.Count ; i++)
                 //for (i = 0; i< oFiles.Length; i++)
                 {

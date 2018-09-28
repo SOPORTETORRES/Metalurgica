@@ -406,7 +406,7 @@ namespace Metalurgica
            // ImprimeResumenDespacho(false);
 
             //2.- los PL Despachados de cada viaje
-            ImprimirInforme("SGO-67/1", true);
+            ImprimirInforme("HCO-1064/1", true);
             //3.- Unimos los Archivos en uno 
             TerminaProceso();
 
@@ -443,23 +443,11 @@ namespace Metalurgica
                 lImp = string.Concat(lImp, lTblImp.Rows[i]["impresora"].ToString(), " - ");
 
             }
-            //PrintDocument pd = new PrintDocument();
-            //pd.DocumentName = @"C:\TMP\a.txt";
-            //// Specify the printer to use.
-            //pd.PrinterSettings.PrinterName = "HP LaserJet Professional P1606dn";
-
-            //if (pd.PrinterSettings.IsValid)
-            //{
-            //    pd.Print();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Printer is invalid.");
-            //}
+           
 
             SendToPrinter(lres);
 
-            MessageBox.Show(lImp);
+          //  MessageBox.Show(lImp);
 
         }
 
@@ -483,7 +471,7 @@ namespace Metalurgica
 
         public void ImprimirInforme(string iViaje, Boolean iEliminaArchivo)
         {
-            string iIdIt = ""; string iIdObra = ""; DtsInformes lDtsPortada = new DtsInformes();
+             DtsInformes lDtsPortada = new DtsInformes();
             DtsInformes lDtsDetalle = new DtsInformes(); Char Delimitador = '/'; Clases.ClsComun lComun = new Clases.ClsComun();
             Frm_Visualizador lFrmInf = new Frm_Visualizador();
             try
@@ -687,9 +675,9 @@ namespace Metalurgica
 
         private DtsInformes CargaDatosPortada_ViajeOriginal(string iViaje)
         {
-            string iIdIt = ""; string iIdObra = "";
+            string iIdIt = ""; string iIdObra = ""; int lValorKilo = 0;
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
-            Frm_Visualizador lFrmInf = new Frm_Visualizador();
+            Frm_Visualizador lFrmInf = new Frm_Visualizador(); Clases.ClsComun lCom = new Clases.ClsComun();
             DtsInformes lDts = new DtsInformes(); DataSet lDtsTmp = new DataSet();
             try
             {
@@ -714,20 +702,24 @@ namespace Metalurgica
                         {
                             lFila = lDts.KilosPorDiametro.NewKilosPorDiametroRow();
                             lFila["Diametro"] = lDtsTablas.Tables[0].Rows[i]["Diametro"].ToString();
-                            lFila["Kilos"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["Kilos"].ToString(), " Kilos");
-                            lFila["KilosDesp"] = String.Concat(lDtsTablas.Tables[0].Rows[i]["KilosDesp"].ToString(), " Kilos");
+                            lFila["Kilos"] = String.Concat(lCom.FormateaMiles(lDtsTablas.Tables[0].Rows[i]["Kilos"].ToString()), " Kilos");
+                            lFila["KilosDesp"] = String.Concat(lCom.FormateaMiles(lDtsTablas.Tables[0].Rows[i]["KilosDesp"].ToString()), " Kilos");
                             lDts.KilosPorDiametro.Rows.Add(lFila);
                         }
                         lDts.ResumenDesp.Rows[0]["ObsIt"] = ObtenerObsITAprobada(iViaje);
-                        DataTable lTblTmp = new DataTable(); String lStrTmp = ""; string lTmp = "";
+                        DataTable lTblTmp = new DataTable(); string lTmp = "";
                         lTblTmp = ObtenerDatosViajeDespachado_Saldos(iViaje);
                         if (lTblTmp.Rows.Count > 0)
                         {
-                            lTmp = lTblTmp.Rows[0]["KILOS"].ToString();// 0);// ",", "."
+                            lTmp = lCom.FormateaMiles (lTblTmp.Rows[0]["KILOS"].ToString());// 0);// ",", "."
                             lDts.ResumenDesp.Rows[0]["PesoTotalDesp"] = lTmp;
                             lDts.ResumenDesp.Rows[0]["NroEtiquetasDesp"] = lTblTmp.Rows[0]["NroEtiquetas"].ToString();
                             //  lTmp = Replace(FormatNumber(Val(OBtenerValorKilo(IdObra)) * Val(lTblTmp.Rows(0)("KILOS").ToString), 0), ",", ".")
-                            lDts.ResumenDesp.Rows[0]["ValorTotal_ITDesp"] = String.Concat("$ ", lTmp);
+                            lValorKilo = lCom .Val ( OBtenerValorKilo(iIdObra));
+                            lTmp = (lValorKilo * lCom.Val(lTblTmp.Rows[0]["KILOS"].ToString())).ToString();
+
+                           lDts.ResumenDesp.Rows[0]["ValorTotal_ITDesp"] = String.Concat("$ ", lCom.FormateaMiles(lTmp.ToString ()));
+                            //lDts.ResumenDesp.Rows[0]["ValorTotal_ITDesp"] = String.Concat("$ ", (lValorKilo * lCom.Val(lTblTmp.Rows[0]["KILOS"].ToString())).ToString());
                         }
 
                     }
@@ -1723,21 +1715,15 @@ namespace Metalurgica
 
 
          private Integracion_INET.Tipo_InvocaWS InvocaWS_INET(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes, string lTipoGuiaINET)
-        {
-            
-            Tipo_InvocaWS  lResultado = new Tipo_InvocaWS ();
-
-            Tipo_DocVentaExt lImputObj=new Tipo_DocVentaExt ();
-            string lEstadoProceso=""; bool lEstadoP1=false ;
-            bool lEstadoP2=false ; StringWriter  strDataXml =new StringWriter ();
-
+        {        
+            //Tipo_InvocaWS  lResultado = new Tipo_InvocaWS ();
+            //Tipo_DocVentaExt lImputObj=new Tipo_DocVentaExt ();
+               //StringWriter  strDataXml =new StringWriter ();
             Integracion_INET.Cls_LN lIntegra = new Integracion_INET.Cls_LN(); 
-
-        string lSql  = ""; WsCrud .CrudSoapClient  lDAl =new WsCrud.CrudSoapClient() ;
+         WsCrud .CrudSoapClient  lDAl =new WsCrud.CrudSoapClient() ;
             WsCrud .ListaDataSet lDts=new WsCrud.ListaDataSet ();
 
-        //try
-        //{
+
 
             mIdObra = int.Parse (IdObra);
             Registry registry = new Registry();

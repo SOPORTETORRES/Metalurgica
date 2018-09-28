@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Gr_empresa = new System.Windows.Forms.GroupBox();
+            this.RB_TOSOL = new System.Windows.Forms.RadioButton();
+            this.Rb_TO = new System.Windows.Forms.RadioButton();
+            this.button2 = new System.Windows.Forms.Button();
             this.Dtg_Parametros = new System.Windows.Forms.DataGridView();
             this.Gr_Bruto = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
@@ -121,6 +125,8 @@
             this.label24 = new System.Windows.Forms.Label();
             this.Dtg_CamionDespachados = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.Dtg_DetallePesaje = new System.Windows.Forms.DataGridView();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.Tx_PatenteINET_V = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
@@ -141,12 +147,11 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.Dtg_SinVincular = new System.Windows.Forms.DataGridView();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.Dtg_DetallePesaje = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.Dtg_GuiasINET = new System.Windows.Forms.DataGridView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
+            this.Gr_empresa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Parametros)).BeginInit();
             this.Gr_Bruto.SuspendLayout();
             this.Gr_Tara.SuspendLayout();
@@ -161,14 +166,14 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionDespachados)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_INET)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Bascula)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_GuiasINET)).BeginInit();
             this.SuspendLayout();
@@ -177,6 +182,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Gr_empresa);
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.Dtg_Parametros);
             this.groupBox1.Controls.Add(this.Gr_Bruto);
             this.groupBox1.Controls.Add(this.Gr_Tara);
@@ -192,10 +199,54 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(6, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1312, 529);
+            this.groupBox1.Size = new System.Drawing.Size(1070, 529);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese los datos del pesaje de Camión";
+            // 
+            // Gr_empresa
+            // 
+            this.Gr_empresa.Controls.Add(this.RB_TOSOL);
+            this.Gr_empresa.Controls.Add(this.Rb_TO);
+            this.Gr_empresa.Location = new System.Drawing.Point(875, 240);
+            this.Gr_empresa.Name = "Gr_empresa";
+            this.Gr_empresa.Size = new System.Drawing.Size(180, 92);
+            this.Gr_empresa.TabIndex = 42;
+            this.Gr_empresa.TabStop = false;
+            this.Gr_empresa.Text = "Empresa a despachar";
+            // 
+            // RB_TOSOL
+            // 
+            this.RB_TOSOL.AutoSize = true;
+            this.RB_TOSOL.Location = new System.Drawing.Point(10, 56);
+            this.RB_TOSOL.Name = "RB_TOSOL";
+            this.RB_TOSOL.Size = new System.Drawing.Size(74, 21);
+            this.RB_TOSOL.TabIndex = 1;
+            this.RB_TOSOL.Text = "TOSOL";
+            this.RB_TOSOL.UseVisualStyleBackColor = true;
+            // 
+            // Rb_TO
+            // 
+            this.Rb_TO.AutoSize = true;
+            this.Rb_TO.Checked = true;
+            this.Rb_TO.Location = new System.Drawing.Point(10, 28);
+            this.Rb_TO.Name = "Rb_TO";
+            this.Rb_TO.Size = new System.Drawing.Size(134, 21);
+            this.Rb_TO.TabIndex = 0;
+            this.Rb_TO.TabStop = true;
+            this.Rb_TO.Text = "Torres Ocaranza";
+            this.Rb_TO.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(960, 142);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(82, 53);
+            this.button2.TabIndex = 41;
+            this.button2.Text = "Integrar con INET";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Dtg_Parametros
             // 
@@ -705,7 +756,7 @@
             // Btn_GeneraDatos
             // 
             this.Btn_GeneraDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_GeneraDatos.Location = new System.Drawing.Point(917, 342);
+            this.Btn_GeneraDatos.Location = new System.Drawing.Point(946, 449);
             this.Btn_GeneraDatos.Name = "Btn_GeneraDatos";
             this.Btn_GeneraDatos.Size = new System.Drawing.Size(82, 53);
             this.Btn_GeneraDatos.TabIndex = 14;
@@ -717,7 +768,7 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(915, 97);
+            this.Btn_Salir.Location = new System.Drawing.Point(960, 42);
             this.Btn_Salir.Name = "Btn_Salir";
             this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 13;
@@ -1167,6 +1218,30 @@
             this.tabPage4.Text = "Vincular Guía Despacho";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox7.Controls.Add(this.Dtg_DetallePesaje);
+            this.groupBox7.Location = new System.Drawing.Point(6, 369);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(525, 223);
+            this.groupBox7.TabIndex = 19;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Detalle Pesaje Camion";
+            // 
+            // Dtg_DetallePesaje
+            // 
+            this.Dtg_DetallePesaje.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Dtg_DetallePesaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_DetallePesaje.Location = new System.Drawing.Point(6, 19);
+            this.Dtg_DetallePesaje.Name = "Dtg_DetallePesaje";
+            this.Dtg_DetallePesaje.Size = new System.Drawing.Size(513, 187);
+            this.Dtg_DetallePesaje.TabIndex = 0;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.Tx_PatenteINET_V);
@@ -1359,30 +1434,6 @@
             this.Dtg_SinVincular.TabIndex = 0;
             this.Dtg_SinVincular.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_SinVincular_CellContentClick);
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox7.Controls.Add(this.Dtg_DetallePesaje);
-            this.groupBox7.Location = new System.Drawing.Point(6, 369);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(525, 223);
-            this.groupBox7.TabIndex = 19;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Detalle Pesaje Camion";
-            // 
-            // Dtg_DetallePesaje
-            // 
-            this.Dtg_DetallePesaje.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Dtg_DetallePesaje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dtg_DetallePesaje.Location = new System.Drawing.Point(6, 19);
-            this.Dtg_DetallePesaje.Name = "Dtg_DetallePesaje";
-            this.Dtg_DetallePesaje.Size = new System.Drawing.Size(513, 187);
-            this.Dtg_DetallePesaje.TabIndex = 0;
-            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.Dtg_GuiasINET);
@@ -1415,6 +1466,8 @@
             this.Load += new System.EventHandler(this.Frm_PesajeCamion_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.Gr_empresa.ResumeLayout(false);
+            this.Gr_empresa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Parametros)).EndInit();
             this.Gr_Bruto.ResumeLayout(false);
             this.Gr_Bruto.PerformLayout();
@@ -1435,6 +1488,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_CamionDespachados)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1443,8 +1498,6 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Bascula)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_SinVincular)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Dtg_DetallePesaje)).EndInit();
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_GuiasINET)).EndInit();
             this.ResumeLayout(false);
@@ -1571,5 +1624,9 @@
         private System.Windows.Forms.DataGridView Dtg_DetallePesaje;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView Dtg_GuiasINET;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox Gr_empresa;
+        private System.Windows.Forms.RadioButton RB_TOSOL;
+        private System.Windows.Forms.RadioButton Rb_TO;
     }
 }
