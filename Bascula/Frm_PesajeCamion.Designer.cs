@@ -208,12 +208,13 @@
             // 
             this.Gr_empresa.Controls.Add(this.RB_TOSOL);
             this.Gr_empresa.Controls.Add(this.Rb_TO);
-            this.Gr_empresa.Location = new System.Drawing.Point(875, 240);
+            this.Gr_empresa.Location = new System.Drawing.Point(884, 245);
             this.Gr_empresa.Name = "Gr_empresa";
             this.Gr_empresa.Size = new System.Drawing.Size(180, 92);
             this.Gr_empresa.TabIndex = 42;
             this.Gr_empresa.TabStop = false;
             this.Gr_empresa.Text = "Empresa a despachar";
+            this.Gr_empresa.Visible = false;
             // 
             // RB_TOSOL
             // 

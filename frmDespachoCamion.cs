@@ -1910,38 +1910,102 @@ namespace Metalurgica
             }
         }
 
+        private int ObtenerMonitor(Boolean iPrimario)
+        {
+            Screen[] iMonitores; int i = 0; int lRes = 0;
+            iMonitores = Screen.AllScreens;
+            for (i = 0; i < iMonitores.Length; i++)
+            {
+                if (iMonitores[i].Primary == iPrimario)
+                    lRes = i;
+
+            }
+
+            return lRes;
+        }
+
         private void Btn_BasculaMovil_Click(object sender, EventArgs e)
         {
-            Screen[] iMonitores;
+            Screen[] iMonitores;   string lMsg = ""; int iMonPrimario = 0; int iMonSec = 0;
+            DataTable lTbl = new DataTable(); string lEtiquetasOK = ""; string lVolver = "N";
 
+            iMonPrimario = ObtenerMonitor(true);
+            iMonSec = ObtenerMonitor(false);
             iMonitores = Screen.AllScreens;
 
-            DataTable lTbl = new DataTable(); string lEtiquetasOK = "";string  lVolver = "N";
-            //  dgvEtiquetasPiezas.DataSource = lTblTmp;
-            Bascula.Frm_CargaBasculaMovil lFrm = new Bascula.Frm_CargaBasculaMovil();
-            lTbl = (DataTable)dgvEtiquetasPiezas.DataSource;
-            lFrm.IniciaForm(lTbl,mUserLog);
-            lFrm.Left = iMonitores[1].Bounds.Left;
-            lFrm.Top = iMonitores[1].Bounds.Top;
-            lFrm.ShowDialog ();
-
-            
-            lEtiquetasOK=AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString ();
-            lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
-            ProcesaEtiquetasOK(lEtiquetasOK);
-            while (lVolver == "S")
+            if (iMonitores.Length == 2)
             {
-                lFrm = new Bascula.Frm_CargaBasculaMovil();
+                Bascula.Frm_CargaBasculaMovil lFrm = new Bascula.Frm_CargaBasculaMovil();
+                lTbl = (DataTable)dgvEtiquetasPiezas.DataSource;
                 lFrm.IniciaForm(lTbl, mUserLog);
-                lFrm.Left = iMonitores[1].Bounds.Left;
-                lFrm.Top = iMonitores[1].Bounds.Top;
+                lFrm.Left = iMonitores[iMonSec].Bounds.Left;
+                lFrm.Top = iMonitores[iMonSec].Bounds.Top;
                 lFrm.ShowDialog();
-
                 lEtiquetasOK = AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString();
                 lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
                 ProcesaEtiquetasOK(lEtiquetasOK);
+                while (lVolver == "S")
+                {
+                    lFrm = new Bascula.Frm_CargaBasculaMovil();
+                    lFrm.IniciaForm(lTbl, mUserLog);
+                    lFrm.Left = iMonitores[iMonSec].Bounds.Left;
+                    lFrm.Top = iMonitores[iMonSec].Bounds.Top;
+                    lFrm.ShowDialog();
 
-            }             
+                    lEtiquetasOK = AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString();
+                    lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
+                    ProcesaEtiquetasOK(lEtiquetasOK);
+
+                }
+
+
+            }
+
+            if (iMonitores.Length == 1)
+            {
+                
+                lMsg = string .Concat ("El sistema a Detectado que hay solo un monitor conectado. ", Environment .NewLine );
+                lMsg = string.Concat(lMsg, "¿ Desea abrir las dos Pantallas en el mismo Monitor?");
+                if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Bascula.Frm_CargaBasculaMovil lFrm = new Bascula.Frm_CargaBasculaMovil();
+                    lTbl = (DataTable)dgvEtiquetasPiezas.DataSource;
+                    lFrm.IniciaForm(lTbl, mUserLog);
+                    //lFrm.Left = iMonitores[1].Bounds.Left;
+                    //lFrm.Top = iMonitores[1].Bounds.Top;
+                    lFrm.ShowDialog();
+                    lEtiquetasOK = AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString();
+                    lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
+                    ProcesaEtiquetasOK(lEtiquetasOK);
+                    while (lVolver == "S")
+                    {
+                        lFrm = new Bascula.Frm_CargaBasculaMovil();
+                        lFrm.IniciaForm(lTbl, mUserLog);
+                        //lFrm.Left = iMonitores[1].Bounds.Left;
+                        //lFrm.Top = iMonitores[1].Bounds.Top;
+                        lFrm.ShowDialog();
+
+                        lEtiquetasOK = AppDomain.CurrentDomain.GetData("EtiquetasOK").ToString();
+                        lVolver = AppDomain.CurrentDomain.GetData("Volver").ToString();
+                        ProcesaEtiquetasOK(lEtiquetasOK);
+
+                    }
+
+                }
+                else
+                    tlbSalir_Click(null,null);
+
+
+           }
+
+
+
+           
+            //  dgvEtiquetasPiezas.DataSource = lTblTmp;
+
+
+            
+           
         }
 
         private void ProcesaEtiquetasOK(string iEtiquetas)

@@ -136,6 +136,7 @@
             this.BtnPrueba.Size = new System.Drawing.Size(23, 23);
             this.BtnPrueba.TabIndex = 16;
             this.BtnPrueba.UseVisualStyleBackColor = true;
+            this.BtnPrueba.Visible = false;
             this.BtnPrueba.Click += new System.EventHandler(this.BtnPrueba_Click);
             // 
             // button1

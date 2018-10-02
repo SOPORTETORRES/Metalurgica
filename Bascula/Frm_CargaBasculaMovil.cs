@@ -65,6 +65,7 @@ namespace Metalurgica.Bascula
             {
                 ProcesaEtiqueta(Tx_idPaq.Text);
                 Tx_idPaq.Text = "";
+                Tx_idPaq.Focus();
             }
         }
 

@@ -564,6 +564,7 @@
             this.Btn_RegularizaDespachos.TabIndex = 14;
             this.Btn_RegularizaDespachos.Text = "Regularizar Despachos";
             this.Btn_RegularizaDespachos.UseVisualStyleBackColor = true;
+            this.Btn_RegularizaDespachos.Visible = false;
             this.Btn_RegularizaDespachos.Click += new System.EventHandler(this.Btn_RegularizaDespachos_Click);
             // 
             // Btn_ImportarRomana
@@ -574,6 +575,7 @@
             this.Btn_ImportarRomana.TabIndex = 13;
             this.Btn_ImportarRomana.Text = "Importar Datos Romana";
             this.Btn_ImportarRomana.UseVisualStyleBackColor = true;
+            this.Btn_ImportarRomana.Visible = false;
             this.Btn_ImportarRomana.Click += new System.EventHandler(this.Btn_ImportarRomana_Click);
             // 
             // Btn_IngPeso

@@ -487,9 +487,16 @@ namespace Metalurgica.Bascula
                     lObjCam.UsuarioAutoriza = mUserAutoriza;
                     lObjCam.ObsAutorizacion = mObsUserAutoriza;
 
-                    //
-  
-                       lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
+                    //Aca nos enganchamos con el nuevo formulario 
+                    //Para implementacion fase 1, aun no el formulario con el detalle de grabación
+
+                    //Bascula.Frm_DetalleGrabacion lForm = new Frm_DetalleGrabacion();
+                    //lForm.IniciaForm(lObjCam, Btn_PesoBruto.Tag.ToString(), lCom.Val(Tx_KgsCargados.Text));
+                    //lForm.ShowDialog();
+
+
+
+                    lObjCam = wsOperacion.GrabarDatosPesajeCamion(lObjCam);
                     if (lObjCam.Id > 0)
                     {
                         //enviar Correo para informar.
@@ -557,6 +564,7 @@ namespace Metalurgica.Bascula
                     break;
                 default:
                     lTx_Caso = " Para la Obra xxx  se ha realizado un <b> despacho conforme </b> con los siguientes resultados";
+                    lTx_Caso = string.Concat(lTx_Caso, " <BR> ", lTxAutoriza, " <BR>");
                     break;
             }
             lTx = string.Concat("<table   border='1'>    <tr>  ");

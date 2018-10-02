@@ -35,12 +35,23 @@ namespace Metalurgica.Bascula
             InitializeComponent();
         }
 
-        public void IniciaForm(WsOperacion.PesajeCamion iObjCam, string iResultado, int  iKgsGuiaINET,int iIdObra)
+        public void IniciaForm(WsOperacion.PesajeCamion iObjCam, string iResultado, int  iKgsGuiaINET )
         {
             mObjCam = iObjCam;
             mResultado = iResultado;
             mKgsGuiaINET = iKgsGuiaINET;
-            mIdObra = iIdObra;
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();       DtsInformes lDts = new DtsInformes(); DataSet lDtsTmp = new DataSet();
+            string lSql = string.Concat("select distinct DES_CAM_OBRA_DESTINO from PesajeCamion p, DetallePesajeCamion dpc, DESPACHO_CAMION ");
+            lSql = string.Concat(lSql, "    where p.Id = dpc.IdPesajeCamion and dpc.IdDespachoCamion = DES_CAM_ID   ");
+            lSql = string.Concat(lSql, "   and p.id =" , iObjCam.Id);
+            lDtsTmp = lPx.ObtenerDatos(lSql);
+            if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+            {
+                mIdObra = (int) lDtsTmp.Tables[0].Rows[0][0] ;
+
+            }
+
+           
 
         }
 
