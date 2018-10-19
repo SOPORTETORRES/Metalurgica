@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="lqHFcjKn62plNSOS/SLFcMUVDF4=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="cYiNUF3D2mABjDiPyUMxJhGG80c=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="Ws_ToSoap1">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="Ws_ToSoap" contract="Ws_TO.Ws_ToSoap" bindingType="basicHttpBinding" address="http://192.168.1.191/Produccion/WS/ws_to.asmx" bindingConfiguration="Ws_ToSoap1">
+    <endpoint name="Ws_ToSoap" contract="Ws_TO.Ws_ToSoap" bindingType="basicHttpBinding" address="http://localhost:55038/WS/Ws_To.asmx" bindingConfiguration="Ws_ToSoap1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.1.191/Produccion/WS/ws_to.asmx</serializedValue>
+          <serializedValue>http://localhost:55038/WS/Ws_To.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

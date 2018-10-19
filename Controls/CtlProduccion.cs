@@ -1148,6 +1148,12 @@ namespace Metalurgica.Controls
                     Btn_A_Despacho.Visible = false;
 
 
+                string lVerificaCheck = ConfigurationManager.AppSettings["ChequeoMaquina"].ToString();
+                if (lVerificaCheck.ToUpper().Equals("S"))
+                    Btn_CheckList.Visible = true;
+                else
+                    Btn_CheckList.Visible = false;
+
             }
                       
             catch (Exception exc)
@@ -1536,6 +1542,7 @@ namespace Metalurgica.Controls
         {
             bool lres = true; SolicitudMP.frmVisializar lFrm = new SolicitudMP.frmVisializar();
             int i = 0;
+            lFrm.IniciaFormulario(mUserLog.Iduser, mUserLog);
             DataTable lTblDatos = lFrm.ObtenerSMP_PorTurno();
             lFrm = null;
 
@@ -1641,16 +1648,24 @@ namespace Metalurgica.Controls
         {
             WsOperacion.OperacionSoapClient lWs = new WsOperacion.OperacionSoapClient();
             string lRes = "";
-
-            lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString());
-
-            if (lRes.ToString().ToUpper().Equals("S"))
+            string lVerificaCheck = ConfigurationManager.AppSettings["ChequeoMaquina"].ToString();
+            
+            if (lVerificaCheck.ToUpper() .Equals ("S"))
             {
-                MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción. Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
-                Maquinas.CheckList lForm = new Maquinas.CheckList();
-                lForm.IniciaForm(mUserLog);
-                lForm.ShowDialog();
+                lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString());
+
+                if (lRes.ToString().ToUpper().Equals("S"))
+                {
+                    MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción. Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
+                    Maquinas.CheckList lForm = new Maquinas.CheckList();
+                    lForm.IniciaForm(mUserLog);
+                    lForm.ShowDialog();
+                }
+
             }
+
+
+           
 
 
 

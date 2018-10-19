@@ -389,6 +389,7 @@ namespace Metalurgica.Bascula
                     //Btn_ObtenerTara.Enabled = true;
                     Gr_Tara.Enabled = true;
                     Gr_Bruto.Enabled = false;
+                    Gb_Desarrollo.Enabled = false;
                 }
 
                 if (Rb_Carga.Checked == true)
@@ -414,6 +415,7 @@ namespace Metalurgica.Bascula
                     Cmb_Patente.Visible = true;
                     Btn_ObtenerTara.Enabled = false;
                     mBuscaDatosPatente = true ;
+                    Gb_Desarrollo.Enabled = true;
                 }
             }
             catch (Exception exc)
@@ -678,14 +680,14 @@ namespace Metalurgica.Bascula
                 // Tx_ToleranciaReal.Text 
                 if (Tx_Semaforo .BackColor == Color.Red)
                 {
-                    if ((mToleranciaReal - mToteranciaExtra) < Double.Parse(Tx_ToleranciaBascula.Text))
+                    if (Math.Abs (mToleranciaReal - mToteranciaExtra) < Double.Parse(Tx_ToleranciaBascula.Text))
                     {
                         //********Solicitamos autorización del supervisor ************
                         lMsg = string.Concat(" El Despacho del Camión esta por Sobre lo Permitido.", Environment.NewLine, "   Para Realizar el Despacho debe Ingresar una Clave de Supervisor");
                         lMsg = string.Concat(lMsg, Environment.NewLine, " Para poder realizar el despacho, Ingrese Clave de supervisor ");
                         lRes = false;
                         MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
-
+                        lRes = false;
                         Bascula.Frm_AutorizaDespacho lFrm = new Frm_AutorizaDespacho();
                         lFrm.IniciaFormulario(lObjCam, mKilosCargadosCamion.ToString(), Tx_ToleranciaReal.Text, Dtp_FechaActual.Value.ToShortDateString());
                         lFrm.ShowDialog();
@@ -705,6 +707,7 @@ namespace Metalurgica.Bascula
                     {
                         //********Mensaje de No se puede Grabar ************
                         MessageBox.Show("NO se puede realizar la Grabación de datos ya que el Camión Excede la tolerancia permitida", "Avisos Sistema", MessageBoxButtons.OK);
+                        lRes = false;
                     }
                 }
                

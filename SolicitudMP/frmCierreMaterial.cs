@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using CommonLibrary2;
 using System.Text;
 using System.Collections;
+using System.Configuration;
 
 namespace Metalurgica
 {
@@ -123,7 +124,8 @@ namespace Metalurgica
                                     lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
                                     lFechaMov = DateTime.Now.ToString();
                                     lGlosa1 = Program.currentUser.Login;
-                                    lGlosa2 = ObtenerTurno();
+                                   // lGlosa2 = "06/10/2018 "; // ObtenerTurno();
+                                    lGlosa2 =  ObtenerTurno();
 
                                     iFila = lTblINET.NewRow();
                                     iFila["Codigo"] = lCodigo;
@@ -139,8 +141,18 @@ namespace Metalurgica
                                     DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
                                     //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
                                     lDts.Tables.Add(lTblINET.Copy());
+                                    lFechaMov = lFechaMov.Replace("/", "-");
 
-                                    lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                                    //Debemos saber que  sucursal esta haciendo la invocaión
+                                    int lIdSucursal = OBtenerIdSucursal();
+
+                                    if (lIdSucursal == 1)   //Calama
+                                        lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                    if (lIdSucursal == 4)   // Santiago
+                                        lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                                     lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
                                     inet_msg = buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
@@ -848,7 +860,11 @@ namespace Metalurgica
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                 WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
 
-                listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(dtpFechaRecepcion.Value, Program.currentUser.IdTotem, cboCriterio.Text.Substring(0,1));
+                //******Temporal por regularizacion de datos
+                //DateTime  lFecha = DateTime.Parse ( string.Concat(dtpFechaRecepcion.Value.ToShortDateString(), " 05:00:00"));
+                //listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(lFecha , Program.currentUser.IdTotem, cboCriterio.Text.Substring(0, 1));
+                //******Temporal por regularizacion de datos  fin 
+                 listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(dtpFechaRecepcion.Value, Program.currentUser.IdTotem, cboCriterio.Text.Substring(0,1));
                 if (listaDataSet.MensajeError.Equals(""))
                 {
                     dgvProductos.DataSource = listaDataSet.DataSet.Tables[0];
@@ -976,7 +992,19 @@ namespace Metalurgica
             tlbGuardar_Click(sender, e);
         }
 
+        private int OBtenerIdSucursal()
+        {
+            int iIdSucursal = 0; string lAux = ""; Clases.ClsComun lCom = new Clases.ClsComun();
 
+            lAux = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            if (lCom.EsNumero(lAux) == true)
+            {
+                iIdSucursal = lCom.Val(lAux);
+            }
+
+            return  iIdSucursal;
+
+        }
         public void IniciaForm(CurrentUser iUserLog)
         {
             mUserLog = iUserLog;

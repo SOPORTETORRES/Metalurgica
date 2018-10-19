@@ -77,8 +77,8 @@ namespace Metalurgica
         //
         public int IdAccesoTotem
         {
-            get { return _IdTotem; }
-            set { _IdTotem = value; }
+            get { return _IdAccesoTotem; }
+            set { _IdAccesoTotem = value; }
         }
     }
 }

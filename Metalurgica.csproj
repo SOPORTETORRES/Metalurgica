@@ -920,6 +920,9 @@
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Solicitud_Material_Detalle.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.TipoBasculaMovil.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WsOperacion\Operacion1.wsdl" />
     <None Include="Service References\WsSesion\Metalurgica.WsSesion.ListaDataSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -928,7 +931,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsSesion\WS_Sesion1.wsdl" />
-    <None Include="Service References\Ws_TO\Dts_PL.xsd" />
+    <None Include="Service References\Ws_TO\Dts_PL1.xsd" />
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Dts_PL.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -974,7 +977,7 @@
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Pieza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\Ws_TO\ws_to.wsdl" />
+    <None Include="Service References\Ws_TO\Ws_To1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -984,6 +987,7 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\Ws_TO\Ws_To1.disco" />
     <None Include="Service References\WsSesion\WS_Sesion1.disco" />
     <None Include="Service References\Ws_TO\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -991,7 +995,6 @@
     </None>
     <None Include="Service References\Ws_TO\configuration.svcinfo" />
     <None Include="Service References\Ws_TO\configuration91.svcinfo" />
-    <None Include="Service References\Ws_TO\ws_to.disco" />
     <None Include="Service References\WsOperacion\Operacion1.disco" />
     <None Include="Resources\to_do_list_checked_all.png" />
     <Content Include="Resources\to_do_list_cheked_all.png" />

@@ -18,12 +18,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.1.191/Produccion/WS/ws_to.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:55038/WS/Ws_To.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Dts_PL.xsd" MetadataType="Schema" ID="1641f9b9-a900-42db-bd23-369d9b9bbd94" SourceId="1" SourceUrl="http://192.168.1.191/Produccion/WS/ws_to.asmx?schema=Dts_PL" />
-    <MetadataFile FileName="ws_to.disco" MetadataType="Disco" ID="a77b57ce-02eb-4997-8560-e438b486b9ea" SourceId="1" SourceUrl="http://192.168.1.191/Produccion/WS/ws_to.asmx?disco" />
-    <MetadataFile FileName="ws_to.wsdl" MetadataType="Wsdl" ID="83a57f50-7273-4390-8518-947507f7705f" SourceId="1" SourceUrl="http://192.168.1.191/Produccion/WS/ws_to.asmx?wsdl" />
+    <MetadataFile FileName="Ws_To1.disco" MetadataType="Disco" ID="cb658124-9c52-4bb2-b22d-1eb9d7f4f5af" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?disco" />
+    <MetadataFile FileName="Dts_PL1.xsd" MetadataType="Schema" ID="d3af3403-b02d-4031-b3ae-830ff5b6ed2e" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?schema=Dts_PL" />
+    <MetadataFile FileName="Ws_To1.wsdl" MetadataType="Wsdl" ID="458b5f35-31ac-4f97-8783-27d60cc746c5" SourceId="1" SourceUrl="http://localhost:55038/WS/Ws_To.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

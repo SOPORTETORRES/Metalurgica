@@ -72,7 +72,7 @@ namespace Metalurgica.SolicitudMP
 
                 WsOperacion.OperacionSoapClient lPXO = new WsOperacion.OperacionSoapClient();
                 WsOperacion.ListaDataSet lListaDts = new WsOperacion.ListaDataSet();
-                lListaDts = lPXO.ObtenerResumenSMP_PorTurno(lFechaIni, lFechaFin);
+                lListaDts = lPXO.ObtenerResumenSMP_PorTurno_Totem(lFechaIni, lFechaFin, mUserLog.IdTotem.ToString () );
                 if (lListaDts.MensajeError.Length == 0)
                                     lTblTurno= lListaDts.DataSet.Tables[0].Copy();
 

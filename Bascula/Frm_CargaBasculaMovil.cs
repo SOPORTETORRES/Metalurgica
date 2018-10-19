@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -188,7 +189,27 @@ namespace Metalurgica.Bascula
 
         private void Btn_NO_OK_Click(object sender, EventArgs e)
         {
-            LimpiaFormulario();
+            int i = 0; string lEtiquetasOK = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+            try
+            {
+
+                for (i = 0; i < Dtg_OK.Rows.Count - 1; i++)
+                {
+                    if (lCom.EsNumero(Dtg_OK.Rows[i].Cells["Etiqueta_pieza"].Value.ToString()) == true)
+                    {
+                        lEtiquetasOK = string.Concat(lEtiquetasOK, Dtg_OK.Rows[i].Cells["Etiqueta_pieza"].Value.ToString(), "|");
+                        RegistraEtiquetas(lEtiquetasOK, "NOOK");
+                    }
+                }
+                LimpiaFormulario();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha Ocurrido el siguiente error: " + ex.Message.ToString());
+
+            }
+
+         
         }
 
         private void Btn_OK_Click(object sender, EventArgs e)
@@ -202,10 +223,12 @@ namespace Metalurgica.Bascula
                     if (lCom.EsNumero(Dtg_OK.Rows[i].Cells["Etiqueta_pieza"].Value.ToString()) == true)
                     {
                         lEtiquetasOK = string.Concat(lEtiquetasOK, Dtg_OK.Rows[i].Cells["Etiqueta_pieza"].Value.ToString(), "|");
+                        
                     }
                 }
                 if (lEtiquetasOK.Length > 0)
                 {
+                    RegistraEtiquetas(lEtiquetasOK, "OK");
                     AppDomain.CurrentDomain.SetData("EtiquetasOK", lEtiquetasOK);
                     AppDomain.CurrentDomain.SetData("Volver", "S");
                     this.Close();
@@ -217,6 +240,71 @@ namespace Metalurgica.Bascula
 
             }
 
+        }
+
+        private void RegistraEtiquetas(string iEtiquetas, string iEstado)
+        {
+            WsOperacion.OperacionSoapClient wsOp = new WsOperacion.OperacionSoapClient();
+            WsOperacion.TipoBasculaMovil[] lLista = null;// new WsOperacion.TipoBasculaMovil[];
+            //List<WsOperacion.TipoBasculaMovil> lLista = new List<WsOperacion.TipoBasculaMovil>() ;
+            WsOperacion.TipoBasculaMovil lBM = null; // new WsOperacion.TipoBasculaMovil(); 
+            Clases.ClsComun lCom = new Clases.ClsComun();
+
+            string[] split = iEtiquetas.ToString().Split(new Char[] { '|' });
+            int i = 0;
+            try
+            {
+                lLista =   new WsOperacion.TipoBasculaMovil[split.Length];
+                for (i=0; i<split.Length;i++   )
+            {
+                if (lCom.Val(split[i]) > 0)
+                {
+                        //mUserLog
+                    lBM = new WsOperacion.TipoBasculaMovil();
+                    lBM.Id = 0;
+                    lBM.Estado = iEstado; // "OK";
+                    lBM.IdPaquete = lCom.Val(split[i]);
+                    lBM.IdSucursal = ObtenerIdSucursal();
+                    lBM.IdTotem = mUserLog.IdTotem;
+                    lBM.IdUsuario = lCom.Val(mUserLog.Iduser) ;
+                    lBM.Turno = ObtenerTurno();
+
+                    lLista[i] = lBM;
+                    lLista = wsOp.PersistePesajeBM(lLista);
+                    }
+                  
+                }
+             
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha Ocurrido el siguiente error: " + ex.Message.ToString());
+            }
+        }
+
+
+        private int ObtenerIdSucursal()
+        {
+            int lIdSucursal = 0;Clases.ClsComun lCom = new Clases.ClsComun();
+            string lTmp = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+
+            lIdSucursal = lCom.Val(lTmp);
+            return lIdSucursal;
+        }
+
+        private string  ObtenerTurno()
+        {
+            int lHora = 0;  string lTurno = "";
+            lHora = DateTime.Now.Hour;
+
+            if ((lHora > 7) && (lHora < 20))
+                lTurno = "Dia";
+            else
+                lTurno = "Noche";
+
+            return lTurno;
         }
 
         private void Frm_CargaBasculaMovil_Activated(object sender, EventArgs e)

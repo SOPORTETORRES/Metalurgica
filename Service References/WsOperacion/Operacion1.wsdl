@@ -2,6 +2,97 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ObtenerViajesPorObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerViajesPorObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerViajesPorObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListaDataSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="_dataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerPiezasDespacho">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iIdIt" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPiezasDespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezasDespachoResult" type="tns:ArrayOfPiezaTipoB" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPiezaTipoB">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PiezaTipoB" nillable="true" type="tns:PiezaTipoB" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PiezaTipoB">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EtiquetaLateral" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CantEtiq" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PesoEtiq" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FiguraB" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PiezasXEtiq" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroPaquetes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obra" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Figura" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Elemento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Plano" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Peso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Paquete" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cantidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Diametro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Largo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoIt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pieza" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValoresVar" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdDetallePieza" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroPiezasVAR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Imagen" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Colada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroCertificado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdForma" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FueImpresa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrdenCompra" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="ValidarRN">
         <s:complexType>
           <s:sequence>
@@ -31,28 +122,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ListaDataSet">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="_dataSet">
-            <s:complexType>
-              <s:sequence>
-                <s:element ref="s:schema" />
-                <s:any />
-              </s:sequence>
-            </s:complexType>
-          </s:element>
-          <s:element minOccurs="0" maxOccurs="1" name="_error" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
-            <s:complexType>
-              <s:sequence>
-                <s:element ref="s:schema" />
-                <s:any />
-              </s:sequence>
-            </s:complexType>
-          </s:element>
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="ObtenerPiezasDespachoCamion">
         <s:complexType>
           <s:sequence>
@@ -239,46 +308,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPiezaTipoB">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PiezaTipoB" nillable="true" type="tns:PiezaTipoB" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="PiezaTipoB">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="EtiquetaLateral" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CantEtiq" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="PesoEtiq" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="FiguraB" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="PiezasXEtiq" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NroPaquetes" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Obra" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Figura" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Elemento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Plano" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Peso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Paquete" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Cantidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Diametro" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Largo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="CodigoIt" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Pieza" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ValoresVar" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdDetallePieza" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NroPiezasVAR" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Imagen" type="s:base64Binary" />
-          <s:element minOccurs="0" maxOccurs="1" name="Colada" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NroCertificado" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdForma" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="FueImpresa" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="OrdenCompra" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="ConsultarITRecepcion">
         <s:complexType>
           <s:sequence>
@@ -820,6 +849,22 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumenSMP_PorTurnoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenSMP_PorTurno_Totem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iFechaIni" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iFechaFin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iIdTotem" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenSMP_PorTurno_TotemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumenSMP_PorTurno_TotemResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1610,6 +1655,39 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PersistePesajeBM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iListBm" type="tns:ArrayOfTipoBasculaMovil" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTipoBasculaMovil">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoBasculaMovil" nillable="true" type="tns:TipoBasculaMovil" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoBasculaMovil">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPaquete" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaRegistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Turno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTotem" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdSucursal" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdDespachoCam" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersistePesajeBMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersistePesajeBMResult" type="tns:ArrayOfTipoBasculaMovil" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RevisaRN">
         <s:complexType>
           <s:sequence>
@@ -1998,37 +2076,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerViajesPorObra">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerViajesPorObraResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerViajesPorObraResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPiezasDespacho">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iCodViaje" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iIdIt" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPiezasDespachoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezasDespachoResult" type="tns:ArrayOfPiezaTipoB" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerViajesPorObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerViajesPorObra" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerViajesPorObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerViajesPorObraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezasDespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerPiezasDespacho" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezasDespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerPiezasDespachoResponse" />
+  </wsdl:message>
   <wsdl:message name="ValidarRNSoapIn">
     <wsdl:part name="parameters" element="tns:ValidarRN" />
   </wsdl:message>
@@ -2280,6 +2341,12 @@
   </wsdl:message>
   <wsdl:message name="ObtenerResumenSMP_PorTurnoSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorTurnoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumenSMP_PorTurno_TotemSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorTurno_Totem" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumenSMP_PorTurno_TotemSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorTurno_TotemResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerResumenSMP_PorSolIdSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerResumenSMP_PorSolId" />
@@ -2563,6 +2630,12 @@
   <wsdl:message name="ObtenerDatosPesajeCamionSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosPesajeCamionResponse" />
   </wsdl:message>
+  <wsdl:message name="PersistePesajeBMSoapIn">
+    <wsdl:part name="parameters" element="tns:PersistePesajeBM" />
+  </wsdl:message>
+  <wsdl:message name="PersistePesajeBMSoapOut">
+    <wsdl:part name="parameters" element="tns:PersistePesajeBMResponse" />
+  </wsdl:message>
   <wsdl:message name="RevisaRNSoapIn">
     <wsdl:part name="parameters" element="tns:RevisaRN" />
   </wsdl:message>
@@ -2701,19 +2774,15 @@
   <wsdl:message name="ObtenerTodasObrasVigentesSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerTodasObrasVigentesResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerViajesPorObraSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerViajesPorObra" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerViajesPorObraSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerViajesPorObraResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezasDespachoSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerPiezasDespacho" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezasDespachoSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerPiezasDespachoResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ObtenerViajesPorObra">
+      <wsdl:input message="tns:ObtenerViajesPorObraSoapIn" />
+      <wsdl:output message="tns:ObtenerViajesPorObraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezasDespacho">
+      <wsdl:input message="tns:ObtenerPiezasDespachoSoapIn" />
+      <wsdl:output message="tns:ObtenerPiezasDespachoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarRN">
       <wsdl:input message="tns:ValidarRNSoapIn" />
       <wsdl:output message="tns:ValidarRNSoapOut" />
@@ -2881,6 +2950,10 @@
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <wsdl:input message="tns:ObtenerResumenSMP_PorTurnoSoapIn" />
       <wsdl:output message="tns:ObtenerResumenSMP_PorTurnoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorTurno_Totem">
+      <wsdl:input message="tns:ObtenerResumenSMP_PorTurno_TotemSoapIn" />
+      <wsdl:output message="tns:ObtenerResumenSMP_PorTurno_TotemSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumenSMP_PorSolId">
       <wsdl:input message="tns:ObtenerResumenSMP_PorSolIdSoapIn" />
@@ -3070,6 +3143,10 @@
       <wsdl:input message="tns:ObtenerDatosPesajeCamionSoapIn" />
       <wsdl:output message="tns:ObtenerDatosPesajeCamionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PersistePesajeBM">
+      <wsdl:input message="tns:PersistePesajeBMSoapIn" />
+      <wsdl:output message="tns:PersistePesajeBMSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <wsdl:input message="tns:RevisaRNSoapIn" />
       <wsdl:output message="tns:RevisaRNSoapOut" />
@@ -3162,17 +3239,27 @@
       <wsdl:input message="tns:ObtenerTodasObrasVigentesSoapIn" />
       <wsdl:output message="tns:ObtenerTodasObrasVigentesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerViajesPorObra">
-      <wsdl:input message="tns:ObtenerViajesPorObraSoapIn" />
-      <wsdl:output message="tns:ObtenerViajesPorObraSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezasDespacho">
-      <wsdl:input message="tns:ObtenerPiezasDespachoSoapIn" />
-      <wsdl:output message="tns:ObtenerPiezasDespachoSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerViajesPorObra">
+      <soap:operation soapAction="http://tempuri.org/ObtenerViajesPorObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezasDespacho">
+      <soap:operation soapAction="http://tempuri.org/ObtenerPiezasDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarRN">
       <soap:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
       <wsdl:input>
@@ -3544,6 +3631,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <soap:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorTurno_Totem">
+      <soap:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno_Totem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3974,6 +4070,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PersistePesajeBM">
+      <soap:operation soapAction="http://tempuri.org/PersistePesajeBM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -4181,27 +4286,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerViajesPorObra">
-      <soap:operation soapAction="http://tempuri.org/ObtenerViajesPorObra" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezasDespacho">
-      <soap:operation soapAction="http://tempuri.org/ObtenerPiezasDespacho" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerViajesPorObra">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerViajesPorObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezasDespacho">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerPiezasDespacho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarRN">
       <soap12:operation soapAction="http://tempuri.org/ValidarRN" style="document" />
       <wsdl:input>
@@ -4573,6 +4678,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumenSMP_PorTurno">
       <soap12:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenSMP_PorTurno_Totem">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerResumenSMP_PorTurno_Totem" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5003,6 +5117,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PersistePesajeBM">
+      <soap12:operation soapAction="http://tempuri.org/PersistePesajeBM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap12:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -5203,24 +5326,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerTodasObrasVigentes">
       <soap12:operation soapAction="http://tempuri.org/ObtenerTodasObrasVigentes" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerViajesPorObra">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerViajesPorObra" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezasDespacho">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerPiezasDespacho" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

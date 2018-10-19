@@ -31,9 +31,9 @@ namespace Metalurgica.Bascula
             lSql = " select DES_CAM_ID IdDesp, DES_CAM_CAMION Patente, DES_CAM_FECHA, NroGuiaInet, Codigo, ";
             lSql = String.Concat(lSql, "(Select round(SUM(d.kgspaquete), 1)  from DetallePaquetesPieza d where d.IdViaje = v.Id) KgsCUB, ");
             lSql = String.Concat(lSql, "(Select a.AteProCan from TORRESOCARANZA.dbo.ATECLIEN A where a.ATENUM = NroGuiaInet ) KgsINET ,v.cuadradoConINET , '' GuiasCorr");
-            lSql = String.Concat(lSql, " from DESPACHO_CAMION  , Viaje v where DES_CAM_FECHA > '31/07/2018 23:59'  and (v.cuadradoConINET is null or v.cuadradoConINET<>'S') ");
+            lSql = String.Concat(lSql, " from DESPACHO_CAMION  , Viaje v where DES_CAM_FECHA > '30/09/2018 23:59' "); // and (v.cuadradoConINET is null or v.cuadradoConINET<>'S') ");
             lSql = String.Concat(lSql, " and DES_CAM_USUARIO not in ('cmamani','lyanez') and DES_CAM_ID not in (32862,33152) and v.IdDespachoCamion = DES_CAM_ID ");
-            lSql = String.Concat(lSql, " Order by  NroGuiaInet  , DES_CAM_FECHA,  DES_CAM_CAMION  ");
+            lSql = String.Concat(lSql, " and  NroGuiaInet<>0    Order by  NroGuiaInet  , DES_CAM_FECHA,  DES_CAM_CAMION  ");
 
            lDts = wsOperacion.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
