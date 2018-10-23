@@ -123,9 +123,10 @@ namespace Metalurgica
                                     //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
                                     lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
                                     lFechaMov = DateTime.Now.ToString();
-                                    lGlosa1 = Program.currentUser.Login;
-                                   // lGlosa2 = "06/10/2018 "; // ObtenerTurno();
-                                    lGlosa2 =  ObtenerTurno();
+                                    //lGlosa1 = Program.currentUser.Login;
+                                    lGlosa1 = "Adm (Cierre Administrativo)";
+                                   lGlosa2 = "22/10/2018 "; // ObtenerTurno();
+                                   // lGlosa2 =  ObtenerTurno();
 
                                     iFila = lTblINET.NewRow();
                                     iFila["Codigo"] = lCodigo;

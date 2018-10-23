@@ -354,7 +354,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>azJKDxEfJCTlXiLQU/Q/P7543Pw=</dsig:DigestValue>
+        <dsig:DigestValue>iJoYKSeM4I7vEsblXX68cGIsQdE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -391,13 +391,13 @@
       <dsig:DigestValue>9UF3lVXCk2ERqxrvvIT0wodbVPo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.exe" size="1581568">
+  <file name="bin\Debug\Metalurgica.exe" size="1582080">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>azJKDxEfJCTlXiLQU/Q/P7543Pw=</dsig:DigestValue>
+      <dsig:DigestValue>0IfVKIRRwAKRWSlgoz+bnDW5/TM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="bin\Debug\Metalurgica.pdb" size="2493952">
@@ -406,16 +406,16 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>gA8+oq6wBmD2HI30ugidMaMXS5o=</dsig:DigestValue>
+      <dsig:DigestValue>CGS7UfkQMZkwfIuSz2nHXY1kZs8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Metalurgica.exe.config" size="7447">
+  <file name="Metalurgica.exe.config" size="7445">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>HCgOV4MPACvyKPViI47nKgEVptc=</dsig:DigestValue>
+      <dsig:DigestValue>2j0LzzdYccuNvlNaVxCVSLm6Ym8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\to_do_list.png" size="742">

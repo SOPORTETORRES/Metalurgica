@@ -18,6 +18,7 @@ namespace Metalurgica.Bascula
         private int mIdPesajeCamion = 0;
         private int mToleranciaBascula = 0;
         private int mKilosCargadosCamion = 0;
+        private int mKilosCargadosCamionDesarrollo = 0;
         private string mIdCorrelativo = "";
         private DataTable mTblCamiones = new DataTable();
         private DataTable mTblCamionesDespachados = new DataTable();
@@ -29,6 +30,7 @@ namespace Metalurgica.Bascula
         private string mObsUserAutoriza = "";
         private double  mToteranciaExtra= 0;
         private Double mToleranciaReal = 0;
+        private Double mToleranciaRealDesa = 0;
         public Frm_PesajeCamion()
         {
             InitializeComponent();
@@ -785,6 +787,7 @@ namespace Metalurgica.Bascula
                     mIdPesajeCamion = int.Parse(lTbl.Rows[0]["IdPesajeCamion"].ToString());
                     Tx_IdCorrTara.Text = mIdPesajeCamion.ToString ();
                     mKilosCargadosCamion = int.Parse (lTbl.Rows[0]["KgsCargados"].ToString());
+                    mKilosCargadosCamionDesarrollo = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
                     Tx_Tara.ReadOnly = true;
                    
                 }
@@ -869,6 +872,7 @@ namespace Metalurgica.Bascula
             int lPesoBruto = int.Parse(ObtenerPesoBruto());
             int lPesoTara = int.Parse(Tx_Tara.Text);
             int lPesoGD = int.Parse(mKilosCargadosCamion.ToString());
+            int lPesoDesarrollo = int.Parse(mKilosCargadosCamionDesarrollo.ToString());
             int lPesoAdicional = lCom.Val(Tx_PesoAdicional.Text );
 
             //Peso Bruto
@@ -884,21 +888,31 @@ namespace Metalurgica.Bascula
             Tx_PesoSoloFierro.Text = (lCom.Val(Tx_PesoNeto.Text) - lCom.Val(Tx_PesoAdicional.Text)).ToString();
             //Peso Guia Despacho
             Tx_KgsCargados.Text = lPesoGD.ToString ();
-            //Diferencia Kg
-            lDiferencia =  lCom.Val(Tx_PesoSoloFierro.Text)- lPesoGD;
-            Tx_DiferenciaKilos.Text = lDiferencia.ToString ();
-            //Tolerancia Real
+            
             int lSoloFierro = int.Parse(Tx_PesoSoloFierro.Text);
+
+            //Datos del desarrollo
+            Tx_KgsDesarrollo.Text = lPesoDesarrollo.ToString ();
+            lDiferencia = lCom.Val(Tx_PesoSoloFierro.Text) - lPesoDesarrollo;
+            Tx_DifDesarrollo.Text = lDiferencia.ToString();
+            mToleranciaRealDesa = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
+            Tx_ToleranciaDesa.Text = Math.Round(mToleranciaRealDesa, 2).ToString();
+            
+
+            //Tolerancia Real
+            //Diferencia Kg
+            lDiferencia = lCom.Val(Tx_PesoSoloFierro.Text) - lPesoGD;
+            Tx_DiferenciaKilos.Text = lDiferencia.ToString();  //lPGD.ToString("N0");
             mToleranciaReal = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
             Tx_ToleranciaReal.Text = Math.Round(mToleranciaReal, 2).ToString();
-            if (mToleranciaReal > Double.Parse(Tx_ToleranciaBascula.Text))
-            {
-                Tx_Semaforo.BackColor = Color.Red;
-            }
-            else
-                Tx_Semaforo.BackColor = Color.Green;
+            //if ((Math.Abs (mToleranciaReal) < Double.Parse(Tx_ToleranciaBascula.Text)) || (Math.Abs(mToleranciaRealDesa) < Double.Parse(Tx_ToleranciaBascula.Text)))
+            //{
+            //    Tx_Semaforo.BackColor = Color.Green;
+            //}
+            //else
+            //     Tx_Semaforo.BackColor = Color.Red;
 
-            PintaSemaforo(mToleranciaReal, 0);
+            PintaSemaforo(mToleranciaReal, 0, mToleranciaRealDesa);
 
                 //Obtenemos el dato para el correo electronico
             Btn_PesoBruto.Tag = " ";
@@ -916,7 +930,7 @@ namespace Metalurgica.Bascula
 
         }
 
-        private void PintaSemaforo(double iTolCal, double iTolBascula)
+        private void PintaSemaforo(double iTolCal, double iTolBascula, double iTolDesa)
         {
             Color lColor = new Color();DataView lVista = null; Clases.ClsComun lCom = new Clases.ClsComun();
             double lTolSuperior = 0; double lTolInferior = 0;
@@ -937,24 +951,38 @@ namespace Metalurgica.Bascula
             }
             //Btn_Grabar.Enabled = false;
 
-            if (iTolCal > lTolSuperior)   // Esta por sobre la cota superior
+            if ((iTolCal < lTolSuperior) || (iTolDesa < lTolSuperior))   // Esta por sobre la cota superior
+                lColor = Color.Green ;
+            else
                 lColor = Color.Red;
 
-            if (iTolCal < lTolInferior)   // Esta por bajo la cota inferior
-                lColor = Color.Red;
 
-            if ((iTolCal < lTolSuperior) && (iTolCal > 0))   // Esta  entre 0 y 2 
+            if (lColor == Color.Red)
             {
-                lColor = Color.Yellow;
-                Btn_Grabar.Enabled = true;
+                if ((iTolCal < lTolInferior) || (iTolDesa < lTolInferior))    // Esta por bajo la cota inferior
+                    lColor = Color.Green;
+                else
+                    lColor = Color.Red;
             }
 
+            //if ((iTolCal < lTolSuperior) && (iTolCal > 0))   // Esta  entre 0 y 2 
+            //{
+            //    if ((iTolDesa < lTolSuperior) && (iTolDesa > 0))
+            //    {
+            //        lColor = Color.Yellow;
+            //        Btn_Grabar.Enabled = true;
+            //    }     
+            //}
 
-            if ((iTolCal > lTolInferior) && (iTolCal < 0))   // Esta  entre 0 y  -2 
-            {
-                lColor = Color.Green;
-                Btn_Grabar.Enabled = true;
-            }
+
+            //if ((iTolCal > lTolInferior) && (iTolCal < 0))   // Esta  entre 0 y  -2 
+            //{
+            //    if ((iTolDesa > lTolSuperior) && (iTolDesa > 0))
+            //    {
+            //        lColor = Color.Green;
+            //        Btn_Grabar.Enabled = true;
+            //    }
+            //}
                
 
             if ((iTolCal  == 0))   // Esta  entre 0 y  -2 
@@ -965,6 +993,11 @@ namespace Metalurgica.Bascula
 
 
             Tx_Semaforo.BackColor = lColor;
+
+            if (lColor == Color.Red)
+                Btn_Grabar.Enabled = false  ;
+            else
+                Btn_Grabar.Enabled = true;
 
 
         }
