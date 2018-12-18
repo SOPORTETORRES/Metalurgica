@@ -19,7 +19,7 @@ namespace Metalurgica
         private string mIdUser ="0";
         private string mIdEtiquetaColada = "0";
         private string mEstadoMaquina = "";
-        private string mIdNotificacion = "";
+        private string mIdNotificacion = "0";
         private string mMsgMaquina = "";
         private string mTipoAveria = "";
         DataTable mTblDatos = new DataTable();

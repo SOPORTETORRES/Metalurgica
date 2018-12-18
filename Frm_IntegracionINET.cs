@@ -63,7 +63,7 @@ namespace Metalurgica
         public void IniciaForm(string iEmpresa ,string iSoloCamionEnBascula)
         {
             mEmpresa = iEmpresa;
-            mSoloCamionesBascula = iSoloCamionEnBascula;
+            mSoloCamionesBascula = ConfigurationManager.AppSettings["SoloCamionesBascula"].ToString(); ;
             mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
             CargaCamiones(mSucursalTO , mEmpresa);
             Lbl_titulo.Text = string.Concat ("Este Formulario muestra la información de despacho de la empresa ",mEmpresa .ToUpper ());
@@ -334,6 +334,7 @@ namespace Metalurgica
                         //el objeto lListaOC entrega solo VIajes con un numero de OC, con lo cual las guias de reposición NO TENDRAN UNA OC
                         // Los viajes con Nro de OC pueden tener codigo de guia 330 Facturable, 333 facturable FE en punta
                        lListaOC= ObtenerGuiasPorOC();
+                        //MessageBox.Show("Despues de Obtener lListaOC");
                        for (i = 0; i < lListaOC.Count; i++)
                        {
                            lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);

@@ -20,7 +20,10 @@ namespace Metalurgica.Bascula
         private void Frm_PatentesBascula_Load(object sender, EventArgs e)
         {
             Gtg_Patentes.DataSource = mDatos;
-            Gtg_Patentes.Columns[0].Width = 70;
+            if (mDatos .Rows .Count >0 )
+            { 
+
+                Gtg_Patentes.Columns[0].Width = 70;
             Gtg_Patentes.Columns[1].Width = 70;
             Gtg_Patentes.Columns[2].Width = 60;
             Gtg_Patentes.Columns[3].Width = 40;
@@ -39,7 +42,7 @@ namespace Metalurgica.Bascula
             Gtg_Patentes.Columns[14].Visible = false;
             Gtg_Patentes.Columns[15].Visible = false;
             Gtg_Patentes.Columns[16].Visible = false;
-
+            }
         }
 
         public  void IniciaForm(DataTable iTbl)

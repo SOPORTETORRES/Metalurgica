@@ -44,7 +44,6 @@ namespace Metalurgica.Bascula
 
                 //}
 
-
                 dataGridView1.DataSource = lDts.Tables[0].Copy();
                 dataGridView1.Columns[0].Width = 60;
                 dataGridView1.Columns[1].Width = 60;
@@ -137,8 +136,8 @@ namespace Metalurgica.Bascula
                     lIdPesaje = lDts.Tables[0].Rows[0]["Id"].ToString();
                 }
 
-                    lSql = " SELECT distinct pc.IdCorrelativo,  Pc.id , pc.estado,pesobruto,pesotara , pesobruto-pesotara PasoBascula, SUM(pesoGuiaINET) KgsINT, ";
-                lSql = String.Concat(lSql, " (pesobruto-pesotara) -  SUM(pesoGuiaINET) Dif  ");
+                lSql = " SELECT distinct pc.IdCorrelativo,  Pc.id , pc.estado,pesobruto,pesotara , pesobruto-pesotara PasoBascula,"; // SUM(pesoGuiaINET) KgsINT, ";
+                lSql = String.Concat(lSql, "(select sum (pesoguiaINET) from DetallePesajeCamion d1 where d1.IdPesajeCamion =pc.Id )  KgsINT , (pesobruto-pesotara) - (select sum (pesoguiaINET) from DetallePesajeCamion d1 where d1.IdPesajeCamion =pc.Id ) Dif  ");
                 lSql = String.Concat(lSql, " FROM PesajeCamion pc, DetallePesajeCamion dpc  , DESPACHO_CAMION  , Viaje v   ");
                 lSql = String.Concat(lSql, " where  pc.id =dpc.IdPesajeCamion  and DES_CAM_ID =dpc .IdDespachoCamion  and DES_CAM_ID =v.IdDespachoCamion    ");
                 lSql = String.Concat(lSql, " and pc.id=", lIdPesaje) ;

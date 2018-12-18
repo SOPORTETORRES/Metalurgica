@@ -247,6 +247,24 @@ namespace Metalurgica.Clases
 
         }
 
+        public Boolean  EsFecha(string iValor)
+        {
+            Boolean iRes = true;DateTime lFecha    ;
+
+            //Sencillamente, si se logra hacer la conversión, entonces es fecha
+            try
+            {
+                lFecha = DateTime .Parse (iValor);
+            }
+            catch (Exception exc)  //caso contrario, es falso.
+            {
+                iRes = false;
+            }
+
+            return iRes;
+
+        }
+
         public string ParteEntera(string iValor)
         {
             string iRes = "";

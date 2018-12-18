@@ -68,6 +68,10 @@ namespace Metalurgica.Ws_TO {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         int ObtenerPesoBechtell(string iLargo, string iDiam, int iCant);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPesoPorObra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        int ObtenerPesoPorObra(string iLargo, string iDiam, int iCant, int iIdObra);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DelPiezaTipoB", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         int DelPiezaTipoB(string lArr, int iUser);
@@ -6274,6 +6278,8 @@ namespace Metalurgica.Ws_TO {
         
         private string ordenCompraField;
         
+        private string esVaPero_NoVaField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string id {
@@ -6643,6 +6649,18 @@ namespace Metalurgica.Ws_TO {
             set {
                 this.ordenCompraField = value;
                 this.RaisePropertyChanged("OrdenCompra");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
+        public string EsVaPero_NoVa {
+            get {
+                return this.esVaPero_NoVaField;
+            }
+            set {
+                this.esVaPero_NoVaField = value;
+                this.RaisePropertyChanged("EsVaPero_NoVa");
             }
         }
         
@@ -8686,6 +8704,8 @@ namespace Metalurgica.Ws_TO {
         
         private string tramaHilosField;
         
+        private string esVaPeroNoVaField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string IdPieza {
@@ -9043,6 +9063,18 @@ namespace Metalurgica.Ws_TO {
             set {
                 this.tramaHilosField = value;
                 this.RaisePropertyChanged("TramaHilos");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
+        public string EsVaPeroNoVa {
+            get {
+                return this.esVaPeroNoVaField;
+            }
+            set {
+                this.esVaPeroNoVaField = value;
+                this.RaisePropertyChanged("EsVaPeroNoVa");
             }
         }
         
@@ -9592,6 +9624,10 @@ namespace Metalurgica.Ws_TO {
         
         public int ObtenerPesoBechtell(string iLargo, string iDiam, int iCant) {
             return base.Channel.ObtenerPesoBechtell(iLargo, iDiam, iCant);
+        }
+        
+        public int ObtenerPesoPorObra(string iLargo, string iDiam, int iCant, int iIdObra) {
+            return base.Channel.ObtenerPesoPorObra(iLargo, iDiam, iCant, iIdObra);
         }
         
         public int DelPiezaTipoB(string lArr, int iUser) {

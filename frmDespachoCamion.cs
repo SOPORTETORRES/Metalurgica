@@ -235,6 +235,7 @@ namespace Metalurgica
                         foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
                         {
                             //Solo se deben procersar las que tienen el campo Estado1=POK
+                            // y las que estan marcadas como Va pero No Va
                             lEstado = row.Cells["ESTADO1"].Value.ToString();
                             if (lEstado.ToString().Equals("POK"))
                             {
@@ -243,6 +244,17 @@ namespace Metalurgica
                                 lFila["colada"] = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
                                 lFila["etiqueta_pieza"] = row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString();
                                 lTbl.Rows.Add(lFila);
+                            }
+                            else
+                            {
+                                if (row.Cells["NOVA"].Value.ToString().ToUpper().Equals("S"))
+                                {
+                                    lFila = lTbl.NewRow();
+                                    lFila["usuario"] = Program.currentUser.Login;
+                                    lFila["colada"] = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
+                                    lFila["etiqueta_pieza"] = row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString();
+                                    lTbl.Rows.Add(lFila);
+                                }
                             }
                         }
                         lDtsDatos.Tables.Add(lTbl);
@@ -734,8 +746,9 @@ namespace Metalurgica
                 dgvEtiquetasPiezas.Columns["IdRespuestaInet"].Visible = false;
                 dgvEtiquetasPiezas.Columns["Patente"].Visible = false;
                 dgvEtiquetasPiezas.Columns["IdDespachoCamion"].Visible = false;
+            dgvEtiquetasPiezas.Columns["NoVa"].Visible = false;
 
-                dgvEtiquetasPiezas.Columns["Diametro"].Width = 50;
+            dgvEtiquetasPiezas.Columns["Diametro"].Width = 50;
                 dgvEtiquetasPiezas.Columns["Codigo"].Width = 60;
                 dgvEtiquetasPiezas.Columns["Estado"].Width = 50;
                 dgvEtiquetasPiezas.Columns["NroPaq"].Width = 50;
@@ -768,12 +781,7 @@ namespace Metalurgica
           //  dgvEtiquetasPiezas.Columns["Elemento"].Visible = false;
           //  dgvEtiquetasPiezas.Columns["Plano"].Visible = false;
 
-          ////  dgvEtiquetasPiezas.Columns["paquete"].Visible = false;
-          //  dgvEtiquetasPiezas.Columns["CodigoIt"].Visible = false;
-          //  dgvEtiquetasPiezas.Columns["Orden"].Visible = false;
-          //  dgvEtiquetasPiezas.Columns["Pieza"].Visible = false;
-          //  dgvEtiquetasPiezas.Columns["NroCertificado"].Visible = false;
-          //  dgvEtiquetasPiezas.Columns["Colada"].Visible = false;
+
 
         }
 
@@ -786,6 +794,7 @@ namespace Metalurgica
             DataTable lTblDatos = new DataTable(); int k = 0; DataView lVista = null; string lCodigo = "";
             string lWheres = ""; DataRow lFila = null; Clases.ClsComun lCom = new Clases.ClsComun();
             double lKilosDesa = 0; double lKilosViaje = 0; double lPiezasViaje = 0;double lAvance = 0;
+            double lKilosNoVa = 0;
             try
             {
 
@@ -802,6 +811,7 @@ namespace Metalurgica
                 mTblResumenDespacho.Columns.Add("Kgs. Teorico", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Kgs. Desa", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Kgs. Cargados", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Kgs. NoVa", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Avance", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("KgsXCargar", Type.GetType("System.String"));
 
@@ -827,6 +837,11 @@ namespace Metalurgica
                                     lKilosCargados = lKilosCargados + int.Parse(lVista[k]["KgsPaquete1"].ToString());
                                     lPiezasCargadas = lPiezasCargadas + int.Parse(lVista[k]["NroPiezas"].ToString());
                                 }
+                                if (lVista[k]["NoVa"].ToString().ToUpper ().Equals ("S"))
+                                {
+                                    lKilosNoVa= lKilosNoVa+ lCom.Val(lVista[k]["KgsPaquete1"].ToString());
+                                }
+                                
                             }
                             //  lPesoGuia = lPbascula.ToString("N0");
                             lFila = mTblResumenDespacho.NewRow();
@@ -837,13 +852,15 @@ namespace Metalurgica
                             lFila["Kgs. Cargados"] = lKilosCargados;
                             lAvance = Math.Round((lKilosCargados / lKilosViaje) * 100, 2);
                             lFila["Avance"] = lAvance;
-                            lAvance = lKilosViaje - lKilosCargados;
+                            lAvance = lKilosViaje - lKilosCargados- lKilosNoVa;
                             lFila["KgsXCargar"] = lAvance;
+                            lFila["Kgs. NoVa"] = lKilosNoVa;
                             mTblResumenDespacho.Rows.Add(lFila);
                         }
                     }
                 }
                 double lTotalDesa = 0; double lTotlaKilosViaje = 0; double lTotalPiezasViaje = 0; double lTotalKgsCargados = 0;
+                double lTotal_NOVA = 0;
                 for (i = 0; i < mTblResumenDespacho.Rows.Count; i++)
                 {
                     lTotlaKilosViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Teorico"].ToString()) + lTotlaKilosViaje;
@@ -851,6 +868,8 @@ namespace Metalurgica
 
                     lTotalPiezasViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Nro.Piezas"].ToString()) + lTotalPiezasViaje;
                     lTotalKgsCargados = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Cargados"].ToString()) + lTotalKgsCargados;
+
+                    lTotal_NOVA= lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. NoVa"].ToString()) + lTotal_NOVA;
                 }
 
                 lFila = mTblResumenDespacho.NewRow();
@@ -862,8 +881,9 @@ namespace Metalurgica
                 lFila["Avance"] = "";
                 lAvance = Math.Round((lTotalKgsCargados / lTotlaKilosViaje) * 100, 2);
                 lFila["Avance"] = lAvance;
-                lAvance = lTotlaKilosViaje - lTotalKgsCargados;
+                lAvance = lTotlaKilosViaje - lTotalKgsCargados- lTotal_NOVA;
                 lFila["KgsXCargar"] = lAvance;//.ToString("N0");
+                lFila["Kgs. NoVa"] = lTotal_NOVA;
 
                 mTblResumenDespacho.Rows.Add(lFila);
 
@@ -887,21 +907,24 @@ namespace Metalurgica
 
         private void FormateaGrilla()
         {
-            Dtg_ResumenCarga.Columns["Viaje"].Width = 70;
+            Dtg_ResumenCarga.Columns["Viaje"].Width = 60;
 
-            Dtg_ResumenCarga.Columns["Nro.Piezas"].Width = 65;
+            Dtg_ResumenCarga.Columns["Nro.Piezas"].Width = 60;
             Dtg_ResumenCarga.Columns["Nro.Piezas"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            Dtg_ResumenCarga.Columns["Kgs. Teorico"].Width = 65;
+            Dtg_ResumenCarga.Columns["Kgs. Teorico"].Width = 60;
             //Dtg_ResumenCarga.Columns["Kgs. Teorico"].DefaultCellStyle.Format = "N0";
             Dtg_ResumenCarga.Columns["Kgs. Teorico"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            Dtg_ResumenCarga.Columns["Kgs. Desa"].Width = 65;
+            Dtg_ResumenCarga.Columns["Kgs. Desa"].Width = 60;
             Dtg_ResumenCarga.Columns["Kgs. Desa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            Dtg_ResumenCarga.Columns["Kgs. Cargados"].Width = 65;
+            Dtg_ResumenCarga.Columns["Kgs. Cargados"].Width = 60;
             Dtg_ResumenCarga.Columns["Kgs. Cargados"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            Dtg_ResumenCarga.Columns["Avance"].Width = 60;
+            Dtg_ResumenCarga.Columns["Avance"].Width = 50;
             Dtg_ResumenCarga.Columns["Avance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            Dtg_ResumenCarga.Columns["KgsXCargar"].Width = 67;
+            Dtg_ResumenCarga.Columns["KgsXCargar"].Width = 70;
             Dtg_ResumenCarga.Columns["KgsXCargar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            Dtg_ResumenCarga.Columns["Kgs. NoVa"].Width = 70;
+            Dtg_ResumenCarga.Columns["Kgs. NoVa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             Dtg_ResumenCarga.RowHeadersVisible = false;
             int i = 0;int XCArgar = 0; int Cargado = 0;
 
@@ -943,6 +966,7 @@ namespace Metalurgica
                         //Dtg_Resultado.Rows[i].Cells["Codigo"].Style.BackColor = Color.LightGreen;
                         break;
                     case "":
+                        PintaFila(i, Color.Yellow );
                         if (tlbGuardar.Enabled == true)
                                 this.tlbGuardar.Enabled = true;
 
@@ -958,6 +982,11 @@ namespace Metalurgica
                         this.tlbGuardar.Enabled = false;
                         break;
                     
+                }
+                //Cuando el un Va pero No Va se debe indicar en campo Estado2
+                if (dgvEtiquetasPiezas.Rows[i].Cells["NoVa"].Value.ToString().ToUpper().Equals("S"))
+                {
+                    dgvEtiquetasPiezas.Rows[i].Cells["Etiqueta_Colada"].Style.BackColor = Color.Red   ;
                 }
             }
         }
@@ -1398,8 +1427,9 @@ namespace Metalurgica
             int i = 0; int j = 0; int lIdPaquete = 0;
             try
                 {
-                iTbl.Columns.Add("Imagen", System.Type.GetType("System.Byte[]")); 
-            for (i = 0; i < iTbl.Rows .Count  ; i++)
+                iTbl.Columns.Add("Imagen", System.Type.GetType("System.Byte[]"));
+                iTbl.Columns.Add("NoVa", System.Type.GetType("System.String"));
+                for (i = 0; i < iTbl.Rows .Count  ; i++)
             {
                 lIdPaquete = int.Parse (iTbl.Rows[i]["ETIQUETA_PIEZA"].ToString ());
                 for (j = 0; j < lLista.Length ; j++)
@@ -1408,6 +1438,7 @@ namespace Metalurgica
                         {
                             iTbl.Rows[i]["ETIQUETA_COLADA"] = lLista[j].EtiquetaLateral ;
                             iTbl.Rows[i]["Imagen"] = lLista[j].Imagen ;
+                            iTbl.Rows[i]["NoVa"] = lLista[j].EsVaPero_NoVa;
                             break;
                         } 
                 } 
@@ -1511,6 +1542,11 @@ namespace Metalurgica
                 lbl_NroPiezasCar.Text = lNroPiezas.ToString();
                 lbl_TotalKgsCar.Text = lTotalKgs.ToString();
                 lbl_TotalPaqCar.Text = lTotalPaq.ToString();
+            }
+            
+            for (i = 0; i < dgvEtiquetasPiezas.RowCount; i++)
+            {
+                dgvEtiquetasPiezas.Rows[i].Height = 100;
             }
         }
 

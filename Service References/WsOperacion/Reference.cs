@@ -16,6 +16,14 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VbDespachoCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTodasObrasVigentes", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerTodasObrasVigentes();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerViajesPorObra", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerViajesPorObra(string iIdObra);
@@ -364,6 +372,14 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerCamionesEnPlanta();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetallePesaje", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetallePesaje(string iIdDetalleP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SacarITDespacho", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet SacarITDespacho(string iIdDetalleP, string iCodigo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EliminaRegistroCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet EliminaRegistroCamion(string iIdPesaje);
@@ -471,14 +487,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VbDespachoCamion", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerTodasObrasVigentes", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerTodasObrasVigentes();
     }
     
     /// <remarks/>
@@ -487,54 +495,166 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ListaDataSet : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Despacho_Camion : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private System.Data.DataSet _dataSetField;
+        private int idField;
         
-        private string _errorField;
+        private string camionField;
         
-        private System.Data.DataSet dataSetField;
+        private string obra_DestinoField;
+        
+        private string usuarioField;
+        
+        private System.DateTime fechaField;
+        
+        private string obsField;
+        
+        private string usuario_VbField;
+        
+        private System.DateTime fecha_VbField;
+        
+        private string obs_VbField;
+        
+        private string codigoViajeField;
+        
+        private TipoDetallePaquetesPieza[] listaPaquetesField;
         
         private string mensajeErrorField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public System.Data.DataSet _dataSet {
+        public int Id {
             get {
-                return this._dataSetField;
+                return this.idField;
             }
             set {
-                this._dataSetField = value;
-                this.RaisePropertyChanged("_dataSet");
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string _error {
+        public string Camion {
             get {
-                return this._errorField;
+                return this.camionField;
             }
             set {
-                this._errorField = value;
-                this.RaisePropertyChanged("_error");
+                this.camionField = value;
+                this.RaisePropertyChanged("Camion");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public System.Data.DataSet DataSet {
+        public string Obra_Destino {
             get {
-                return this.dataSetField;
+                return this.obra_DestinoField;
             }
             set {
-                this.dataSetField = value;
-                this.RaisePropertyChanged("DataSet");
+                this.obra_DestinoField = value;
+                this.RaisePropertyChanged("Obra_Destino");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string Usuario {
+            get {
+                return this.usuarioField;
+            }
+            set {
+                this.usuarioField = value;
+                this.RaisePropertyChanged("Usuario");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public System.DateTime Fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+                this.RaisePropertyChanged("Fecha");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string Obs {
+            get {
+                return this.obsField;
+            }
+            set {
+                this.obsField = value;
+                this.RaisePropertyChanged("Obs");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string Usuario_Vb {
+            get {
+                return this.usuario_VbField;
+            }
+            set {
+                this.usuario_VbField = value;
+                this.RaisePropertyChanged("Usuario_Vb");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public System.DateTime Fecha_Vb {
+            get {
+                return this.fecha_VbField;
+            }
+            set {
+                this.fecha_VbField = value;
+                this.RaisePropertyChanged("Fecha_Vb");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string Obs_Vb {
+            get {
+                return this.obs_VbField;
+            }
+            set {
+                this.obs_VbField = value;
+                this.RaisePropertyChanged("Obs_Vb");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public string CodigoViaje {
+            get {
+                return this.codigoViajeField;
+            }
+            set {
+                this.codigoViajeField = value;
+                this.RaisePropertyChanged("CodigoViaje");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=10)]
+        public TipoDetallePaquetesPieza[] ListaPaquetes {
+            get {
+                return this.listaPaquetesField;
+            }
+            set {
+                this.listaPaquetesField = value;
+                this.RaisePropertyChanged("ListaPaquetes");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public string MensajeError {
             get {
                 return this.mensajeErrorField;
@@ -542,6 +662,178 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.mensajeErrorField = value;
                 this.RaisePropertyChanged("MensajeError");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class TipoDetallePaquetesPieza : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int idPiezaField;
+        
+        private int idMovField;
+        
+        private int nroPaqField;
+        
+        private int totalPaqField;
+        
+        private int nroPiezasField;
+        
+        private double kgsPaqueteField;
+        
+        private string estadoField;
+        
+        private int oPCIONField;
+        
+        private string errField;
+        
+        private string etiquetaField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int IdPieza {
+            get {
+                return this.idPiezaField;
+            }
+            set {
+                this.idPiezaField = value;
+                this.RaisePropertyChanged("IdPieza");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int IdMov {
+            get {
+                return this.idMovField;
+            }
+            set {
+                this.idMovField = value;
+                this.RaisePropertyChanged("IdMov");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public int NroPaq {
+            get {
+                return this.nroPaqField;
+            }
+            set {
+                this.nroPaqField = value;
+                this.RaisePropertyChanged("NroPaq");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int TotalPaq {
+            get {
+                return this.totalPaqField;
+            }
+            set {
+                this.totalPaqField = value;
+                this.RaisePropertyChanged("TotalPaq");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int NroPiezas {
+            get {
+                return this.nroPiezasField;
+            }
+            set {
+                this.nroPiezasField = value;
+                this.RaisePropertyChanged("NroPiezas");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public double KgsPaquete {
+            get {
+                return this.kgsPaqueteField;
+            }
+            set {
+                this.kgsPaqueteField = value;
+                this.RaisePropertyChanged("KgsPaquete");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public string Estado {
+            get {
+                return this.estadoField;
+            }
+            set {
+                this.estadoField = value;
+                this.RaisePropertyChanged("Estado");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public int OPCION {
+            get {
+                return this.oPCIONField;
+            }
+            set {
+                this.oPCIONField = value;
+                this.RaisePropertyChanged("OPCION");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public string Err {
+            get {
+                return this.errField;
+            }
+            set {
+                this.errField = value;
+                this.RaisePropertyChanged("Err");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public string Etiqueta {
+            get {
+                return this.etiquetaField;
+            }
+            set {
+                this.etiquetaField = value;
+                this.RaisePropertyChanged("Etiqueta");
             }
         }
         
@@ -2457,364 +2749,6 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class TipoDetallePaquetesPieza : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private int idField;
-        
-        private int idPiezaField;
-        
-        private int idMovField;
-        
-        private int nroPaqField;
-        
-        private int totalPaqField;
-        
-        private int nroPiezasField;
-        
-        private double kgsPaqueteField;
-        
-        private string estadoField;
-        
-        private int oPCIONField;
-        
-        private string errField;
-        
-        private string etiquetaField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public int Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-                this.RaisePropertyChanged("Id");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public int IdPieza {
-            get {
-                return this.idPiezaField;
-            }
-            set {
-                this.idPiezaField = value;
-                this.RaisePropertyChanged("IdPieza");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public int IdMov {
-            get {
-                return this.idMovField;
-            }
-            set {
-                this.idMovField = value;
-                this.RaisePropertyChanged("IdMov");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public int NroPaq {
-            get {
-                return this.nroPaqField;
-            }
-            set {
-                this.nroPaqField = value;
-                this.RaisePropertyChanged("NroPaq");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public int TotalPaq {
-            get {
-                return this.totalPaqField;
-            }
-            set {
-                this.totalPaqField = value;
-                this.RaisePropertyChanged("TotalPaq");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public int NroPiezas {
-            get {
-                return this.nroPiezasField;
-            }
-            set {
-                this.nroPiezasField = value;
-                this.RaisePropertyChanged("NroPiezas");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public double KgsPaquete {
-            get {
-                return this.kgsPaqueteField;
-            }
-            set {
-                this.kgsPaqueteField = value;
-                this.RaisePropertyChanged("KgsPaquete");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
-        public string Estado {
-            get {
-                return this.estadoField;
-            }
-            set {
-                this.estadoField = value;
-                this.RaisePropertyChanged("Estado");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
-        public int OPCION {
-            get {
-                return this.oPCIONField;
-            }
-            set {
-                this.oPCIONField = value;
-                this.RaisePropertyChanged("OPCION");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
-        public string Err {
-            get {
-                return this.errField;
-            }
-            set {
-                this.errField = value;
-                this.RaisePropertyChanged("Err");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
-        public string Etiqueta {
-            get {
-                return this.etiquetaField;
-            }
-            set {
-                this.etiquetaField = value;
-                this.RaisePropertyChanged("Etiqueta");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Despacho_Camion : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private int idField;
-        
-        private string camionField;
-        
-        private string obra_DestinoField;
-        
-        private string usuarioField;
-        
-        private System.DateTime fechaField;
-        
-        private string obsField;
-        
-        private string usuario_VbField;
-        
-        private System.DateTime fecha_VbField;
-        
-        private string obs_VbField;
-        
-        private string codigoViajeField;
-        
-        private TipoDetallePaquetesPieza[] listaPaquetesField;
-        
-        private string mensajeErrorField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public int Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-                this.RaisePropertyChanged("Id");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Camion {
-            get {
-                return this.camionField;
-            }
-            set {
-                this.camionField = value;
-                this.RaisePropertyChanged("Camion");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public string Obra_Destino {
-            get {
-                return this.obra_DestinoField;
-            }
-            set {
-                this.obra_DestinoField = value;
-                this.RaisePropertyChanged("Obra_Destino");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public string Usuario {
-            get {
-                return this.usuarioField;
-            }
-            set {
-                this.usuarioField = value;
-                this.RaisePropertyChanged("Usuario");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public System.DateTime Fecha {
-            get {
-                return this.fechaField;
-            }
-            set {
-                this.fechaField = value;
-                this.RaisePropertyChanged("Fecha");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public string Obs {
-            get {
-                return this.obsField;
-            }
-            set {
-                this.obsField = value;
-                this.RaisePropertyChanged("Obs");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public string Usuario_Vb {
-            get {
-                return this.usuario_VbField;
-            }
-            set {
-                this.usuario_VbField = value;
-                this.RaisePropertyChanged("Usuario_Vb");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
-        public System.DateTime Fecha_Vb {
-            get {
-                return this.fecha_VbField;
-            }
-            set {
-                this.fecha_VbField = value;
-                this.RaisePropertyChanged("Fecha_Vb");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
-        public string Obs_Vb {
-            get {
-                return this.obs_VbField;
-            }
-            set {
-                this.obs_VbField = value;
-                this.RaisePropertyChanged("Obs_Vb");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
-        public string CodigoViaje {
-            get {
-                return this.codigoViajeField;
-            }
-            set {
-                this.codigoViajeField = value;
-                this.RaisePropertyChanged("CodigoViaje");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=10)]
-        public TipoDetallePaquetesPieza[] ListaPaquetes {
-            get {
-                return this.listaPaquetesField;
-            }
-            set {
-                this.listaPaquetesField = value;
-                this.RaisePropertyChanged("ListaPaquetes");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
-        public string MensajeError {
-            get {
-                return this.mensajeErrorField;
-            }
-            set {
-                this.mensajeErrorField = value;
-                this.RaisePropertyChanged("MensajeError");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class PiezaTipoB : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string idField;
@@ -3261,6 +3195,80 @@ namespace Metalurgica.WsOperacion {
         }
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ListaDataSet : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Data.DataSet _dataSetField;
+        
+        private string _errorField;
+        
+        private System.Data.DataSet dataSetField;
+        
+        private string mensajeErrorField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public System.Data.DataSet _dataSet {
+            get {
+                return this._dataSetField;
+            }
+            set {
+                this._dataSetField = value;
+                this.RaisePropertyChanged("_dataSet");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string _error {
+            get {
+                return this._errorField;
+            }
+            set {
+                this._errorField = value;
+                this.RaisePropertyChanged("_error");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public System.Data.DataSet DataSet {
+            get {
+                return this.dataSetField;
+            }
+            set {
+                this.dataSetField = value;
+                this.RaisePropertyChanged("DataSet");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string MensajeError {
+            get {
+                return this.mensajeErrorField;
+            }
+            set {
+                this.mensajeErrorField = value;
+                this.RaisePropertyChanged("MensajeError");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface OperacionSoapChannel : Metalurgica.WsOperacion.OperacionSoap, System.ServiceModel.IClientChannel {
     }
@@ -3286,6 +3294,14 @@ namespace Metalurgica.WsOperacion {
         
         public OperacionSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal) {
+            return base.Channel.VbDespachoCamion(idDespacho, usuario, obs, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerTodasObrasVigentes() {
+            return base.Channel.ObtenerTodasObrasVigentes();
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerViajesPorObra(string iIdObra) {
@@ -3636,6 +3652,14 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerCamionesEnPlanta();
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetallePesaje(string iIdDetalleP) {
+            return base.Channel.ObtenerDetallePesaje(iIdDetalleP);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet SacarITDespacho(string iIdDetalleP, string iCodigo) {
+            return base.Channel.SacarITDespacho(iIdDetalleP, iCodigo);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet EliminaRegistroCamion(string iIdPesaje) {
             return base.Channel.EliminaRegistroCamion(iIdPesaje);
         }
@@ -3742,14 +3766,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha) {
             return base.Channel.ListarDespachoCamion(fecha);
-        }
-        
-        public Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal) {
-            return base.Channel.VbDespachoCamion(idDespacho, usuario, obs, terminal);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerTodasObrasVigentes() {
-            return base.Channel.ObtenerTodasObrasVigentes();
         }
     }
 }

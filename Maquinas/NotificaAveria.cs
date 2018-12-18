@@ -16,6 +16,7 @@ namespace Metalurgica.Maquinas
         private string mIdMaquina = "";
         private string mTipoNotificacion = "";
         private string mIdMecanico = "";
+        private string mIdSucursal = "";
         private string mTipoAveria = "";
         private string mIdAveria = "";
         private Clases.Obj.Obj_ElementoProd mObjEP = new Clases.Obj.Obj_ElementoProd();
@@ -686,7 +687,8 @@ namespace Metalurgica.Maquinas
             AppDomain.CurrentDomain.SetData("TipoAveria","EP") ;
             mUserLog = iUser;
             mIdMaquina = mUserLog.IdMaquina.ToString () ;
-            mIdMecanico = iUser.Iduser;           
+            mIdMecanico = iUser.Iduser;
+            mIdSucursal = ObtenerIdSucursalActual();
         }
 
         public void IniciaFormElementoProd(Clases .Obj.Obj_ElementoProd  iObj)
@@ -738,7 +740,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaSolucionAveria()
         {
-            string lTipoNot = "";
+            string lTipoNot = ""; int idListadistribucion = 0;
             try
             {
                 if (DatosOKParaGrabar("SA") == true)
@@ -765,7 +767,15 @@ namespace Metalurgica.Maquinas
                         //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                         lTxMsg = ObtenerCuerpoMailSolucionAveria();
                         lTitulo = "Notificación por Solución  de Averias: ";
-                        lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
+
+                        if (mIdSucursal.Equals("1")) // es Calama
+                            idListadistribucion = -11;
+
+                        if (mIdSucursal.Equals("4")) // es Calama
+                            idListadistribucion = -10;
+
+                        lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
+                        //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
                         if (lRes.ToUpper().Equals("OK"))
                         {
                             lMsg = "La Solución  de Averia fue procesada  correctamente";
@@ -819,6 +829,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaLiberacionAveria()
         {
+            int idListadistribucion = 0;
             try
             { 
 
@@ -850,7 +861,16 @@ namespace Metalurgica.Maquinas
                     //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                     lTxMsg = ObtenerCuerpoMailSolucionAveria();
                     lTitulo = "Notificación por Solución  de Averias: ";
-                    lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
+
+                        if (mIdSucursal.Equals("1")) // es Calama
+                            idListadistribucion = -11;
+
+                        if (mIdSucursal.Equals("4")) // es Calama
+                            idListadistribucion = -10;
+
+                        lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
+
+                        //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
                     if (lRes.ToUpper().Equals("OK"))
                     {
                         lMsg = "La Solución  de Averia fue procesada  correctamente";
@@ -897,6 +917,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaNotificacionAveria()
         {
+            int idListadistribucion = 0;
             if (DatosOKParaGrabar("NA") == true)
             {
                 string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
@@ -921,7 +942,23 @@ namespace Metalurgica.Maquinas
                     //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                     lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria);
                     lTitulo = "Notificación por Notificación de Averias: ";
-                    lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
+
+                    if (mIdSucursal.Equals("1")) // es Calama
+                    {
+                        idListadistribucion = -11;
+                        lTitulo = "Notificación de Averias Planta Calama ";
+                    }
+
+
+                    if (mIdSucursal.Equals("4")) // es Santiago
+                    {
+                        idListadistribucion = -10;
+                        lTitulo = "Notificación de Averias Planta Vista Clara, Santiago ";
+                    }
+                        
+
+                    lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
+                    //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
                     if (lRes.ToUpper().Equals("OK"))
                     {
                         lMsg = "La Notificación de Averia fue procesada  correctamente, Se enviara un mail para que se gestione la reparación de la Averia";
@@ -968,6 +1005,17 @@ namespace Metalurgica.Maquinas
                 Rb_Averia.Enabled = true;
             }
         }
+
+
+        private string ObtenerIdSucursalActual()
+        {
+            string lIdSucursal = "0";
+
+             lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+
+            return lIdSucursal;
+        }
+
 
         #region Notificación elemento de Produccion
         private void CargarDatosNotificacionAveria_EP()

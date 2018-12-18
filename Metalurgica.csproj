@@ -149,6 +149,12 @@
     <Compile Include="Bascula\Frm_VerBascula.Designer.cs">
       <DependentUpon>Frm_VerBascula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bascula\Frm_VerDetallePesaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerDetallePesaje.Designer.cs">
+      <DependentUpon>Frm_VerDetallePesaje.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clases\ClsComun.cs" />
     <Compile Include="Clases\ObjetoWsINET.cs" />
     <Compile Include="Clases\Obj\Obj_ElementoProd.cs" />
@@ -161,6 +167,18 @@
       <DependentUpon>FrmGeneraCode128.cs</DependentUpon>
     </Compile>
     <Compile Include="Compilaciones\NuevasVersiones.cs" />
+    <Compile Include="Conectores\Frm_CuadroProgramacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Conectores\Frm_CuadroProgramacion.Designer.cs">
+      <DependentUpon>Frm_CuadroProgramacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Conectores\Frm_ProduccionConectores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Conectores\Frm_ProduccionConectores.Designer.cs">
+      <DependentUpon>Frm_ProduccionConectores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consignacion\Frm_Consignacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -470,6 +488,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Px_Conectores\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Px_GuiaDespacho\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -595,8 +618,17 @@
     <EmbeddedResource Include="Bascula\Frm_VerBascula.resx">
       <DependentUpon>Frm_VerBascula.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_VerDetallePesaje.resx">
+      <DependentUpon>Frm_VerDetallePesaje.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Code128\FrmGeneraCode128.resx">
       <DependentUpon>FrmGeneraCode128.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Conectores\Frm_CuadroProgramacion.resx">
+      <DependentUpon>Frm_CuadroProgramacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Conectores\Frm_ProduccionConectores.resx">
+      <DependentUpon>Frm_ProduccionConectores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Consignacion\Frm_Consignacion.resx">
       <DependentUpon>Frm_Consignacion.cs</DependentUpon>
@@ -856,6 +888,10 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Coladas_Px_WS_Ws_To\Ws_To.wsdl" />
+    <None Include="Service References\Px_Conectores\Metalurgica.Px_Conectores.ListaDataSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Px_Conectores\Ws_Conectores.wsdl" />
     <None Include="Service References\Px_GuiaDespacho\Metalurgica.Px_GuiaDespacho.SDT_ERRORES_ERROR.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -987,6 +1023,13 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\Px_Conectores\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_Conectores\configuration.svcinfo" />
+    <None Include="Service References\Px_Conectores\configuration91.svcinfo" />
+    <None Include="Service References\Px_Conectores\Ws_Conectores.disco" />
     <None Include="Service References\Ws_TO\Ws_To1.disco" />
     <None Include="Service References\WsSesion\WS_Sesion1.disco" />
     <None Include="Service References\Ws_TO\Reference.svcmap">
@@ -1079,6 +1122,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Coladas_Px_WS_Ws_To\" />
+    <WCFMetadataStorage Include="Service References\Px_Conectores\" />
     <WCFMetadataStorage Include="Service References\Px_GuiaDespacho\" />
     <WCFMetadataStorage Include="Service References\Px_GuiaTOSOL\" />
     <WCFMetadataStorage Include="Service References\Px_INET\" />
@@ -1104,7 +1148,7 @@
       <Name>comunes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Integracion_INET\Integracion_INET\Integracion_INET.vbproj">
-      <Project>{76C114FE-EEA8-49FB-9CC9-F8F59EBA3CA1}</Project>
+      <Project>{76c114fe-eea8-49fb-9cc9-f8f59eba3ca1}</Project>
       <Name>Integracion_INET</Name>
     </ProjectReference>
   </ItemGroup>

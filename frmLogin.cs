@@ -151,8 +151,8 @@ namespace Metalurgica
                             Program.currentUser.DescripcionMaq = ObtenerDescripcionMaquina(Program.currentUser.IdMaquina.ToString ());
 
                             Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
-
-                            ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName .ToString());
+                            if (Program.currentUser.Machine==2)
+                                     ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName .ToString());
 
                             //ObtenerPerfilUsuario
                             logon = true;
@@ -367,7 +367,10 @@ namespace Metalurgica
             //Clases.ClsComun lComun = new Clases.ClsComun();
             //string lParam= Application.StartupPath;
             //lComun.EjecutaShell(lParam);
-            Bascula.Frm_DetalleGrabacion lFrm = new Bascula.Frm_DetalleGrabacion();
+            //Bascula.Frm_DetalleGrabacion lFrm = new Bascula.Frm_DetalleGrabacion();
+            //lFrm.ShowDialog();
+
+            Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
             lFrm.ShowDialog();
 
         }
@@ -380,8 +383,11 @@ namespace Metalurgica
             ////lPar = string.Concat(Lbl_Viajes.Text, "|", lIdObra, "|", lSucursal, "|", idDespacho);
             //Clases.ClsComun lLog = new Clases.ClsComun();
             //lLog.EjecutaShell(Application.StartupPath, lPar);
-            Produccion.CargaEstadisticasMaq lfr = new Produccion.CargaEstadisticasMaq();
-            lfr.Show();
+            //Produccion.CargaEstadisticasMaq lfr = new Produccion.CargaEstadisticasMaq();
+            //lfr.Show();
+
+            Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
+            lFrm.ShowDialog();
 
         }
 

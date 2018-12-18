@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://torresOcaranza.cl/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://torresOcaranza.cl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://torresOcaranza.cl/">
+      <s:element name="NroConectoresPorDia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NroConectoresPorDiaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NroConectoresPorDiaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalleConectoresPorDia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DetalleConectoresPorDiaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalleConectoresPorDiaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListaDataSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="_dataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="NroConectoresPorDiaSoapIn">
+    <wsdl:part name="parameters" element="tns:NroConectoresPorDia" />
+  </wsdl:message>
+  <wsdl:message name="NroConectoresPorDiaSoapOut">
+    <wsdl:part name="parameters" element="tns:NroConectoresPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="DetalleConectoresPorDiaSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalleConectoresPorDia" />
+  </wsdl:message>
+  <wsdl:message name="DetalleConectoresPorDiaSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalleConectoresPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Ws_ConectoresSoap">
+    <wsdl:operation name="NroConectoresPorDia">
+      <wsdl:input message="tns:NroConectoresPorDiaSoapIn" />
+      <wsdl:output message="tns:NroConectoresPorDiaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresPorDia">
+      <wsdl:input message="tns:DetalleConectoresPorDiaSoapIn" />
+      <wsdl:output message="tns:DetalleConectoresPorDiaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Ws_ConectoresSoap" type="tns:Ws_ConectoresSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NroConectoresPorDia">
+      <soap:operation soapAction="http://torresOcaranza.cl/NroConectoresPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresPorDia">
+      <soap:operation soapAction="http://torresOcaranza.cl/DetalleConectoresPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Ws_ConectoresSoap12" type="tns:Ws_ConectoresSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NroConectoresPorDia">
+      <soap12:operation soapAction="http://torresOcaranza.cl/NroConectoresPorDia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresPorDia">
+      <soap12:operation soapAction="http://torresOcaranza.cl/DetalleConectoresPorDia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Ws_Conectores">
+    <wsdl:port name="Ws_ConectoresSoap" binding="tns:Ws_ConectoresSoap">
+      <soap:address location="http://localhost:55038/WS/Ws_Conectores.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Ws_ConectoresSoap12" binding="tns:Ws_ConectoresSoap12">
+      <soap12:address location="http://localhost:55038/WS/Ws_Conectores.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

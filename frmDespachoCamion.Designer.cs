@@ -294,7 +294,7 @@
             this.groupBox5.Controls.Add(this.Dtg_ResumenCarga);
             this.groupBox5.Location = new System.Drawing.Point(819, 5);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(486, 179);
+            this.groupBox5.Size = new System.Drawing.Size(539, 179);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Resumen Carga";
@@ -308,7 +308,7 @@
             this.Dtg_ResumenCarga.Location = new System.Drawing.Point(3, 16);
             this.Dtg_ResumenCarga.Name = "Dtg_ResumenCarga";
             this.Dtg_ResumenCarga.ReadOnly = true;
-            this.Dtg_ResumenCarga.Size = new System.Drawing.Size(480, 160);
+            this.Dtg_ResumenCarga.Size = new System.Drawing.Size(533, 160);
             this.Dtg_ResumenCarga.TabIndex = 0;
             // 
             // Btn_ITDESP
@@ -693,6 +693,7 @@
             this.Btn_BasculaMovil.TabIndex = 12;
             this.Btn_BasculaMovil.Text = "Despacho Desde Bascula Móvil";
             this.Btn_BasculaMovil.UseVisualStyleBackColor = true;
+            this.Btn_BasculaMovil.Visible = false;
             this.Btn_BasculaMovil.Click += new System.EventHandler(this.Btn_BasculaMovil_Click);
             // 
             // Cmb_Patentes
@@ -724,7 +725,6 @@
             this.btnCrudCamion.TabIndex = 2;
             this.btnCrudCamion.Text = "Crear nuevo camión...";
             this.btnCrudCamion.UseVisualStyleBackColor = true;
-            this.btnCrudCamion.Visible = false;
             this.btnCrudCamion.Click += new System.EventHandler(this.btnCrudCamion_Click);
             // 
             // btnHlpCamion
@@ -869,7 +869,6 @@
             // 
             // txtEtiquetaPieza
             // 
-            this.txtEtiquetaPieza.Enabled = false;
             this.txtEtiquetaPieza.Location = new System.Drawing.Point(114, 3);
             this.txtEtiquetaPieza.MaxLength = 50;
             this.txtEtiquetaPieza.Name = "txtEtiquetaPieza";

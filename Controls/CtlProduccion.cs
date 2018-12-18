@@ -222,7 +222,7 @@ namespace Metalurgica.Controls
 
         private bool PuedeProducirEtiqueta()
         {
-            bool lEtiquetaImpresa = true ;
+            bool lEtiquetaImpresa = true ;Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = "";
@@ -301,13 +301,16 @@ namespace Metalurgica.Controls
                             lEtiquetaImpresa = false;
                             txtEtiquetaPieza.Text = "";
                         }
-
                     }
-                   
-
-                
-
-
+                    //****************************************************************************************
+                    if ((txtEtiquetaColada.Text.Trim ().Length >0) && (lCom.Val (txtEtiquetaColada.Text )<0 ))
+                    {
+                        //pasos   2.- si el campo tiene dato debe ser numero
+                       
+                            MessageBox.Show(string.Concat(" El número ingresado en el campo Colada NO es Válido, Revisar el número de Colada"), "Avisos Sistema", MessageBoxButtons.OK);
+                            lEtiquetaImpresa = false;
+                              txtEtiquetaColada.Text = "";
+                      }
                 }
             }
             return lEtiquetaImpresa;
