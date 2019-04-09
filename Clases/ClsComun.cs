@@ -445,6 +445,126 @@ namespace Metalurgica.Clases
             return lTbl;
         }
 
+        public DataTable CargaTabla_MUltiMaquinasConectores()
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            lSql = string.Concat("SP_ConsultasGenerales 119,'", lIdSucursal, "','','','',''");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+            return lTbl;
+        }
+
+        public DataTable CargaTabla_ConectoresEnProduccion()
+        {
+            Px_Conectores.Ws_ConectoresSoapClient lCon = new Px_Conectores.Ws_ConectoresSoapClient();
+            Px_Conectores.ListaDataSet lConectores = lCon.DetalleConectoresEnProduccion();
+            DataSet lDts = new DataSet();DataTable lTbl = new DataTable();
+
+
+            lDts = lConectores.DataSet;
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+            return lTbl;
+        }
+
+
+        public DataTable   InicioProduccionConectores(string idPaquete, string idPiezaTipoB, int idMaquina, string iUser, string iObs)
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            
+            lSql = string.Concat("SP_CRUD_PRODUCCION_CONECTORES   0,", idPaquete,",", idPiezaTipoB,",", idMaquina,",", iUser,",'", iObs ,"','','','',1");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+            return lTbl;
+        }
+
+        public string  ObtenerPesoConectores(string idPaquete)
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lRes = ""; int NroConectores = 0;
+            double lPesoConectores = 0; int i = 0;
+
+            lSql = string.Concat(" [SP_ConsultasGenerales]  124,", idPaquete, ",'','','',''");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+                if (lTbl.Rows.Count > 0)
+                {
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        lPesoConectores = lPesoConectores + (CDBL(lTbl.Rows[i]["KgsCon"].ToString())) ; // * Val(lTbl.Rows[i]["Cantidad"].ToString()));
+                        //switch (lTbl.Rows[0]["IdForma"].ToString())
+                        //{
+                        //    case "1102":
+                        //        NroConectores = 1;
+                        //        break;
+                        //    case "1103":
+                        //        NroConectores = 1;
+                        //        break;
+                        //    case "1104":
+                        //        NroConectores = 2;
+                        //        break;
+                        //    case "1105":
+                        //        NroConectores = 1;
+                        //        break;
+                        //    case "1106":
+                        //        NroConectores = 2;
+                        //        break;
+
+                        //    case "1206":
+                        //        NroConectores = 1;
+                        //        break;
+
+                        //    case "1207":
+                        //        NroConectores = 1;
+                        //        break;
+                        //    case "1211":
+                        //        NroConectores = 1;
+                        //        break;
+                        //    case "1212":
+                        //        NroConectores = 1;
+                        //        break;
+                        //}
+
+                    }
+                    
+
+                }
+
+            }
+            return lPesoConectores.ToString(); ;
+        }
+
+        public DataTable FinProduccionConectores(string IdProdConectores, string idPiezaTipoB, string iObs)
+        {
+            DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+
+            lSql = string.Concat("SP_CRUD_PRODUCCION_CONECTORES  ", IdProdConectores , ",0,0,0,0,'", iObs, "','','','',2");
+            lDts = lPx.ObtenerDatos(lSql);
+            if (lDts.Tables.Count > 0 && lDts.Tables[0].Rows.Count > 0)
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+
+            return lTbl;
+        }
+
         public string ObtenerTipoPorProducto(string iCodProducto)
         {
             //  ALTER PROCEDURE [dbo].[SP_Consultas_WS]

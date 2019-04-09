@@ -161,6 +161,7 @@
             this.Chk_MultiplesColadas.TabIndex = 22;
             this.Chk_MultiplesColadas.Text = "Multiples Coladas";
             this.Chk_MultiplesColadas.UseVisualStyleBackColor = true;
+            this.Chk_MultiplesColadas.Visible = false;
             // 
             // Lbl_MsgKgsProd
             // 
@@ -552,6 +553,7 @@
             this.Btn_VerDetalle.TabIndex = 45;
             this.Btn_VerDetalle.Text = "Ver Detalle";
             this.Btn_VerDetalle.UseVisualStyleBackColor = true;
+            this.Btn_VerDetalle.Click += new System.EventHandler(this.Btn_VerDetalle_Click);
             // 
             // label11
             // 

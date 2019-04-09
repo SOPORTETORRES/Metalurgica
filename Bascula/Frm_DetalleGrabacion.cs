@@ -25,6 +25,7 @@ namespace Metalurgica.Bascula
         string mResultado = "";
         int  mKgsGuiaINET = 0;
         private string mEmpresa = "";
+        private string  mIdPesajeCamion = "";
         private int mIdObra = 0;
         WsOperacion.PesajeCamion mObjCam = new WsOperacion.PesajeCamion();
 
@@ -54,6 +55,92 @@ namespace Metalurgica.Bascula
            
 
         }
+
+        public void IniciaForm(string iIdPesajeCamion)
+        {
+            Clases.ClsComun lCom = new Clases.ClsComun();
+            mIdPesajeCamion = iIdPesajeCamion.ToString();
+
+            //la consulta para saber los viaje que fueron despachados en un camion
+            // consultas ws opcion IF @OPCION = 163
+
+            //Debemos verificar lo Siguinte
+            //1.- Grabar Datos  @OPCION = 122
+
+            //2.- Envio correo electronico  Si esta Grabado ==> Se envio el Correo
+
+            //3.- Integración con INET, Obtenemos los  viajes despachados con  @OPCION = 163
+            // y vefificamos x cada viaje campo nroguia INET y buscamos dicha guia en tabla de INET
+
+            //4.- Impresion de Documentos
+
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lDatos = new WsOperacion.ListaDataSet();int lTotalKgs = 0;
+            DataTable lTbl = new DataTable();  int i = 0; string lTmp = "";DataRow lFila = null;
+
+            lDatos = lPx.ObtenerDatosResumen_PesajeCamion(mIdPesajeCamion);
+
+            if (lDatos.MensajeError.ToString().Length == 0)  //el ws no reporta Error
+            {
+                //Grabacion de Datos
+                lTbl = lDatos.DataSet.Tables["PesajeCamion"].Copy();
+                if (lTbl.Rows[0]["Estado"].ToString().ToUpper().Equals("FIN"))
+                {
+                    Tx_Grabar.Text = "OK";
+                    Tx_Grabar.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    Tx_Grabar.Text = string.Concat ("Pendiente: Estado= ", lTbl.Rows[0]["Estado"].ToString().ToUpper());
+                    Tx_Grabar.BackColor = Color.LightYellow;
+                }
+
+                //Integracion con INET
+                lTbl = lDatos.DataSet.Tables["INET"].Copy();
+                
+                lTmp = "";
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    if (lTbl.Rows[i]["Verificado"].ToString().ToUpper().Equals("N"))
+                    {
+                        lTmp = string.Concat(lTmp, " ", lTbl.Rows[i]["Codigo"].ToString(), " - ");
+                    }
+                    lTotalKgs= lTotalKgs+ lCom.Val (lTbl.Rows[i]["KgsViaje"].ToString());
+                }
+                if (lTmp.Trim().Length > 0)
+                {
+                    Tx_INET.Text  = string.Concat("IT con problemas => ", lTmp);
+                    Tx_INET.BackColor = Color.LightYellow;
+                }
+                else
+                {
+                   Tx_INET .Text  = "OK";
+                    Tx_INET .BackColor = Color.LightGreen;
+                }
+                lFila = lTbl.NewRow();
+                lFila["Codigo"] = "Total";
+                lFila["KgsViaje"] = lTotalKgs;
+                lTbl.Rows.Add(lFila);
+
+                Dtg_ResumenGuia.DataSource = lTbl;
+
+                // Dtg_ResumenGuia
+                if (lTbl.Rows.Count > 0)
+                {
+                    Dtg_ResumenGuia.Columns[0].Width = 80;
+                    Dtg_ResumenGuia.Columns[1].Width = 80;
+                    Dtg_ResumenGuia.Columns[2].Width = 80;
+                    Dtg_ResumenGuia.Columns[3].Width = 80;
+               //     Dtg_ResumenGuia.rowsh = false;
+                }
+
+            }
+           
+            //Tx_inet
+            //Tx_Mail 
+
+        }
+
 
         private string EnviaCorreoNotificacion(DataSet lDts,string iResultado)
         {
@@ -425,7 +512,7 @@ namespace Metalurgica.Bascula
             try
             {
                
-                string lSql = string.Concat("   SP_Consultas_WS 131,'", iPesajecamion,"','','','','','','' ");
+                string lSql = string.Concat("   SP_Consultas_WS 163,'", iPesajecamion,"','','','','','','' ");
                 lDtsTmp = lPx.ObtenerDatos(lSql);
                 if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
                 {
@@ -519,6 +606,13 @@ namespace Metalurgica.Bascula
             }
         }
 
+
+        private void VerificaGuiaINET(String iNroGuia)
+        {
+
+        }
+
+
         #region Generacion e Impresion de PDF
 
         private void SendToPrinter(string iPath)
@@ -541,24 +635,32 @@ namespace Metalurgica.Bascula
         private void TerminaProceso()
         {
             string lPathArchivo = ConfigurationManager.AppSettings["PathPdf"].ToString(); //string.Concat("C:\\Informes\\TMP\\");
-            Clases.ClsComun lCom = new Clases.ClsComun();
+            Clases.ClsComun lCom = new Clases.ClsComun(); int i = 0;
             string lres = ""; DataTable lTblImp = new DataTable();
             lres = lCom.UnirOdf(lPathArchivo);
 
 
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.Verb = "print";                          // Seleccionar el programa para imprimir PDF por defecto
-            info.FileName = lres; //@"C:\Informes\TMP\1.pdf";         // Ruta hacia el fichero que quieres imprimir
-            info.CreateNoWindow = true;                   // Hacerlo sin mostrar ventana
-            info.WindowStyle = ProcessWindowStyle.Hidden; // Y de forma oculta
-            Process p = new Process();
-            p.StartInfo = info;
-            p.Start();  // Lanza el proceso
+            //Aca debemos incluir la opcion de imprimir varios copias de un PL
+            //por defecto es 1 a menos que se ingrese en la tabla parametros 
+            //campo  par2 debe ir el nro de copias
 
-            p.WaitForInputIdle();
-            System.Threading.Thread.Sleep(3000);          // Espera 3 segundos
-            if (false == p.CloseMainWindow())
-                p.Kill();                                  // Y cierra el programa de imprimir PDF's
+            for (i = 0; i < 2; i++)
+            {
+
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.Verb = "print";                          // Seleccionar el programa para imprimir PDF por defecto
+                info.FileName = lres; //@"C:\Informes\TMP\1.pdf";         // Ruta hacia el fichero que quieres imprimir
+                info.CreateNoWindow = true;                   // Hacerlo sin mostrar ventana
+                info.WindowStyle = ProcessWindowStyle.Hidden; // Y de forma oculta
+                Process p = new Process();
+                p.StartInfo = info;
+                p.Start();  // Lanza el proceso
+
+                p.WaitForInputIdle();
+                System.Threading.Thread.Sleep(15000);          // Espera 15 segundos
+                if (false == p.CloseMainWindow())
+                    p.Kill();                                  // Y cierra el programa de imprimir PDF's
+            }
 
         }
 
@@ -1014,7 +1116,7 @@ namespace Metalurgica.Bascula
         {
             //2.- los PL Despachados de cada viaje
             //ImprimirInforme(mObjCam.Id.ToString (), true);
-            ImprimirInforme("608", true);
+            ImprimirInforme(mIdPesajeCamion, true);
             //3.- Unimos los Archivos en uno  
 
         }
@@ -1032,6 +1134,16 @@ namespace Metalurgica.Bascula
         private void Btn_Inicia_Click(object sender, EventArgs e)
         {
             InicaProceso();
+        }
+
+        private void Btn_Verificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

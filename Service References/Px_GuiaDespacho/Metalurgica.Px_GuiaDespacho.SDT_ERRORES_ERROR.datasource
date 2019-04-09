@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="SDT_ERRORES_ERROR" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Metalurgica.Px_GuiaDespacho.SDT_ERRORES_ERROR, Service References.Px_GuiaDespacho.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Metalurgica.Px_GuiaDespacho.SDT_ERRORES_ERROR, Service References.Px_GuiaDespacho.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

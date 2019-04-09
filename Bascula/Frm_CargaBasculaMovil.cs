@@ -17,7 +17,7 @@ namespace Metalurgica.Bascula
         private string mUnidadMedidaBascula = "";
         private DataTable mTblDatos = new DataTable();
         private DataTable mTblDatosOK = new DataTable();
-        private  int mTotalKgs = 0;
+        private  double  mTotalKgs = 0;
         public Frm_CargaBasculaMovil()
         {
             InitializeComponent();
@@ -29,15 +29,26 @@ namespace Metalurgica.Bascula
             Tx_idPaq.Focus();
         }
 
+       
+
         public  void IniciaForm( DataTable lTbl, CurrentUser iUserLog)
         {
+            int i = 0;
+
             mUserLog = iUserLog;
          
             WsOperacion.OperacionSoapClient PxOperacion = new WsOperacion.OperacionSoapClient();
             Clases.ClsComun lCom = new Clases.ClsComun();
             string lKgsMaxBascula = "";
-            mTblDatos = lTbl;
+              mTblDatos = lTbl.Copy ();
 
+            mTblDatos.Columns.Add("PesoConectores", Type.GetType("System.String"));
+
+            for (i = 0; i < lTbl.Rows.Count; i++)
+            {
+                mTblDatos.Rows[i]["PesoConectores"] = lCom.ObtenerPesoConectores(mTblDatos.Rows[i]["ETIQUETA_PIEZA"].ToString());
+            }
+          
             mTblDatosOK = mTblDatos.Copy();
             mTblDatosOK.Clear();
             //Debemos OBtener los Parametros 
@@ -88,6 +99,7 @@ namespace Metalurgica.Bascula
                             lFila[i] = lVista[0][i];
                         }
 
+
                         if (mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString())) > mPesoMaxBascula)
                         {
                             MessageBox.Show(" EL Peso máximo a Cargar en la Bascula Móvil es de: " + mPesoMaxBascula.ToString(), "Avisos Sistema ", MessageBoxButtons.OK);
@@ -95,7 +107,10 @@ namespace Metalurgica.Bascula
                         else
                         {
                             mTblDatosOK.Rows.Add(lFila);
-                            mTotalKgs = mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString()));
+                            Lbl_KgsCD.Text = int.Parse(lVista[0]["KgsReales"].ToString()).ToString();
+                            Lbl_KgsCon .Text =lCom .CDBL(lVista[0]["PesoConectores"].ToString() ).ToString ();
+
+                            mTotalKgs = mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString())) + (lCom.CDBL (lVista[0]["PesoConectores"].ToString()));
                             Lbl_totalKgs.Text = mTotalKgs.ToString();
                             Dtg_OK.DataSource = mTblDatosOK;
                             FormateaGrilla();

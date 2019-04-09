@@ -103,7 +103,7 @@ namespace Metalurgica.Informes
                         lArchivo = string.Concat(lPathArchivo, "DD.pdf");
                         if (File.Exists(lArchivo) == true)
                             File.Delete(lArchivo);
-                        mReport.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, lArchivo);
+                        mReport.ExportToDisk (CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, lArchivo);
                     }
                 }            
             }

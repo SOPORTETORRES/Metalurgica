@@ -52,6 +52,44 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="DetalleConectoresEnProduccion">
+        <s:complexType />
+      </s:element>
+      <s:element name="DetalleConectoresEnProduccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DetalleConectoresEnProduccionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosParaProduccionConector">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdPaquete" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosParaProduccionConectorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosParaProduccionConectorResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosEtiquetaProduccionConector">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdPaquete" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosEtiquetaProduccionConectorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosEtiquetaProduccionConectorResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="NroConectoresPorDiaSoapIn">
@@ -66,6 +104,24 @@
   <wsdl:message name="DetalleConectoresPorDiaSoapOut">
     <wsdl:part name="parameters" element="tns:DetalleConectoresPorDiaResponse" />
   </wsdl:message>
+  <wsdl:message name="DetalleConectoresEnProduccionSoapIn">
+    <wsdl:part name="parameters" element="tns:DetalleConectoresEnProduccion" />
+  </wsdl:message>
+  <wsdl:message name="DetalleConectoresEnProduccionSoapOut">
+    <wsdl:part name="parameters" element="tns:DetalleConectoresEnProduccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosParaProduccionConectorSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosParaProduccionConector" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosParaProduccionConectorSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosParaProduccionConectorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEtiquetaProduccionConectorSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosEtiquetaProduccionConector" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosEtiquetaProduccionConectorSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosEtiquetaProduccionConectorResponse" />
+  </wsdl:message>
   <wsdl:portType name="Ws_ConectoresSoap">
     <wsdl:operation name="NroConectoresPorDia">
       <wsdl:input message="tns:NroConectoresPorDiaSoapIn" />
@@ -74,6 +130,18 @@
     <wsdl:operation name="DetalleConectoresPorDia">
       <wsdl:input message="tns:DetalleConectoresPorDiaSoapIn" />
       <wsdl:output message="tns:DetalleConectoresPorDiaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresEnProduccion">
+      <wsdl:input message="tns:DetalleConectoresEnProduccionSoapIn" />
+      <wsdl:output message="tns:DetalleConectoresEnProduccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaProduccionConector">
+      <wsdl:input message="tns:ObtenerDatosParaProduccionConectorSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosParaProduccionConectorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosEtiquetaProduccionConector">
+      <wsdl:input message="tns:ObtenerDatosEtiquetaProduccionConectorSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosEtiquetaProduccionConectorSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Ws_ConectoresSoap" type="tns:Ws_ConectoresSoap">
@@ -96,6 +164,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresEnProduccion">
+      <soap:operation soapAction="http://torresOcaranza.cl/DetalleConectoresEnProduccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaProduccionConector">
+      <soap:operation soapAction="http://torresOcaranza.cl/ObtenerDatosParaProduccionConector" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosEtiquetaProduccionConector">
+      <soap:operation soapAction="http://torresOcaranza.cl/ObtenerDatosEtiquetaProduccionConector" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="Ws_ConectoresSoap12" type="tns:Ws_ConectoresSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -110,6 +205,33 @@
     </wsdl:operation>
     <wsdl:operation name="DetalleConectoresPorDia">
       <soap12:operation soapAction="http://torresOcaranza.cl/DetalleConectoresPorDia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleConectoresEnProduccion">
+      <soap12:operation soapAction="http://torresOcaranza.cl/DetalleConectoresEnProduccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosParaProduccionConector">
+      <soap12:operation soapAction="http://torresOcaranza.cl/ObtenerDatosParaProduccionConector" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosEtiquetaProduccionConector">
+      <soap12:operation soapAction="http://torresOcaranza.cl/ObtenerDatosEtiquetaProduccionConector" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -1,6 +1,8 @@
-﻿namespace Metalurgica.DTS {
-    
-    
-    public partial class DtsDatos {
+﻿namespace Metalurgica.DTS
+{
+
+
+    public partial class DtsDatos
+    {
     }
 }

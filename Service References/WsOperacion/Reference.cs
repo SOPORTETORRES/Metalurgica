@@ -16,6 +16,14 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/AsociarEtiquetaPiezaaCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Despacho_Camion AsociarEtiquetaPiezaaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string terminal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VbDespachoCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal);
@@ -384,6 +392,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet EliminaRegistroCamion(string iIdPesaje);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CierraCicloCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet CierraCicloCamion(string iIdPesaje);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPatentesParaDespacho", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerPatentesParaDespacho();
@@ -399,6 +411,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosPesajeCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosPesajeCamion(string iId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosResumen_PesajeCamion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosResumen_PesajeCamion(string iIdPesajeCam);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/PersistePesajeBM", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -479,14 +495,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoPiezaCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoPiezaCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/AsociarEtiquetaPiezaaCamion", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.Despacho_Camion AsociarEtiquetaPiezaaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string terminal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarDespachoCamion", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha);
     }
     
     /// <remarks/>
@@ -2813,6 +2821,10 @@ namespace Metalurgica.WsOperacion {
         
         private string ordenCompraField;
         
+        private string esVaPero_NoVaField;
+        
+        private string tieneConectorField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string id {
@@ -3185,6 +3197,30 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
+        public string EsVaPero_NoVa {
+            get {
+                return this.esVaPero_NoVaField;
+            }
+            set {
+                this.esVaPero_NoVaField = value;
+                this.RaisePropertyChanged("EsVaPero_NoVa");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
+        public string TieneConector {
+            get {
+                return this.tieneConectorField;
+            }
+            set {
+                this.tieneConectorField = value;
+                this.RaisePropertyChanged("TieneConector");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -3294,6 +3330,14 @@ namespace Metalurgica.WsOperacion {
         
         public OperacionSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Metalurgica.WsOperacion.Despacho_Camion AsociarEtiquetaPiezaaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string terminal) {
+            return base.Channel.AsociarEtiquetaPiezaaCamion(idDespacho, etiqueta_colada, etiqueta_pieza, usuario, terminal);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha) {
+            return base.Channel.ListarDespachoCamion(fecha);
         }
         
         public Metalurgica.WsOperacion.Despacho_Camion VbDespachoCamion(int idDespacho, string usuario, string obs, string terminal) {
@@ -3664,6 +3708,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.EliminaRegistroCamion(iIdPesaje);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet CierraCicloCamion(string iIdPesaje) {
+            return base.Channel.CierraCicloCamion(iIdPesaje);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerPatentesParaDespacho() {
             return base.Channel.ObtenerPatentesParaDespacho();
         }
@@ -3678,6 +3726,10 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosPesajeCamion(string iId) {
             return base.Channel.ObtenerDatosPesajeCamion(iId);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosResumen_PesajeCamion(string iIdPesajeCam) {
+            return base.Channel.ObtenerDatosResumen_PesajeCamion(iIdPesajeCam);
         }
         
         public Metalurgica.WsOperacion.TipoBasculaMovil[] PersistePesajeBM(Metalurgica.WsOperacion.TipoBasculaMovil[] iListBm) {
@@ -3758,14 +3810,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoPiezaCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal) {
             return base.Channel.GuardarDespachoPiezaCamion(despacho_Camion, terminal);
-        }
-        
-        public Metalurgica.WsOperacion.Despacho_Camion AsociarEtiquetaPiezaaCamion(int idDespacho, string etiqueta_colada, string etiqueta_pieza, string usuario, string terminal) {
-            return base.Channel.AsociarEtiquetaPiezaaCamion(idDespacho, etiqueta_colada, etiqueta_pieza, usuario, terminal);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ListarDespachoCamion(System.DateTime fecha) {
-            return base.Channel.ListarDespachoCamion(fecha);
         }
     }
 }

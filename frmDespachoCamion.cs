@@ -498,13 +498,30 @@ namespace Metalurgica
 
             return lRes ;
         }
-    
+
+        private DataTable  ObtenerTblPaquete(string iIdPaquete)
+        {
+            string lRes = "";
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+            DataTable lTbl = new DataTable();
+
+            listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, iIdPaquete.ToString(), "", "", "", "");
+            if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                lTbl = listaDataSet.DataSet.Tables[0].Copy ();
+
+
+            return lTbl;
+        }
+
+
 
         private void LeePiezaCargada(string iEtiquetaPieza)
         {
             Forms forms = new Forms(); Color lColorsel = Color.Black; string lEstadoPaquete = "";
             DataView lVista = null; DataTable lTblPaq = new DataTable(); string lMsg = "";
-            string lValidaPiezaProducida = ConfigurationManager.AppSettings["ValidaPaqueteProducido"].ToString().ToUpper (); 
+            string lValidaPiezaProducida = ConfigurationManager.AppSettings["ValidaPaqueteProducido"].ToString().ToUpper ();
+            DataTable lTblPaquete = new DataTable();
 
 
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
@@ -520,8 +537,8 @@ namespace Metalurgica
                         {
                             //0000047: Envío de mail, cuando se despacha una pieza que no ha sido producida
                             //Se debe evaluar al momento de leer la pieza
-                            lEstadoPaquete = ObtenerEstadoPaquete(iEtiquetaPieza);
-
+                           lEstadoPaquete = ObtenerEstadoPaquete(iEtiquetaPieza);
+                  
                             if (lEstadoPaquete.ToString().Equals("O40") == false)
                             {
                                 MessageBox.Show(string.Concat("La etiqueta leida No esta registrada como producida.", Environment.NewLine, "Verificar Producción de Etiqueta" ), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -538,20 +555,46 @@ namespace Metalurgica
                             }
                             else
                             {
-                                lVista[0]["Estado1"] = "POK";
-                                lVista[0]["Estado2"] = lEstadoPaquete;
-                                forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
-                                forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                                lTblPaquete = ObtenerTblPaquete(iEtiquetaPieza);
 
-                                txtEtiquetaPieza.Clear();
-                                txtEtiquetaPieza.Focus();
-                                lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
-                                this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
-                                this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();
-                                lbl_TotalPaqCar.Text = mTotalPaqCargado.ToString();
-                                Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
-                                lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
-                            }                                                                                                            
+                                if ((lTblPaquete.Rows[0]["TieneConector"].ToString().Equals("S")))
+                                {
+                                    if ((lTblPaquete.Rows[0]["ConectorProducido"].ToString().Equals("S")))
+                                        {
+                                        lVista[0]["Estado1"] = "POK";
+                                        lVista[0]["Estado2"] = lEstadoPaquete;
+                                        forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
+                                        forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+
+                                        txtEtiquetaPieza.Clear();
+                                        txtEtiquetaPieza.Focus();
+                                        lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
+                                        this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
+                                        this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();
+                                        lbl_TotalPaqCar.Text = mTotalPaqCargado.ToString();
+                                        Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
+                                        lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
+                                    }
+                                    else
+                                        MessageBox.Show(string.Concat("La etiqueta leida Tiene Conector Asociado y este NO esta Producido, No se puede Despachar el Paquete", Environment.NewLine, "Verificar Producción de Etiqueta"), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                {
+                                    lVista[0]["Estado1"] = "POK";
+                                    lVista[0]["Estado2"] = lEstadoPaquete;
+                                    forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
+                                    forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+
+                                    txtEtiquetaPieza.Clear();
+                                    txtEtiquetaPieza.Focus();
+                                    lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
+                                    this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
+                                    this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();
+                                    lbl_TotalPaqCar.Text = mTotalPaqCargado.ToString();
+                                    Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
+                                    lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
+                                }
+                            }
                         }
                     }
                     catch (Exception exc)
@@ -591,89 +634,8 @@ namespace Metalurgica
                 }
             }
 
-                    //        if (listaDataSet.MensajeError.Equals(""))
-                    //        {
-                    //            if (listaDataSet.DataSet.Tables[0].Rows.Count == 0)
-                    //            {
-                    //                // SI LA PIEZA NO EXISTE LA APP NO HACE NADA
-                    //                //lEstadoLectura = "PNE"; //Pieza No Existe
-                    //                //listaDataSet.DataSet.Tables[0].Rows[0]["Estado1"] = lEstadoLectura;
-                    //                //AgregaFila(listaDataSet);
-                    //                ////MessageBox.Show("La etiqueta '" + txtEtiquetaPieza.Text + "' no existe.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //                mPiezasError = string.Concat(mPiezasError, "|", txtEtiquetaPieza.Text, "-", "PNE");
-                    //            }
-                    //            else
-                    //            {
-                    //                //validamos el codigo del viaje                                
-                    //                if (PiezaEstaEnViajesSeleccionados(listaDataSet.DataSet.Tables[0].Copy()) == false)
-                    //                {
-                    //                    //MessageBox.Show(" La Pieza no corresponde al viaje seleccionado, la pieza Corresponde al Viaje " + listaDataSet.DataSet.Tables[0].Rows[0]["Codigo"].ToString(), "Validaciones Sistema ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                    lEstadoLectura = "PNV"; //Pieza No es del Viaje
-                    //                    listaDataSet.DataSet.Tables[0].Rows[0]["Estado1"] = lEstadoLectura;
-                    //                    lColorsel = Color.LightSalmon;
-                    //                }
-                    //                else
-                    //                {  // la pieza leida siempre deberia existir en la grilla
-                    //                    lVista=new DataView (
+     
 
-                    //                    if (dgvEtiquetasPiezas.DataSource == null)
-                    //                    {
-                    //                        dgvEtiquetasPiezas.DataSource = listaDataSet.DataSet.Tables[0];
-                    //                        OcultaColumnas();
-                    //                    }
-                    //                    else
-                    //                    {
-                    //                        AgregaFila(listaDataSet);
-                    //                    }
-
-
-
-
-                    //                    lEstadoLectura = "POK"; //Pieza Esta OK
-                    //                    listaDataSet.DataSet.Tables[0].Rows[0]["Estado1"] = lEstadoLectura;
-                    //                    lColorsel = Color.LightGreen;
-                    //                }
-
-
-                    //                mTotalKgsCargado = mTotalKgsCargado + Convert.ToDouble(listaDataSet.DataSet.Tables[0].Rows[0]["KgsPaquete"].ToString());
-                    //                mKgsPorCargar = Convert.ToDouble(Lbl_TotalKgs.Text) - mTotalKgsCargado;
-
-                    //                mTotalPiezasCargado = mTotalPiezasCargado + Convert.ToDouble(listaDataSet.DataSet.Tables[0].Rows[0]["NroPiezas"].ToString());
-                    //                this.mPiezasPorCargar = Convert.ToDouble(this.Lbl_NroPiezas.Text) - mTotalPiezasCargado;
-
-                    //                mTotalPaqCargado = mTotalPaqCargado + 1;
-                    //                mPaqPorCargar = int.Parse(this.Lbl_TotalPaq.Text) - mTotalPaqCargado;
-
-                    //                //tlbNuevo.PerformClick();
-                    //                //Forms forms = new Forms();
-                    //                forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
-                    //                forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
-                    //                //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
-                    //                lblCantidadEtiquetasPiezas.Text = "Registro(s): " + dgvEtiquetasPiezas.Rows.Count;
-
-                    //                //}
-                    //            }
-
-                    //        }
-                    //        else
-                    //        {
-                    //            mPiezasError = string.Concat(mPiezasError, "|", txtEtiquetaPieza.Text, "-", "EWS");
-                    //            //lEstadoLectura = "EWS"; //Web Service Responde Error
-                    //            //MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                    //        }
-                    //    }
-                    //    catch (Exception exc)
-                    //    {
-                    //        MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    }
-                    //    Cursor.Current = Cursors.Default;
-                    //}
-                    //else
-                    //{
-
-                    //}
-                    //txtEtiquetaPieza.Clear();
-                    //txtEtiquetaPieza.Focus();
             lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
             this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
             this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();

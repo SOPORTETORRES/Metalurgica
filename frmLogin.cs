@@ -116,60 +116,70 @@ namespace Metalurgica
                 {
                     DataTable dt = listaDataSet.DataSet.Tables[0];
 
-                    // Por nuevo requerimiento, para los usuarios de produccion deben poder ingresar solo con
-                    // el RUT.
-                    if ((dt.Rows.Count == 0) && (mTipoTotem ==2))
-                    {
-                        Ldts=ObtenerUsuario(txtUsuario.Text);
-                        if (Ldts .Tables .Count >0)
-                        {
-                            dt = Ldts.Tables[0].Copy();
-                        }                        
-                    }
-
-
                     if (dt.Rows.Count > 0)
                     {
-                        if (dt.Rows[0]["Vigente"].ToString().Equals("S"))
+                        // Por nuevo requerimiento, para los usuarios de produccion deben poder ingresar solo con
+                        // el RUT.
+                        if ((dt.Rows.Count == 0) && (mTipoTotem == 2))
                         {
-                            
-                            if (chkRecordarUsuario.Checked)
-                                registry.SetValue(Program.regeditKeyName, "Usuario", txtUsuario.Text);
-                            registry.SetValue(Program.regeditKeyName, "Recordar", (chkRecordarUsuario.Checked ? "1" : "0"));
+                            Ldts = ObtenerUsuario(txtUsuario.Text);
+                            if (Ldts.Tables.Count > 0)
+                            {
+                                dt = Ldts.Tables[0].Copy();
+                            }
+                        }
 
-                            lPerfilUser=dt.Rows[0]["Perfil"].ToString();
-                            Program.currentUser.Login = dt.Rows[0]["Usuario"].ToString(); ;
-                            Program.currentUser.Name = dt.Rows[0]["Nombre"].ToString() + " " + dt.Rows[0]["Apellidos"].ToString();
-                            //Program.currentUser.Machine = 2;
-                            Program.currentUser.Iduser = dt.Rows[0]["Id"].ToString();
-                            Program.currentUser.ComputerName = System.Environment.MachineName;
-                            Program.currentUser .DescripcionTotem = (string)registry.GetValue(Program.regeditKeyName, "Descrición", "");
-                            Program.currentUser .Machine =int.Parse (registry.GetValue(Program.regeditKeyName, "Maquina", "0").ToString ());
-                            Program.currentUser.IdMaquina = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdMaquina", -1));
-                            Program.currentUser.IdTotem  = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdTotem", -1));
 
-                            Program.currentUser.DescripcionMaq = ObtenerDescripcionMaquina(Program.currentUser.IdMaquina.ToString ());
+                        if (dt.Rows.Count > 0)
+                        {
+                            if (dt.Rows[0]["Vigente"].ToString().Equals("S"))
+                            {
 
-                            Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
-                            if (Program.currentUser.Machine==2)
-                                     ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName .ToString());
+                                if (chkRecordarUsuario.Checked)
+                                    registry.SetValue(Program.regeditKeyName, "Usuario", txtUsuario.Text);
+                                registry.SetValue(Program.regeditKeyName, "Recordar", (chkRecordarUsuario.Checked ? "1" : "0"));
 
-                            //ObtenerPerfilUsuario
-                            logon = true;
-                            this.Hide();
-                            IniciaApp(Program.currentUser.Machine, Program.currentUser);
+                                lPerfilUser = dt.Rows[0]["Perfil"].ToString();
+                                Program.currentUser.Login = dt.Rows[0]["Usuario"].ToString(); ;
+                                Program.currentUser.Name = dt.Rows[0]["Nombre"].ToString() + " " + dt.Rows[0]["Apellidos"].ToString();
+                                //Program.currentUser.Machine = 2;
+                                Program.currentUser.Iduser = dt.Rows[0]["Id"].ToString();
+                                Program.currentUser.ComputerName = System.Environment.MachineName;
+                                Program.currentUser.DescripcionTotem = (string)registry.GetValue(Program.regeditKeyName, "Descrición", "");
+                                Program.currentUser.Machine = int.Parse(registry.GetValue(Program.regeditKeyName, "Maquina", "0").ToString());
+                                Program.currentUser.IdMaquina = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdMaquina", -1));
+                                Program.currentUser.IdTotem = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdTotem", -1));
 
-                      
+                                Program.currentUser.DescripcionMaq = ObtenerDescripcionMaquina(Program.currentUser.IdMaquina.ToString());
+
+                                Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
+                                if (Program.currentUser.Machine == 2)
+                                {
+                                    string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+                                    if (lEmpresa .ToUpper ().Equals ("TO"))
+                                         ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName.ToString());
+                                }
+                                //ObtenerPerfilUsuario
+                                logon = true;
+                                this.Hide();
+                                IniciaApp(Program.currentUser.Machine, Program.currentUser);
+
+
+                            }
+                            else
+                                MessageBox.Show("El usuario " + txtUsuario.Text + " esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
-                            MessageBox.Show("El usuario " + txtUsuario.Text + " esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                            MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     }
                     else
                         MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 else
                     MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            } 
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); 
@@ -283,6 +293,13 @@ namespace Metalurgica
             if (iIdTipoTotem == 0)
             {
                 Frm_Adm lFrm = new Frm_Adm();
+                lFrm.IniciaForm(iUserLog);
+                lFrm.ShowDialog();
+            }
+
+            if (iIdTipoTotem == 4)   
+            {
+                Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
                 lFrm.IniciaForm(iUserLog);
                 lFrm.ShowDialog();
             }

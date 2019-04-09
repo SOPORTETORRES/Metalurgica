@@ -23,6 +23,18 @@ namespace Metalurgica.Px_Conectores {
         [System.ServiceModel.OperationContractAttribute(Action="http://torresOcaranza.cl/DetalleConectoresPorDia", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.Px_Conectores.ListaDataSet DetalleConectoresPorDia(string idia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://torresOcaranza.cl/DetalleConectoresEnProduccion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.Px_Conectores.ListaDataSet DetalleConectoresEnProduccion();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://torresOcaranza.cl/ObtenerDatosParaProduccionConector", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.Px_Conectores.ListaDataSet ObtenerDatosParaProduccionConector(string iIdPaquete);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://torresOcaranza.cl/ObtenerDatosEtiquetaProduccionConector", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.Px_Conectores.ListaDataSet ObtenerDatosEtiquetaProduccionConector(string iIdPaquete);
     }
     
     /// <remarks/>
@@ -132,6 +144,18 @@ namespace Metalurgica.Px_Conectores {
         
         public Metalurgica.Px_Conectores.ListaDataSet DetalleConectoresPorDia(string idia) {
             return base.Channel.DetalleConectoresPorDia(idia);
+        }
+        
+        public Metalurgica.Px_Conectores.ListaDataSet DetalleConectoresEnProduccion() {
+            return base.Channel.DetalleConectoresEnProduccion();
+        }
+        
+        public Metalurgica.Px_Conectores.ListaDataSet ObtenerDatosParaProduccionConector(string iIdPaquete) {
+            return base.Channel.ObtenerDatosParaProduccionConector(iIdPaquete);
+        }
+        
+        public Metalurgica.Px_Conectores.ListaDataSet ObtenerDatosEtiquetaProduccionConector(string iIdPaquete) {
+            return base.Channel.ObtenerDatosEtiquetaProduccionConector(iIdPaquete);
         }
     }
 }

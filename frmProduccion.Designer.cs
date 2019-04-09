@@ -42,7 +42,6 @@
             this.tlbSalir = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.Btn_MtoTotem = new System.Windows.Forms.Button();
             this.Btn_MtoMaq = new System.Windows.Forms.Button();
             this.Btn_NotificacionAveria = new System.Windows.Forms.Button();
@@ -90,6 +89,7 @@
             this.Lbl_MsgKgsProd = new System.Windows.Forms.Label();
             this.lbl_Msg = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.stsStatusStrip.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -263,20 +263,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
-            // 
-            // lbl_MsgBloqueo
-            // 
-            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lbl_MsgBloqueo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
-            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
-            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
-            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(962, 110);
-            this.lbl_MsgBloqueo.TabIndex = 55;
-            this.lbl_MsgBloqueo.Text = "label13";
-            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_MsgBloqueo.Visible = false;
             // 
             // Btn_MtoTotem
             // 
@@ -753,6 +739,19 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(988, 36);
             this.ctlInformacionUsuario1.TabIndex = 35;
             // 
+            // lbl_MsgBloqueo
+            // 
+            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lbl_MsgBloqueo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
+            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
+            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
+            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(962, 110);
+            this.lbl_MsgBloqueo.TabIndex = 55;
+            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_MsgBloqueo.Visible = false;
+            // 
             // frmProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -858,10 +857,8 @@
         private System.Windows.Forms.Button Btn_MtoMaq;
         private System.Windows.Forms.Button Btn_MtoTotem;
         private System.Windows.Forms.DataGridView dgvEtiquetasPiezas;
-        private System.Windows.Forms.Label lbl_MsgBloqueo;
         private System.Windows.Forms.Button Btn_Desbloquea;
-
-
+        private System.Windows.Forms.Label lbl_MsgBloqueo;
     }
 }
 

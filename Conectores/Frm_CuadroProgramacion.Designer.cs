@@ -38,14 +38,7 @@
             this.Btn_Dia6 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Dia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Obra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Viaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.F_Entrega = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.F_Despacho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NroCon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Avance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Btn_Produccion = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -77,6 +70,7 @@
             this.Btn_Dia1.TabIndex = 2;
             this.Btn_Dia1.Text = "07/11/2018";
             this.Btn_Dia1.UseVisualStyleBackColor = true;
+            this.Btn_Dia1.Click += new System.EventHandler(this.Btn_Dia1_Click);
             // 
             // Btn_Dia3
             // 
@@ -86,6 +80,7 @@
             this.Btn_Dia3.TabIndex = 4;
             this.Btn_Dia3.Text = "07/11/2018";
             this.Btn_Dia3.UseVisualStyleBackColor = true;
+            this.Btn_Dia3.Click += new System.EventHandler(this.Btn_Dia3_Click);
             // 
             // Btn_Dia2
             // 
@@ -95,6 +90,7 @@
             this.Btn_Dia2.TabIndex = 3;
             this.Btn_Dia2.Text = "07/11/2018";
             this.Btn_Dia2.UseVisualStyleBackColor = true;
+            this.Btn_Dia2.Click += new System.EventHandler(this.Btn_Dia2_Click);
             // 
             // Btn_Dia5
             // 
@@ -104,6 +100,7 @@
             this.Btn_Dia5.TabIndex = 6;
             this.Btn_Dia5.Text = "07/11/2018";
             this.Btn_Dia5.UseVisualStyleBackColor = true;
+            this.Btn_Dia5.Click += new System.EventHandler(this.Btn_Dia5_Click);
             // 
             // Btn_Dia4
             // 
@@ -113,6 +110,7 @@
             this.Btn_Dia4.TabIndex = 5;
             this.Btn_Dia4.Text = "07/11/2018";
             this.Btn_Dia4.UseVisualStyleBackColor = true;
+            this.Btn_Dia4.Click += new System.EventHandler(this.Btn_Dia4_Click);
             // 
             // Btn_Dia6
             // 
@@ -122,6 +120,7 @@
             this.Btn_Dia6.TabIndex = 7;
             this.Btn_Dia6.Text = "07/11/2018";
             this.Btn_Dia6.UseVisualStyleBackColor = true;
+            this.Btn_Dia6.Click += new System.EventHandler(this.Btn_Dia6_Click);
             // 
             // groupBox1
             // 
@@ -139,66 +138,28 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Dia,
-            this.Obra,
-            this.Viaje,
-            this.Estado,
-            this.F_Entrega,
-            this.F_Despacho,
-            this.NroCon,
-            this.Avance});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 16);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(898, 315);
             this.dataGridView1.TabIndex = 0;
             // 
-            // Dia
+            // Btn_Produccion
             // 
-            this.Dia.HeaderText = "Dia";
-            this.Dia.Name = "Dia";
-            // 
-            // Obra
-            // 
-            this.Obra.HeaderText = "Obra";
-            this.Obra.Name = "Obra";
-            // 
-            // Viaje
-            // 
-            this.Viaje.HeaderText = "Viaje";
-            this.Viaje.Name = "Viaje";
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            // 
-            // F_Entrega
-            // 
-            this.F_Entrega.HeaderText = "F. Entrega";
-            this.F_Entrega.Name = "F_Entrega";
-            // 
-            // F_Despacho
-            // 
-            this.F_Despacho.HeaderText = "F. Despacho";
-            this.F_Despacho.Name = "F_Despacho";
-            // 
-            // NroCon
-            // 
-            this.NroCon.HeaderText = "NroConectores";
-            this.NroCon.Name = "NroCon";
-            // 
-            // Avance
-            // 
-            this.Avance.HeaderText = "Avance";
-            this.Avance.Name = "Avance";
+            this.Btn_Produccion.Location = new System.Drawing.Point(556, 17);
+            this.Btn_Produccion.Name = "Btn_Produccion";
+            this.Btn_Produccion.Size = new System.Drawing.Size(144, 23);
+            this.Btn_Produccion.TabIndex = 9;
+            this.Btn_Produccion.Text = "Produccion Conectores";
+            this.Btn_Produccion.UseVisualStyleBackColor = true;
+            this.Btn_Produccion.Click += new System.EventHandler(this.Btn_Produccion_Click);
             // 
             // Frm_CuadroProgramacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 476);
+            this.Controls.Add(this.Btn_Produccion);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Btn_Dia6);
             this.Controls.Add(this.Btn_Dia5);
@@ -229,13 +190,6 @@
         private System.Windows.Forms.Button Btn_Dia6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Obra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Viaje;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn F_Entrega;
-        private System.Windows.Forms.DataGridViewTextBoxColumn F_Despacho;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NroCon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Avance;
+        private System.Windows.Forms.Button Btn_Produccion;
     }
 }

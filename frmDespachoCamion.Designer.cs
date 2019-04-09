@@ -281,7 +281,7 @@
             // 
             // Btn_Cambiar_A_PR
             // 
-            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(721, 138);
+            this.Btn_Cambiar_A_PR.Location = new System.Drawing.Point(721, 142);
             this.Btn_Cambiar_A_PR.Name = "Btn_Cambiar_A_PR";
             this.Btn_Cambiar_A_PR.Size = new System.Drawing.Size(87, 40);
             this.Btn_Cambiar_A_PR.TabIndex = 20;
@@ -313,13 +313,12 @@
             // 
             // Btn_ITDESP
             // 
-            this.Btn_ITDESP.Location = new System.Drawing.Point(730, 96);
+            this.Btn_ITDESP.Location = new System.Drawing.Point(721, 100);
             this.Btn_ITDESP.Name = "Btn_ITDESP";
             this.Btn_ITDESP.Size = new System.Drawing.Size(75, 36);
             this.Btn_ITDESP.TabIndex = 17;
             this.Btn_ITDESP.Text = "Dejar IT  despachada";
             this.Btn_ITDESP.UseVisualStyleBackColor = true;
-            this.Btn_ITDESP.Visible = false;
             this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Gr_empresa
@@ -328,7 +327,7 @@
             this.Gr_empresa.Controls.Add(this.Rb_TO);
             this.Gr_empresa.Location = new System.Drawing.Point(691, 17);
             this.Gr_empresa.Name = "Gr_empresa";
-            this.Gr_empresa.Size = new System.Drawing.Size(124, 92);
+            this.Gr_empresa.Size = new System.Drawing.Size(124, 80);
             this.Gr_empresa.TabIndex = 18;
             this.Gr_empresa.TabStop = false;
             this.Gr_empresa.Text = "Empresa a despachar";
@@ -693,7 +692,6 @@
             this.Btn_BasculaMovil.TabIndex = 12;
             this.Btn_BasculaMovil.Text = "Despacho Desde Bascula Móvil";
             this.Btn_BasculaMovil.UseVisualStyleBackColor = true;
-            this.Btn_BasculaMovil.Visible = false;
             this.Btn_BasculaMovil.Click += new System.EventHandler(this.Btn_BasculaMovil_Click);
             // 
             // Cmb_Patentes

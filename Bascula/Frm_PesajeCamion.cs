@@ -1430,5 +1430,50 @@ namespace Metalurgica.Bascula
         {
 
         }
+
+        private void Btn_ResumenTareas_Click(object sender, EventArgs e)
+        {
+            TareasFinales();
+        }
+
+        private void TareasFinales()
+        {
+            Bascula.Frm_DetalleGrabacion lfrm = new Frm_DetalleGrabacion();
+            lfrm.IniciaForm(mIdPesajeCamion.ToString());
+            
+            lfrm.ShowDialog();
+ 
+        }
+
+        private void Dtg_CamionDespachados_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Dtg_CamionDespachados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int lIndex = e.RowIndex;
+            if (lIndex > -1)
+            {
+                IdPesaje_PR.Text  = Dtg_CamionDespachados.Rows[lIndex].Cells["Id"].Value.ToString();
+               
+                if (int.Parse(IdPesaje_PR.Text) > 0)
+                {
+                    Btn_ImprimePL.Enabled = true;
+                }
+                else
+                {
+                    Btn_ImprimePL.Enabled = false;
+                }
+            }
+        }
+
+        private void Btn_ImprimePL_Click(object sender, EventArgs e)
+        {
+            Bascula.Frm_DetalleGrabacion lfrm = new Frm_DetalleGrabacion();
+            lfrm.IniciaForm(IdPesaje_PR.Text .ToString());
+
+            lfrm.ShowDialog();
+        }
     }
 }

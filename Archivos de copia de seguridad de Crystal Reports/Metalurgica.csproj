@@ -1,0 +1,1265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{71FE61CF-FA7B-4F9D-A820-9030B991A7BF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Metalurgica</RootNamespace>
+    <AssemblyName>Metalurgica</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>F:\T_O\CubiGest Fase2\Desarrollo\Publicacion\Metalurgia\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://www.ssingest.cl/Publicaciones/</InstallUrl>
+    <TargetCulture>es-CL</TargetCulture>
+    <ProductName>Cubigest</ProductName>
+    <PublisherName>Soluciones de Software para Ingenieria y Gestion</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>9DF7C3F470D079D1DA7DEA2E8BC50EF130785544</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Metalurgica_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Metalurgica.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonLibrary2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\CommonLibrary2.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="itextsharp, Version=5.2.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Vs 2015\ObraCivil\ObraCivil\ObraCivil\ObraCivil\bin\Debug\Dlls\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bascula\Frm_AutorizaDespacho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_AutorizaDespacho.Designer.cs">
+      <DependentUpon>Frm_AutorizaDespacho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_CargaBasculaMovil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_CargaBasculaMovil.Designer.cs">
+      <DependentUpon>Frm_CargaBasculaMovil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_DetalleGrabacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_DetalleGrabacion.Designer.cs">
+      <DependentUpon>Frm_DetalleGrabacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_PatentesBascula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_PatentesBascula.Designer.cs">
+      <DependentUpon>Frm_PatentesBascula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_PesajeCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_PesajeCamion.Designer.cs">
+      <DependentUpon>Frm_PesajeCamion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_Regularizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_Regularizar.Designer.cs">
+      <DependentUpon>Frm_Regularizar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerBascula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerBascula.Designer.cs">
+      <DependentUpon>Frm_VerBascula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerDetallePesaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bascula\Frm_VerDetallePesaje.Designer.cs">
+      <DependentUpon>Frm_VerDetallePesaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\ClsComun.cs" />
+    <Compile Include="Clases\ObjetoWsINET.cs" />
+    <Compile Include="Clases\Obj\Obj_ElementoProd.cs" />
+    <Compile Include="Clases\SqlBascula.cs" />
+    <Compile Include="Clases\TipoImprimeColada.cs" />
+    <Compile Include="Code128\FrmGeneraCode128.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code128\FrmGeneraCode128.Designer.cs">
+      <DependentUpon>FrmGeneraCode128.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compilaciones\NuevasVersiones.cs" />
+    <Compile Include="Conectores\Frm_CuadroProgramacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Conectores\Frm_CuadroProgramacion.Designer.cs">
+      <DependentUpon>Frm_CuadroProgramacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Conectores\Frm_ProduccionConectores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Conectores\Frm_ProduccionConectores.Designer.cs">
+      <DependentUpon>Frm_ProduccionConectores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Consignacion\Frm_Consignacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Consignacion\Frm_Consignacion.Designer.cs">
+      <DependentUpon>Frm_Consignacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Consignacion\Frm_Detalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Consignacion\Frm_Detalle.Designer.cs">
+      <DependentUpon>Frm_Detalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGrilla.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlGrilla.Designer.cs">
+      <DependentUpon>CtlGrilla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlProduccion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlProduccion.Designer.cs">
+      <DependentUpon>CtlProduccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTS\DtsDatos.cs">
+      <DependentUpon>DtsDatos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTS\DtsDatos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtsDatos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTS\Frm_ImportaCorrelativo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DTS\Frm_ImportaCorrelativo.Designer.cs">
+      <DependentUpon>Frm_ImportaCorrelativo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConfirmaPieza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfirmaPieza.Designer.cs">
+      <DependentUpon>FrmConfirmaPieza.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProduccion_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProduccion_2.Designer.cs">
+      <DependentUpon>FrmProduccion_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVbDespachoCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVbDespachoCamion.Designer.cs">
+      <DependentUpon>frmVbDespachoCamion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDespachoCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDespachoCamion.Designer.cs">
+      <DependentUpon>frmDespachoCamion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cruds\frmCrudBodega0.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cruds\frmCrudBodega0.Designer.cs">
+      <DependentUpon>frmCrudBodega0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cruds\frmCrudMaquina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cruds\frmCrudMaquina.Designer.cs">
+      <DependentUpon>frmCrudMaquina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctlInformacionUsuario.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctlInformacionUsuario.Designer.cs">
+      <DependentUpon>ctlInformacionUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Adm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Adm.Designer.cs">
+      <DependentUpon>Frm_Adm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Detalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Detalle.Designer.cs">
+      <DependentUpon>Frm_Detalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_IngPesoRomana.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_IngPesoRomana.Designer.cs">
+      <DependentUpon>Frm_IngPesoRomana.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_IntegracionINET.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_IntegracionINET.Designer.cs">
+      <DependentUpon>Frm_IntegracionINET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_MtoMPrima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_MtoMPrima.Designer.cs">
+      <DependentUpon>Frm_MtoMPrima.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ReEtiquetar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ReEtiquetar.Designer.cs">
+      <DependentUpon>Frm_ReEtiquetar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ResumenDespacho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ResumenDespacho.Designer.cs">
+      <DependentUpon>Frm_ResumenDespacho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_SeleccionarViajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_SeleccionarViajes.Designer.cs">
+      <DependentUpon>Frm_SeleccionarViajes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\DtsInformes.cs">
+      <DependentUpon>DtsInformes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\DtsInformes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtsInformes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\Frm_Visualizador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Informes\Frm_Visualizador.Designer.cs">
+      <DependentUpon>Frm_Visualizador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\Rpt_DetalleDespacho.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_DetalleDespacho.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Informes\Rpt_DetallePLDesp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_DetallePLDesp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Informes\Rpt_KilosPorDiamDesp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_KilosPorDiamDesp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Informes\Rpt_PortadaPLDesp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_PortadaPLDesp.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Maquinas\CheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\CheckList.Designer.cs">
+      <DependentUpon>CheckList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\Frm_Desbloqueo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_Desbloqueo.Designer.cs">
+      <DependentUpon>Frm_Desbloqueo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\Frm_ElementosProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_ElementosProduccion.Designer.cs">
+      <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\Frm_MtoMaquina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_MtoMaquina.Designer.cs">
+      <DependentUpon>Frm_MtoMaquina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\Frm_MtoTotem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_MtoTotem.Designer.cs">
+      <DependentUpon>Frm_MtoTotem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\NotificaAveria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\NotificaAveria.Designer.cs">
+      <DependentUpon>NotificaAveria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CurrentUser.cs" />
+    <Compile Include="Cruds\frmCrudCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cruds\frmCrudCamion.Designer.cs">
+      <DependentUpon>frmCrudCamion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDespachoBodegaAcopio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDespachoBodegaAcopio.Designer.cs">
+      <DependentUpon>frmDespachoBodegaAcopio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProduccion.Designer.cs">
+      <DependentUpon>frmProduccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecepcionColada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecepcionColada.Designer.cs">
+      <DependentUpon>frmRecepcionColada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tipo_Cliente.cs" />
+    <Compile Include="Models\Tipo_DetDoc.cs" />
+    <Compile Include="Models\Tipo_DireccionDespacho.cs" />
+    <Compile Include="Models\Tipo_DocVentaExt.cs" />
+    <Compile Include="Models\Tipo_EntDoc.cs" />
+    <Compile Include="Models\Tipo_Facturacion.cs" />
+    <Compile Include="Models\Tipo_GuiaOC.cs" />
+    <Compile Include="Models\Tipo_Identificacion.cs" />
+    <Compile Include="Models\Tipo_InvocaWS.cs" />
+    <Compile Include="Models\Tipo_Items.cs" />
+    <Compile Include="Models\Tipo_MovExistencias.cs" />
+    <Compile Include="Models\Tipo_MovExistenciasAll.cs" />
+    <Compile Include="Models\Tipo_MovExistenciasDet.cs" />
+    <Compile Include="Models\Tipo_RefDoc.cs" />
+    <Compile Include="Models\Tipo_ResumenDoc.cs" />
+    <Compile Include="Muestreo\Frm_RetiraMuestra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Muestreo\Frm_RetiraMuestra.Designer.cs">
+      <DependentUpon>Frm_RetiraMuestra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Muestreo\Frm_SolicitaMuestreo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Muestreo\Frm_SolicitaMuestreo.Designer.cs">
+      <DependentUpon>Frm_SolicitaMuestreo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiMaquina\FrmAsignacionMaqUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiMaquina\FrmAsignacionMaqUser.Designer.cs">
+      <DependentUpon>FrmAsignacionMaqUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiMaquina\frmProduccionMM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiMaquina\frmProduccionMM.Designer.cs">
+      <DependentUpon>frmProduccionMM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiMaquina\FrmVisualizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiMaquina\FrmVisualizar.Designer.cs">
+      <DependentUpon>FrmVisualizar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiMaquina\Frm_MotivoBloqueo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiMaquina\Frm_MotivoBloqueo.Designer.cs">
+      <DependentUpon>Frm_MotivoBloqueo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiMaquina\Prueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiMaquina\Prueba.Designer.cs">
+      <DependentUpon>Prueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Produccion\CargaEstadisticasMaq.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Produccion\CargaEstadisticasMaq.Designer.cs">
+      <DependentUpon>CargaEstadisticasMaq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pruebas\Frm_Impresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pruebas\Frm_Impresion.Designer.cs">
+      <DependentUpon>Frm_Impresion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Coladas_Px_WS_Ws_To\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_Conectores\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_GuiaDespacho\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_GuiaTOSOL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_INET\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_MovExistenciasINET\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_MovStockTOSOL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Px_MovStock\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WsCrud\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WsOperacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WsSesion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Ws_TO\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmCierreMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmCierreMaterial.Designer.cs">
+      <DependentUpon>frmCierreMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmCierreMaterialAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmCierreMaterialAdmin.Designer.cs">
+      <DependentUpon>frmCierreMaterialAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\FrmDevolucionMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\FrmDevolucionMP.Designer.cs">
+      <DependentUpon>FrmDevolucionMP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmLogProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmLogProducto.Designer.cs">
+      <DependentUpon>frmLogProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmRecepcionMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmRecepcionMaterial.Designer.cs">
+      <DependentUpon>frmRecepcionMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmRecepcionMaterialParcial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmRecepcionMaterialParcial.Designer.cs">
+      <DependentUpon>frmRecepcionMaterialParcial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmReprocesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmReprocesa.Designer.cs">
+      <DependentUpon>frmReprocesa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmSolicitudMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmSolicitudMaterial.Designer.cs">
+      <DependentUpon>frmSolicitudMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudMP\frmVisializar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitudMP\frmVisializar.Designer.cs">
+      <DependentUpon>frmVisializar.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Bascula\Frm_AutorizaDespacho.resx">
+      <DependentUpon>Frm_AutorizaDespacho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_CargaBasculaMovil.resx">
+      <DependentUpon>Frm_CargaBasculaMovil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_DetalleGrabacion.resx">
+      <DependentUpon>Frm_DetalleGrabacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_PatentesBascula.resx">
+      <DependentUpon>Frm_PatentesBascula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_PesajeCamion.resx">
+      <DependentUpon>Frm_PesajeCamion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_Regularizar.resx">
+      <DependentUpon>Frm_Regularizar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_VerBascula.resx">
+      <DependentUpon>Frm_VerBascula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bascula\Frm_VerDetallePesaje.resx">
+      <DependentUpon>Frm_VerDetallePesaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code128\FrmGeneraCode128.resx">
+      <DependentUpon>FrmGeneraCode128.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Conectores\Frm_CuadroProgramacion.resx">
+      <DependentUpon>Frm_CuadroProgramacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Conectores\Frm_ProduccionConectores.resx">
+      <DependentUpon>Frm_ProduccionConectores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consignacion\Frm_Consignacion.resx">
+      <DependentUpon>Frm_Consignacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consignacion\Frm_Detalle.resx">
+      <DependentUpon>Frm_Detalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGrilla.resx">
+      <DependentUpon>CtlGrilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlProduccion.resx">
+      <DependentUpon>CtlProduccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DTS\Frm_ImportaCorrelativo.resx">
+      <DependentUpon>Frm_ImportaCorrelativo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConfirmaPieza.resx">
+      <DependentUpon>FrmConfirmaPieza.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProduccion_2.resx">
+      <DependentUpon>FrmProduccion_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVbDespachoCamion.resx">
+      <DependentUpon>frmVbDespachoCamion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDespachoCamion.resx">
+      <DependentUpon>frmDespachoCamion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cruds\frmCrudBodega0.resx">
+      <DependentUpon>frmCrudBodega0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cruds\frmCrudMaquina.resx">
+      <DependentUpon>frmCrudMaquina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctlInformacionUsuario.resx">
+      <DependentUpon>ctlInformacionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cruds\frmCrudCamion.resx">
+      <DependentUpon>frmCrudCamion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDespachoBodegaAcopio.resx">
+      <DependentUpon>frmDespachoBodegaAcopio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProduccion.resx">
+      <DependentUpon>frmProduccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecepcionColada.resx">
+      <DependentUpon>frmRecepcionColada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Adm.resx">
+      <DependentUpon>Frm_Adm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Detalle.resx">
+      <DependentUpon>Frm_Detalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_IngPesoRomana.resx">
+      <DependentUpon>Frm_IngPesoRomana.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_IntegracionINET.resx">
+      <DependentUpon>Frm_IntegracionINET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_MtoMPrima.resx">
+      <DependentUpon>Frm_MtoMPrima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ReEtiquetar.resx">
+      <DependentUpon>Frm_ReEtiquetar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ResumenDespacho.resx">
+      <DependentUpon>Frm_ResumenDespacho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_SeleccionarViajes.resx">
+      <DependentUpon>Frm_SeleccionarViajes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Frm_Visualizador.resx">
+      <DependentUpon>Frm_Visualizador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Rpt_DetalleDespacho.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_DetalleDespacho.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Rpt_DetallePLDesp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_DetallePLDesp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Rpt_KilosPorDiamDesp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_KilosPorDiamDesp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\Rpt_PortadaPLDesp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_PortadaPLDesp.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\CheckList.resx">
+      <DependentUpon>CheckList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_Desbloqueo.resx">
+      <DependentUpon>Frm_Desbloqueo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_ElementosProduccion.resx">
+      <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_MtoMaquina.resx">
+      <DependentUpon>Frm_MtoMaquina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_MtoTotem.resx">
+      <DependentUpon>Frm_MtoTotem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\NotificaAveria.resx">
+      <DependentUpon>NotificaAveria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Muestreo\Frm_RetiraMuestra.resx">
+      <DependentUpon>Frm_RetiraMuestra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Muestreo\Frm_SolicitaMuestreo.resx">
+      <DependentUpon>Frm_SolicitaMuestreo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiMaquina\FrmAsignacionMaqUser.resx">
+      <DependentUpon>FrmAsignacionMaqUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiMaquina\frmProduccionMM.resx">
+      <DependentUpon>frmProduccionMM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiMaquina\FrmVisualizar.resx">
+      <DependentUpon>FrmVisualizar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiMaquina\Frm_MotivoBloqueo.resx">
+      <DependentUpon>Frm_MotivoBloqueo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiMaquina\Prueba.resx">
+      <DependentUpon>Prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Produccion\CargaEstadisticasMaq.resx">
+      <DependentUpon>CargaEstadisticasMaq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Pruebas\Frm_Impresion.resx">
+      <DependentUpon>Frm_Impresion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmCierreMaterial.resx">
+      <DependentUpon>frmCierreMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmCierreMaterialAdmin.resx">
+      <DependentUpon>frmCierreMaterialAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\FrmDevolucionMP.resx">
+      <DependentUpon>FrmDevolucionMP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmLogProducto.resx">
+      <DependentUpon>frmLogProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmRecepcionMaterial.resx">
+      <DependentUpon>frmRecepcionMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmRecepcionMaterialParcial.resx">
+      <DependentUpon>frmRecepcionMaterialParcial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmReprocesa.resx">
+      <DependentUpon>frmReprocesa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmSolicitudMaterial.resx">
+      <DependentUpon>frmSolicitudMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitudMP\frmVisializar.resx">
+      <DependentUpon>frmVisializar.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\Debug.rarssss" />
+    <None Include="bin\Debug\Metalurgica.exe.config" />
+    <None Include="bin\Metalurgia%2877%29.rars" />
+    <None Include="bin\Metalurgia.rars" />
+    <None Include="bin\Release\Metalurgica.exe.config" />
+    <None Include="DTS\DtsDatos.xsc">
+      <DependentUpon>DtsDatos.xsd</DependentUpon>
+    </None>
+    <None Include="DTS\DtsDatos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtsDatos.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTS\DtsDatos.xss">
+      <DependentUpon>DtsDatos.xsd</DependentUpon>
+    </None>
+    <None Include="Informes\DtsInformes.xsc">
+      <DependentUpon>DtsInformes.xsd</DependentUpon>
+    </None>
+    <None Include="Informes\DtsInformes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtsInformes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Informes\DtsInformes.xss">
+      <DependentUpon>DtsInformes.xsd</DependentUpon>
+    </None>
+    <None Include="Metalurgica_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Dts_PL.xsd" />
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.Dts_PL.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.PiezaTipoB.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoActaEntrega.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoColada.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoDetalleCotas.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoDetallePaquetesPieza.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoEntregas_OC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoForma.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoMov.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.TipoOC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.Tipo_Hd.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.Tipo_Obra.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Metalurgica.Coladas_Px_WS_Ws_To.Tipo_Pieza.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Ws_To.wsdl" />
+    <None Include="Service References\Px_Conectores\Metalurgica.Px_Conectores.ListaDataSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Px_Conectores\Ws_Conectores.wsdl" />
+    <None Include="Service References\Px_GuiaDespacho\Metalurgica.Px_GuiaDespacho.SDT_ERRORES_ERROR.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Px_GuiaDespacho\XMLDocVtaExt.wsdl" />
+    <None Include="Service References\Px_GuiaTOSOL\Metalurgica.Px_GuiaTOSOL.SDT_ERRORES_ERROR.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Px_GuiaTOSOL\XMLDocVtaExt.wsdl" />
+    <None Include="Service References\Px_INET\Metalurgica.Px_INET.SDT_ERRORES_ERROR.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Px_INET\XMLDocVtaExt.wsdl" />
+    <None Include="Service References\Px_MovExistenciasINET\wsmovexiall.wsdl" />
+    <None Include="Service References\Px_MovStockTOSOL\wsmovexiall.wsdl" />
+    <None Include="Service References\Px_MovStock\wsmovexiall.wsdl" />
+    <None Include="Service References\WsCrud\Crud1.wsdl" />
+    <None Include="Service References\WsCrud\Metalurgica.WsCrud.Bodega.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsCrud\Metalurgica.WsCrud.Camion1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsCrud\Metalurgica.WsCrud.ListaDataSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsCrud\Metalurgica.WsCrud.Maquina.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Despacho_Bodega_Acopio.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Despacho_Bodega_MP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Despacho_Camion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.EP_Generado.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Estado_Pago.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.ListaDataSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.PesajeCamion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Pieza.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.PiezaTipoB.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Recepcion_Colada.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Solicitud_Material.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Solicitud_Material_Detalle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.TipoBasculaMovil.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Operacion1.wsdl" />
+    <None Include="Service References\WsSesion\Metalurgica.WsSesion.ListaDataSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsSesion\Metalurgica.WsSesion.Sesion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsSesion\WS_Sesion1.wsdl" />
+    <None Include="Service References\Ws_TO\Dts_PL1.xsd" />
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Dts_PL.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Objeto_WsINET.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.PiezaTipoB.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoActaEntrega.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoColada.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoDetalleCotas.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoDetalleFormaConHilos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoDetallePaquetesPieza.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoEntregas_OC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoForma.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoMov.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.TipoOC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Hd.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Obra.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Pieza.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Ws_TO\Ws_To1.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="application-form.ico" />
+    <Content Include="bin\Debug\Metalurgica.exe" />
+    <Content Include="bin\Debug\Metalurgica.pdb" />
+    <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\Px_Conectores\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_Conectores\configuration.svcinfo" />
+    <None Include="Service References\Px_Conectores\configuration91.svcinfo" />
+    <None Include="Service References\Px_Conectores\Ws_Conectores.disco" />
+    <None Include="Service References\Ws_TO\Ws_To1.disco" />
+    <None Include="Service References\WsSesion\WS_Sesion1.disco" />
+    <None Include="Service References\Ws_TO\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Ws_TO\configuration.svcinfo" />
+    <None Include="Service References\Ws_TO\configuration91.svcinfo" />
+    <None Include="Service References\WsOperacion\Operacion1.disco" />
+    <None Include="Resources\to_do_list_checked_all.png" />
+    <Content Include="Resources\to_do_list_cheked_all.png" />
+    <None Include="Service References\Px_MovStockTOSOL\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_MovStockTOSOL\configuration.svcinfo" />
+    <None Include="Service References\Px_MovStockTOSOL\configuration91.svcinfo" />
+    <None Include="Service References\Px_GuiaTOSOL\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_GuiaTOSOL\configuration.svcinfo" />
+    <None Include="Service References\Px_GuiaTOSOL\configuration91.svcinfo" />
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Coladas_Px_WS_Ws_To\configuration.svcinfo" />
+    <None Include="Service References\Coladas_Px_WS_Ws_To\configuration91.svcinfo" />
+    <None Include="Service References\Coladas_Px_WS_Ws_To\Ws_To.disco" />
+    <None Include="Service References\WsCrud\Crud1.disco" />
+    <None Include="Service References\Px_MovExistenciasINET\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_MovExistenciasINET\configuration.svcinfo" />
+    <None Include="Service References\Px_MovExistenciasINET\configuration91.svcinfo" />
+    <None Include="Service References\Px_INET\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_INET\configuration.svcinfo" />
+    <None Include="Service References\Px_INET\configuration91.svcinfo" />
+    <None Include="Service References\Px_MovStock\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_MovStock\configuration.svcinfo" />
+    <None Include="Service References\Px_MovStock\configuration91.svcinfo" />
+    <None Include="Service References\Px_GuiaDespacho\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Px_GuiaDespacho\configuration.svcinfo" />
+    <None Include="Service References\Px_GuiaDespacho\configuration91.svcinfo" />
+    <None Include="Service References\WsOperacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WsOperacion\configuration.svcinfo" />
+    <None Include="Service References\WsOperacion\configuration91.svcinfo" />
+    <None Include="Service References\WsSesion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WsSesion\configuration.svcinfo" />
+    <None Include="Service References\WsSesion\configuration91.svcinfo" />
+    <None Include="Resources\application_add.png" />
+    <None Include="Service References\WsCrud\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WsCrud\configuration.svcinfo" />
+    <None Include="Service References\WsCrud\configuration91.svcinfo" />
+    <None Include="Resources\help1.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\User.ico" />
+    <None Include="Resources\update.png" />
+    <None Include="Resources\table_excel.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\find.png" />
+    <None Include="Resources\door_out.png" />
+    <None Include="Resources\disk.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\copying_and_distribution.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Coladas_Px_WS_Ws_To\" />
+    <WCFMetadataStorage Include="Service References\Px_Conectores\" />
+    <WCFMetadataStorage Include="Service References\Px_GuiaDespacho\" />
+    <WCFMetadataStorage Include="Service References\Px_GuiaTOSOL\" />
+    <WCFMetadataStorage Include="Service References\Px_INET\" />
+    <WCFMetadataStorage Include="Service References\Px_MovExistenciasINET\" />
+    <WCFMetadataStorage Include="Service References\Px_MovStockTOSOL\" />
+    <WCFMetadataStorage Include="Service References\Px_MovStock\" />
+    <WCFMetadataStorage Include="Service References\WsCrud\" />
+    <WCFMetadataStorage Include="Service References\WsOperacion\" />
+    <WCFMetadataStorage Include="Service References\WsSesion\" />
+    <WCFMetadataStorage Include="Service References\Ws_TO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Coladas\Coladas.vbproj">
+      <Project>{7D42522C-D761-40BC-ACBD-47330B3D21D9}</Project>
+      <Name>Coladas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonHelp\CommonHelp.csproj">
+      <Project>{4031B020-0B5A-468A-95C8-5CE31ABDB44C}</Project>
+      <Name>CommonHelp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\comunes\comunes.vbproj">
+      <Project>{2C2C5B75-2346-4C5D-A49F-6F7CAB8AC60C}</Project>
+      <Name>comunes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integracion_INET\Integracion_INET\Integracion_INET.vbproj">
+      <Project>{76c114fe-eea8-49fb-9cc9-f8f59eba3ca1}</Project>
+      <Name>Integracion_INET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pedidos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="CRDESIGNERLib">
+      <Guid>{C0AA5023-C763-4A4B-AFED-ADCF78D6C08B}</Guid>
+      <VersionMajor>13</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalDocMgmtUndoManagerLib">
+      <Guid>{FB27B28C-DA7D-4F05-ABD9-AC0627D77B91}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalFavoritesLib">
+      <Guid>{86FE30D5-321F-4397-87D3-121A2BCC5BDC}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalReportsCommonObjectModelLib">
+      <Guid>{E9705A7B-04D3-4976-AA5E-03FA4C512B80}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalReportsControllersLib">
+      <Guid>{0852E138-AA97-4981-B770-0668330D3632}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalReportsDataDefModelLib">
+      <Guid>{291AE024-7ACA-4AF6-800E-F3231271C602}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="CrystalReportsReportDefModelLib">
+      <Guid>{F6B46FE0-271D-4DA7-A891-A3513694F2F7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

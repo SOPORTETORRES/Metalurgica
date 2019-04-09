@@ -845,10 +845,10 @@ namespace Metalurgica
                             if (lPartes[j].ToUpper().Equals("FE"))
                             {
                                 lGuiaOC_FE.OC = lTbl.Rows[i]["OC"].ToString();
-                                lGuiaOC_FE.IdIt = string.Concat(lPartesIdIT[j].ToString(),",", lGuiaOC_F.IdIt);
-                                lGuiaOC_FE.Viajes = string.Concat(lPartesViaje[j].ToString(), ",", lGuiaOC_F.Viajes);
-                                lGuiaOC_FE.DespachosCamion = string.Concat(lPartes_DC[j].ToString(), ",", lGuiaOC_F.DespachosCamion);
-                                lGuiaOC_FE.CodigoGuiaINET = string.Concat(lPartes[j].ToString(), ",", lGuiaOC_F.CodigoGuiaINET);
+                                lGuiaOC_FE.IdIt = string.Concat(lPartesIdIT[j].ToString(),",", lGuiaOC_FE.IdIt);
+                                lGuiaOC_FE.Viajes = string.Concat(lPartesViaje[j].ToString(), ",", lGuiaOC_FE.Viajes);
+                                lGuiaOC_FE.DespachosCamion = string.Concat(lPartes_DC[j].ToString(), ",", lGuiaOC_FE.DespachosCamion);
+                                lGuiaOC_FE.CodigoGuiaINET = string.Concat(lPartes[j].ToString(), ",", lGuiaOC_FE.CodigoGuiaINET);
                             }
 
                         }
@@ -1440,6 +1440,13 @@ namespace Metalurgica
             lFacturacion.Bodega_Entrada = mCodigoBodegaEntrada; //"90"; //'mBodegaEntrada ' "90"  cuando es 330 y vacio para otro caso
         else
             lFacturacion.Bodega_Entrada = ""; //' "90"  cuando es 330 y vacio para otro caso
+
+
+            //definicion entregada Por lGallardo con fecha 21-01-2019
+            if ((mCodigoBodega == "105") || (mCodigoBodega == "501"))
+                lFacturacion.Bodega_Entrada = "90";
+            else
+                lFacturacion.Bodega_Entrada = "80";
         
 
         lFacturacion.IdVendedor = "50234350";
