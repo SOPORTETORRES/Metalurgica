@@ -566,7 +566,7 @@ namespace Metalurgica.Maquinas
      }
 
 
-     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en minutos) que estuvo detenida ma máquina fue de ", Math.Round( lMinutos,0).ToString (), "  <br> ");
+     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en minutos) que estuvo detenida la máquina fue de ", Math.Round( lMinutos,0).ToString (), "  <br> ");
      //lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
      
 
@@ -766,13 +766,30 @@ namespace Metalurgica.Maquinas
                         lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
                         //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                         lTxMsg = ObtenerCuerpoMailSolucionAveria();
-                        lTitulo = "Notificación por Solución  de Averias: ";
+                        //lTitulo = "Notificación por Solución  de Averias: ";
 
-                        if (mIdSucursal.Equals("1")) // es Calama
-                            idListadistribucion = -11;
+                        //if (mIdSucursal.Equals("1")) // es Calama
+                        //    idListadistribucion = -11;
 
-                        if (mIdSucursal.Equals("4")) // es Calama
-                            idListadistribucion = -10;
+                        //if (mIdSucursal.Equals("4")) // es Calama
+                        //    idListadistribucion = -10;
+
+                        switch (mIdSucursal)
+                        {
+                            case "1":
+                                idListadistribucion = -11;
+                                lTitulo = "Notificación   Solucion de Averias para  Planta Calama ";
+                                break;
+                            case "4":
+                                idListadistribucion = -10;
+                                lTitulo = "Notificación Solucion de  Averias para   para Planta Calama ";
+                                break;
+                            case "7":
+                                idListadistribucion = -12;
+                                lTitulo = "Notificación de   Solucion de Averias para  Planta TOSOL ";
+                                break;
+                        }
+
 
                         lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
                         //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
@@ -862,11 +879,27 @@ namespace Metalurgica.Maquinas
                     lTxMsg = ObtenerCuerpoMailSolucionAveria();
                     lTitulo = "Notificación por Solución  de Averias: ";
 
-                        if (mIdSucursal.Equals("1")) // es Calama
-                            idListadistribucion = -11;
+                        //if (mIdSucursal.Equals("1")) // es Calama
+                        //    idListadistribucion = -11;
 
-                        if (mIdSucursal.Equals("4")) // es Calama
-                            idListadistribucion = -10;
+                        //if (mIdSucursal.Equals("4")) // es Calama
+                        //    idListadistribucion = -10;
+
+                        switch (mIdSucursal)
+                        {
+                            case "1":
+                                idListadistribucion = -11;
+                                lTitulo = "Notificación de Liberación  de Averias para  Planta Calama ";
+                                break;
+                            case "4":
+                                idListadistribucion = -10;
+                                lTitulo = "Notificación de   Liberación de Averias para Planta Calama ";
+                                break;
+                            case "7":
+                                idListadistribucion = -12;
+                                lTitulo = "Notificación de   Liberación de Averias para  Planta TOSOL ";
+                                break;
+                        }
 
                         lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
 
@@ -917,7 +950,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaNotificacionAveria()
         {
-            int idListadistribucion = 0;
+            int idListadistribucion = -1;
             if (DatosOKParaGrabar("NA") == true)
             {
                 string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
@@ -943,18 +976,35 @@ namespace Metalurgica.Maquinas
                     lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria);
                     lTitulo = "Notificación por Notificación de Averias: ";
 
-                    if (mIdSucursal.Equals("1")) // es Calama
+
+                    switch (mIdSucursal)
                     {
-                        idListadistribucion = -11;
-                        lTitulo = "Notificación de Averias Planta Calama ";
+                        case "1":
+                            idListadistribucion = -11;
+                            lTitulo = "Notificación de Averias Planta Calama ";
+                            break;
+                        case "4":
+                            idListadistribucion = -10;
+                            lTitulo = "Notificación de Averias Planta Calama ";
+                            break;
+                        case "7":
+                            idListadistribucion = -12;
+                            lTitulo = "Notificación de Averias Planta TOSOL ";
+                            break;
                     }
 
+                    //if (mIdSucursal.Equals("1")) // es Calama
+                    //{
+                    //    idListadistribucion = -11;
+                    //    lTitulo = "Notificación de Averias Planta Calama ";
+                    //}
 
-                    if (mIdSucursal.Equals("4")) // es Santiago
-                    {
-                        idListadistribucion = -10;
-                        lTitulo = "Notificación de Averias Planta Vista Clara, Santiago ";
-                    }
+
+                    //if (mIdSucursal.Equals("4")) // es Santiago
+                    //{
+                    //    idListadistribucion = -10;
+                    //    lTitulo = "Notificación de Averias Planta Vista Clara, Santiago ";
+                    //}
                         
 
                     lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);

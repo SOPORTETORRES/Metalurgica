@@ -2,21 +2,162 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="AsociarEtiquetaPiezaaCamion">
+      <s:element name="ObtenerMotivosExcepcionProduccion">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerMotivosExcepcionProduccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerMotivosExcepcionProduccionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ListaDataSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="_dataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerPieza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idPieza" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPiezaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarPasoaProduccionPieza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pieza" type="tns:Pieza" />
+            <s:element minOccurs="1" maxOccurs="1" name="maquina" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iCant" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iIdUser" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Pieza">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Colada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistrarPasoaProduccionPiezaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarPasoaProduccionPiezaResult" type="tns:Pieza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPiezaProduccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_pieza" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPiezaProduccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezaProduccionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoPiezaBodegaAcopio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Bodega_Acopio" type="tns:Despacho_Bodega_Acopio" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Despacho_Bodega_Acopio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarDespachoPiezaBodegaAcopioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoPiezaBodegaAcopioResult" type="tns:Despacho_Bodega_Acopio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarEtiquetaPiezaaBodegaAcopio">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idDespacho" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="etiqueta_pieza" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AsociarEtiquetaPiezaaCamionResponse">
+      <s:element name="AsociarEtiquetaPiezaaBodegaAcopioResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaPiezaaCamionResult" type="tns:Despacho_Camion" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaPiezaaBodegaAcopioResult" type="tns:Despacho_Bodega_Acopio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_VERIFICA_VIAJE_DESPACHO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iViaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_VERIFICA_VIAJE_DESPACHOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SP_VERIFICA_VIAJE_DESPACHOResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iDtsDatos">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -56,6 +197,46 @@
           <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarDespachoCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoCamionResult" type="tns:Despacho_Camion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoPiezaCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoPiezaCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoPiezaCamionResult" type="tns:Despacho_Camion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarEtiquetaPiezaaCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idDespacho" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_pieza" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarEtiquetaPiezaaCamionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaPiezaaCamionResult" type="tns:Despacho_Camion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ListarDespachoCamion">
         <s:complexType>
           <s:sequence>
@@ -70,28 +251,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ListaDataSet">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="_dataSet">
-            <s:complexType>
-              <s:sequence>
-                <s:element ref="s:schema" />
-                <s:any />
-              </s:sequence>
-            </s:complexType>
-          </s:element>
-          <s:element minOccurs="0" maxOccurs="1" name="_error" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
-            <s:complexType>
-              <s:sequence>
-                <s:element ref="s:schema" />
-                <s:any />
-              </s:sequence>
-            </s:complexType>
-          </s:element>
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="VbDespachoCamion">
         <s:complexType>
           <s:sequence>
@@ -1806,6 +1965,139 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GrabarProduccionExterna">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdPaquete" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iExterno" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUser" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarProduccionExternaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarProduccionExternaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarNoConformidadProdExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdPaquete" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iDescrip" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUser" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarNoConformidadProdExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarNoConformidadProdExtResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleRecepcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iFecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleRecepcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleRecepcionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersisteEnviosProdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lDts" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersisteEnviosProdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersisteEnviosProdExResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEnviosSinRecepcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iTipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iFechaIni" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iFechaFin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEnviosSinRecepcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEnviosSinRecepcionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEnviosParaRecepcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iFechaIni" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEnviosParaRecepcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEnviosParaRecepcionResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosIniciales_PE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iTipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iIdO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosIniciales_PEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosIniciales_PEResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerIt_PorObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerIt_PorObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerIt_PorObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiquetasPorViaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiquetasPorViajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEtiquetasPorViajeResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RevisaRN">
         <s:complexType>
           <s:sequence>
@@ -1976,167 +2268,62 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerMotivosExcepcionProduccion">
-        <s:complexType />
-      </s:element>
-      <s:element name="ObtenerMotivosExcepcionProduccionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerMotivosExcepcionProduccionResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPieza">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idPieza" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPiezaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezaResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RegistrarPasoaProduccionPieza">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="pieza" type="tns:Pieza" />
-            <s:element minOccurs="1" maxOccurs="1" name="maquina" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="iCant" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="iIdUser" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Pieza">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Colada" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="RegistrarPasoaProduccionPiezaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="RegistrarPasoaProduccionPiezaResult" type="tns:Pieza" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPiezaProduccion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_pieza" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerPiezaProduccionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPiezaProduccionResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoPiezaBodegaAcopio">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="despacho_Bodega_Acopio" type="tns:Despacho_Bodega_Acopio" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Despacho_Bodega_Acopio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarDespachoPiezaBodegaAcopioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoPiezaBodegaAcopioResult" type="tns:Despacho_Bodega_Acopio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsociarEtiquetaPiezaaBodegaAcopio">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idDespacho" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_pieza" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsociarEtiquetaPiezaaBodegaAcopioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaPiezaaBodegaAcopioResult" type="tns:Despacho_Bodega_Acopio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SP_VERIFICA_VIAJE_DESPACHO">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iViaje" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SP_VERIFICA_VIAJE_DESPACHOResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SP_VERIFICA_VIAJE_DESPACHOResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoCamion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iDtsDatos">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoCamionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoCamionResult" type="tns:Despacho_Camion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoPiezaCamion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoPiezaCamionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoPiezaCamionResult" type="tns:Despacho_Camion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerMotivosExcepcionProduccionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerMotivosExcepcionProduccion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerMotivosExcepcionProduccionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerMotivosExcepcionProduccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerPieza" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerPiezaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarPasoaProduccionPiezaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPieza" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarPasoaProduccionPiezaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPiezaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezaProduccionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerPiezaProduccion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPiezaProduccionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerPiezaProduccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoPiezaBodegaAcopioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaBodegaAcopio" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoPiezaBodegaAcopioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaBodegaAcopioResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsociarEtiquetaPiezaaBodegaAcopioSoapIn">
+    <wsdl:part name="parameters" element="tns:AsociarEtiquetaPiezaaBodegaAcopio" />
+  </wsdl:message>
+  <wsdl:message name="AsociarEtiquetaPiezaaBodegaAcopioSoapOut">
+    <wsdl:part name="parameters" element="tns:AsociarEtiquetaPiezaaBodegaAcopioResponse" />
+  </wsdl:message>
+  <wsdl:message name="SP_VERIFICA_VIAJE_DESPACHOSoapIn">
+    <wsdl:part name="parameters" element="tns:SP_VERIFICA_VIAJE_DESPACHO" />
+  </wsdl:message>
+  <wsdl:message name="SP_VERIFICA_VIAJE_DESPACHOSoapOut">
+    <wsdl:part name="parameters" element="tns:SP_VERIFICA_VIAJE_DESPACHOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoCamionSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoCamion" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoCamionSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoCamionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoPiezaCamionSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaCamion" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoPiezaCamionSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaCamionResponse" />
+  </wsdl:message>
   <wsdl:message name="AsociarEtiquetaPiezaaCamionSoapIn">
     <wsdl:part name="parameters" element="tns:AsociarEtiquetaPiezaaCamion" />
   </wsdl:message>
@@ -2743,6 +2930,60 @@
   <wsdl:message name="PersistePesajeBMSoapOut">
     <wsdl:part name="parameters" element="tns:PersistePesajeBMResponse" />
   </wsdl:message>
+  <wsdl:message name="GrabarProduccionExternaSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarProduccionExterna" />
+  </wsdl:message>
+  <wsdl:message name="GrabarProduccionExternaSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarProduccionExternaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrabarNoConformidadProdExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarNoConformidadProdExt" />
+  </wsdl:message>
+  <wsdl:message name="GrabarNoConformidadProdExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarNoConformidadProdExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleRecepcionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleRecepcion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleRecepcionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleRecepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="PersisteEnviosProdExSoapIn">
+    <wsdl:part name="parameters" element="tns:PersisteEnviosProdEx" />
+  </wsdl:message>
+  <wsdl:message name="PersisteEnviosProdExSoapOut">
+    <wsdl:part name="parameters" element="tns:PersisteEnviosProdExResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEnviosSinRecepcionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEnviosSinRecepcion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEnviosSinRecepcionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEnviosSinRecepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEnviosParaRecepcionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEnviosParaRecepcion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEnviosParaRecepcionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEnviosParaRecepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosIniciales_PESoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosIniciales_PE" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosIniciales_PESoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosIniciales_PEResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerIt_PorObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerIt_PorObra" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerIt_PorObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerIt_PorObraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetasPorViajeSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetasPorViaje" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetasPorViajeSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetasPorViajeResponse" />
+  </wsdl:message>
   <wsdl:message name="RevisaRNSoapIn">
     <wsdl:part name="parameters" element="tns:RevisaRN" />
   </wsdl:message>
@@ -2803,61 +3044,43 @@
   <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapOut">
     <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMPResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerMotivosExcepcionProduccionSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerMotivosExcepcionProduccion" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerMotivosExcepcionProduccionSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerMotivosExcepcionProduccionResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerPieza" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerPiezaResponse" />
-  </wsdl:message>
-  <wsdl:message name="RegistrarPasoaProduccionPiezaSoapIn">
-    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPieza" />
-  </wsdl:message>
-  <wsdl:message name="RegistrarPasoaProduccionPiezaSoapOut">
-    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPiezaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezaProduccionSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerPiezaProduccion" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerPiezaProduccionSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerPiezaProduccionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoPiezaBodegaAcopioSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaBodegaAcopio" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoPiezaBodegaAcopioSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaBodegaAcopioResponse" />
-  </wsdl:message>
-  <wsdl:message name="AsociarEtiquetaPiezaaBodegaAcopioSoapIn">
-    <wsdl:part name="parameters" element="tns:AsociarEtiquetaPiezaaBodegaAcopio" />
-  </wsdl:message>
-  <wsdl:message name="AsociarEtiquetaPiezaaBodegaAcopioSoapOut">
-    <wsdl:part name="parameters" element="tns:AsociarEtiquetaPiezaaBodegaAcopioResponse" />
-  </wsdl:message>
-  <wsdl:message name="SP_VERIFICA_VIAJE_DESPACHOSoapIn">
-    <wsdl:part name="parameters" element="tns:SP_VERIFICA_VIAJE_DESPACHO" />
-  </wsdl:message>
-  <wsdl:message name="SP_VERIFICA_VIAJE_DESPACHOSoapOut">
-    <wsdl:part name="parameters" element="tns:SP_VERIFICA_VIAJE_DESPACHOResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoCamionSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoCamion" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoCamionSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoCamionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoPiezaCamionSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaCamion" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoPiezaCamionSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaCamionResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
+      <wsdl:input message="tns:ObtenerMotivosExcepcionProduccionSoapIn" />
+      <wsdl:output message="tns:ObtenerMotivosExcepcionProduccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPieza">
+      <wsdl:input message="tns:ObtenerPiezaSoapIn" />
+      <wsdl:output message="tns:ObtenerPiezaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza">
+      <wsdl:input message="tns:RegistrarPasoaProduccionPiezaSoapIn" />
+      <wsdl:output message="tns:RegistrarPasoaProduccionPiezaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezaProduccion">
+      <wsdl:input message="tns:ObtenerPiezaProduccionSoapIn" />
+      <wsdl:output message="tns:ObtenerPiezaProduccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
+      <wsdl:input message="tns:GuardarDespachoPiezaBodegaAcopioSoapIn" />
+      <wsdl:output message="tns:GuardarDespachoPiezaBodegaAcopioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
+      <wsdl:input message="tns:AsociarEtiquetaPiezaaBodegaAcopioSoapIn" />
+      <wsdl:output message="tns:AsociarEtiquetaPiezaaBodegaAcopioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
+      <wsdl:input message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapIn" />
+      <wsdl:output message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion">
+      <wsdl:input message="tns:GuardarDespachoCamionSoapIn" />
+      <wsdl:output message="tns:GuardarDespachoCamionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaCamion">
+      <wsdl:input message="tns:GuardarDespachoPiezaCamionSoapIn" />
+      <wsdl:output message="tns:GuardarDespachoPiezaCamionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaPiezaaCamion">
       <wsdl:input message="tns:AsociarEtiquetaPiezaaCamionSoapIn" />
       <wsdl:output message="tns:AsociarEtiquetaPiezaaCamionSoapOut" />
@@ -3262,6 +3485,42 @@
       <wsdl:input message="tns:PersistePesajeBMSoapIn" />
       <wsdl:output message="tns:PersistePesajeBMSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GrabarProduccionExterna">
+      <wsdl:input message="tns:GrabarProduccionExternaSoapIn" />
+      <wsdl:output message="tns:GrabarProduccionExternaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabarNoConformidadProdExt">
+      <wsdl:input message="tns:GrabarNoConformidadProdExtSoapIn" />
+      <wsdl:output message="tns:GrabarNoConformidadProdExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleRecepcion">
+      <wsdl:input message="tns:ObtenerDetalleRecepcionSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleRecepcionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PersisteEnviosProdEx">
+      <wsdl:input message="tns:PersisteEnviosProdExSoapIn" />
+      <wsdl:output message="tns:PersisteEnviosProdExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosSinRecepcion">
+      <wsdl:input message="tns:ObtenerEnviosSinRecepcionSoapIn" />
+      <wsdl:output message="tns:ObtenerEnviosSinRecepcionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosParaRecepcion">
+      <wsdl:input message="tns:ObtenerEnviosParaRecepcionSoapIn" />
+      <wsdl:output message="tns:ObtenerEnviosParaRecepcionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales_PE">
+      <wsdl:input message="tns:ObtenerDatosIniciales_PESoapIn" />
+      <wsdl:output message="tns:ObtenerDatosIniciales_PESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra">
+      <wsdl:input message="tns:ObtenerIt_PorObraSoapIn" />
+      <wsdl:output message="tns:ObtenerIt_PorObraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetasPorViaje">
+      <wsdl:input message="tns:ObtenerEtiquetasPorViajeSoapIn" />
+      <wsdl:output message="tns:ObtenerEtiquetasPorViajeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <wsdl:input message="tns:RevisaRNSoapIn" />
       <wsdl:output message="tns:RevisaRNSoapOut" />
@@ -3302,45 +3561,90 @@
       <wsdl:input message="tns:AsociarEtiquetaColadaaBodegaMPSoapIn" />
       <wsdl:output message="tns:AsociarEtiquetaColadaaBodegaMPSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
-      <wsdl:input message="tns:ObtenerMotivosExcepcionProduccionSoapIn" />
-      <wsdl:output message="tns:ObtenerMotivosExcepcionProduccionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPieza">
-      <wsdl:input message="tns:ObtenerPiezaSoapIn" />
-      <wsdl:output message="tns:ObtenerPiezaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarPasoaProduccionPieza">
-      <wsdl:input message="tns:RegistrarPasoaProduccionPiezaSoapIn" />
-      <wsdl:output message="tns:RegistrarPasoaProduccionPiezaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezaProduccion">
-      <wsdl:input message="tns:ObtenerPiezaProduccionSoapIn" />
-      <wsdl:output message="tns:ObtenerPiezaProduccionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
-      <wsdl:input message="tns:GuardarDespachoPiezaBodegaAcopioSoapIn" />
-      <wsdl:output message="tns:GuardarDespachoPiezaBodegaAcopioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
-      <wsdl:input message="tns:AsociarEtiquetaPiezaaBodegaAcopioSoapIn" />
-      <wsdl:output message="tns:AsociarEtiquetaPiezaaBodegaAcopioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
-      <wsdl:input message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapIn" />
-      <wsdl:output message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoCamion">
-      <wsdl:input message="tns:GuardarDespachoCamionSoapIn" />
-      <wsdl:output message="tns:GuardarDespachoCamionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaCamion">
-      <wsdl:input message="tns:GuardarDespachoPiezaCamionSoapIn" />
-      <wsdl:output message="tns:GuardarDespachoPiezaCamionSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPieza">
+      <soap:operation soapAction="http://tempuri.org/ObtenerPieza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza">
+      <soap:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezaProduccion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
+      <soap:operation soapAction="http://tempuri.org/GuardarDespachoPiezaBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
+      <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
+      <soap:operation soapAction="http://tempuri.org/SP_VERIFICA_VIAJE_DESPACHO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion">
+      <soap:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaCamion">
+      <soap:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaPiezaaCamion">
       <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaCamion" style="document" />
       <wsdl:input>
@@ -4250,6 +4554,87 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GrabarProduccionExterna">
+      <soap:operation soapAction="http://tempuri.org/GrabarProduccionExterna" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarNoConformidadProdExt">
+      <soap:operation soapAction="http://tempuri.org/GrabarNoConformidadProdExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleRecepcion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleRecepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersisteEnviosProdEx">
+      <soap:operation soapAction="http://tempuri.org/PersisteEnviosProdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosSinRecepcion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEnviosSinRecepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosParaRecepcion">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEnviosParaRecepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales_PE">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosIniciales_PE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra">
+      <soap:operation soapAction="http://tempuri.org/ObtenerIt_PorObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetasPorViaje">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEtiquetasPorViaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -4340,90 +4725,90 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
-      <soap:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPieza">
-      <soap:operation soapAction="http://tempuri.org/ObtenerPieza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarPasoaProduccionPieza">
-      <soap:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezaProduccion">
-      <soap:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
-      <soap:operation soapAction="http://tempuri.org/GuardarDespachoPiezaBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
-      <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
-      <soap:operation soapAction="http://tempuri.org/SP_VERIFICA_VIAJE_DESPACHO" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoCamion">
-      <soap:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaCamion">
-      <soap:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPieza">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerPieza" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPiezaProduccion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
+      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoPiezaBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
+      <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaBodegaAcopio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
+      <soap12:operation soapAction="http://tempuri.org/SP_VERIFICA_VIAJE_DESPACHO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion">
+      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoPiezaCamion">
+      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaPiezaaCamion">
       <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaCamion" style="document" />
       <wsdl:input>
@@ -5333,6 +5718,87 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GrabarProduccionExterna">
+      <soap12:operation soapAction="http://tempuri.org/GrabarProduccionExterna" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarNoConformidadProdExt">
+      <soap12:operation soapAction="http://tempuri.org/GrabarNoConformidadProdExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleRecepcion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleRecepcion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersisteEnviosProdEx">
+      <soap12:operation soapAction="http://tempuri.org/PersisteEnviosProdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosSinRecepcion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEnviosSinRecepcion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEnviosParaRecepcion">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEnviosParaRecepcion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosIniciales_PE">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosIniciales_PE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerIt_PorObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetasPorViaje">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEtiquetasPorViaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RevisaRN">
       <soap12:operation soapAction="http://tempuri.org/RevisaRN" style="document" />
       <wsdl:input>
@@ -5416,87 +5882,6 @@
     </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
       <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPieza">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerPieza" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarPasoaProduccionPieza">
-      <soap12:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPiezaProduccion">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaBodegaAcopio">
-      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoPiezaBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaPiezaaBodegaAcopio">
-      <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaPiezaaBodegaAcopio" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SP_VERIFICA_VIAJE_DESPACHO">
-      <soap12:operation soapAction="http://tempuri.org/SP_VERIFICA_VIAJE_DESPACHO" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoCamion">
-      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoPiezaCamion">
-      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

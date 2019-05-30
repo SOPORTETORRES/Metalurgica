@@ -487,13 +487,18 @@ namespace Metalurgica
 
         private string ObtenerEstadoPaquete(string  iIdPaquete)
         {
-            string lRes = "";
+            string lRes = ""; string lLiberadaProduccion = "";
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
 
             listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, iIdPaquete.ToString (), "", "", "", "");
             if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
-                lRes = listaDataSet.DataSet.Tables[0].Rows[0]["Pie_Estado"].ToString(); 
+            {
+                lRes = listaDataSet.DataSet.Tables[0].Rows[0]["Pie_Estado"].ToString();
+                lLiberadaProduccion = listaDataSet.DataSet.Tables[0].Rows[0]["Liberada"].ToString();
+                lRes = string.Concat(lRes, "|", lLiberadaProduccion);
+            }
+               
 
 
             return lRes ;
@@ -521,6 +526,10 @@ namespace Metalurgica
             Forms forms = new Forms(); Color lColorsel = Color.Black; string lEstadoPaquete = "";
             DataView lVista = null; DataTable lTblPaq = new DataTable(); string lMsg = "";
             string lValidaPiezaProducida = ConfigurationManager.AppSettings["ValidaPaqueteProducido"].ToString().ToUpper ();
+            string lPaqueteLiberado = "";
+            string[] split = null    ;//iEtiquetas.ToString().Split(new Char[] { '|' });
+            string lValidaLiberacionDespacho = ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
+
             DataTable lTblPaquete = new DataTable();
 
 
@@ -538,16 +547,19 @@ namespace Metalurgica
                             //0000047: Envío de mail, cuando se despacha una pieza que no ha sido producida
                             //Se debe evaluar al momento de leer la pieza
                            lEstadoPaquete = ObtenerEstadoPaquete(iEtiquetaPieza);
-                  
+                            split = lEstadoPaquete.ToString().Split(new Char[] { '|' });
+                            lEstadoPaquete = split[0].ToString();
+                            lPaqueteLiberado = split[1].ToString();
+
                             if (lEstadoPaquete.ToString().Equals("O40") == false)
                             {
-                                MessageBox.Show(string.Concat("La etiqueta leida No esta registrada como producida.", Environment.NewLine, "Verificar Producción de Etiqueta" ), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                
+                                MessageBox.Show(string.Concat("La etiqueta leida No esta registrada como producida.", Environment.NewLine, "Verificar Producción de Etiqueta"), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                                 if ((lValidaPiezaProducida.Equals("S")) && (lEstadoPaquete.ToString().Equals("O40") == false))
                                 {
                                     //Visualizar mensaje y envio de mail.
                                     lMsg = CreaMensajeMail(lVista[0]["ETIQUETA_PIEZA"].ToString(), lVista[0]["ETIQUETA_COLADA"].ToString());
-                                //    MessageBox.Show("El Paquete leido No esta registrado como producido. Se enviara una notificación ", "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    //    MessageBox.Show("El Paquete leido No esta registrado como producido. Se enviara una notificación ", "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
                                     //Las obras -100 ==> lista de  edstinatarios para notificación de piezas no Producidas
                                     lPx.EnviaNotificacionesEnviaMsgDeNotificacion(" Notificaciones Producción ", lMsg, -100, "Notificación de Despacho de Paquetes NO producidas");
@@ -556,11 +568,36 @@ namespace Metalurgica
                             else
                             {
                                 lTblPaquete = ObtenerTblPaquete(iEtiquetaPieza);
-
-                                if ((lTblPaquete.Rows[0]["TieneConector"].ToString().Equals("S")))
+                                //Por integracion con liberacion de piezas  para despacho. 09/04/2019
+                                if ((lValidaLiberacionDespacho.Equals("S")) && (lPaqueteLiberado.ToString()!="S"))
                                 {
-                                    if ((lTblPaquete.Rows[0]["ConectorProducido"].ToString().Equals("S")))
+                                    MessageBox.Show(string.Concat("La etiqueta leida No Esta Liberada por Sistema .", Environment.NewLine, "Verificar Liberación de Despacho"), "Control Liberación de Paquetes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                {
+                                    if ((lTblPaquete.Rows[0]["TieneConector"].ToString().Equals("S")))
+                                    {
+                                        if ((lTblPaquete.Rows[0]["ConectorProducido"].ToString().Equals("S")))
                                         {
+                                            lVista[0]["Estado1"] = "POK";
+                                            lVista[0]["Estado2"] = lEstadoPaquete;
+                                            forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
+                                            forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+
+                                            txtEtiquetaPieza.Clear();
+                                            txtEtiquetaPieza.Focus();
+                                            lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
+                                            this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
+                                            this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();
+                                            lbl_TotalPaqCar.Text = mTotalPaqCargado.ToString();
+                                            Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
+                                            lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
+                                        }
+                                        else
+                                            MessageBox.Show(string.Concat("La etiqueta leida Tiene Conector Asociado y este NO esta Producido, No se puede Despachar el Paquete", Environment.NewLine, "Verificar Producción de Etiqueta"), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                    else
+                                    {
                                         lVista[0]["Estado1"] = "POK";
                                         lVista[0]["Estado2"] = lEstadoPaquete;
                                         forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
@@ -575,24 +612,6 @@ namespace Metalurgica
                                         Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
                                         lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
                                     }
-                                    else
-                                        MessageBox.Show(string.Concat("La etiqueta leida Tiene Conector Asociado y este NO esta Producido, No se puede Despachar el Paquete", Environment.NewLine, "Verificar Producción de Etiqueta"), "Control Piezas Producidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                                else
-                                {
-                                    lVista[0]["Estado1"] = "POK";
-                                    lVista[0]["Estado2"] = lEstadoPaquete;
-                                    forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
-                                    forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
-
-                                    txtEtiquetaPieza.Clear();
-                                    txtEtiquetaPieza.Focus();
-                                    lbl_TotalKgsCar.Text = Math.Round(mTotalKgsCargado, 0).ToString();
-                                    this.Lbl_PiezasPorCar.Text = Math.Round(mPiezasPorCargar, 0).ToString();
-                                    this.Lbl_KilosPorCar.Text = Math.Round(mKgsPorCargar, 0).ToString();
-                                    lbl_TotalPaqCar.Text = mTotalPaqCargado.ToString();
-                                    Lbl_PaqPorCar.Text = mPaqPorCargar.ToString();
-                                    lbl_NroPiezasCar.Text = mTotalPiezasCargado.ToString();
                                 }
                             }
                         }
@@ -1895,16 +1914,31 @@ namespace Metalurgica
         private void Btn_Cambiar_A_PR_Click(object sender, EventArgs e)
         {
             string lPath = ""; string lApp = "";
+            string lProdExterna = ConfigurationManager.AppSettings["ProduccionExterna"].ToString();
+
             if (MessageBox.Show("¿ Esta seguro que desea cambiar el sistema a modo Producción ? ", "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                 MessageBox.Show("Cuando el sistema le indique menu de confirmación, Presaionar SI ", "Avisos Sistema", MessageBoxButtons.OK);
-                lPath = ConfigurationManager.AppSettings["Path_Regedit"].ToString();
-                lApp = "Regedit.exe";
-                lPath = string.Concat(lPath, "PR_SM.reg");
-                System.Diagnostics.Process.Start(lApp, lPath);
-                System.Threading.Thread.Sleep(3000);
-                MessageBox.Show("El Sistema se cerrara, debe iniciar nuevamente el sistema, para cambiar a Modo Producción   ", "Avisos Sistema", MessageBoxButtons.OK);
-                Application.Exit();
+              if (lProdExterna.ToUpper().Equals("S"))
+                {
+                    ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
+                    lFrm.InicializaForm(mUserLog ,"A");
+                    lFrm.ShowDialog();
+
+                }
+                else
+                {
+                    MessageBox.Show("Cuando el sistema le indique menu de confirmación, Presaionar SI ", "Avisos Sistema", MessageBoxButtons.OK);
+                    lPath = ConfigurationManager.AppSettings["Path_Regedit"].ToString();
+                    lApp = "Regedit.exe";
+                    lPath = string.Concat(lPath, "PR_SM.reg");
+                    System.Diagnostics.Process.Start(lApp, lPath);
+                    System.Threading.Thread.Sleep(3000);
+                    MessageBox.Show("El Sistema se cerrara, debe iniciar nuevamente el sistema, para cambiar a Modo Producción   ", "Avisos Sistema", MessageBoxButtons.OK);
+                    Application.Exit();
+                 }
+
+            
+                
             }
         }
 

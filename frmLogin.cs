@@ -304,6 +304,19 @@ namespace Metalurgica
                 lFrm.ShowDialog();
             }
 
+            if (iIdTipoTotem == 5) //Personal de Calidad, para  producciones externas
+            {
+                ProduccionExterna.Frm_ProduccionExterna lfrm = new ProduccionExterna.Frm_ProduccionExterna();
+                lfrm.InicializaForm(iUserLog, "C");
+                lfrm.ShowDialog();
+            }
+            if (iIdTipoTotem == 6) //Personal de Oficina Tecnica, para envio de   producciones externas
+            {
+                ProduccionExterna.Frm_ProduccionExterna lfrm = new ProduccionExterna.Frm_ProduccionExterna();
+                lfrm.InicializaForm(iUserLog, "O");
+                lfrm.ShowDialog();
+            }
+
         }
 
         private void txtUsuario_TextChanged(object sender, EventArgs e)
@@ -403,8 +416,13 @@ namespace Metalurgica
             //Produccion.CargaEstadisticasMaq lfr = new Produccion.CargaEstadisticasMaq();
             //lfr.Show();
 
-            Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
+            //Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
+            //lFrm.ShowDialog();
+
+            ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
             lFrm.ShowDialog();
+               
+
 
         }
 

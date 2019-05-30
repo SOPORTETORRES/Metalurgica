@@ -510,6 +510,12 @@
     <Compile Include="MultiMaquina\Prueba.Designer.cs">
       <DependentUpon>Prueba.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProduccionExterna\Frm_ProduccionExterna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProduccionExterna\Frm_ProduccionExterna.Designer.cs">
+      <DependentUpon>Frm_ProduccionExterna.cs</DependentUpon>
+    </Compile>
     <Compile Include="Produccion\CargaEstadisticasMaq.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -803,6 +809,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MultiMaquina\Prueba.resx">
       <DependentUpon>Prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProduccionExterna\Frm_ProduccionExterna.resx">
+      <DependentUpon>Frm_ProduccionExterna.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Produccion\CargaEstadisticasMaq.resx">
       <DependentUpon>CargaEstadisticasMaq.cs</DependentUpon>
