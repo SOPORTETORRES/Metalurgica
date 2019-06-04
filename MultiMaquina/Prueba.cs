@@ -148,6 +148,32 @@ namespace Metalurgica.MultiMaquina
                             Btn_Maquina7.BackColor = Color.LightGreen;
 
                         break;
+                    case 7:
+                        Btn_Maquina8.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
+                        Btn_Maquina8.Visible = true; Btn_Maquina8.Tag = lTbl.Rows[i]["MAQ_NRO"].ToString();
+
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
+                            Btn_Maquina8.BackColor = Color.LightSalmon;
+                            Btn_Maquina8.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " (BLOQUEADA)");
+                        }
+                        else
+                            Btn_Maquina8.BackColor = Color.LightGreen;
+
+                        break;
+                    case 8:
+                        Btn_Maquina9.Text = lTbl.Rows[i]["MAQ_NOMBRE"].ToString();
+                        Btn_Maquina9.Visible = true; Btn_Maquina9.Tag = lTbl.Rows[i]["MAQ_NRO"].ToString();
+
+                        if (lTbl.Rows[i]["MAQBloqueada"].ToString().ToUpper().Equals("DET"))
+                        {
+                            Btn_Maquina9.BackColor = Color.LightSalmon;
+                            Btn_Maquina9.Text = string.Concat(lTbl.Rows[i]["MAQ_NOMBRE"].ToString(), " (BLOQUEADA)");
+                        }
+                        else
+                            Btn_Maquina9.BackColor = Color.LightGreen;
+
+                        break;
                 } 
 
             }
@@ -578,6 +604,108 @@ namespace Metalurgica.MultiMaquina
         private void ctlProduccion1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Btn_Maquina7_Click(object sender, EventArgs e)
+        {
+            if (Btn_Maquina7.BackColor == Color.LightSalmon)
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina7.Text, " - ", Btn_Maquina7.Tag.ToString());
+                mIdMaqSel = Btn_Maquina7.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina7.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina3.Tag;
+                string lMsg = "La Máquina Seleccionada se encuentra Bloqueda por  Averia.  No se puede Registrar la Producción. ";
+                lMsg = string.Concat(lMsg, Environment.NewLine, "¿ Desea Reparar/Desbloquear la Máquina Seleccionada?");
+                if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ctlProduccion1.Visible = false;
+                    Pnl_Login.Visible = true;
+                    Pnl_Login.Enabled = true;
+                    txtUsuario.Focus();
+                }
+            }
+
+            else
+            {
+                ctlProduccion1.Visible = true;
+                Pnl_Login.Visible = false;
+                Pnl_Login.Enabled = false;
+
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina7.Text, " - ", Btn_Maquina7.Tag.ToString());
+                mIdMaqSel = Btn_Maquina7.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina7.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina7.Tag;
+                HabilitaControlParaLectura(true);
+                CargarMaquinas();
+            }
+        }
+
+        private void Btn_Maquina8_Click(object sender, EventArgs e)
+        {
+            if (Btn_Maquina8.BackColor == Color.LightSalmon)
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina8.Text, " - ", Btn_Maquina8.Tag.ToString());
+                mIdMaqSel = Btn_Maquina8.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina8.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina8.Tag;
+                string lMsg = "La Máquina Seleccionada se encuentra Bloqueda por  Averia.  No se puede Registrar la Producción. ";
+                lMsg = string.Concat(lMsg, Environment.NewLine, "¿ Desea Reparar/Desbloquear la Máquina Seleccionada?");
+                if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ctlProduccion1.Visible = false;
+                    Pnl_Login.Visible = true;
+                    Pnl_Login.Enabled = true;
+                    txtUsuario.Focus();
+                }
+            }
+
+            else
+            {
+                ctlProduccion1.Visible = true;
+                Pnl_Login.Visible = false;
+                Pnl_Login.Enabled = false;
+
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina8.Text, " - ", Btn_Maquina8.Tag.ToString());
+                mIdMaqSel = Btn_Maquina8.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina8.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina8.Tag;
+                HabilitaControlParaLectura(true);
+                CargarMaquinas();
+            }
+        }
+
+        private void Btn_Maquina9_Click(object sender, EventArgs e)
+        {
+            if (Btn_Maquina9.BackColor == Color.LightSalmon)
+            {
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina9.Text, " - ", Btn_Maquina9.Tag.ToString());
+                mIdMaqSel = Btn_Maquina9.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina9.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina9.Tag;
+                string lMsg = "La Máquina Seleccionada se encuentra Bloqueda por  Averia.  No se puede Registrar la Producción. ";
+                lMsg = string.Concat(lMsg, Environment.NewLine, "¿ Desea Reparar/Desbloquear la Máquina Seleccionada?");
+                if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    ctlProduccion1.Visible = false;
+                    Pnl_Login.Visible = true;
+                    Pnl_Login.Enabled = true;
+                    txtUsuario.Focus();
+                }
+            }
+
+            else
+            {
+                ctlProduccion1.Visible = true;
+                Pnl_Login.Visible = false;
+                Pnl_Login.Enabled = false;
+
+                Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina9.Text, " - ", Btn_Maquina9.Tag.ToString());
+                mIdMaqSel = Btn_Maquina9.Tag.ToString();
+                mNombre_MaqSel = Btn_Maquina9.Text;
+                Btn_MaquinaActiva.Tag = Btn_Maquina9.Tag;
+                HabilitaControlParaLectura(true);
+                CargarMaquinas();
+            }
         }
     }
 }

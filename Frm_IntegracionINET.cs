@@ -65,7 +65,7 @@ namespace Metalurgica
             mEmpresa = iEmpresa;
             mSoloCamionesBascula = ConfigurationManager.AppSettings["SoloCamionesBascula"].ToString(); ;
             mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
-            CargaCamiones(mSucursalTO , mEmpresa);
+            CargaCamiones(mSucursalTO , mEmpresa,mSoloCamionesBascula);
             Lbl_titulo.Text = string.Concat ("Este Formulario muestra la información de despacho de la empresa ",mEmpresa .ToUpper ());
 
         }
@@ -83,7 +83,7 @@ namespace Metalurgica
             mAgregaColumna = false;
         }
 
-        private void CargaCamiones(string lSucursalTO, string lEmpresa)
+        private void CargaCamiones(string lSucursalTO, string lEmpresa, string lBascula)
     {
         Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
         DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();string lTmp="";
@@ -393,7 +393,7 @@ namespace Metalurgica
             lDal.ObtenerDatos(lSQl);
             //********************************************************************************
             Btn_INET.Enabled = true ;
-            CargaCamiones(mSucursalTO ,mEmpresa );
+            CargaCamiones(mSucursalTO ,mEmpresa , mSoloCamionesBascula);
         }
 
 
@@ -1990,7 +1990,7 @@ namespace Metalurgica
                 //}
             
             }
-            CargaCamiones(mSucursalTO ,mEmpresa );
+            CargaCamiones(mSucursalTO ,mEmpresa , mSoloCamionesBascula);
         }
 
         private void button1_Click(object sender, EventArgs e)

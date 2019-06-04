@@ -122,7 +122,7 @@ namespace Metalurgica.ProduccionExterna
             Clases.ClsComun lCom = new Clases.ClsComun();
             if ((TX_Etiqueta.Text.Trim().Length > 0) && (lCom.Val(TX_Etiqueta.Text) > 0))
             {
-                //ProcesaEtiqueta(TX_Etiqueta.Text);
+                ProcesaEtiqueta(TX_Etiqueta.Text);
                 CalculaTotales();
                 TX_Etiqueta.Text = "";
             }
@@ -264,7 +264,7 @@ namespace Metalurgica.ProduccionExterna
                     {
                     //OK  
                     //2.- Verificar que ya no este producida
-                        if (lTb.Rows[0]["Pie_estado"].ToString()!="O90" )
+                        if ((lTb.Rows[0]["Pie_estado"].ToString().Trim ().Length >0) &&(lTb.Rows[0]["Pie_estado"].ToString()!="O90" ) )
                         {
                             lMsg = string.Concat(lMsg, "  -  La Etiqueta ingresada, ya esta producida con fecha: ", lTb.Rows[0]["FechaProduccion"].ToString());
                             lRes = false;
@@ -411,6 +411,8 @@ namespace Metalurgica.ProduccionExterna
                 if (lListDts.DataSet.Tables.Count > 0)
                 {
                     lTbl = lListDts.DataSet.Tables[0].Copy();
+                 //  lTbl.Columns.Add("Viajes", Type.GetType("System.String"));
+
                     lTbl = CargaDetalle(lTbl);
                     Dtg_EnviosRealizados.DataSource = lTbl;
                 }
@@ -426,7 +428,7 @@ namespace Metalurgica.ProduccionExterna
         {
             WsOperacion.ListaDataSet lListDts = new WsOperacion.ListaDataSet();
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
-            DataTable lTbl = new DataTable(); int i = 0;int k = 0; int z = 0;
+            DataTable lTbl = new DataTable(); int i = 0;int k = 0; string iViajes = "";
             double  lKgsOK = 0;Clases.ClsComun lCom = new Clases.ClsComun();
 
             for (i = 0; i < iTbl.Rows.Count; i++)
@@ -451,6 +453,19 @@ namespace Metalurgica.ProduccionExterna
                     }
                     iTbl.Rows[i]["KgsNO"] = lKgsOK;
                     iTbl.Rows[i]["NroEtiquetas_NOOk"] = k;
+                }
+
+                iViajes = "";
+                if ((lListDts.DataSet.Tables["Viajes"] != null) && (lListDts.DataSet.Tables["Viajes"].Rows.Count > 0))
+                {
+                    lTbl = lListDts.DataSet.Tables["Viajes"].Copy();
+                    for (k = 0; k < lTbl.Rows.Count; k++)
+                    {
+                        iViajes =string.Concat (  lTbl.Rows[k]["Codigo"].ToString(), " | ", iViajes);
+                    }
+                    iTbl.Rows[i]["Viajes"] = iViajes;
+                    //iTbl.Rows[i]["KgsNO"] = lKgsOK;
+                    //iTbl.Rows[i]["NroEtiquetas_NOOk"] = k;
                 }
 
             }
@@ -555,7 +570,8 @@ namespace Metalurgica.ProduccionExterna
 
               
                 Dtg_Recepcion.DataSource = lTbl;
-
+                if (lTbl .Rows .Count >0)
+                { 
                 Dtg_Recepcion.Columns[0].Width = 65;
                 Dtg_Recepcion.Columns[1].Width = 80;
                 Dtg_Recepcion.Columns[2].Width = 70;
@@ -564,7 +580,7 @@ namespace Metalurgica.ProduccionExterna
                 Dtg_Recepcion.Columns[5].Width = 90;
                 Dtg_Recepcion.Columns[6].Width = 140;
                 Dtg_Recepcion.Columns[7].Width = 65;
-
+                }
                 CalculaTotales_Recepcion();
                 //   PintaFila(Color.LightGreen, i);
                 tabControl1.SelectedIndex=2;

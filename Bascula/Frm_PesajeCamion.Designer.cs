@@ -128,6 +128,7 @@
             this.Dtg_CamionEnPlanta = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Btn_ImprimePL = new System.Windows.Forms.Button();
             this.Btn_ReDespacho = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -166,7 +167,6 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.Dtg_GuiasINET = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.Btn_ImprimePL = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.Gb_Desarrollo.SuspendLayout();
             this.Gr_empresa.SuspendLayout();
@@ -1287,6 +1287,17 @@
             this.panel2.Size = new System.Drawing.Size(1084, 610);
             this.panel2.TabIndex = 1;
             // 
+            // Btn_ImprimePL
+            // 
+            this.Btn_ImprimePL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_ImprimePL.Location = new System.Drawing.Point(656, 26);
+            this.Btn_ImprimePL.Name = "Btn_ImprimePL";
+            this.Btn_ImprimePL.Size = new System.Drawing.Size(82, 44);
+            this.Btn_ImprimePL.TabIndex = 45;
+            this.Btn_ImprimePL.Text = "Imprimir PL";
+            this.Btn_ImprimePL.UseVisualStyleBackColor = true;
+            this.Btn_ImprimePL.Click += new System.EventHandler(this.Btn_ImprimePL_Click);
+            // 
             // Btn_ReDespacho
             // 
             this.Btn_ReDespacho.Location = new System.Drawing.Point(779, 17);
@@ -1660,17 +1671,6 @@
             this.Dtg_GuiasINET.Size = new System.Drawing.Size(1084, 610);
             this.Dtg_GuiasINET.TabIndex = 0;
             this.Dtg_GuiasINET.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_GuiasINET_CellContentClick);
-            // 
-            // Btn_ImprimePL
-            // 
-            this.Btn_ImprimePL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_ImprimePL.Location = new System.Drawing.Point(656, 26);
-            this.Btn_ImprimePL.Name = "Btn_ImprimePL";
-            this.Btn_ImprimePL.Size = new System.Drawing.Size(82, 44);
-            this.Btn_ImprimePL.TabIndex = 45;
-            this.Btn_ImprimePL.Text = "Imprimir PL";
-            this.Btn_ImprimePL.UseVisualStyleBackColor = true;
-            this.Btn_ImprimePL.Click += new System.EventHandler(this.Btn_ImprimePL_Click);
             // 
             // Frm_PesajeCamion
             // 

@@ -792,7 +792,7 @@ namespace Metalurgica
                 mTblResumenDespacho.Columns.Add("Kgs. Teorico", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Kgs. Desa", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Kgs. Cargados", Type.GetType("System.String"));
-                mTblResumenDespacho.Columns.Add("Kgs. NoVa", Type.GetType("System.String"));
+                mTblResumenDespacho.Columns.Add("Kgs. FC", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("Avance", Type.GetType("System.String"));
                 mTblResumenDespacho.Columns.Add("KgsXCargar", Type.GetType("System.String"));
 
@@ -835,7 +835,7 @@ namespace Metalurgica
                             lFila["Avance"] = lAvance;
                             lAvance = lKilosViaje - lKilosCargados- lKilosNoVa;
                             lFila["KgsXCargar"] = lAvance;
-                            lFila["Kgs. NoVa"] = lKilosNoVa;
+                            lFila["Kgs. FC"] = lKilosNoVa;
                             mTblResumenDespacho.Rows.Add(lFila);
                         }
                     }
@@ -850,7 +850,7 @@ namespace Metalurgica
                     lTotalPiezasViaje = lCom.Val(mTblResumenDespacho.Rows[i]["Nro.Piezas"].ToString()) + lTotalPiezasViaje;
                     lTotalKgsCargados = lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. Cargados"].ToString()) + lTotalKgsCargados;
 
-                    lTotal_NOVA= lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. NoVa"].ToString()) + lTotal_NOVA;
+                    lTotal_NOVA= lCom.Val(mTblResumenDespacho.Rows[i]["Kgs. FC"].ToString()) + lTotal_NOVA;
                 }
 
                 lFila = mTblResumenDespacho.NewRow();
@@ -864,7 +864,7 @@ namespace Metalurgica
                 lFila["Avance"] = lAvance;
                 lAvance = lTotlaKilosViaje - lTotalKgsCargados- lTotal_NOVA;
                 lFila["KgsXCargar"] = lAvance;//.ToString("N0");
-                lFila["Kgs. NoVa"] = lTotal_NOVA;
+                lFila["Kgs. FC"] = lTotal_NOVA;
 
                 mTblResumenDespacho.Rows.Add(lFila);
 
@@ -904,8 +904,8 @@ namespace Metalurgica
             Dtg_ResumenCarga.Columns["KgsXCargar"].Width = 70;
             Dtg_ResumenCarga.Columns["KgsXCargar"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            Dtg_ResumenCarga.Columns["Kgs. NoVa"].Width = 70;
-            Dtg_ResumenCarga.Columns["Kgs. NoVa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            Dtg_ResumenCarga.Columns["Kgs. FC"].Width = 70;
+            Dtg_ResumenCarga.Columns["Kgs. FC"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             Dtg_ResumenCarga.RowHeadersVisible = false;
             int i = 0;int XCArgar = 0; int Cargado = 0;
 
@@ -1098,6 +1098,7 @@ namespace Metalurgica
         private DataTable CargaTablaObras( )
         {
             string lTipoDespacho =   ConfigurationManager.AppSettings["MultiDespacho"].ToString();
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
             Clases.ClsComun lcom = new Clases.ClsComun();DataTable lTbl = new DataTable();
 
             if (lTipoDespacho == "S")
@@ -1746,7 +1747,8 @@ namespace Metalurgica
                                 //********************************************
                             }
                         Lbl_Viajes.Text = lTmp;
-                        Btn_BasculaMovil.Enabled = true;
+                        if (mSoloCamionesBascula =="S")
+                                 Btn_BasculaMovil.Enabled = true;
                         //+++++++++++++++++++++
                         //if (mViajesSel.Trim().Length > 0)
                         
@@ -1799,6 +1801,8 @@ namespace Metalurgica
         private void tlbIntegrarINET_Click(object sender, EventArgs e)
         {
             Frm_IntegracionINET lFrm = new Frm_IntegracionINET(); string iEmpresa = "";
+
+            //string lEmp = ConfigurationManager.AppSettings["Empresa"].ToString();
             if (Rb_TO.Checked == true)
                 iEmpresa = "TO";
 
