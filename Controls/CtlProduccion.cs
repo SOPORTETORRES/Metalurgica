@@ -1845,5 +1845,10 @@ namespace Metalurgica.Controls
             }
             }
         }
+
+        private void tlbExportar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

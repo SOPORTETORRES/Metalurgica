@@ -774,6 +774,7 @@
             this.tlbExportar.Name = "tlbExportar";
             this.tlbExportar.Size = new System.Drawing.Size(70, 22);
             this.tlbExportar.Text = "Exportar";
+            this.tlbExportar.Click += new System.EventHandler(this.tlbExportar_Click);
             // 
             // TlbNuevaSolicitud
             // 

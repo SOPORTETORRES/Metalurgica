@@ -41,10 +41,11 @@
             this.tabOperaciones = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pnlResultados = new System.Windows.Forms.Panel();
-            this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
+            this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.pnlControles = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Chk_Recuperado = new System.Windows.Forms.CheckBox();
             this.Tx_Kilos = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblLargo = new System.Windows.Forms.Label();
@@ -61,9 +62,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Pnl_Msg = new System.Windows.Forms.Panel();
+            this.Lbl_MsgCierre = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.PB_1 = new System.Windows.Forms.ProgressBar();
             this.tlsToolBar.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,6 +78,8 @@
             this.pnlControles.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdCantidad)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.Pnl_Msg.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,6 +161,7 @@
             // tabOperaciones
             // 
             this.tabOperaciones.Controls.Add(this.tabPage1);
+            this.tabOperaciones.Controls.Add(this.tabPage2);
             this.tabOperaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabOperaciones.Location = new System.Drawing.Point(0, 47);
             this.tabOperaciones.Name = "tabOperaciones";
@@ -174,13 +183,24 @@
             // 
             // pnlResultados
             // 
-            this.pnlResultados.Controls.Add(this.dgvProductos);
             this.pnlResultados.Controls.Add(this.label8);
+            this.pnlResultados.Controls.Add(this.dgvProductos);
             this.pnlResultados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlResultados.Location = new System.Drawing.Point(3, 91);
             this.pnlResultados.Name = "pnlResultados";
             this.pnlResultados.Size = new System.Drawing.Size(906, 276);
             this.pnlResultados.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(8, 15);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Productos:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dgvProductos
             // 
@@ -200,17 +220,6 @@
             this.dgvProductos.TabIndex = 0;
             this.dgvProductos.DoubleClick += new System.EventHandler(this.dgvProductos_DoubleClick);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 15);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Productos:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // pnlControles
             // 
             this.pnlControles.Controls.Add(this.groupBox5);
@@ -224,6 +233,7 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.Chk_Recuperado);
             this.groupBox5.Controls.Add(this.Tx_Kilos);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.lblLargo);
@@ -245,6 +255,16 @@
             this.groupBox5.Size = new System.Drawing.Size(883, 72);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
+            // 
+            // Chk_Recuperado
+            // 
+            this.Chk_Recuperado.AutoSize = true;
+            this.Chk_Recuperado.Location = new System.Drawing.Point(668, 18);
+            this.Chk_Recuperado.Name = "Chk_Recuperado";
+            this.Chk_Recuperado.Size = new System.Drawing.Size(103, 17);
+            this.Chk_Recuperado.TabIndex = 21;
+            this.Chk_Recuperado.Text = "Es  Recuperado";
+            this.Chk_Recuperado.UseVisualStyleBackColor = true;
             // 
             // Tx_Kilos
             // 
@@ -415,6 +435,57 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "Diametro:";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.Pnl_Msg);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(912, 370);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Observaciones";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Pnl_Msg
+            // 
+            this.Pnl_Msg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.Pnl_Msg.Controls.Add(this.PB_1);
+            this.Pnl_Msg.Controls.Add(this.Lbl_MsgCierre);
+            this.Pnl_Msg.Controls.Add(this.label9);
+            this.Pnl_Msg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Pnl_Msg.Location = new System.Drawing.Point(0, 0);
+            this.Pnl_Msg.Name = "Pnl_Msg";
+            this.Pnl_Msg.Size = new System.Drawing.Size(912, 370);
+            this.Pnl_Msg.TabIndex = 4;
+            this.Pnl_Msg.Visible = false;
+            // 
+            // Lbl_MsgCierre
+            // 
+            this.Lbl_MsgCierre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Lbl_MsgCierre.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_MsgCierre.ForeColor = System.Drawing.Color.Navy;
+            this.Lbl_MsgCierre.Location = new System.Drawing.Point(17, 156);
+            this.Lbl_MsgCierre.Name = "Lbl_MsgCierre";
+            this.Lbl_MsgCierre.Size = new System.Drawing.Size(874, 110);
+            this.Lbl_MsgCierre.TabIndex = 1;
+            this.Lbl_MsgCierre.Text = "Se esta realizando un cierre Automatico, espere hasta que termine el Proceso.";
+            this.Lbl_MsgCierre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(17, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(874, 79);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Se ha detectado que el turno anterior no se ha cerrado, el sistema realizara un c" +
+    "ierre automático";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // stsStatusStrip
             // 
             this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -438,6 +509,13 @@
             this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 22);
             this.ctlInformacionUsuario1.TabIndex = 23;
+            // 
+            // PB_1
+            // 
+            this.PB_1.Location = new System.Drawing.Point(101, 302);
+            this.PB_1.Name = "PB_1";
+            this.PB_1.Size = new System.Drawing.Size(702, 23);
+            this.PB_1.TabIndex = 2;
             // 
             // frmSolicitudMaterial
             // 
@@ -465,6 +543,8 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdCantidad)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.Pnl_Msg.ResumeLayout(false);
             this.stsStatusStrip.ResumeLayout(false);
             this.stsStatusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -509,5 +589,11 @@
         private System.Windows.Forms.Label lblLargo;
         private System.Windows.Forms.TextBox Tx_Kilos;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox Chk_Recuperado;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel Pnl_Msg;
+        private System.Windows.Forms.Label Lbl_MsgCierre;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ProgressBar PB_1;
     }
 }

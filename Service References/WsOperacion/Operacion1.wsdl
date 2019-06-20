@@ -2,6 +2,33 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AsociarEtiquetaColadaaBodegaMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idDespacho" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarEtiquetaColadaaBodegaMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaColadaaBodegaMPResult" type="tns:Despacho_Bodega_MP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Despacho_Bodega_MP">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="ObtenerMotivosExcepcionProduccion">
         <s:complexType />
       </s:element>
@@ -903,6 +930,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Kilos" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Kilos_Recepcionados" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Es_Recuperado" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="AsociarProductosaSolicitudResponse">
@@ -974,6 +1002,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ListarSolicitudMaterial_CierreResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarSolicitudMaterial_CierreAut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="totem" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarSolicitudMaterial_CierreAutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarSolicitudMaterial_CierreAutResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2234,16 +2276,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Despacho_Bodega_MP">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarDespachoColadaBodegaMPResponse">
         <s:complexType>
           <s:sequence>
@@ -2251,25 +2283,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AsociarEtiquetaColadaaBodegaMP">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idDespacho" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsociarEtiquetaColadaaBodegaMPResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AsociarEtiquetaColadaaBodegaMPResult" type="tns:Despacho_Bodega_MP" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapIn">
+    <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMP" />
+  </wsdl:message>
+  <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapOut">
+    <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMPResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerMotivosExcepcionProduccionSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerMotivosExcepcionProduccion" />
   </wsdl:message>
@@ -2575,6 +2596,12 @@
   </wsdl:message>
   <wsdl:message name="ListarSolicitudMaterial_CierreSoapOut">
     <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarSolicitudMaterial_CierreAutSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreAut" />
+  </wsdl:message>
+  <wsdl:message name="ListarSolicitudMaterial_CierreAutSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreAutResponse" />
   </wsdl:message>
   <wsdl:message name="DevolucionDeMPSoapIn">
     <wsdl:part name="parameters" element="tns:DevolucionDeMP" />
@@ -3038,13 +3065,11 @@
   <wsdl:message name="GuardarDespachoColadaBodegaMPSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarDespachoColadaBodegaMPResponse" />
   </wsdl:message>
-  <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapIn">
-    <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMP" />
-  </wsdl:message>
-  <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapOut">
-    <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMPResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
+      <wsdl:input message="tns:AsociarEtiquetaColadaaBodegaMPSoapIn" />
+      <wsdl:output message="tns:AsociarEtiquetaColadaaBodegaMPSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
       <wsdl:input message="tns:ObtenerMotivosExcepcionProduccionSoapIn" />
       <wsdl:output message="tns:ObtenerMotivosExcepcionProduccionSoapOut" />
@@ -3248,6 +3273,10 @@
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <wsdl:input message="tns:ListarSolicitudMaterial_CierreSoapIn" />
       <wsdl:output message="tns:ListarSolicitudMaterial_CierreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_CierreAut">
+      <wsdl:input message="tns:ListarSolicitudMaterial_CierreAutSoapIn" />
+      <wsdl:output message="tns:ListarSolicitudMaterial_CierreAutSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DevolucionDeMP">
       <wsdl:input message="tns:DevolucionDeMPSoapIn" />
@@ -3557,13 +3586,18 @@
       <wsdl:input message="tns:GuardarDespachoColadaBodegaMPSoapIn" />
       <wsdl:output message="tns:GuardarDespachoColadaBodegaMPSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
-      <wsdl:input message="tns:AsociarEtiquetaColadaaBodegaMPSoapIn" />
-      <wsdl:output message="tns:AsociarEtiquetaColadaaBodegaMPSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
+      <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
       <soap:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
       <wsdl:input>
@@ -4016,6 +4050,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <soap:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_CierreAut">
+      <soap:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_CierreAut" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4716,18 +4759,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
-      <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
+      <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerMotivosExcepcionProduccion">
       <soap12:operation soapAction="http://tempuri.org/ObtenerMotivosExcepcionProduccion" style="document" />
       <wsdl:input>
@@ -5180,6 +5223,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <soap12:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_CierreAut">
+      <soap12:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_CierreAut" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5873,15 +5925,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarDespachoColadaBodegaMP">
       <soap12:operation soapAction="http://tempuri.org/GuardarDespachoColadaBodegaMP" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
-      <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

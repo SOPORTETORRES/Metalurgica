@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data.OleDb;
 using System.IO;
 using iTextSharp.text.pdf;
+using System.Collections;
 
 namespace Metalurgica.Clases
 {
@@ -753,6 +754,348 @@ namespace Metalurgica.Clases
             return "";
    }
 
+
+        public  string ObtenerInicioFIn_Turno( string idTotem)
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            string lSql = " SP_ConsultasGenerales 77,'','','','',''"; string lRes = "";
+             Clases.ClsComun lCom = new Clases.ClsComun();
+
+            lSql = string.Concat(" SP_ConsultasGenerales 132,'", idTotem, "','','','',''");
+
+            lDts = lPx.ObtenerDatos(lSql);
+
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lRes = string.Concat(lDts.Tables[0].Rows[0]["FInicio"].ToString(), " - ", lDts.Tables[0].Rows[0]["Ffin"].ToString());
+            }
+
+            return lRes;
+        }
+
+        public string ObtenerInicioFIn_Turno_CierreAutom(string iFechaSol)
+        {
+            string lRes = "";
+            //Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            //string lSql = " SP_ConsultasGenerales 77,'','','','',''";
+            //Clases.ClsComun lCom = new Clases.ClsComun();
+
+            //lSql = string.Concat(" SP_ConsultasGenerales 132,'", idTotem, "','','','',''");
+
+            //lDts = lPx.ObtenerDatos(lSql);
+
+            //if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            //{
+            //    lRes = string.Concat(lDts.Tables[0].Rows[0]["FInicio"].ToString(), " - ", lDts.Tables[0].Rows[0]["Ffin"].ToString());
+            //}
+
+            lRes = string.Concat("Fecha Recepcion: ", iFechaSol);
+
+            return lRes;
+        }
+
+        public  bool Agregar_IdSolicitud(ArrayList iList, string lDato)
+        {
+            bool lres = true; int i = 0;
+
+            for (i = 0; i < iList.Count; i++)
+            {
+                if (iList[i].ToString().ToUpper().Equals(lDato.ToUpper()))
+                {
+                    lres = false;
+                }
+            }
+            return lres;
+        }
+
+        public  int OBtenerIdSucursal()
+        {
+            int iIdSucursal = 0; string lAux = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+
+            lAux = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            if (lCom.EsNumero(lAux) == true)
+            {
+                iIdSucursal = lCom.Val(lAux);
+            }
+
+            return iIdSucursal;
+
+        }
+
+        public  string buscarTagError(string texto)
+        {
+            string result = "";
+            int pos1 = -1, pos2 = -1;
+
+            pos1 = texto.Trim().ToUpper().IndexOf("<ACCION>OK</ACCION>");
+            if (pos1.Equals(-1)) //ERROR
+            {
+                pos1 = texto.Trim().ToUpper().IndexOf("<DESCERROR>");
+                pos2 = texto.Trim().ToUpper().IndexOf("</DESCERROR>");
+                while (!pos1.Equals(-1) && !pos2.Equals(-1))
+                {
+                    result += !result.Equals("") ? ";" : "";
+                    result += texto.Substring(pos1, pos2 - pos1).Replace("<DESCERROR>", "");
+                    pos1 = texto.Trim().ToUpper().IndexOf("<DESCERROR>", pos1 + 1);
+                    pos2 = texto.Trim().ToUpper().IndexOf("</DESCERROR>", pos2 + 1);
+                }
+            }
+            return (result.Equals("") ? "OK" : result);
+        }
+
+        private DataSet ObtenerDTSConDatos_SMP(string iIdSolicitudes)
+        {
+            string[] lPartes = null; string lSql = ""; DataSet lDtsDatos = new DataSet(); int i = 0;
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();
+
+            lPartes = iIdSolicitudes.Split(new Char[] { ',' });
+
+            for (i = 0; i < lPartes.Length; i++)
+            {
+                if (lPartes[i].ToString().Trim().Length > 0)
+                {
+                    lSql = string.Concat(" SP_Consultas_WS 67,'", lPartes[i].ToString(), "','','','','','',''");
+                    lDtsDatos.Merge(lPX.ObtenerDatos(lSql));
+                }
+            }
+
+
+            return lDtsDatos;
+        }
+
+        public  void EnvioCorreo(string iIdSolicitudes, string iUsuario, string iMaq)
+        {
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            int i = 0; string lTblHtml = ""; DataTable lTbl = new DataTable(); Clases.ClsComun lCom = new Clases.ClsComun();
+            string lFuente = ""; string lUrl = "";
+
+
+
+            //  lSql = string.Concat (" SP_Consultas_WS 67,'", iIdSolicitudes, "','','','','','',''");
+            //lDts = lPX.ObtenerDatos(lSql);
+
+            lDts = ObtenerDTSConDatos_SMP(iIdSolicitudes);
+
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTbl = lDts.Tables[0].Copy();
+                //Concatenamos el texto de la cabecera
+                lTblHtml = string.Concat(" Hola Estimados:  <br>  A continuación se muestra el estado de la Solicitud de Materia Prima al momento del cierre de turno <br> ");
+                lTblHtml = string.Concat(lTblHtml, "    El Usuario <b>", iUsuario, "</b> de la maquina <b>", iMaq, "</b>, ha Solicitado y producido lo siguiente:  <br> ");
+                lTblHtml = string.Concat(lTblHtml, "  <br> <br>   <table border = '1' >  <tr>   ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font - family: Arial; font - weight: bold; font - size: 12px;'>  Id Solicitud </ td >  ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Fecha Sol </ td >   ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Codigo </ td >   ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Descripcion </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Observaciones </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Origen </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Soldable </ td > ");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Kgs Solicitados </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial; font-weight: bold; font-size: 12px;'>Kgs Recepcionados </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Kgs Producidos </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>% Producido </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>Saldo (kgs)  </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Integrado INET </ td >");
+                lTblHtml = string.Concat(lTblHtml, " </tr> ");
+
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    lTblHtml = string.Concat(lTblHtml, " <tr> ");
+                    //if (lCom.Val(lCom.ParteEntera(lTbl.Rows[i]["% producido"].ToString())) < 95)
+                    //{
+                    lFuente = "<td style='font-family: Arial;font - weight: bold; font-size: 12px;'> ";
+                    //}
+                    //else
+                    //{ lFuente = "<td style='font-family: Arial;  font-size: 12px;'> "; }
+
+                   
+                    //lTblHtml = string.Concat(lTblHtml, lFuente, " <A HREF='", lUrl,"'>",  lTbl.Rows[i]["IdSol"].ToString(), "</A> </td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["IdSol"].ToString(), " </td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["FechaSol"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Codigo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Descripcion"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_OBS_RECEP"].ToString(), "</td >");
+
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Origen"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Soldable"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS_RECEP"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_KILOS_PRODUCIDOS"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["% producido"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Saldo"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+
+
+                    lTblHtml = string.Concat(lTblHtml, " </tr>  ");
+                }
+            }
+
+
+            lTblHtml = string.Concat(lTblHtml, "</table>  <br> <br> No responder a este correo, ya que fue generado de forma automatica <br> <br> ");
+            lTblHtml = string.Concat(lTblHtml, "  Los acentos han sido eliminados para evitar problemas con caracteres extaños ");
+
+
+            //[SP_Consultas_WS]         @Opcion INT, @Par1 Varchar(100), @Par2 Varchar(100), @Par3 Varchar(150), @Par4 Varchar(100),
+            //@Par5 Varchar(100),  @Par6 Varchar(100), @Par7 Varchar(100)
+
+            //MessageBox.Show("Asunto: Cierre de solicitudes" + Environment.NewLine + "Cuerpo:" + Environment.NewLine + cuerpo);
+            //WsMensajeria.Ws_ToSoapClient wsMensajeria = new WsMensajeria.Ws_ToSoapClient();
+            string result = lPX.EnviaNotificacionesEnviaMsgDeNotificacion("Sistema de notificaciones S.M.P.", lTblHtml, -600, "Gestion de Materia Prima ");
+        }
+
+
+        public string CreaXmlEntradaProductosTerminados_INET_SolicitudMP(Ws_TO.Objeto_WsINET iObj)
+        {
+            String lRes = ""; int i = 0;
+            //Dim lRes As String, lEntDoc As New Tipo_EntDoc, i As Integer = 0
+            //Dim lDetDoc As New Tipo_DetDoc, lResumenDoc As New Tipo_ResumenDoc
+            String lXML = ""; String lRes1 = ""; String lXmlFinal = "";
+
+            //sb.Append("<SDT_TRANSPORTE xmlns=\"http://www.informat.cl/ws\">");
+
+            lRes = String.Concat("<SDT_TRANSPORTE xmlns=\"http://www.informat.cl/ws\">", Environment.NewLine);
+            lRes = String.Concat(lRes, "<ACCION>ins</ACCION> ", Environment.NewLine);
+            lRes = String.Concat(lRes, " <XML>", Environment.NewLine);
+            lXML = String.Concat(lXML, "	<SDT_MOVEXISTENCIASALL xmlns=&quot;http://www.informat.cl/ws&quot;>", Environment.NewLine);
+            lXML = String.Concat(lXML, "  <SDT_MOVEXISTENCIASALL.MOVIMIENTO> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<TMETIP>", iObj.Tmetip.ToString(), "</TMETIP> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<TMECOD>", iObj.Tmecod.ToString(), "</TMECOD> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVSUCCOD>", iObj.Movsuccod.ToString(), "</MOVSUCCOD> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVNUMDOC>", iObj.Movnumdoc.ToString(), "</MOVNUMDOC> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVFECDOC>", iObj.Movfecdoc.ToString(), "</MOVFECDOC> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVFECDIG>", iObj.Movfecdig.ToString(), "</MOVFECDIG>  ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVHORDIG>", iObj.Movhordig.ToString(), "</MOVHORDIG>  ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVBODCOD>", iObj.Movbodcod.ToString(), "</MOVBODCOD> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVBODSUC>", iObj.Movbodsuc.ToString(), "</MOVBODSUC> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVGLO1>", iObj.Movglo1.ToString(), "</MOVGLO1> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVGLO2>", iObj.Movglo2.ToString(), "</MOVGLO2> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVSIS>", iObj.Movsis.ToString(), "</MOVSIS> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "  	<MOVULTSEC>", iObj.Movultsec.ToString(), "</MOVULTSEC>", Environment.NewLine);
+
+            for (i = 0; i < iObj.DetalleMov.Length; i++)
+            {
+                lXML = String.Concat(lXML, "  	<DETALLE>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <SDT_MOVEXISTENCIASALL.MOVIMIENTO.DET_MOVTO>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMONUMSEC>", iObj.DetalleMov[i].Dmonumsec.ToString(), "</DMONUMSEC>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <PRDCOD>", iObj.DetalleMov[i].Prdcod.ToString(), "</PRDCOD>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <PRDEXIPLA>", iObj.DetalleMov[i].Prdexipla.ToString(), "</PRDEXIPLA>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOPLACOD>", iObj.DetalleMov[i].Dmoplacod.ToString(), "</DMOPLACOD>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOCENCOD>", iObj.DetalleMov[i].Dmocencod.ToString(), "</DMOCENCOD>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOITECOD>", iObj.DetalleMov[i].Dmoitecod.ToString(), "</DMOITECOD>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOARECOD>", iObj.DetalleMov[i].Dmoarecod.ToString(), "</DMOARECOD>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOCAN>", iObj.DetalleMov[i].Dmocan.ToString(), "</DMOCAN>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOPREUNI>", iObj.DetalleMov[i].Dmopreuni.ToString(), "</DMOPREUNI>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <DMOVALTOT>", iObj.DetalleMov[i].Dmovaltot.ToString(), "</DMOVALTOT>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV11>", iObj.DetalleMov[i].Invmov11.ToString(), "</INVMOV11>", Environment.NewLine);
+
+                lXML = String.Concat(lXML, "  	            <INVMOV12>", iObj.DetalleMov[i].Invmov12.ToString(), "</INVMOV12>", Environment.NewLine);
+
+                lXML = String.Concat(lXML, "  	            <INVMOV13>", iObj.DetalleMov[i].Invmov13.ToString(), "</INVMOV13>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV14>", iObj.DetalleMov[i].Invmov14.ToString(), "</INVMOV14>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV15>", iObj.DetalleMov[i].Invmov15.ToString(), "</INVMOV15>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV16>", iObj.DetalleMov[i].Invmov16.ToString(), "</INVMOV16>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV17>", iObj.DetalleMov[i].Invmov17.ToString(), "</INVMOV17>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	  </SDT_MOVEXISTENCIASALL.MOVIMIENTO.DET_MOVTO>", Environment.NewLine);
+                lXML = String.Concat(lXML, "</DETALLE> ", Environment.NewLine);
+            }
+
+
+
+            lXML = String.Concat(lXML, "<MOVVALTOT>", iObj.Movvaltot.ToString(), "</MOVVALTOT> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL.MOVIMIENTO> ", Environment.NewLine);
+            lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL> ", Environment.NewLine);
+
+            lRes1 = String.Concat(lRes1, "</XML>", Environment.NewLine);
+            lRes1 = String.Concat(lRes1, "</SDT_TRANSPORTE>", Environment.NewLine);
+
+            //'cambiamos los caracteres 
+            //'        NOTA: Se realizó un encoding al XML con transporte, por lo cual:
+            //'el signo < se reemplazó por &lt; 
+            //'el signo > se reemplazó por &gt;
+            lXML = lXML.Replace("<", "&lt;");
+            lXML = lXML.Replace(">", "&gt;");
+
+            lXmlFinal = String.Concat(lRes, lXML, lRes1);
+            return lXmlFinal;
+
+        }
+
+        public Integracion_INET.MovExistencias CargaObjEntradaBodegaProdTerm_INET(Ws_TO.Objeto_WsINET iObjINET)
+        {
+            Integracion_INET.MovExistencias lRes = new Integracion_INET.MovExistencias();
+            Integracion_INET.MovExistenciasAll lExAll = new Integracion_INET.MovExistenciasAll();
+            Integracion_INET.MovExistenciasDet lExDet = new Integracion_INET.MovExistenciasDet();
+            int i = 0;
+
+
+            // 'Secuencia del detalle
+
+            lRes.ExistenciasDet.DMONUMSEC = iObjINET.DetalleMov[0].Dmonumsec;// Dmonumsec; //"1";
+            lRes.ExistenciasDet.PRDCOD = iObjINET.DetalleMov[0].Prdcod;// iCodProd '"63OGP1"
+            lRes.ExistenciasDet.PRDEXIPLA = iObjINET.DetalleMov[0].Prdexipla;// "1109009"
+            lRes.ExistenciasDet.DMOPLACOD = iObjINET.DetalleMov[0].Dmoplacod;// "1109008"
+            lRes.ExistenciasDet.DMOCENCOD = iObjINET.DetalleMov[0].Dmocencod;// "0"
+            lRes.ExistenciasDet.DMOITECOD = iObjINET.DetalleMov[0].Dmoitecod;//  "0"
+            lRes.ExistenciasDet.DMOARECOD = iObjINET.DetalleMov[0].Dmoarecod;// "0"
+
+
+            lRes.ExistenciasDet.DMOCAN = iObjINET.DetalleMov[0].Dmocan;// String.Concat(iTotalKgs.ToString, ".0000") '"15523.0000"  '--Kilos
+            lRes.ExistenciasDet.DMOPREUNI = iObjINET.DetalleMov[0].Dmopreuni;// String.Concat(iPrecioCosto.ToString, ".00") ' "420.00"      'Precio Unitario COSTO
+            lRes.ExistenciasDet.DMOVALTOT = iObjINET.DetalleMov[0].Dmovaltot;// String.Concat(mTotalCosto.ToString, ".00") ' "6519660.00"   '--Total
+            lRes.ExistenciasDet.INVMOV11 = iObjINET.DetalleMov[0].Invmov11;// "0.0000"
+            lRes.ExistenciasDet.INVMOV12 = iObjINET.DetalleMov[0].Invmov12;// "0.00"
+            lRes.ExistenciasDet.INVMOV13 = iObjINET.DetalleMov[0].Invmov13;// "0.00"
+            lRes.ExistenciasDet.INVMOV14 = iObjINET.DetalleMov[0].Invmov14;// "0.0000"
+            lRes.ExistenciasDet.INVMOV15 = iObjINET.DetalleMov[0].Invmov15;// "0.00"
+            lRes.ExistenciasDet.INVMOV16 = iObjINET.DetalleMov[0].Invmov16;// "0.0000"
+            lRes.ExistenciasDet.INVMOV17 = iObjINET.DetalleMov[0].Invmov17;// "0.0000"
+
+
+            //'Indica el tipo movimiento (1=Entrada,2=salida)
+            lRes.ExistenciasAll.TMETIP = iObjINET.Tmetip;// "1";//   'Entrada a productos terminados
+            //'Indica el código del movimiento (T)
+            lRes.ExistenciasAll.TMECOD = iObjINET.Tmecod;// "30"
+            //'Código de sucursal (T)
+            lRes.ExistenciasAll.MOVSUCCOD = iObjINET.Movsuccod;// mCodigoSucursal_INET '"1"    '1casa matriz stgo  2 calama
+            //'Numero de movimiento  debe ser un correlativo y se debe aumentar en uno actualmente va en 90001
+            //'      MessageBox.Show("Antes de ObtenerCampo_MovNumDoc.ToString ")
+            //mMOVNUMDOC = ObtenerCampo_MovNumDoc.ToString
+
+            lRes.ExistenciasAll.MOVNUMDOC = iObjINET.Movnumdoc;// mMOVNUMDOC    '"90002"
+            //'Fecha del movimiento (aaaa-mm-dd)
+            //'  MessageBox.Show("ANtes de ObtenerFechaActual ")
+            lRes.ExistenciasAll.MOVFECDOC = iObjINET.Movfecdoc;// ObtenerFechaActual("A") '  "2013-08-19"
+            //'   MessageBox.Show("Fechas :" & lObj.MOVFECDOC)
+            //'Fecha de digitación del movimiento (aaaa-mm-dd)
+            lRes.ExistenciasAll.MOVFECDIG = iObjINET.Movfecdig;  //ObtenerFechaActual("A")  '  "2013-08-19"
+            //'Hora del movimiento (hh:mm:ss)
+            lRes.ExistenciasAll.MOVHORDIG = iObjINET.Movhordig;// ObtenerHoraActual() ' "21:59:59"
+            //'código de bodega (T)
+            //'lObj.MOVBODCOD = "1"  '105 para santiag0  69 para calama
+            lRes.ExistenciasAll.MOVBODCOD = iObjINET.Movbodcod;//  mCodigoBodega //' "105"  '105 para santiag0  69 para calama
+
+            //'código de sucursal (T)
+            lRes.ExistenciasAll.MOVBODSUC = iObjINET.Movbodsuc;// mCodigoSucursal_INET '"1"  ' '1casa matriz stgo  2 calama
+            //'Glosa del movimiento (opcional)
+            lRes.ExistenciasAll.MOVGLO1 = iObjINET.Movglo1;// iObs1 '"PRUEBAS DE INTEGRACION"
+            //'Glosa del movimiento (opcional)
+            lRes.ExistenciasAll.MOVGLO2 = iObjINET.Movglo2;
+            //'Sistema (1=Existencias,4=importaciones),por defecto =1
+            lRes.ExistenciasAll.MOVSIS = iObjINET.Movsis;// "1"
+            //'Cantidad de líneas del detalle
+            lRes.ExistenciasAll.MOVULTSEC = iObjINET.Movultsec;// "1"
+            //'Valor total sumando todas las líneas
+            lRes.ExistenciasAll.MOVVALTOT = iObjINET.Movvaltot;// String.Concat(mTotalCosto, ".00") // '"6519660.00"
+
+            //lExDet = CargaObjMovExistenciaDet(mCodigoINET, mKilosCargados, mPrecioCostoKilo, mTotalCosto)
+            //lExAll = CargaObjMovExistenciaAll(mViajesCargados)
+
+            //lRes.ExistenciasAll = lExAll
+
+            //lRes.ExistenciasDet = lExDet
+
+            return lRes;
+        }
 
         public string UnirOdf(String sFolderPath)
         {
