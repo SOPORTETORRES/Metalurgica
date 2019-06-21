@@ -663,7 +663,7 @@ namespace Metalurgica
 
         private void frmSolicitudMaterial_Load(object sender, EventArgs e)
         {
-           if ( VerificaCierresAnteriores()==false )
+           //if ( VerificaCierresAnteriores()==false )
             txtProducto_KeyUp(sender, new KeyEventArgs(Keys.F1));
         }
 

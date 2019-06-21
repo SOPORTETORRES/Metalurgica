@@ -98,7 +98,7 @@ namespace Metalurgica
                     {
                         if (row.Cells[COLUMNNAME_MARCA].Value != null)
                         {
-                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)  && (row.Cells["ES_RECUPERADO"].Value.ToString().Equals("N")))
+                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)  && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
                                 lKgsProd = lCom.Val(row.Cells["KILOS_PROD"].Value.ToString());
                                 // if (((int)row.Cells["KILOS_PROD"].Value> 0) )

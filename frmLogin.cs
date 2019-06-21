@@ -162,7 +162,7 @@ namespace Metalurgica
                                 //ObtenerPerfilUsuario
                                 logon = true;
                                 this.Hide();
-                                IniciaApp(Program.currentUser.Machine, Program.currentUser);
+                               IniciaApp(Program.currentUser.Machine, Program.currentUser);
 
 
                             }
@@ -315,6 +315,12 @@ namespace Metalurgica
                 ProduccionExterna.Frm_ProduccionExterna lfrm = new ProduccionExterna.Frm_ProduccionExterna();
                 lfrm.InicializaForm(iUserLog, "O");
                 lfrm.ShowDialog();
+            }
+            if (iIdTipoTotem == 7) //TOSOL, envio a produccion externa, dar como producido y dar como despachado
+            {
+                frmDespachoCamion lFrm = new frmDespachoCamion();
+                lFrm.IniciaFormulario(iUserLog);
+                lFrm.ShowDialog();
             }
 
         }

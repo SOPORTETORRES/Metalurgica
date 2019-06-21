@@ -1924,9 +1924,19 @@ namespace Metalurgica
             {
               if (lProdExterna.ToUpper().Equals("S"))
                 {
-                    ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
-                    lFrm.InicializaForm(mUserLog ,"A");
-                    lFrm.ShowDialog();
+                    if (Program.currentUser.Machine.ToString().Equals("7"))
+                    {
+                        ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
+                        lFrm.InicializaForm(mUserLog, "T");
+                        lFrm.ShowDialog();
+                    }
+                    else
+                    {
+                        ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
+                        lFrm.InicializaForm(mUserLog, "A");
+                        lFrm.ShowDialog();
+                    }
+                   
 
                 }
                 else

@@ -23,92 +23,111 @@ namespace Metalurgica.ProduccionExterna
             InitializeComponent();
         }
 
-        public  void InicializaForm(CurrentUser iUserLog, string iTipo)
+        public void InicializaForm(CurrentUser iUserLog, string iTipo)
         {
-            WsOperacion .ListaDataSet  lDts = new WsOperacion.ListaDataSet ();
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             DataTable lTblEx = new DataTable(); DataTable lTblObras = new DataTable();
+            DataView lVistaPE = null; DataView lVistaObras = null;
+            string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
             DataRow lFila = null;
-            mUserLog = iUserLog;
-            mTipo = iTipo;
-            Tx_fechaEnvio.Text = DateTime.Now.ToShortDateString();
-            CargaInicial = true;
-            lDts = lPx.ObtenerDatosIniciales_PE("I","");
-           if (lDts .MensajeError .Trim ().Length ==0 )
+            try
             {
-                lTblEx = lDts.DataSet.Tables["Externos"].Copy();
-                lFila = lTblEx.NewRow();
-                lFila["Par1"] = " Seleccionar";
-                lTblEx.Rows.Add(lFila);
+                mUserLog = iUserLog;
+                mTipo = iTipo;
+                Tx_fechaEnvio.Text = DateTime.Now.ToShortDateString();
+                CargaInicial = true;
+                lDts = lPx.ObtenerDatosIniciales_PE("I", "");
+                if (lDts.MensajeError.Trim().Length == 0)
+                {
+                    lTblEx = lDts.DataSet.Tables["Externos"].Copy();
+                    lFila = lTblEx.NewRow();
+                    lFila["Par1"] = " Seleccionar";
+                    lFila["Par2"] = lEmpresa;
+                    lTblEx.Rows.Add(lFila);
 
-                lTblObras = lDts.DataSet.Tables["Obras"].Copy();
-                lFila = lTblObras.NewRow();
-                lFila["Nombre"] = "Seleccionar";
-                lFila["Id"] = "0";
-                lTblObras.Rows.Add(lFila);
+                    lTblObras = lDts.DataSet.Tables["Obras"].Copy();
+                    lFila = lTblObras.NewRow();
+                    lFila["Nombre"] = "Seleccionar";
+                    lFila["Id"] = "0";
+                    lFila["Empresa"] = lEmpresa ;
+                    lTblObras.Rows.Add(lFila);
 
+                    lVistaPE = new DataView(lTblEx, string.Concat(" Par2='", lEmpresa, "'"), "", DataViewRowState.CurrentRows);
 
-                Cmb_Externo.DataSource = lTblEx.Copy ();
-                Cmb_Externo.DisplayMember = "Par1";
-                Cmb_Externo.ValueMember = "Par1";
-                Cmb_Externo.SelectedIndex = lTblEx.Rows.Count-1;
+                    Cmb_Externo.DataSource = lVistaPE; // lTblEx.Copy ();
+                    Cmb_Externo.DisplayMember = "Par1";
+                    Cmb_Externo.ValueMember = "Par1";
+                    Cmb_Externo.SelectedIndex = lVistaPE. Count - 1;
 
-                Cmb_Obra .DataSource = lTblObras.Copy ();
-                Cmb_Obra.DisplayMember = "Nombre";
-                Cmb_Obra.ValueMember = "Id";
-                Cmb_Obra.SelectedIndex = lTblObras.Rows.Count-1;
-                CargaInicial = false ;
+                    lVistaObras = new DataView(lTblObras, string.Concat(" Empresa='", lEmpresa, "'"), "", DataViewRowState.CurrentRows);
+                    Cmb_Obra.DataSource = lVistaObras;
+                    Cmb_Obra.DisplayMember = "Nombre";
+                    Cmb_Obra.ValueMember = "Id";
+                    Cmb_Obra.SelectedIndex = lVistaObras. Count - 1;
+                    CargaInicial = false;
 
-                //mTblErrorProd
-                mTblErrorProd = lDts.DataSet.Tables["ErrProduccion"].Copy();
-                Cmb_Problemas.DataSource = mTblErrorProd;
-                Cmb_Problemas.DisplayMember = "Par1";
-                Cmb_Problemas.ValueMember = "Par1";
+                    //mTblErrorProd
+                    mTblErrorProd = lDts.DataSet.Tables["ErrProduccion"].Copy();
+                    Cmb_Problemas.DataSource = mTblErrorProd;
+                    Cmb_Problemas.DisplayMember = "Par1";
+                    Cmb_Problemas.ValueMember = "Par1";
+                }
+
+                Tx_NroEtiquetas.Text = "0";
+                Tx_TotalKgs.Text = "0";
+
+                mTblEtiquetas = new DataTable();
+                mTblEtiquetas.Columns.Add("IdPaquete", Type.GetType("System.String"));
+                mTblEtiquetas.Columns.Add("IT", Type.GetType("System.String"));
+                mTblEtiquetas.Columns.Add("Etiqueta", Type.GetType("System.String"));
+                mTblEtiquetas.Columns.Add("Kgs", Type.GetType("System.String"));
+                mTblEtiquetas.Columns.Add("Cantidad", Type.GetType("System.String"));
+                mTblEtiquetas.Columns.Add("ProdExterna", Type.GetType("System.String"));
+
+                //Habilitamos las Opciones
+                switch (mTipo)
+                {
+                    case "O":  // oficina tecnica 
+                        tabPage1.Enabled = true;
+                        tabPage2.Enabled = false;
+                        tabPage3.Enabled = false;
+                        tabControl1.SelectedIndex = 0;
+                        break;
+                    case "A":  // Sucursal de Armacero
+                        tabPage1.Enabled = false;
+                        tabPage2.Enabled = true;
+                        tabPage3.Enabled = true;
+                        tabControl1.SelectedIndex = 1;
+                        break;
+                    case "C":  // Calidad registro de produccion 
+                        tabPage1.Enabled = false;
+                        tabPage2.Enabled = true;
+                        tabPage3.Enabled = true;
+                        tabControl1.SelectedIndex = 1;
+                        break;
+                    case "T":  // TOSOL, puede enviar, producir y despachar 
+                        tabPage1.Enabled = true;
+                        tabPage2.Enabled = true;
+                        tabPage3.Enabled = true;
+                        tabControl1.SelectedIndex = 0;
+                        break;
+                    default:
+                        //Console.WriteLine("Other");
+                        break;
+                }
+
+                //Obtenemos la Versión de la Aplicación
+                //VersionPE
+                string VersionPE = ConfigurationManager.AppSettings["VersionPE"].ToString();
+
+                if (VersionPE != null)
+                    this.Text = string.Concat(this.Text, VersionPE.ToString());
             }
-
-            Tx_NroEtiquetas.Text = "0";
-            Tx_TotalKgs.Text = "0";
-
-            mTblEtiquetas = new DataTable();
-            mTblEtiquetas.Columns.Add("IdPaquete", Type.GetType("System.String"));
-            mTblEtiquetas.Columns.Add("IT", Type.GetType("System.String"));
-            mTblEtiquetas.Columns.Add("Etiqueta", Type.GetType("System.String"));
-            mTblEtiquetas.Columns.Add("Kgs", Type.GetType("System.String"));
-            mTblEtiquetas.Columns.Add("Cantidad", Type.GetType("System.String"));
-            mTblEtiquetas.Columns.Add("ProdExterna", Type.GetType("System.String"));
-
-            //Habilitamos las Opciones
-            switch (mTipo )
+            catch (Exception iex)
             {
-                case "O":  // oficina tecnica 
-                    tabPage1.Enabled = true ;
-                    tabPage2.Enabled = false;
-                    tabPage3.Enabled = false;
-                    tabControl1.SelectedIndex = 0;
-                    break;
-                case "A":  // Sucursal de Armacero
-                    tabPage1.Enabled = false;
-                    tabPage2.Enabled = true;
-                    tabPage3.Enabled = true;
-                    tabControl1.SelectedIndex = 1;
-                    break;
-                case "C":  // Calidad registro de produccion 
-                    tabPage1.Enabled = false;
-                    tabPage2.Enabled = true;
-                    tabPage3.Enabled = true;
-                    tabControl1.SelectedIndex = 1;
-                    break;
-                default:
-                    //Console.WriteLine("Other");
-                    break;
+                MessageBox.Show(string.Concat(" Se ha Producido el siguiente error: ", iex.Message.ToString()), "Avisos Sistema");
             }
-
-            //Obtenemos la Versión de la Aplicación
-            //VersionPE
-            string VersionPE = ConfigurationManager.AppSettings["VersionPE"].ToString();
-
-            if (VersionPE != null)
-                this.Text = string.Concat(this.Text, VersionPE.ToString());
 
         }
 
@@ -484,9 +503,12 @@ namespace Metalurgica.ProduccionExterna
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             DataTable lTblIT = new DataTable();             DataRow lFila = null;
+            string lProdExt = Cmb_Externo.SelectedValue .ToString();
+
             Tx_fechaEnvio.Text = DateTime.Now.ToShortDateString();
 
-            lDts = lPx.ObtenerDatosIniciales_PE("V", iIdObra);
+
+            lDts = lPx.ObtenerIt_PorObra_ProdEx( iIdObra, lProdExt);
             if (lDts.MensajeError.Trim().Length == 0)
             {
                 lTblIT = lDts.DataSet.Tables["IT"].Copy();

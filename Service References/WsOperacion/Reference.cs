@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoColadaBodegaMP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Bodega_MP AsociarEtiquetaColadaaBodegaMP(int idDespacho, string etiqueta_colada, string usuario, string terminal);
@@ -496,6 +500,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerIt_PorObra(string iIdObra);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerIt_PorObra_ProdEx", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerIt_PorObra_ProdEx(string iIdObra, string iProdEx);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEtiquetasPorViaje", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerEtiquetasPorViaje(string iCodigo);
@@ -531,10 +539,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/obtenerIdRC_PorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoColadaBodegaMP", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal);
     }
     
     /// <remarks/>
@@ -3386,6 +3390,10 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal) {
+            return base.Channel.GuardarDespachoColadaBodegaMP(despacho_Bodega_MP, terminal);
+        }
+        
         public Metalurgica.WsOperacion.Despacho_Bodega_MP AsociarEtiquetaColadaaBodegaMP(int idDespacho, string etiqueta_colada, string usuario, string terminal) {
             return base.Channel.AsociarEtiquetaColadaaBodegaMP(idDespacho, etiqueta_colada, usuario, terminal);
         }
@@ -3866,6 +3874,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerIt_PorObra(iIdObra);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerIt_PorObra_ProdEx(string iIdObra, string iProdEx) {
+            return base.Channel.ObtenerIt_PorObra_ProdEx(iIdObra, iProdEx);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerEtiquetasPorViaje(string iCodigo) {
             return base.Channel.ObtenerEtiquetasPorViaje(iCodigo);
         }
@@ -3900,10 +3912,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada) {
             return base.Channel.obtenerIdRC_PorColada(etiqueta_colada);
-        }
-        
-        public Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal) {
-            return base.Channel.GuardarDespachoColadaBodegaMP(despacho_Bodega_MP, terminal);
         }
     }
 }

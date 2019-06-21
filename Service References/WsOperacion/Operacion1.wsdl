@@ -2,6 +2,31 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GuardarDespachoColadaBodegaMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Bodega_MP" type="tns:Despacho_Bodega_MP" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Despacho_Bodega_MP">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarDespachoColadaBodegaMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoColadaBodegaMPResult" type="tns:Despacho_Bodega_MP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AsociarEtiquetaColadaaBodegaMP">
         <s:complexType>
           <s:sequence>
@@ -19,16 +44,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Despacho_Bodega_MP">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Bodega_Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="ObtenerMotivosExcepcionProduccion">
         <s:complexType />
       </s:element>
@@ -2126,6 +2141,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerIt_PorObra_ProdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iIdObra" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iProdEx" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerIt_PorObra_ProdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerIt_PorObra_ProdExResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerEtiquetasPorViaje">
         <s:complexType>
           <s:sequence>
@@ -2268,23 +2298,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarDespachoColadaBodegaMP">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="despacho_Bodega_MP" type="tns:Despacho_Bodega_MP" />
-            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarDespachoColadaBodegaMPResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoColadaBodegaMPResult" type="tns:Despacho_Bodega_MP" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GuardarDespachoColadaBodegaMPSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoColadaBodegaMP" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoColadaBodegaMPSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoColadaBodegaMPResponse" />
+  </wsdl:message>
   <wsdl:message name="AsociarEtiquetaColadaaBodegaMPSoapIn">
     <wsdl:part name="parameters" element="tns:AsociarEtiquetaColadaaBodegaMP" />
   </wsdl:message>
@@ -3005,6 +3026,12 @@
   <wsdl:message name="ObtenerIt_PorObraSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerIt_PorObraResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerIt_PorObra_ProdExSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerIt_PorObra_ProdEx" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerIt_PorObra_ProdExSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerIt_PorObra_ProdExResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerEtiquetasPorViajeSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerEtiquetasPorViaje" />
   </wsdl:message>
@@ -3059,13 +3086,11 @@
   <wsdl:message name="obtenerIdRC_PorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:obtenerIdRC_PorColadaResponse" />
   </wsdl:message>
-  <wsdl:message name="GuardarDespachoColadaBodegaMPSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoColadaBodegaMP" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDespachoColadaBodegaMPSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDespachoColadaBodegaMPResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
+      <wsdl:input message="tns:GuardarDespachoColadaBodegaMPSoapIn" />
+      <wsdl:output message="tns:GuardarDespachoColadaBodegaMPSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
       <wsdl:input message="tns:AsociarEtiquetaColadaaBodegaMPSoapIn" />
       <wsdl:output message="tns:AsociarEtiquetaColadaaBodegaMPSoapOut" />
@@ -3546,6 +3571,10 @@
       <wsdl:input message="tns:ObtenerIt_PorObraSoapIn" />
       <wsdl:output message="tns:ObtenerIt_PorObraSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra_ProdEx">
+      <wsdl:input message="tns:ObtenerIt_PorObra_ProdExSoapIn" />
+      <wsdl:output message="tns:ObtenerIt_PorObra_ProdExSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiquetasPorViaje">
       <wsdl:input message="tns:ObtenerEtiquetasPorViajeSoapIn" />
       <wsdl:output message="tns:ObtenerEtiquetasPorViajeSoapOut" />
@@ -3582,13 +3611,18 @@
       <wsdl:input message="tns:obtenerIdRC_PorColadaSoapIn" />
       <wsdl:output message="tns:obtenerIdRC_PorColadaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
-      <wsdl:input message="tns:GuardarDespachoColadaBodegaMPSoapIn" />
-      <wsdl:output message="tns:GuardarDespachoColadaBodegaMPSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
+      <soap:operation soapAction="http://tempuri.org/GuardarDespachoColadaBodegaMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
       <soap:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
       <wsdl:input>
@@ -4669,6 +4703,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra_ProdEx">
+      <soap:operation soapAction="http://tempuri.org/ObtenerIt_PorObra_ProdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiquetasPorViaje">
       <soap:operation soapAction="http://tempuri.org/ObtenerEtiquetasPorViaje" style="document" />
       <wsdl:input>
@@ -4750,18 +4793,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
-      <soap:operation soapAction="http://tempuri.org/GuardarDespachoColadaBodegaMP" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
+      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoColadaBodegaMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AsociarEtiquetaColadaaBodegaMP">
       <soap12:operation soapAction="http://tempuri.org/AsociarEtiquetaColadaaBodegaMP" style="document" />
       <wsdl:input>
@@ -5842,6 +5885,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIt_PorObra_ProdEx">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerIt_PorObra_ProdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiquetasPorViaje">
       <soap12:operation soapAction="http://tempuri.org/ObtenerEtiquetasPorViaje" style="document" />
       <wsdl:input>
@@ -5916,15 +5968,6 @@
     </wsdl:operation>
     <wsdl:operation name="obtenerIdRC_PorColada">
       <soap12:operation soapAction="http://tempuri.org/obtenerIdRC_PorColada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarDespachoColadaBodegaMP">
-      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoColadaBodegaMP" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
