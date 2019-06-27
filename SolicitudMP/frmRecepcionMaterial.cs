@@ -137,7 +137,7 @@ namespace Metalurgica
                 frm.cantidad_parcial = (String.IsNullOrEmpty(iFila.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()) ? Convert.ToInt32(iFila.Cells[COLUMNNAME_CANTIDAD].Value.ToString()) : Convert.ToInt32(iFila.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString()));
                 frm.obs = iFila.Cells[COLUMNNAME_OBS_RECEP].Value.ToString();
                 frm.Mensaje = "Ingrese los Kilos que aparecen el la Etiqueta del Rollo";
-                frm.Kilos = iFila.Cells["KILOS"].Value.ToString();
+                frm.Kilos = iFila.Cells["KILOS_RECEP"].Value.ToString();
 
                 
                 frm.ShowDialog(this);
@@ -166,7 +166,7 @@ namespace Metalurgica
             {
                 try
                 {
-                    if (Convert.ToInt32(currentRow.Cells["CANTIDAD_PROD"].Value.ToString()) == 0)
+                    if (Convert.ToInt32(currentRow.Cells["KILOS_PROD"].Value.ToString()) == 0)
                     {
                         if (MessageBox.Show("¿Esta seguro que desea anular este registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
                         {

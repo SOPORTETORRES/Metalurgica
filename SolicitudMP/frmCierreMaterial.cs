@@ -98,67 +98,75 @@ namespace Metalurgica
                     {
                         if (row.Cells[COLUMNNAME_MARCA].Value != null)
                         {
-                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)  && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
+                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true) ) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
                                 lKgsProd = lCom.Val(row.Cells["KILOS_PROD"].Value.ToString());
                                 // if (((int)row.Cells["KILOS_PROD"].Value> 0) )
-                                if ((lKgsProd > 0) )
+                                if ((lKgsProd > 0))
                                 {
                                     lTblINET.Clear();
                                     if (lCom.Agregar_IdSolicitud(lLista, row.Cells["SOL_ID"].Value.ToString()))
                                     {
                                         lLista.Add(row.Cells["SOL_ID"].Value.ToString());
                                     }
-                                    lCodigo = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
-                                    //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
-                                    lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
-                                    lFechaMov = DateTime.Now.ToString();
-                                    lGlosa1 = Program.currentUser.Login;
-                                    //lGlosa1 = "Adm (Cierre Administrativo)";
-                                    //lGlosa2 = "22/10/2018 "; // ObtenerTurno();
-                                    lGlosa2 = lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString () );// ObtenerTurno();
-
-                                    iFila = lTblINET.NewRow();
-                                    iFila["Codigo"] = lCodigo;
-                                    iFila["Cantidad"] = lCantidad;
-                                    iFila["FechaMov"] = lFechaMov;
-                                    iFila["Glosa1"] = lGlosa1;
-                                    iFila["Glosa2"] = lGlosa2;
-                                    iFila["Procesado"] = "N";
-                                    lTblINET.Rows.Add(iFila);
-
-
-                                    // 1.- Se Integra con INET
-                                    DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-                                    //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
-                                    lDts.Tables.Add(lTblINET.Copy());
-                                    lFechaMov = lFechaMov.Replace("/", "-");
-
-                                    //Debemos saber que  sucursal esta haciendo la invocaión
-                                    int lIdSucursal = lCom.OBtenerIdSucursal();
-
-                                    if (lIdSucursal == 1)   //Calama
-                                        lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
-
-                                    if (lIdSucursal == 4)   // Santiago
-                                        lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-
-                                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-                                    lRespuestaWS_INET = InvocarWS_INET(lObjINET);
-
-                                    inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
-                                    if (inet_msg.Trim().ToUpper().Equals("OK"))
+                                    inet_msg = "";
+                                    if ((!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                                     {
-                                        counter++;
-                                        if (email_msg.Equals(""))
+                                        lCodigo = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
+                                        //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
+                                        lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
+                                        lFechaMov = DateTime.Now.ToString();
+                                        lGlosa1 = Program.currentUser.Login;
+                                        //lGlosa1 = "Adm (Cierre Administrativo)";
+                                        //lGlosa2 = "22/10/2018 "; // ObtenerTurno();
+                                        lGlosa2 = lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString());// ObtenerTurno();
+
+                                        iFila = lTblINET.NewRow();
+                                        iFila["Codigo"] = lCodigo;
+                                        iFila["Cantidad"] = lCantidad;
+                                        iFila["FechaMov"] = lFechaMov;
+                                        iFila["Glosa1"] = lGlosa1;
+                                        iFila["Glosa2"] = lGlosa2;
+                                        iFila["Procesado"] = "N";
+                                        lTblINET.Rows.Add(iFila);
+
+
+                                        // 1.- Se Integra con INET
+                                        DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
+                                        //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
+                                        lDts.Tables.Add(lTblINET.Copy());
+                                        lFechaMov = lFechaMov.Replace("/", "-");
+
+                                        //Debemos saber que  sucursal esta haciendo la invocaión
+                                        int lIdSucursal = lCom.OBtenerIdSucursal();
+
+                                        if (lIdSucursal == 1)   //Calama
+                                            lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                        if (lIdSucursal == 4)   // Santiago
+                                            lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                        //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                                        lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+
+                                        inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                                        if (inet_msg.Trim().ToUpper().Equals("OK"))
                                         {
-                                            email_msg += "Producto(s):" + newLine + newLine;
-                                            email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
-                                        }
-                                        email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
+                                            counter++;
+                                            if (email_msg.Equals(""))
+                                            {
+                                                email_msg += "Producto(s):" + newLine + newLine;
+                                                email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
+                                            }
+                                            email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
+                                        }                   
+                                    }
+                                    else
+                                    {
+                                        lIdDetalleSM = new Clases.ClsComun().Val(row.Cells["DET_ID"].Value.ToString());
+                                        wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
                                     }
                                     // 2.-  Se Registra el cierre del Producto
-
                                     solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
                                     solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
                                     solicitud_Material_Detalle.Usuario_Cierre = Program.currentUser.Login;
@@ -174,13 +182,8 @@ namespace Metalurgica
                                     }
                                     else
                                         MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    
                                 }
-                                else
-                                {
-                                    lIdDetalleSM = new Clases .ClsComun().Val ( row.Cells["DET_ID"].Value.ToString());
-                                    wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
-                                }
-                                   
                             }
                         }
                     }
@@ -876,7 +879,7 @@ namespace Metalurgica
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Clases .ClsComun ().EnvioCorreo("562", Program.currentUser.Login, "Linea de Corte");
+          //  new Clases .ClsComun ().EnvioCorreo("562", Program.currentUser.Login, "Linea de Corte");
         }
     }
 }

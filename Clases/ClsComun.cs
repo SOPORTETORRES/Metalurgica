@@ -896,6 +896,7 @@ namespace Metalurgica.Clases
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>% Producido </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial ; font-weight: bold; font-size: 12px;'>Saldo (kgs)  </ td >");
                 lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Integrado INET </ td >");
+                lTblHtml = string.Concat(lTblHtml, " <td style = 'font-family: Arial;font-weight: bold; font-size: 12px;'>Es Recuperado </ td >");
                 lTblHtml = string.Concat(lTblHtml, " </tr> ");
 
                 for (i = 0; i < lTbl.Rows.Count; i++)
@@ -924,6 +925,7 @@ namespace Metalurgica.Clases
                     lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["% producido"].ToString(), "</td >");
                     lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["Saldo"].ToString(), "</td >");
                     lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["DET_INET_MSG"].ToString(), "</td >");
+                    lTblHtml = string.Concat(lTblHtml, lFuente, lTbl.Rows[i]["SOL_ES_RECUPERADO"].ToString(), "</td >");
 
 
                     lTblHtml = string.Concat(lTblHtml, " </tr>  ");
@@ -941,6 +943,31 @@ namespace Metalurgica.Clases
             //MessageBox.Show("Asunto: Cierre de solicitudes" + Environment.NewLine + "Cuerpo:" + Environment.NewLine + cuerpo);
             //WsMensajeria.Ws_ToSoapClient wsMensajeria = new WsMensajeria.Ws_ToSoapClient();
             string result = lPX.EnviaNotificacionesEnviaMsgDeNotificacion("Sistema de notificaciones S.M.P.", lTblHtml, -600, "Gestion de Materia Prima ");
+        }
+
+        public void EnvioCorreo_Notificacion_RRHH( string iUsuario, string iMaq)
+        {
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();  
+              string lTblHtml = "";   Clases.ClsComun lCom = new Clases.ClsComun();
+            string lFuente = ""; string lFecha = string.Concat(DateTime.Now.ToShortDateString(), " ", DateTime.Now.ToShortTimeString());
+
+        lTblHtml = string.Concat("<b> Estimados Supervisores : </b>  <br>");
+
+            lTblHtml = string.Concat(lTblHtml, "  Se les comunica que siendo  las <b>", lFecha, " </b>, la aplicación de <b> SOLICITUD DE MATERIA  <br> ");
+            lTblHtml = string.Concat(lTblHtml, " PRIMA </b>  detectó  que el usuario   <b>", iUsuario, " </b> no cerró oportunamente se sesión en la máquina  <br> ");
+            lTblHtml = string.Concat(lTblHtml,  iMaq, ". Ante esto, favor proceder  con la reinstrucción  del usuario y su correspondiente   <br> ");
+            lTblHtml = string.Concat(lTblHtml,  " firma de registro .  <br>  <br>  <br>  ");
+
+            // ", iUsuario, "</b> de la maquina <b>", iMaq, "</b>, ha Solicitado y producido lo siguiente:  <br> ");
+            lTblHtml = string.Concat(lTblHtml, " Estimados Sres. RRHH: <br>  ");
+            lTblHtml = string.Concat(lTblHtml, " Si esta  notificación tiene carácter  de reincidencia para el usuario  <b> ", iUsuario , " </b>  Favor  proceder <br>");
+            lTblHtml = string.Concat(lTblHtml, " con la Notificación  <b> (Carta de Advertencia al usuario) </b>  por incumplimiento reiterado de las  <br>  ");
+            lTblHtml = string.Concat(lTblHtml, " instrucciones impartidas por su superior directo  <br><br>  ");
+
+            lTblHtml = string.Concat(lTblHtml, " No responda este mensaje, ya que ha sido  creado de forma  automática<br><br>  ");
+
+          
+            string result = lPX.EnviaNotificacionesEnviaMsgDeNotificacion("Sistema de notificaciones cierre automatico S.M.P.", lTblHtml, -650, "Gestion de Materia Prima ");
         }
 
 

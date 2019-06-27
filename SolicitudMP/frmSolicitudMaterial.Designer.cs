@@ -64,12 +64,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Pnl_Msg = new System.Windows.Forms.Panel();
+            this.PB_1 = new System.Windows.Forms.ProgressBar();
             this.Lbl_MsgCierre = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.PB_1 = new System.Windows.Forms.ProgressBar();
             this.tlsToolBar.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -458,6 +458,13 @@
             this.Pnl_Msg.TabIndex = 4;
             this.Pnl_Msg.Visible = false;
             // 
+            // PB_1
+            // 
+            this.PB_1.Location = new System.Drawing.Point(101, 302);
+            this.PB_1.Name = "PB_1";
+            this.PB_1.Size = new System.Drawing.Size(702, 23);
+            this.PB_1.TabIndex = 2;
+            // 
             // Lbl_MsgCierre
             // 
             this.Lbl_MsgCierre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -510,13 +517,6 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(920, 22);
             this.ctlInformacionUsuario1.TabIndex = 23;
             // 
-            // PB_1
-            // 
-            this.PB_1.Location = new System.Drawing.Point(101, 302);
-            this.PB_1.Name = "PB_1";
-            this.PB_1.Size = new System.Drawing.Size(702, 23);
-            this.PB_1.TabIndex = 2;
-            // 
             // frmSolicitudMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,6 +530,7 @@
             this.Name = "frmSolicitudMaterial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Solicitud Material";
+            this.Activated += new System.EventHandler(this.frmSolicitudMaterial_Activated);
             this.Load += new System.EventHandler(this.frmSolicitudMaterial_Load);
             this.Shown += new System.EventHandler(this.frmSolicitudMaterial_Shown);
             this.tlsToolBar.ResumeLayout(false);
