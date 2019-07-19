@@ -242,3 +242,4 @@ C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\D
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.application
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.csproj.CopyComplete
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.ProduccionExterna.Frm_ProduccionExterna.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.RecepcionMP.Frm_RecepcionMP.resources

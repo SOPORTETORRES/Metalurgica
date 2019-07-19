@@ -530,6 +530,12 @@
     <Compile Include="Pruebas\Frm_Impresion.Designer.cs">
       <DependentUpon>Frm_Impresion.cs</DependentUpon>
     </Compile>
+    <Compile Include="RecepcionMP\Frm_RecepcionMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecepcionMP\Frm_RecepcionMP.Designer.cs">
+      <DependentUpon>Frm_RecepcionMP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Coladas_Px_WS_Ws_To\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -829,6 +835,9 @@
     <EmbeddedResource Include="Pruebas\Frm_Impresion.resx">
       <DependentUpon>Frm_Impresion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RecepcionMP\Frm_RecepcionMP.resx">
+      <DependentUpon>Frm_RecepcionMP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SolicitudMP\frmCierreMaterial.resx">
       <DependentUpon>frmCierreMaterial.cs</DependentUpon>
     </EmbeddedResource>
@@ -1007,6 +1016,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.TipoBasculaMovil.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.TipoEtiquetaAza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WsOperacion\Operacion1.wsdl" />

@@ -637,10 +637,63 @@ namespace Metalurgica.Clases
         }
 
 
+        #region Lectura de etiqueta AZA
+
+        public  int ObtenerDiametro(string iTx)
+        {
+            char[] delimiterChars = { 'm' }; string[] words = iTx.Split(delimiterChars);
+            string lTmp = words[0].ToString(); int lRes = 1; string lAux = "";
+
+            if (lTmp.Length > 0)
+            {
+                char[] lchar = { ' ' }; string[] lpartes = lTmp.Split(lchar);
+
+                lAux = lpartes[lpartes.Length - 1].ToString();
+                lRes = new Clases.ClsComun().Val(lAux);
+            }
+            return lRes;
+        }
+
+        public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(string lTx)
+        {
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza(); Clases.ClsComun lCom = new Clases.ClsComun();
+            char[] delimiterChars = { ';' }; string[] words = lTx.Split(delimiterChars);
+
+            if (words.Length > 0)
+            {
+                lEt.Lote = words[0].ToString().Trim();
+                lEt.FechaFabricacion = words[1].ToString().Trim();
+                lEt.Bulto = lCom.Val(words[2].ToString());
+                lEt.Producto = words[3].ToString().Trim();
+                lEt.Codigo = words[4].ToString().Trim();
+                lEt.PesoBulto = lCom.Val(words[5].ToString());
+                lEt.Diam = lCom.ObtenerDiametro(lEt.Producto);
+                lEt.Largo = lCom.ObtenerLargo(lEt.Producto);
+
+            }
+
+
+            return lEt;
+        }
+
+        public int ObtenerLargo(string iTx)
+        {
+            char[] delimiterChars = { 'm' }; string[] words = iTx.Split(delimiterChars);
+            string lTmp = words[0].ToString(); int lRes = 1; string lAux = "";
+
+            if (words.Length == 4)
+            {
+                lRes = new Clases.ClsComun().Val(words[2].ToString());
+            }
+            return lRes;
+        }
+
+        #endregion
+
 
         #region Unir varios archivos PDF
 
-       private string  PadExt(string iss )
+        private string  PadExt(string iss )
         {
             iss = iss.ToUpper();
 

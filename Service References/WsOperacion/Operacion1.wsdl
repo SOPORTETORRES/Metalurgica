@@ -117,6 +117,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RegistrarPasoaProduccionPieza_V_AZA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pieza" type="tns:Pieza" />
+            <s:element minOccurs="1" maxOccurs="1" name="maquina" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iCant" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iIdUser" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarPasoaProduccionPieza_V_AZAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrarPasoaProduccionPieza_V_AZAResult" type="tns:Pieza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerPiezaProduccion">
         <s:complexType>
           <s:sequence>
@@ -406,6 +425,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PersisteColada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="colada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersisteColadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersisteColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerColadasPorNro">
         <s:complexType>
           <s:sequence>
@@ -506,6 +539,49 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosProduccionPorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersistirEtiquetaAZA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="tns:TipoEtiquetaAza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TipoEtiquetaAza">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Lote" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaFabricacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bulto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Producto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Diam" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PesoBulto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdColada" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Largo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KgsProducidos" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PersistirEtiquetaAZAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersistirEtiquetaAZAResult" type="tns:TipoEtiquetaAza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalle_OC_Aza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdOc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalle_OC_AzaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalle_OC_AzaResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2330,6 +2406,12 @@
   <wsdl:message name="RegistrarPasoaProduccionPiezaSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPiezaResponse" />
   </wsdl:message>
+  <wsdl:message name="RegistrarPasoaProduccionPieza_V_AZASoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPieza_V_AZA" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarPasoaProduccionPieza_V_AZASoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPieza_V_AZAResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerPiezaProduccionSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerPiezaProduccion" />
   </wsdl:message>
@@ -2408,6 +2490,12 @@
   <wsdl:message name="ValidarRNSoapOut">
     <wsdl:part name="parameters" element="tns:ValidarRNResponse" />
   </wsdl:message>
+  <wsdl:message name="PersisteColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:PersisteColada" />
+  </wsdl:message>
+  <wsdl:message name="PersisteColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:PersisteColadaResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerColadasPorNroSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerColadasPorNro" />
   </wsdl:message>
@@ -2449,6 +2537,18 @@
   </wsdl:message>
   <wsdl:message name="ObtenerDatosProduccionPorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDatosProduccionPorColadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="PersistirEtiquetaAZASoapIn">
+    <wsdl:part name="parameters" element="tns:PersistirEtiquetaAZA" />
+  </wsdl:message>
+  <wsdl:message name="PersistirEtiquetaAZASoapOut">
+    <wsdl:part name="parameters" element="tns:PersistirEtiquetaAZAResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalle_OC_AzaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalle_OC_Aza" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalle_OC_AzaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalle_OC_AzaResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
@@ -3107,6 +3207,10 @@
       <wsdl:input message="tns:RegistrarPasoaProduccionPiezaSoapIn" />
       <wsdl:output message="tns:RegistrarPasoaProduccionPiezaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
+      <wsdl:input message="tns:RegistrarPasoaProduccionPieza_V_AZASoapIn" />
+      <wsdl:output message="tns:RegistrarPasoaProduccionPieza_V_AZASoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezaProduccion">
       <wsdl:input message="tns:ObtenerPiezaProduccionSoapIn" />
       <wsdl:output message="tns:ObtenerPiezaProduccionSoapOut" />
@@ -3159,6 +3263,10 @@
       <wsdl:input message="tns:ValidarRNSoapIn" />
       <wsdl:output message="tns:ValidarRNSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PersisteColada">
+      <wsdl:input message="tns:PersisteColadaSoapIn" />
+      <wsdl:output message="tns:PersisteColadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerColadasPorNro">
       <wsdl:input message="tns:ObtenerColadasPorNroSoapIn" />
       <wsdl:output message="tns:ObtenerColadasPorNroSoapOut" />
@@ -3186,6 +3294,14 @@
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <wsdl:input message="tns:ObtenerDatosProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDatosProduccionPorColadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PersistirEtiquetaAZA">
+      <wsdl:input message="tns:PersistirEtiquetaAZASoapIn" />
+      <wsdl:output message="tns:PersistirEtiquetaAZASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle_OC_Aza">
+      <wsdl:input message="tns:ObtenerDetalle_OC_AzaSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalle_OC_AzaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
@@ -3659,6 +3775,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
+      <soap:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezaProduccion">
       <soap:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
       <wsdl:input>
@@ -3776,6 +3901,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PersisteColada">
+      <soap:operation soapAction="http://tempuri.org/PersisteColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerColadasPorNro">
       <soap:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
       <wsdl:input>
@@ -3832,6 +3966,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <soap:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersistirEtiquetaAZA">
+      <soap:operation soapAction="http://tempuri.org/PersistirEtiquetaAZA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle_OC_Aza">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalle_OC_Aza" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4841,6 +4993,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
+      <soap12:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerPiezaProduccion">
       <soap12:operation soapAction="http://tempuri.org/ObtenerPiezaProduccion" style="document" />
       <wsdl:input>
@@ -4958,6 +5119,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PersisteColada">
+      <soap12:operation soapAction="http://tempuri.org/PersisteColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerColadasPorNro">
       <soap12:operation soapAction="http://tempuri.org/ObtenerColadasPorNro" style="document" />
       <wsdl:input>
@@ -5014,6 +5184,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDatosProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersistirEtiquetaAZA">
+      <soap12:operation soapAction="http://tempuri.org/PersistirEtiquetaAZA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalle_OC_Aza">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalle_OC_Aza" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

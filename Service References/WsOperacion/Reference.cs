@@ -36,6 +36,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza_V_AZA(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerPiezaProduccion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerPiezaProduccion(string etiqueta_pieza);
@@ -88,6 +92,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string ValidarRN(string iIdObra, int iNroRN);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/PersisteColada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet PersisteColada(string colada);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerColadasPorNro", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada);
@@ -115,6 +123,14 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosProduccionPorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/PersistirEtiquetaAZA", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.TipoEtiquetaAza PersistirEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalle_OC_Aza", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -2281,6 +2297,178 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class TipoEtiquetaAza : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string loteField;
+        
+        private string fechaFabricacionField;
+        
+        private int bultoField;
+        
+        private string productoField;
+        
+        private int diamField;
+        
+        private string codigoField;
+        
+        private int pesoBultoField;
+        
+        private int idField;
+        
+        private int idColadaField;
+        
+        private int largoField;
+        
+        private int kgsProducidosField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Lote {
+            get {
+                return this.loteField;
+            }
+            set {
+                this.loteField = value;
+                this.RaisePropertyChanged("Lote");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string FechaFabricacion {
+            get {
+                return this.fechaFabricacionField;
+            }
+            set {
+                this.fechaFabricacionField = value;
+                this.RaisePropertyChanged("FechaFabricacion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int Bulto {
+            get {
+                return this.bultoField;
+            }
+            set {
+                this.bultoField = value;
+                this.RaisePropertyChanged("Bulto");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string Producto {
+            get {
+                return this.productoField;
+            }
+            set {
+                this.productoField = value;
+                this.RaisePropertyChanged("Producto");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int Diam {
+            get {
+                return this.diamField;
+            }
+            set {
+                this.diamField = value;
+                this.RaisePropertyChanged("Diam");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string Codigo {
+            get {
+                return this.codigoField;
+            }
+            set {
+                this.codigoField = value;
+                this.RaisePropertyChanged("Codigo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public int PesoBulto {
+            get {
+                return this.pesoBultoField;
+            }
+            set {
+                this.pesoBultoField = value;
+                this.RaisePropertyChanged("PesoBulto");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public int IdColada {
+            get {
+                return this.idColadaField;
+            }
+            set {
+                this.idColadaField = value;
+                this.RaisePropertyChanged("IdColada");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public int Largo {
+            get {
+                return this.largoField;
+            }
+            set {
+                this.largoField = value;
+                this.RaisePropertyChanged("Largo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public int KgsProducidos {
+            get {
+                return this.kgsProducidosField;
+            }
+            set {
+                this.kgsProducidosField = value;
+                this.RaisePropertyChanged("KgsProducidos");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class PiezaTipoB : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string idField;
@@ -3410,6 +3598,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.RegistrarPasoaProduccionPieza(pieza, maquina, usuario, terminal, iCant, iIdUser);
         }
         
+        public Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza_V_AZA(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser) {
+            return base.Channel.RegistrarPasoaProduccionPieza_V_AZA(pieza, maquina, usuario, terminal, iCant, iIdUser);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerPiezaProduccion(string etiqueta_pieza) {
             return base.Channel.ObtenerPiezaProduccion(etiqueta_pieza);
         }
@@ -3462,6 +3654,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ValidarRN(iIdObra, iNroRN);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet PersisteColada(string colada) {
+            return base.Channel.PersisteColada(colada);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerColadasPorNro(string colada) {
             return base.Channel.ObtenerColadasPorNro(colada);
         }
@@ -3488,6 +3684,14 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosProduccionPorColada(string EtiquetaColada) {
             return base.Channel.ObtenerDatosProduccionPorColada(EtiquetaColada);
+        }
+        
+        public Metalurgica.WsOperacion.TipoEtiquetaAza PersistirEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada) {
+            return base.Channel.PersistirEtiquetaAZA(EtiquetaColada);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc) {
+            return base.Channel.ObtenerDetalle_OC_Aza(IdOc);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {

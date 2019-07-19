@@ -425,10 +425,14 @@ namespace Metalurgica
             //Conectores.Frm_CuadroProgramacion lFrm = new Conectores.Frm_CuadroProgramacion();
             //lFrm.ShowDialog();
 
-            ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
-            lFrm.ShowDialog();
-               
+            //ProduccionExterna.Frm_ProduccionExterna lFrm = new ProduccionExterna.Frm_ProduccionExterna();
+            //lFrm.ShowDialog();
 
+            //Metalurgica.Controls.CtlProduccion lCtl = new Controls.CtlProduccion();
+            //lCtl.ObtenerEtiquetaAZA("2612286902;2019-03-14T01:28;33;B HORMIGON 25mm 7m A630-420H (N);110002927;1660");
+
+            RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
+            lFrm.ShowDialog();
 
         }
 

@@ -436,7 +436,7 @@
             this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
-            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(3, 16);
+            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(41, 75);
             this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
             this.lbl_MsgBloqueo.Size = new System.Drawing.Size(576, 21);
             this.lbl_MsgBloqueo.TabIndex = 55;
