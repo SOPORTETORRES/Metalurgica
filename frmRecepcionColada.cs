@@ -1196,6 +1196,15 @@ namespace Metalurgica
 
         }
 
+        private void Btn_RecepCamion_Click(object sender, EventArgs e)
+        {
+
+            RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
+            lFrm.Inicia(mUserLog);
+            lFrm.ShowDialog();
+
+        }
+
 
 
         //private void button1_Click_1(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace Metalurgica.Bascula
 
         public void IniciaFormulario(WsOperacion.PesajeCamion iObj, string iPesoGD, string iTolerancia, string iFecha)
         {
+            
             Clases.ClsComun lCom = new Clases.ClsComun();
             int PesoAdicional = lCom.Val(iObj.KgsCuartones.ToString()) + lCom.Val(iObj.KgsEstrobos.ToString());
             int lPesoBascula = iObj.PesoBruto - iObj.PesoTara;

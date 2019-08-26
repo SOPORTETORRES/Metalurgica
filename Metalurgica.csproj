@@ -556,11 +556,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\Px_INET\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\Px_MovExistenciasINET\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -896,6 +891,22 @@
       <DependentUpon>DtsInformes.xsd</DependentUpon>
     </None>
     <None Include="Metalurgica_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Bodega_Acopio.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Bodega_MP.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Camion.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.EP_Generado.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Estado_Pago.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.ListaDataSet.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.PesajeCamion.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Pieza.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.PiezaTipoB.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Recepcion_Colada.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Recepcion_MP.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Solicitud_Material.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Solicitud_Material_Detalle.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.TipoBasculaMovil.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.TipoEtiquetaAza.datasource" />
+    <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Tipo_InvocaWS.datasource" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -959,10 +970,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Px_GuiaTOSOL\XMLDocVtaExt.wsdl" />
-    <None Include="Service References\Px_INET\Metalurgica.Px_INET.SDT_ERRORES_ERROR.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Px_INET\XMLDocVtaExt.wsdl" />
     <None Include="Service References\Px_MovExistenciasINET\wsmovexiall.wsdl" />
     <None Include="Service References\Px_MovStockTOSOL\wsmovexiall.wsdl" />
     <None Include="Service References\Px_MovStock\wsmovexiall.wsdl" />
@@ -1009,6 +1016,9 @@
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Recepcion_Colada.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Recepcion_MP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.Solicitud_Material.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -1021,7 +1031,7 @@
     <None Include="Service References\WsOperacion\Metalurgica.WsOperacion.TipoEtiquetaAza.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\WsOperacion\Operacion1.wsdl" />
+    <None Include="Service References\WsOperacion\Operacion.wsdl" />
     <None Include="Service References\WsSesion\Metalurgica.WsSesion.ListaDataSet.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -1085,6 +1095,13 @@
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
     <Content Include="Resources\to_do_list.png" />
+    <None Include="Service References\WsOperacion\Operacion.disco" />
+    <None Include="Service References\WsOperacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WsOperacion\configuration.svcinfo" />
+    <None Include="Service References\WsOperacion\configuration91.svcinfo" />
     <None Include="Service References\Px_Conectores\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1100,7 +1117,6 @@
     </None>
     <None Include="Service References\Ws_TO\configuration.svcinfo" />
     <None Include="Service References\Ws_TO\configuration91.svcinfo" />
-    <None Include="Service References\WsOperacion\Operacion1.disco" />
     <None Include="Resources\to_do_list_checked_all.png" />
     <Content Include="Resources\to_do_list_cheked_all.png" />
     <None Include="Service References\Px_MovStockTOSOL\Reference.svcmap">
@@ -1129,12 +1145,6 @@
     </None>
     <None Include="Service References\Px_MovExistenciasINET\configuration.svcinfo" />
     <None Include="Service References\Px_MovExistenciasINET\configuration91.svcinfo" />
-    <None Include="Service References\Px_INET\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\Px_INET\configuration.svcinfo" />
-    <None Include="Service References\Px_INET\configuration91.svcinfo" />
     <None Include="Service References\Px_MovStock\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1147,12 +1157,6 @@
     </None>
     <None Include="Service References\Px_GuiaDespacho\configuration.svcinfo" />
     <None Include="Service References\Px_GuiaDespacho\configuration91.svcinfo" />
-    <None Include="Service References\WsOperacion\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\WsOperacion\configuration.svcinfo" />
-    <None Include="Service References\WsOperacion\configuration91.svcinfo" />
     <None Include="Service References\WsSesion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1187,7 +1191,6 @@
     <WCFMetadataStorage Include="Service References\Px_Conectores\" />
     <WCFMetadataStorage Include="Service References\Px_GuiaDespacho\" />
     <WCFMetadataStorage Include="Service References\Px_GuiaTOSOL\" />
-    <WCFMetadataStorage Include="Service References\Px_INET\" />
     <WCFMetadataStorage Include="Service References\Px_MovExistenciasINET\" />
     <WCFMetadataStorage Include="Service References\Px_MovStockTOSOL\" />
     <WCFMetadataStorage Include="Service References\Px_MovStock\" />

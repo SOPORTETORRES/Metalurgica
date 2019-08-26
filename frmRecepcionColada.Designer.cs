@@ -122,6 +122,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_RecepCamion = new System.Windows.Forms.Button();
             this.stsStatusStrip.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.pnlControles.SuspendLayout();
@@ -539,6 +540,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.Btn_RecepCamion);
             this.groupBox2.Controls.Add(this.Btn_RegularizaDespachos);
             this.groupBox2.Controls.Add(this.Btn_ImportarRomana);
             this.groupBox2.Controls.Add(this.Btn_IngPeso);
@@ -558,7 +560,7 @@
             // 
             // Btn_RegularizaDespachos
             // 
-            this.Btn_RegularizaDespachos.Location = new System.Drawing.Point(730, 13);
+            this.Btn_RegularizaDespachos.Location = new System.Drawing.Point(791, 13);
             this.Btn_RegularizaDespachos.Name = "Btn_RegularizaDespachos";
             this.Btn_RegularizaDespachos.Size = new System.Drawing.Size(85, 37);
             this.Btn_RegularizaDespachos.TabIndex = 14;
@@ -580,7 +582,7 @@
             // 
             // Btn_IngPeso
             // 
-            this.Btn_IngPeso.Location = new System.Drawing.Point(622, 13);
+            this.Btn_IngPeso.Location = new System.Drawing.Point(790, 36);
             this.Btn_IngPeso.Name = "Btn_IngPeso";
             this.Btn_IngPeso.Size = new System.Drawing.Size(85, 37);
             this.Btn_IngPeso.TabIndex = 12;
@@ -592,7 +594,7 @@
             // 
             this.Btn_Consignacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.Btn_Consignacion.ForeColor = System.Drawing.Color.Black;
-            this.Btn_Consignacion.Location = new System.Drawing.Point(531, 13);
+            this.Btn_Consignacion.Location = new System.Drawing.Point(699, 13);
             this.Btn_Consignacion.Name = "Btn_Consignacion";
             this.Btn_Consignacion.Size = new System.Drawing.Size(85, 37);
             this.Btn_Consignacion.TabIndex = 11;
@@ -1073,6 +1075,18 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(918, 36);
             this.ctlInformacionUsuario1.TabIndex = 21;
             // 
+            // Btn_RecepCamion
+            // 
+            this.Btn_RecepCamion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.Btn_RecepCamion.ForeColor = System.Drawing.Color.Black;
+            this.Btn_RecepCamion.Location = new System.Drawing.Point(547, 13);
+            this.Btn_RecepCamion.Name = "Btn_RecepCamion";
+            this.Btn_RecepCamion.Size = new System.Drawing.Size(85, 37);
+            this.Btn_RecepCamion.TabIndex = 15;
+            this.Btn_RecepCamion.Text = "Recepción Camión V2";
+            this.Btn_RecepCamion.UseVisualStyleBackColor = false;
+            this.Btn_RecepCamion.Click += new System.EventHandler(this.Btn_RecepCamion_Click);
+            // 
             // frmRecepcionColada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1214,5 +1228,6 @@
         private System.Windows.Forms.Button Btn_IngPeso;
         private System.Windows.Forms.Button Btn_ImportarRomana;
         private System.Windows.Forms.Button Btn_RegularizaDespachos;
+        private System.Windows.Forms.Button Btn_RecepCamion;
     }
 }

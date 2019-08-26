@@ -161,11 +161,7 @@ namespace Metalurgica
                                             email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
                                         }                   
                                     }
-                                    else
-                                    {
-                                        lIdDetalleSM = new Clases.ClsComun().Val(row.Cells["DET_ID"].Value.ToString());
-                                        wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
-                                    }
+                                   
                                     // 2.-  Se Registra el cierre del Producto
                                     solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
                                     solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
@@ -183,6 +179,11 @@ namespace Metalurgica
                                     else
                                         MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     
+                                }
+                                else
+                                {
+                                    lIdDetalleSM = new Clases.ClsComun().Val(row.Cells["DET_ID"].Value.ToString());
+                                    wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
                                 }
                             }
                         }

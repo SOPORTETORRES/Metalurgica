@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ebe10de7-9074-4686-8a0e-d762b4163b29" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fe9bada2-c765-43df-b834-5b90676cbf4c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,8 +21,8 @@
     <MetadataSource Address="http://localhost:55038/WS/Operacion.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Operacion1.wsdl" MetadataType="Wsdl" ID="85c704d9-c2de-4ce2-bf6f-809b58fd87b9" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?wsdl" />
-    <MetadataFile FileName="Operacion1.disco" MetadataType="Disco" ID="5bb84a69-6d7b-40c1-89d5-6e73377b681c" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?disco" />
+    <MetadataFile FileName="Operacion.wsdl" MetadataType="Wsdl" ID="cbc0b037-9820-4c16-a0ac-57cb333aa755" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?wsdl" />
+    <MetadataFile FileName="Operacion.disco" MetadataType="Disco" ID="d2a78e6e-4ef5-4309-be33-ca3da44764a8" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

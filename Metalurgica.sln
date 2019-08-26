@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalurgica", "Metalurgica.csproj", "{71FE61CF-FA7B-4F9D-A820-9030B991A7BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonHelp", "..\CommonHelp\CommonHelp.csproj", "{4031B020-0B5A-468A-95C8-5CE31ABDB44C}"
@@ -12,6 +14,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Coladas", "..\Coladas\Coladas.vbproj", "{7D42522C-D761-40BC-ACBD-47330B3D21D9}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "comunes", "..\comunes\comunes.vbproj", "{2C2C5B75-2346-4C5D-A49F-6F7CAB8AC60C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImprimirQR", "..\..\..\..\ImprimirQR\ImprimirQR\ImprimirQR\ImprimirQR.csproj", "{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,8 +87,23 @@ Global
 		{2C2C5B75-2346-4C5D-A49F-6F7CAB8AC60C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2C2C5B75-2346-4C5D-A49F-6F7CAB8AC60C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2C2C5B75-2346-4C5D-A49F-6F7CAB8AC60C}.Release|x86.ActiveCfg = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Debug|x86.Build.0 = Debug|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|x86.ActiveCfg = Release|Any CPU
+		{30EFA9A3-B16F-47B0-B3FB-85BAA483990D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6ABDAA84-73F4-4036-A83A-542D509F8B10}
 	EndGlobalSection
 EndGlobal

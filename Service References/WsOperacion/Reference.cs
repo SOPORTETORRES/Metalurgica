@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/obtenerIdRC_PorColada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoColadaBodegaMP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal);
@@ -128,6 +132,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.TipoEtiquetaAza PersistirEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Obtener_MP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet Obtener_MP();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalle_OC_Aza", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc);
@@ -216,9 +224,17 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IntegraBodegasINET", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet IntegraBodegasINET(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarRecepcion_MP", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Recepcion_MP GrabarRecepcion_MP(Metalurgica.WsOperacion.Recepcion_MP iRMP);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarSolicitudMaterial", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -551,10 +567,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerRecepcionxEtiqueta_Colada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerRecepcionxEtiqueta_Colada(string etiqueta_colada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/obtenerIdRC_PorColada", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada);
     }
     
     /// <remarks/>
@@ -563,82 +575,54 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Despacho_Bodega_MP : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class ListaDataSet : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private int idField;
+        private System.Data.DataSet _dataSetField;
         
-        private int bodega_IdField;
+        private string _errorField;
         
-        private string usuarioField;
-        
-        private System.DateTime fechaField;
-        
-        private string obsField;
+        private System.Data.DataSet dataSetField;
         
         private string mensajeErrorField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public int Id {
+        public System.Data.DataSet _dataSet {
             get {
-                return this.idField;
+                return this._dataSetField;
             }
             set {
-                this.idField = value;
-                this.RaisePropertyChanged("Id");
+                this._dataSetField = value;
+                this.RaisePropertyChanged("_dataSet");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public int Bodega_Id {
+        public string _error {
             get {
-                return this.bodega_IdField;
+                return this._errorField;
             }
             set {
-                this.bodega_IdField = value;
-                this.RaisePropertyChanged("Bodega_Id");
+                this._errorField = value;
+                this.RaisePropertyChanged("_error");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public string Usuario {
+        public System.Data.DataSet DataSet {
             get {
-                return this.usuarioField;
+                return this.dataSetField;
             }
             set {
-                this.usuarioField = value;
-                this.RaisePropertyChanged("Usuario");
+                this.dataSetField = value;
+                this.RaisePropertyChanged("DataSet");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public System.DateTime Fecha {
-            get {
-                return this.fechaField;
-            }
-            set {
-                this.fechaField = value;
-                this.RaisePropertyChanged("Fecha");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public string Obs {
-            get {
-                return this.obsField;
-            }
-            set {
-                this.obsField = value;
-                this.RaisePropertyChanged("Obs");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string MensajeError {
             get {
                 return this.mensajeErrorField;
@@ -2032,6 +2016,238 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.mensajeErrorField = value;
                 this.RaisePropertyChanged("MensajeError");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Detalle_Recepcion_MP : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int idRecepcionMPField;
+        
+        private string codMaterialField;
+        
+        private int kgsField;
+        
+        private string idEtiquetaAzaField;
+        
+        private string fechaEntrega_OCField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int IdRecepcionMP {
+            get {
+                return this.idRecepcionMPField;
+            }
+            set {
+                this.idRecepcionMPField = value;
+                this.RaisePropertyChanged("IdRecepcionMP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string CodMaterial {
+            get {
+                return this.codMaterialField;
+            }
+            set {
+                this.codMaterialField = value;
+                this.RaisePropertyChanged("CodMaterial");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public int Kgs {
+            get {
+                return this.kgsField;
+            }
+            set {
+                this.kgsField = value;
+                this.RaisePropertyChanged("Kgs");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string IdEtiquetaAza {
+            get {
+                return this.idEtiquetaAzaField;
+            }
+            set {
+                this.idEtiquetaAzaField = value;
+                this.RaisePropertyChanged("IdEtiquetaAza");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string FechaEntrega_OC {
+            get {
+                return this.fechaEntrega_OCField;
+            }
+            set {
+                this.fechaEntrega_OCField = value;
+                this.RaisePropertyChanged("FechaEntrega_OC");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Recepcion_MP : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idRecepcionMPField;
+        
+        private int nroGDField;
+        
+        private int ocField;
+        
+        private string fechaGDField;
+        
+        private int idUserGrabaField;
+        
+        private string fechaGrabaField;
+        
+        private Detalle_Recepcion_MP[] detalleField;
+        
+        private int kgsGDField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int IdRecepcionMP {
+            get {
+                return this.idRecepcionMPField;
+            }
+            set {
+                this.idRecepcionMPField = value;
+                this.RaisePropertyChanged("IdRecepcionMP");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int NroGD {
+            get {
+                return this.nroGDField;
+            }
+            set {
+                this.nroGDField = value;
+                this.RaisePropertyChanged("NroGD");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int OC {
+            get {
+                return this.ocField;
+            }
+            set {
+                this.ocField = value;
+                this.RaisePropertyChanged("OC");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string FechaGD {
+            get {
+                return this.fechaGDField;
+            }
+            set {
+                this.fechaGDField = value;
+                this.RaisePropertyChanged("FechaGD");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int IdUserGraba {
+            get {
+                return this.idUserGrabaField;
+            }
+            set {
+                this.idUserGrabaField = value;
+                this.RaisePropertyChanged("IdUserGraba");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string FechaGraba {
+            get {
+                return this.fechaGrabaField;
+            }
+            set {
+                this.fechaGrabaField = value;
+                this.RaisePropertyChanged("FechaGraba");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=6)]
+        public Detalle_Recepcion_MP[] Detalle {
+            get {
+                return this.detalleField;
+            }
+            set {
+                this.detalleField = value;
+                this.RaisePropertyChanged("Detalle");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public int KgsGD {
+            get {
+                return this.kgsGDField;
+            }
+            set {
+                this.kgsGDField = value;
+                this.RaisePropertyChanged("KgsGD");
             }
         }
         
@@ -3483,54 +3699,82 @@ namespace Metalurgica.WsOperacion {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class ListaDataSet : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Despacho_Bodega_MP : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private System.Data.DataSet _dataSetField;
+        private int idField;
         
-        private string _errorField;
+        private int bodega_IdField;
         
-        private System.Data.DataSet dataSetField;
+        private string usuarioField;
+        
+        private System.DateTime fechaField;
+        
+        private string obsField;
         
         private string mensajeErrorField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public System.Data.DataSet _dataSet {
+        public int Id {
             get {
-                return this._dataSetField;
+                return this.idField;
             }
             set {
-                this._dataSetField = value;
-                this.RaisePropertyChanged("_dataSet");
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string _error {
+        public int Bodega_Id {
             get {
-                return this._errorField;
+                return this.bodega_IdField;
             }
             set {
-                this._errorField = value;
-                this.RaisePropertyChanged("_error");
+                this.bodega_IdField = value;
+                this.RaisePropertyChanged("Bodega_Id");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public System.Data.DataSet DataSet {
+        public string Usuario {
             get {
-                return this.dataSetField;
+                return this.usuarioField;
             }
             set {
-                this.dataSetField = value;
-                this.RaisePropertyChanged("DataSet");
+                this.usuarioField = value;
+                this.RaisePropertyChanged("Usuario");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public System.DateTime Fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                this.fechaField = value;
+                this.RaisePropertyChanged("Fecha");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string Obs {
+            get {
+                return this.obsField;
+            }
+            set {
+                this.obsField = value;
+                this.RaisePropertyChanged("Obs");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public string MensajeError {
             get {
                 return this.mensajeErrorField;
@@ -3576,6 +3820,10 @@ namespace Metalurgica.WsOperacion {
         
         public OperacionSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada) {
+            return base.Channel.obtenerIdRC_PorColada(etiqueta_colada);
         }
         
         public Metalurgica.WsOperacion.Despacho_Bodega_MP GuardarDespachoColadaBodegaMP(Metalurgica.WsOperacion.Despacho_Bodega_MP despacho_Bodega_MP, string terminal) {
@@ -3690,6 +3938,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.PersistirEtiquetaAZA(EtiquetaColada);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet Obtener_MP() {
+            return base.Channel.Obtener_MP();
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc) {
             return base.Channel.ObtenerDetalle_OC_Aza(IdOc);
         }
@@ -3778,8 +4030,16 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerDatosParaEnvioMail();
         }
         
+        public System.Data.DataSet IntegraBodegasINET(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
+            return base.Channel.IntegraBodegasINET(iFecha, IdIt_PorAprobar, iPersisteResultado);
+        }
+        
         public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
             return base.Channel.ObtenerAsignacionITMaq(iFecha, IdIt_PorAprobar, iPersisteResultado);
+        }
+        
+        public Metalurgica.WsOperacion.Recepcion_MP GrabarRecepcion_MP(Metalurgica.WsOperacion.Recepcion_MP iRMP) {
+            return base.Channel.GrabarRecepcion_MP(iRMP);
         }
         
         public Metalurgica.WsOperacion.Solicitud_Material GuardarSolicitudMaterial(Metalurgica.WsOperacion.Solicitud_Material solicitud_Material, string terminal, int totem) {
@@ -4112,10 +4372,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerRecepcionxEtiqueta_Colada(string etiqueta_colada) {
             return base.Channel.ObtenerRecepcionxEtiqueta_Colada(etiqueta_colada);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet obtenerIdRC_PorColada(string etiqueta_colada) {
-            return base.Channel.obtenerIdRC_PorColada(etiqueta_colada);
         }
     }
 }

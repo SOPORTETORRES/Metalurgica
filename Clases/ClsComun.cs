@@ -190,6 +190,24 @@ namespace Metalurgica.Clases
 
         //}
 
+        public decimal  CDBl(string iValor)
+        {
+            decimal iRes = 0;
+
+            //Sencillamente, si se logra hacer la conversión, entonces es número
+            try
+            {
+                iRes = decimal.Parse(iValor);
+            }
+            catch (Exception exc)  //caso contrario, es falso.
+            {
+                iRes = 0;
+            }
+
+            return iRes;
+
+        }
+
         public int Val(string iValor)
         {
             int iRes = 0;
@@ -201,7 +219,7 @@ namespace Metalurgica.Clases
             }
             catch (Exception exc)  //caso contrario, es falso.
             {
-                iRes = -1;
+                iRes = 0;
             }
 
             return iRes;
