@@ -66,7 +66,7 @@ namespace Metalurgica
             Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();int i = 0;string lIds_SMP = "";
             Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
-            int lIdDetalleSM = 0; 
+            int lIdDetalleSM = 0; string lSql = "";
             
             int counter = 0;
             string inet_msg = "", email_msg = "", newLine = Environment.NewLine, tab = "\t";
@@ -80,6 +80,8 @@ namespace Metalurgica
             lTblINET.Columns.Add("Glosa1", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Glosa2", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Procesado", Type.GetType(("System.String")));
+            //lTblINET.Columns.Add("IdDetalle", Type.GetType(("System.String")));
+            //lTblINET.Columns.Add("NroMov", Type.GetType(("System.String")));
 
 
 
@@ -101,6 +103,7 @@ namespace Metalurgica
                             if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true) ) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
                                 lKgsProd = lCom.Val(row.Cells["KILOS_PROD"].Value.ToString());
+                                inet_msg = "";
                                 // if (((int)row.Cells["KILOS_PROD"].Value> 0) )
                                 if ((lKgsProd > 0))
                                 {
@@ -128,6 +131,7 @@ namespace Metalurgica
                                         iFila["Glosa1"] = lGlosa1;
                                         iFila["Glosa2"] = lGlosa2;
                                         iFila["Procesado"] = "N";
+                                        //iFila["IdDetalle"] = row.Cells["DET_ID"].Value.ToString();
                                         lTblINET.Rows.Add(iFila);
 
 
@@ -145,6 +149,12 @@ namespace Metalurgica
 
                                         if (lIdSucursal == 4)   // Santiago
                                             lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                        //Persistimos el Nro de Movimiento de INET en el detalle de la solicitud
+                                        lSql = string.Concat(" update SOLICITUD_MATERIAL_DETALLE  set DET_MOVNUMDOC=");
+                                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), " Where ");
+                                        lSql = string.Concat(lSql,  " Det_id=", row.Cells["DET_ID"].Value.ToString());
+                                        lPX.ObtenerDatos(lSql);
 
                                         //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                                         lRespuestaWS_INET = InvocarWS_INET(lObjINET);

@@ -107,14 +107,16 @@ namespace Metalurgica.MultiMaquina
             }
             else
             {
-                if (lSucursal.ToUpper().Equals("CALAMA"))
-                {
-                    lSql = string.Concat("SP_ConsultasGenerales 82,'", lIdSucursal, "','','','',''");
-                }
                 if (lSucursal.ToUpper().Equals("SANTIAGO"))
                 {
                     lSql = string.Concat("SP_ConsultasGenerales 105,'", lIdSucursal, "','','','',''");
                 }
+                else
+                //if (lSucursal.ToUpper().Equals("CALAMA"))
+                {
+                    lSql = string.Concat("SP_ConsultasGenerales 82,'", lIdSucursal, "','','','',''");
+                }
+
             }
 
 

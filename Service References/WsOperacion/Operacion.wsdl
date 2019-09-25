@@ -576,6 +576,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdColada" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Largo" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="KgsProducidos" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">
@@ -598,6 +599,7 @@
       <s:element name="ObtenerDetalle_OC_Aza">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iCodSuc" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="IdOc" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -606,6 +608,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalle_OC_AzaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaNroGuiaDespacho">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdNroGuia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaNroGuiaDespachoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificaNroGuiaDespachoResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -620,6 +636,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColadaQr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDetalleProduccionPorColadaQrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDetalleProduccionPorColadaQrResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -989,6 +1019,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerEtiqueta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iLote" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iBulto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiquetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEtiquetaResult" type="tns:TipoEtiquetaAza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerAsignacionITMaq">
         <s:complexType>
           <s:sequence>
@@ -1023,6 +1068,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="IdRecepcionMP" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="NroGD" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SucCod" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="OC" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="FechaGD" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdUserGraba" type="s:int" />
@@ -2636,11 +2682,23 @@
   <wsdl:message name="ObtenerDetalle_OC_AzaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDetalle_OC_AzaResponse" />
   </wsdl:message>
+  <wsdl:message name="VerificaNroGuiaDespachoSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificaNroGuiaDespacho" />
+  </wsdl:message>
+  <wsdl:message name="VerificaNroGuiaDespachoSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificaNroGuiaDespachoResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
   </wsdl:message>
   <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaQrSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaQr" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDetalleProduccionPorColadaQrSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColadaQrResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerResumanPiezasPorViajeSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerResumanPiezasPorViaje" />
@@ -2767,6 +2825,12 @@
   </wsdl:message>
   <wsdl:message name="IntegraBodegasINETSoapOut">
     <wsdl:part name="parameters" element="tns:IntegraBodegasINETResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiqueta" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetaResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerAsignacionITMaqSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaq" />
@@ -3403,9 +3467,17 @@
       <wsdl:input message="tns:ObtenerDetalle_OC_AzaSoapIn" />
       <wsdl:output message="tns:ObtenerDetalle_OC_AzaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho">
+      <wsdl:input message="tns:VerificaNroGuiaDespachoSoapIn" />
+      <wsdl:output message="tns:VerificaNroGuiaDespachoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
       <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColadaQr">
+      <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaQrSoapIn" />
+      <wsdl:output message="tns:ObtenerDetalleProduccionPorColadaQrSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerResumanPiezasPorViaje">
       <wsdl:input message="tns:ObtenerResumanPiezasPorViajeSoapIn" />
@@ -3490,6 +3562,10 @@
     <wsdl:operation name="IntegraBodegasINET">
       <wsdl:input message="tns:IntegraBodegasINETSoapIn" />
       <wsdl:output message="tns:IntegraBodegasINETSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <wsdl:input message="tns:ObtenerEtiquetaSoapIn" />
+      <wsdl:output message="tns:ObtenerEtiquetaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <wsdl:input message="tns:ObtenerAsignacionITMaqSoapIn" />
@@ -4113,8 +4189,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho">
+      <soap:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColadaQr">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColadaQr" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4304,6 +4398,15 @@
     </wsdl:operation>
     <wsdl:operation name="IntegraBodegasINET">
       <soap:operation soapAction="http://tempuri.org/IntegraBodegasINET" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5358,8 +5461,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho">
+      <soap12:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleProduccionPorColadaQr">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDetalleProduccionPorColadaQr" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5549,6 +5670,15 @@
     </wsdl:operation>
     <wsdl:operation name="IntegraBodegasINET">
       <soap12:operation soapAction="http://tempuri.org/IntegraBodegasINET" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

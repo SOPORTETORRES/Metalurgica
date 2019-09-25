@@ -1153,7 +1153,13 @@ namespace Metalurgica
                         }
                         if (lTbl.Rows[0]["BloqueoRN"].ToString().ToUpper().Equals("S") == true)
                         {
-                            lMsg = "NO se pueden realizar despachos, ya que la Obra Seleccionada esta bloqueada por Reglas de Negocio";
+                            if (lTbl.Rows[0]["NroBloqueo"].ToString().ToUpper().Equals("10") == true)
+                                       lMsg = "No se puede realizar despachos, ya que la obra seleccionada esta bloqueada por sobrepasar su línea de crédito aprobada por Aseguradora";
+                           else
+                            lMsg = "No se puede realizar despachos, ya que la obra seleccionada esta bloqueada por falta de kilos respaldados en Contrato u Orden de Compra";
+
+
+                       // lMsg = "NO se pueden realizar despachos, ya que la Obra Seleccionada esta bloqueada por Reglas de Negocio";
                             lRes = false;
                             Btn_SelViajes.Enabled = false;
                             this.tlbGuardar.Enabled = false;

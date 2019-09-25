@@ -59,6 +59,8 @@
             this.Btn_grabar = new System.Windows.Forms.Button();
             this.Btn_InicioL = new System.Windows.Forms.Button();
             this.Btn_Nueva = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.Cmb_Sucursal = new System.Windows.Forms.ComboBox();
             this.Gr_datos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Etiquetas)).BeginInit();
@@ -67,6 +69,8 @@
             // 
             // Gr_datos
             // 
+            this.Gr_datos.Controls.Add(this.Cmb_Sucursal);
+            this.Gr_datos.Controls.Add(this.label12);
             this.Gr_datos.Controls.Add(this.Dtp_Fecha);
             this.Gr_datos.Controls.Add(this.Tx_OC);
             this.Gr_datos.Controls.Add(this.Tx_TotalKgsGD);
@@ -85,7 +89,7 @@
             // Dtp_Fecha
             // 
             this.Dtp_Fecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.Dtp_Fecha.Location = new System.Drawing.Point(247, 49);
+            this.Dtp_Fecha.Location = new System.Drawing.Point(183, 51);
             this.Dtp_Fecha.Name = "Dtp_Fecha";
             this.Dtp_Fecha.Size = new System.Drawing.Size(100, 20);
             this.Dtp_Fecha.TabIndex = 6;
@@ -93,7 +97,7 @@
             // 
             // Tx_OC
             // 
-            this.Tx_OC.Location = new System.Drawing.Point(468, 49);
+            this.Tx_OC.Location = new System.Drawing.Point(501, 48);
             this.Tx_OC.MaxLength = 10;
             this.Tx_OC.Name = "Tx_OC";
             this.Tx_OC.Size = new System.Drawing.Size(100, 20);
@@ -114,10 +118,9 @@
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 33);
+            this.label3.Location = new System.Drawing.Point(502, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(174, 13);
+            this.label3.Size = new System.Drawing.Size(95, 31);
             this.label3.TabIndex = 4;
             this.label3.Text = "Ingrese el Nro de Orden de Compra";
             // 
@@ -134,16 +137,16 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(208, 33);
+            this.label2.Location = new System.Drawing.Point(171, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 13);
+            this.label2.Size = new System.Drawing.Size(126, 30);
             this.label2.TabIndex = 2;
             this.label2.Text = "Ingrese la Fecha de Guía de Despacho";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Tx_GuiaDesp
             // 
-            this.Tx_GuiaDesp.Location = new System.Drawing.Point(34, 49);
+            this.Tx_GuiaDesp.Location = new System.Drawing.Point(20, 53);
             this.Tx_GuiaDesp.MaxLength = 10;
             this.Tx_GuiaDesp.Name = "Tx_GuiaDesp";
             this.Tx_GuiaDesp.Size = new System.Drawing.Size(100, 20);
@@ -153,12 +156,12 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 33);
+            this.label1.Location = new System.Drawing.Point(10, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 13);
+            this.label1.Size = new System.Drawing.Size(119, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Ingrese el Nro de Guía de Despacho";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox2
             // 
@@ -404,6 +407,27 @@
             this.Btn_Nueva.UseVisualStyleBackColor = true;
             this.Btn_Nueva.Click += new System.EventHandler(this.Btn_Nueva_Click);
             // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(336, 26);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(104, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Seleccione Sucursal";
+            // 
+            // Cmb_Sucursal
+            // 
+            this.Cmb_Sucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cmb_Sucursal.FormattingEnabled = true;
+            this.Cmb_Sucursal.Location = new System.Drawing.Point(327, 48);
+            this.Cmb_Sucursal.Name = "Cmb_Sucursal";
+            this.Cmb_Sucursal.Size = new System.Drawing.Size(129, 21);
+            this.Cmb_Sucursal.TabIndex = 11;
+            this.Cmb_Sucursal.Leave += new System.EventHandler(this.Cmb_Sucursal_Leave);
+            // 
             // Frm_RecepcionMP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,5 +489,7 @@
         private System.Windows.Forms.Button Btn_grabar;
         private System.Windows.Forms.Button Btn_InicioL;
         private System.Windows.Forms.Button Btn_Nueva;
+        private System.Windows.Forms.ComboBox Cmb_Sucursal;
+        private System.Windows.Forms.Label label12;
     }
 }

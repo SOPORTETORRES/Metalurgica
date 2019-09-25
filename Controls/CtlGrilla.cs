@@ -31,6 +31,11 @@ namespace Metalurgica.Controls
         {
             Lbl_Titulo.Text = iTitulo;
             Dtg_Resultado.DataSource = iDatos;
+            Dtg_Resultado.Columns[2].Width = 70;
+            Dtg_Resultado.Columns[3].Width = 70;
+            Dtg_Resultado.Columns[4].Width = 70;
+            Dtg_Resultado.Columns[6].Width = 70;
+            Dtg_Resultado.Columns[8].Width = 70;
         }
 
        

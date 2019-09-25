@@ -946,16 +946,23 @@ namespace Metalurgica.Bascula
 
             //Tolerancia Real
             //Diferencia Kg
-            lDiferencia = lCom.Val(Tx_PesoSoloFierro.Text) - (lPesoGD - mKilosFactorCorreccion); // lPesoGD;
+            //***************************
+            //tx_Tara.Text = lTbl.Rows[0]["PesoTara"].ToString();
+            //mIdPesajeCamion = int.Parse(lTbl.Rows[0]["IdPesajeCamion"].ToString());
+            //Tx_IdPesajeCam.Text = mIdPesajeCamion.ToString();
+            //Tx_IdCorrTara.Text = mIdPesajeCamion.ToString();
+            //mKilosCargadosCamion = int.Parse(lTbl.Rows[0]["KgsCargados"].ToString());
+            //mKilosCargadosCamionDesarrollo = int.Parse(lTbl.Rows[0]["KgsDesarrollo"].ToString());
+            //mKilosFactorCorreccion = int.Parse(lTbl.Rows[0]["KgsFC"].ToString());
+            //mKilosFactorCorreccionDesa = int.Parse(lTbl.Rows[0]["KgsFC_Desa"].ToString());
+            //Tx_Tara.ReadOnly = true;
+            //**************************
+
+            lDiferencia = lCom.Val(Tx_PesoSoloFierro.Text) - (lPesoGD); // - mKilosFactorCorreccion); // lPesoGD;
             Tx_DiferenciaKilos.Text = lDiferencia.ToString();  //lPGD.ToString("N0");
             mToleranciaReal = (double.Parse(lDiferencia.ToString()) / double.Parse(lSoloFierro.ToString())) * 100;
             Tx_ToleranciaReal.Text = Math.Round(mToleranciaReal, 2).ToString();
-            //if ((Math.Abs (mToleranciaReal) < Double.Parse(Tx_ToleranciaBascula.Text)) || (Math.Abs(mToleranciaRealDesa) < Double.Parse(Tx_ToleranciaBascula.Text)))
-            //{
-            //    Tx_Semaforo.BackColor = Color.Green;
-            //}
-            //else
-            //     Tx_Semaforo.BackColor = Color.Red;
+            
 
             PintaSemaforo(mToleranciaReal, 0, mToleranciaRealDesa);
 

@@ -657,6 +657,8 @@ namespace Metalurgica.Clases
 
         #region Lectura de etiqueta AZA
 
+
+
         public  int ObtenerDiametro(string iTx)
         {
             char[] delimiterChars = { 'm' }; string[] words = iTx.Split(delimiterChars);
@@ -672,9 +674,10 @@ namespace Metalurgica.Clases
             return lRes;
         }
 
-        public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(string lTx)
+        public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(string lTx, Boolean incluyeProduccion)
         {
             WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza(); Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             char[] delimiterChars = { ';' }; string[] words = lTx.Split(delimiterChars);
 
             if (words.Length > 0)
@@ -687,6 +690,13 @@ namespace Metalurgica.Clases
                 lEt.PesoBulto = lCom.Val(words[5].ToString());
                 lEt.Diam = lCom.ObtenerDiametro(lEt.Producto);
                 lEt.Largo = lCom.ObtenerLargo(lEt.Producto);
+                if (incluyeProduccion == true)
+                {
+                    // se debe ir a la base de datos y verificar que exista la información y cargar todos los datos
+                    //la llave es Lote + Bulto 
+                    lEt.KgsProducidos = 0;
+                    lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString ());
+                }
 
             }
 
@@ -895,7 +905,7 @@ namespace Metalurgica.Clases
 
         public  string buscarTagError(string texto)
         {
-            string result = "";
+            string result = "INI";
             int pos1 = -1, pos2 = -1;
 
             pos1 = texto.Trim().ToUpper().IndexOf("<ACCION>OK</ACCION>");
@@ -911,7 +921,7 @@ namespace Metalurgica.Clases
                     pos2 = texto.Trim().ToUpper().IndexOf("</DESCERROR>", pos2 + 1);
                 }
             }
-            return (result.Equals("") ? "OK" : result);
+            return (result.Equals("INI") ? "OK" : result);
         }
 
         private DataSet ObtenerDTSConDatos_SMP(string iIdSolicitudes)

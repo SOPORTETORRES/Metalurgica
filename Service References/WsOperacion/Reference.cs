@@ -138,11 +138,19 @@ namespace Metalurgica.WsOperacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalle_OC_Aza", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc);
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string iCodSuc, string IdOc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VerificaNroGuiaDespacho", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet VerificaNroGuiaDespacho(string IdNroGuia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDetalleProduccionPorColadaQr", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColadaQr(string EtiquetaColada);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerResumanPiezasPorViaje", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -227,6 +235,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IntegraBodegasINET", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet IntegraBodegasINET(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEtiqueta", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -2143,6 +2155,8 @@ namespace Metalurgica.WsOperacion {
         
         private int nroGDField;
         
+        private int sucCodField;
+        
         private int ocField;
         
         private string fechaGDField;
@@ -2181,6 +2195,18 @@ namespace Metalurgica.WsOperacion {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int SucCod {
+            get {
+                return this.sucCodField;
+            }
+            set {
+                this.sucCodField = value;
+                this.RaisePropertyChanged("SucCod");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
         public int OC {
             get {
                 return this.ocField;
@@ -2192,7 +2218,7 @@ namespace Metalurgica.WsOperacion {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
         public string FechaGD {
             get {
                 return this.fechaGDField;
@@ -2204,7 +2230,7 @@ namespace Metalurgica.WsOperacion {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public int IdUserGraba {
             get {
                 return this.idUserGrabaField;
@@ -2216,7 +2242,7 @@ namespace Metalurgica.WsOperacion {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public string FechaGraba {
             get {
                 return this.fechaGrabaField;
@@ -2228,7 +2254,7 @@ namespace Metalurgica.WsOperacion {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=6)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=7)]
         public Detalle_Recepcion_MP[] Detalle {
             get {
                 return this.detalleField;
@@ -2240,7 +2266,7 @@ namespace Metalurgica.WsOperacion {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
         public int KgsGD {
             get {
                 return this.kgsGDField;
@@ -2537,6 +2563,8 @@ namespace Metalurgica.WsOperacion {
         
         private int kgsProducidosField;
         
+        private string errorsField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Lote {
@@ -2666,6 +2694,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.kgsProducidosField = value;
                 this.RaisePropertyChanged("KgsProducidos");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public string Errors {
+            get {
+                return this.errorsField;
+            }
+            set {
+                this.errorsField = value;
+                this.RaisePropertyChanged("Errors");
             }
         }
         
@@ -3942,12 +3982,20 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.Obtener_MP();
         }
         
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string IdOc) {
-            return base.Channel.ObtenerDetalle_OC_Aza(IdOc);
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalle_OC_Aza(string iCodSuc, string IdOc) {
+            return base.Channel.ObtenerDetalle_OC_Aza(iCodSuc, IdOc);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet VerificaNroGuiaDespacho(string IdNroGuia) {
+            return base.Channel.VerificaNroGuiaDespacho(IdNroGuia);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColada(string EtiquetaColada) {
             return base.Channel.ObtenerDetalleProduccionPorColada(EtiquetaColada);
+        }
+        
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDetalleProduccionPorColadaQr(string EtiquetaColada) {
+            return base.Channel.ObtenerDetalleProduccionPorColadaQr(EtiquetaColada);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerResumanPiezasPorViaje(string iCodViaje) {
@@ -4032,6 +4080,10 @@ namespace Metalurgica.WsOperacion {
         
         public System.Data.DataSet IntegraBodegasINET(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
             return base.Channel.IntegraBodegasINET(iFecha, IdIt_PorAprobar, iPersisteResultado);
+        }
+        
+        public Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto) {
+            return base.Channel.ObtenerEtiqueta(iLote, iBulto);
         }
         
         public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
