@@ -201,7 +201,6 @@ C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\FlashControlV71.dll
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\Integracion_INET.exe
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\itextsharp.dll
-C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\ExceptionUtility2.dll
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\Microsoft.Office.Interop.Excel.dll
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
@@ -243,3 +242,5 @@ C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\D
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.csproj.CopyComplete
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.ProduccionExterna.Frm_ProduccionExterna.resources
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.RecepcionMP.Frm_RecepcionMP.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Produccion.Frm_VinculaQR.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug\ExceptionUtility2.dll

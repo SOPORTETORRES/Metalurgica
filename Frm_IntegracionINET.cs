@@ -100,16 +100,17 @@ namespace Metalurgica
         //lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
 
 
-        if (lEmpresa.ToUpper().Equals("TO"))
-        {
+        //if (lEmpresa.ToUpper().Equals("TO"))
+        //{
+        //    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", mSucursalTO, "','','','','','',''");
+        //}
+        //else
+        //{
+        //    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 8,'", lEmpresa, "','','','','','',''");
+        //}
+
             lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", mSucursalTO, "','','','','','',''");
-        }
-        else
-        {
-            lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 8,'", lEmpresa, "','','','','','',''");
-        }
-        
-        lDts=lPx .ObtenerDatos (lSql);
+            lDts =lPx .ObtenerDatos (lSql);
         if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
         {
             lTbl = lDts.Tables[0].Copy();

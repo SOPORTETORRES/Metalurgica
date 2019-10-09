@@ -661,17 +661,70 @@ namespace Metalurgica.Clases
 
         public  int ObtenerDiametro(string iTx)
         {
-            char[] delimiterChars = { 'm' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[0].ToString(); int lRes = 1; string lAux = "";
+            char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
+            string lTmp = words[2].ToString(); int lRes = 1; string lAux = "";
 
-            if (lTmp.Length > 0)
+           
+
+            if (words.Length > 0)
             {
-                char[] lchar = { ' ' }; string[] lpartes = lTmp.Split(lchar);
+                //char[] lchar = { ' ' }; string[] lpartes = lTmp.Split(lchar);
 
-                lAux = lpartes[lpartes.Length - 1].ToString();
+                lAux = lTmp.Replace("mm", "");
                 lRes = new Clases.ClsComun().Val(lAux);
             }
             return lRes;
+        }
+
+
+        public string  ObtenerSoldable(string iTx)
+        {
+            char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
+            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";
+            string lResultado = "";
+
+            char[] lChar = { 'H' }; string[] lparte;
+
+            //para el caso.  ROLLO HORMIGON 16mm A630-420H
+            if (words.Length == 4)
+            {
+                    lResultado = "N";
+            }
+
+            //para el caso.  ROLLO HORMIGON S 16mm A630-420H
+            if (words.Length == 5)
+            {
+                if (iTx.IndexOf("ROLLO") > -1)
+                {
+                    if (words[2].ToString().Equals("S"))
+                        lResultado = "S";
+                    else
+                        lResultado = "N";
+                }
+                else  //para el caso.  B HORMIGON 16mm 9m A630-420H (N)
+                {
+                    lResultado = "N";
+                }
+            }
+
+            if (words.Length == 6)
+            {
+                lResultado = "N";
+            }
+
+
+            //B HORMIGON S 22 mm 12m A630-420H (N)
+            if (words.Length==8)
+            {
+                if (words[2].ToString().Equals ("S"))
+                    lResultado = "S";
+                else
+                    lResultado = "N";
+            }
+
+
+
+            return lResultado;
         }
 
         public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(string lTx, Boolean incluyeProduccion)
@@ -680,7 +733,7 @@ namespace Metalurgica.Clases
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             char[] delimiterChars = { ';' }; string[] words = lTx.Split(delimiterChars);
 
-            if (words.Length > 0)
+            if (words.Length > 1)
             {
                 lEt.Lote = words[0].ToString().Trim();
                 lEt.FechaFabricacion = words[1].ToString().Trim();
@@ -690,15 +743,22 @@ namespace Metalurgica.Clases
                 lEt.PesoBulto = lCom.Val(words[5].ToString());
                 lEt.Diam = lCom.ObtenerDiametro(lEt.Producto);
                 lEt.Largo = lCom.ObtenerLargo(lEt.Producto);
+                lEt.Errors = "";
                 if (incluyeProduccion == true)
                 {
                     // se debe ir a la base de datos y verificar que exista la información y cargar todos los datos
                     //la llave es Lote + Bulto 
                     lEt.KgsProducidos = 0;
-                    lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString ());
+                    lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString());
                 }
 
             }
+            else
+            {
+                lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
+            }
+
+
 
 
             return lEt;
@@ -706,12 +766,13 @@ namespace Metalurgica.Clases
 
         public int ObtenerLargo(string iTx)
         {
-            char[] delimiterChars = { 'm' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[0].ToString(); int lRes = 1; string lAux = "";
+            char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
+            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";
 
-            if (words.Length == 4)
+            if (words.Length >5)
             {
-                lRes = new Clases.ClsComun().Val(words[2].ToString());
+                lAux = lTmp.Replace("m", "");
+                lRes = new Clases.ClsComun().Val(lAux);
             }
             return lRes;
         }

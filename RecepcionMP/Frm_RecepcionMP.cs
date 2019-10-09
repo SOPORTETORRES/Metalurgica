@@ -59,67 +59,83 @@ namespace Metalurgica.RecepcionMP
         {
             int i = 0;string lMaterial = "";string lPar = ""; int lKgsRecep = 0;Clases.ClsComun lCom = new Clases.ClsComun();
             string[] lPartes = null;DataView lVista = null;int lKgsSol = 0;int lRecep = 0;string lTipo = "";
-        
+            string lEsSoldable = "";
 
-            for (i = 0; i < mTblDatos.Rows.Count-1; i++)
+            try
             {
-                lMaterial = mTblDatos.Rows[i]["Codigo"].ToString().Trim();
-                lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos Oc"].ToString());
-                
-                lPar = mTblDatos.Rows[i]["IdEtiquetaAZA"].ToString();
-
-                if (iEtiqueta.Producto.ToString().ToUpper().IndexOf("ROLLO") > -1)
-                    lTipo = "R";
-                else
-                    lTipo = "B";
 
 
-                lVista = new DataView(mTBlMP, string.Concat(" Codigo='", lMaterial, "' and Tipo='",lTipo ,"'"), "", DataViewRowState.CurrentRows);
-                if ((lVista .Count >0) &&  (lVista[0]["Descripcion"].ToString().ToUpper().IndexOf("ROLLO") >-1))
+
+                for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
                 {
-                    if ((lVista.Count > 0) && ((lPar.IndexOf(iEtiqueta.Id.ToString()) < 0)))      //(lMaterial.Length > 4)
+                    lMaterial = mTblDatos.Rows[i]["Codigo"].ToString().Trim();
+                    lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos Oc"].ToString());
+
+                    lPar = mTblDatos.Rows[i]["IdEtiquetaAZA"].ToString();
+
+                    if (iEtiqueta.Producto.ToString().ToUpper().IndexOf("ROLLO") > -1)
+                        lTipo = "R";
+                    else
+                        lTipo = "B";
+
+                    lEsSoldable = new Clases.ClsComun().ObtenerSoldable(iEtiqueta.Producto);
+                    //Verificacmos el Tipo de Matrial
+                    //if (lEsSoldable.ToString().ToUpper().IndexOf("(S") > -1)
+                    //    lEsSoldable = "S";
+                    //else
+                    //    lEsSoldable = "N";
+
+                    lVista = new DataView(mTBlMP, string.Concat(" Codigo='", lMaterial, "' and Tipo='", lTipo, "' and Soldable='", lEsSoldable, "'"), "", DataViewRowState.CurrentRows);
+                    if ((lVista.Count > 0) && (lVista[0]["Descripcion"].ToString().ToUpper().IndexOf("ROLLO") > -1))
                     {
-                        if ((lCom.Val(lVista[0]["NombreMedidas"].ToString()) == (lCom.Val(iEtiqueta.Diam.ToString())) ))
+                        if ((lVista.Count > 0) && ((lPar.IndexOf(iEtiqueta.Id.ToString()) < 0)))      //(lMaterial.Length > 4)
                         {
-                            lKgsRecep = lCom.Val(mTblDatos.Rows[i]["Kilos recibidos"].ToString());
-                            if (lKgsRecep > 0)
-                                lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(mTblDatos.Rows[i][4].ToString());
-                            else
-                                lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+                            if ((lCom.Val(lVista[0]["NombreMedidas"].ToString()) == (lCom.Val(iEtiqueta.Diam.ToString()))))
+                            {
+                                lKgsRecep = lCom.Val(mTblDatos.Rows[i]["Kilos recibidos"].ToString());
+                                if (lKgsRecep > 0)
+                                    lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(mTblDatos.Rows[i][4].ToString());
+                                else
+                                    lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
 
 
-                            lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
+                                lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
 
-                            mTblDatos.Rows[i]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
-                            mTblDatos.Rows[i][4] = lCom.Val(mTblDatos.Rows[i][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
-                            mTblDatos.Rows[i]["IdEtiquetaAza"] = string.Concat(mTblDatos.Rows[i]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                                mTblDatos.Rows[i]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                                mTblDatos.Rows[i][4] = lCom.Val(mTblDatos.Rows[i][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                                mTblDatos.Rows[i]["IdEtiquetaAza"] = string.Concat(mTblDatos.Rows[i]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if ((lVista.Count > 0) && ((lPar.IndexOf(iEtiqueta.Id.ToString()) < 0)))      //(lMaterial.Length > 4)
+                    else
                     {
-                        if ((lCom.Val(lVista[0]["NombreMedidas"].ToString()) == (lCom.Val(iEtiqueta.Diam.ToString())) && (lCom.Val(lVista[0]["Largo"].ToString())) == (lCom.Val(iEtiqueta.Largo.ToString()))))
+                        if ((lVista.Count > 0) && ((lPar.IndexOf(iEtiqueta.Id.ToString()) < 0)))      //(lMaterial.Length > 4)
                         {
-                            lKgsRecep = lCom.Val(mTblDatos.Rows[i]["Kilos recibidos"].ToString());
-                            if (lKgsRecep > 0)
-                                lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(mTblDatos.Rows[i][4].ToString());
-                            else
-                                lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+                            if ((lCom.Val(lVista[0]["NombreMedidas"].ToString()) == (lCom.Val(iEtiqueta.Diam.ToString())) && (lCom.Val(lVista[0]["Largo"].ToString())) == (lCom.Val(iEtiqueta.Largo.ToString()))))
+                            {
+                                lKgsRecep = lCom.Val(mTblDatos.Rows[i]["Kilos recibidos"].ToString());
+                                if (lKgsRecep > 0)
+                                    lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(mTblDatos.Rows[i][4].ToString());
+                                else
+                                    lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
 
 
-                            lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
+                                lKgsSol = lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
 
-                            mTblDatos.Rows[i]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
-                            mTblDatos.Rows[i][4] = lCom.Val(mTblDatos.Rows[i][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
-                            mTblDatos.Rows[i]["IdEtiquetaAza"] = string.Concat(mTblDatos.Rows[i]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                                mTblDatos.Rows[i]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                                mTblDatos.Rows[i][4] = lCom.Val(mTblDatos.Rows[i][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                                mTblDatos.Rows[i]["IdEtiquetaAza"] = string.Concat(mTblDatos.Rows[i]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                            }
                         }
+
                     }
+                    //else
 
                 }
-                //else
-               
+            }
+            catch (Exception ex)
+            {
+
             }
             RefescaGrilla();
         }
@@ -132,14 +148,17 @@ namespace Metalurgica.RecepcionMP
 
             try
             {
-                for (   i = 0; i < mTblDatos.Rows.Count-1; i++)
+                for (   i = 0; i < mTblDatos.Rows.Count; i++)
                 {
+                    if (mTblDatos.Rows[i]["Descripcion"].ToString().ToUpper ()!="TOTALES")
+                    { 
                     lTotalKgsOC = lTotalKgsOC + lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
                     lTotalRecep = lTotalRecep + lCom.Val(mTblDatos.Rows[i][5].ToString());
                     lTotal_a_Recep = lTotal_a_Recep + lCom.Val(mTblDatos.Rows[i][4].ToString());
 
                     if (lTotalRecep < 0)
                         lTotalRecep = 0;
+                    }
                 }
                 lVista = new DataView(mTblDatos, "Descripcion='TOTALES'", "", DataViewRowState.CurrentRows);
                 if (lVista .Count ==0)
@@ -202,11 +221,7 @@ namespace Metalurgica.RecepcionMP
 
                 }
                
-            //}
-            //else
-            //{
-
-            //}
+    
         }
 
         private void AgregaEtiqueta(WsOperacion.TipoEtiquetaAza lEt_AZA)

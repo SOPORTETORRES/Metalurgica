@@ -24,6 +24,7 @@ namespace Metalurgica
         private string mPiezasError = "";
         private string mSoloCamionesBascula = "";
         private bool mPrimeraVez = true;
+        private string mEmpresa = "";
 
         public frmDespachoCamion()
         {
@@ -1062,6 +1063,22 @@ namespace Metalurgica
                     cboObraDestino.SelectedIndex = lTbl.Rows.Count - 1;
                 }
 
+                mEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+
+                  switch (mEmpresa)
+                {
+                    case "TO":
+                        Rb_TO.Checked = true;
+                        //e.SuppressKeyPress = true;
+                        break;
+                    case "TOSOL":
+                        RB_TOSOL.Checked = true;
+                        //e.SuppressKeyPress = true;
+                        break;
+                    default:
+                                               break;
+                }
+
             }
             catch (Exception exc)
             {
@@ -1114,7 +1131,8 @@ namespace Metalurgica
             else
             {
                 Gr_empresa.Visible = false;
-                lTbl = lcom.CargaTablaObrasPorUsuario(mUserLog .Iduser .ToString ());
+                lTbl = lcom.CargaTablaObras(lEmpresa);
+              //  lTbl = lcom.CargaTablaObrasPorUsuario(mUserLog .Iduser .ToString ());
             }
 
             return lTbl;
@@ -1942,8 +1960,7 @@ namespace Metalurgica
                         lFrm.InicializaForm(mUserLog, "A");
                         lFrm.ShowDialog();
                     }
-                   
-
+                  
                 }
                 else
                 {
