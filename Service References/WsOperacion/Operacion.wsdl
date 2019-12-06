@@ -2,17 +2,17 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="obtenerIdRC_PorColada">
+      <s:element name="ObtenerRecepcionxEtiqueta_Colada">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="obtenerIdRC_PorColadaResponse">
+      <s:element name="ObtenerRecepcionxEtiqueta_ColadaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="obtenerIdRC_PorColadaResult" type="tns:ListaDataSet" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerRecepcionxEtiqueta_ColadaResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -38,6 +38,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="obtenerIdRC_PorColada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="obtenerIdRC_PorColadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obtenerIdRC_PorColadaResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarDespachoColadaBodegaMP">
         <s:complexType>
           <s:sequence>
@@ -924,6 +938,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="iTipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iSucursal" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1016,6 +1031,20 @@
                 </s:sequence>
               </s:complexType>
             </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenGD_ParaExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iViaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerResumenGD_ParaExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerResumenGD_ParaExcelResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1227,6 +1256,22 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ListarSolicitudMaterial_CierreResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarSolicitudMaterial_Cierre_QR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="totem" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="errorWS" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarSolicitudMaterial_Cierre_QRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarSolicitudMaterial_Cierre_QRResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2480,22 +2525,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerRecepcionxEtiqueta_Colada">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="etiqueta_colada" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerRecepcionxEtiqueta_ColadaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerRecepcionxEtiqueta_ColadaResult" type="tns:ListaDataSet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ObtenerRecepcionxEtiqueta_ColadaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerRecepcionxEtiqueta_Colada" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerRecepcionxEtiqueta_ColadaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerRecepcionxEtiqueta_ColadaResponse" />
+  </wsdl:message>
   <wsdl:message name="obtenerIdRC_PorColadaSoapIn">
     <wsdl:part name="parameters" element="tns:obtenerIdRC_PorColada" />
   </wsdl:message>
@@ -2826,6 +2863,12 @@
   <wsdl:message name="IntegraBodegasINETSoapOut">
     <wsdl:part name="parameters" element="tns:IntegraBodegasINETResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerResumenGD_ParaExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenGD_ParaExcel" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerResumenGD_ParaExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenGD_ParaExcelResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerEtiquetaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerEtiqueta" />
   </wsdl:message>
@@ -2879,6 +2922,12 @@
   </wsdl:message>
   <wsdl:message name="ListarSolicitudMaterial_CierreSoapOut">
     <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListarSolicitudMaterial_Cierre_QRSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_Cierre_QR" />
+  </wsdl:message>
+  <wsdl:message name="ListarSolicitudMaterial_Cierre_QRSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_Cierre_QRResponse" />
   </wsdl:message>
   <wsdl:message name="ListarSolicitudMaterial_CierreAutSoapIn">
     <wsdl:part name="parameters" element="tns:ListarSolicitudMaterial_CierreAut" />
@@ -3336,13 +3385,11 @@
   <wsdl:message name="ImprimirRecepcion_ColadaSoapOut">
     <wsdl:part name="parameters" element="tns:ImprimirRecepcion_ColadaResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerRecepcionxEtiqueta_ColadaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerRecepcionxEtiqueta_Colada" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerRecepcionxEtiqueta_ColadaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerRecepcionxEtiqueta_ColadaResponse" />
-  </wsdl:message>
   <wsdl:portType name="OperacionSoap">
+    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
+      <wsdl:input message="tns:ObtenerRecepcionxEtiqueta_ColadaSoapIn" />
+      <wsdl:output message="tns:ObtenerRecepcionxEtiqueta_ColadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="obtenerIdRC_PorColada">
       <wsdl:input message="tns:obtenerIdRC_PorColadaSoapIn" />
       <wsdl:output message="tns:obtenerIdRC_PorColadaSoapOut" />
@@ -3563,6 +3610,10 @@
       <wsdl:input message="tns:IntegraBodegasINETSoapIn" />
       <wsdl:output message="tns:IntegraBodegasINETSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenGD_ParaExcel">
+      <wsdl:input message="tns:ObtenerResumenGD_ParaExcelSoapIn" />
+      <wsdl:output message="tns:ObtenerResumenGD_ParaExcelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiqueta">
       <wsdl:input message="tns:ObtenerEtiquetaSoapIn" />
       <wsdl:output message="tns:ObtenerEtiquetaSoapOut" />
@@ -3598,6 +3649,10 @@
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <wsdl:input message="tns:ListarSolicitudMaterial_CierreSoapIn" />
       <wsdl:output message="tns:ListarSolicitudMaterial_CierreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_Cierre_QR">
+      <wsdl:input message="tns:ListarSolicitudMaterial_Cierre_QRSoapIn" />
+      <wsdl:output message="tns:ListarSolicitudMaterial_Cierre_QRSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ListarSolicitudMaterial_CierreAut">
       <wsdl:input message="tns:ListarSolicitudMaterial_CierreAutSoapIn" />
@@ -3903,13 +3958,18 @@
       <wsdl:input message="tns:ImprimirRecepcion_ColadaSoapIn" />
       <wsdl:output message="tns:ImprimirRecepcion_ColadaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
-      <wsdl:input message="tns:ObtenerRecepcionxEtiqueta_ColadaSoapIn" />
-      <wsdl:output message="tns:ObtenerRecepcionxEtiqueta_ColadaSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OperacionSoap" type="tns:OperacionSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
+      <soap:operation soapAction="http://tempuri.org/ObtenerRecepcionxEtiqueta_Colada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="obtenerIdRC_PorColada">
       <soap:operation soapAction="http://tempuri.org/obtenerIdRC_PorColada" style="document" />
       <wsdl:input>
@@ -4405,6 +4465,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenGD_ParaExcel">
+      <soap:operation soapAction="http://tempuri.org/ObtenerResumenGD_ParaExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiqueta">
       <soap:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
@@ -4479,6 +4548,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <soap:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_Cierre_QR">
+      <soap:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre_QR" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5170,18 +5248,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
-      <soap:operation soapAction="http://tempuri.org/ObtenerRecepcionxEtiqueta_Colada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OperacionSoap12" type="tns:OperacionSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerRecepcionxEtiqueta_Colada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="obtenerIdRC_PorColada">
       <soap12:operation soapAction="http://tempuri.org/obtenerIdRC_PorColada" style="document" />
       <wsdl:input>
@@ -5677,6 +5755,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenGD_ParaExcel">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerResumenGD_ParaExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerEtiqueta">
       <soap12:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
@@ -5751,6 +5838,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSolicitudMaterial_Cierre">
       <soap12:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSolicitudMaterial_Cierre_QR">
+      <soap12:operation soapAction="http://tempuri.org/ListarSolicitudMaterial_Cierre_QR" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -6435,15 +6531,6 @@
     </wsdl:operation>
     <wsdl:operation name="ImprimirRecepcion_Colada">
       <soap12:operation soapAction="http://tempuri.org/ImprimirRecepcion_Colada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerRecepcionxEtiqueta_Colada">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerRecepcionxEtiqueta_Colada" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

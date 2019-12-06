@@ -100,17 +100,17 @@ namespace Metalurgica.Bascula
                         }
 
 
-                        if (mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString())) > mPesoMaxBascula)
+                        if (mTotalKgs + (lCom .CDBL (lVista[0]["KgsReales"].ToString())) > mPesoMaxBascula)
                         {
                             MessageBox.Show(" EL Peso máximo a Cargar en la Bascula Móvil es de: " + mPesoMaxBascula.ToString(), "Avisos Sistema ", MessageBoxButtons.OK);
                         }
                         else
                         {
                             mTblDatosOK.Rows.Add(lFila);
-                            Lbl_KgsCD.Text = int.Parse(lVista[0]["KgsReales"].ToString()).ToString();
+                            Lbl_KgsCD.Text =lCom.CDBL (lVista[0]["KgsReales"].ToString()).ToString();
                             Lbl_KgsCon .Text =lCom .CDBL(lVista[0]["PesoConectores"].ToString() ).ToString ();
 
-                            mTotalKgs = mTotalKgs + (int.Parse(lVista[0]["KgsReales"].ToString())) + (lCom.CDBL (lVista[0]["PesoConectores"].ToString()));
+                            mTotalKgs = mTotalKgs + (lCom.CDBL(lVista[0]["KgsReales"].ToString())) + (lCom.CDBL (lVista[0]["PesoConectores"].ToString()));
                             Lbl_totalKgs.Text = mTotalKgs.ToString();
                             Dtg_OK.DataSource = mTblDatosOK;
                             FormateaGrilla();

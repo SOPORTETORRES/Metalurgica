@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.Gr_datos = new System.Windows.Forms.GroupBox();
+            this.Cmb_Sucursal = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.Dtp_Fecha = new System.Windows.Forms.DateTimePicker();
             this.Tx_OC = new System.Windows.Forms.TextBox();
             this.Tx_TotalKgsGD = new System.Windows.Forms.TextBox();
@@ -59,8 +61,6 @@
             this.Btn_grabar = new System.Windows.Forms.Button();
             this.Btn_InicioL = new System.Windows.Forms.Button();
             this.Btn_Nueva = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.Cmb_Sucursal = new System.Windows.Forms.ComboBox();
             this.Gr_datos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Etiquetas)).BeginInit();
@@ -86,6 +86,27 @@
             this.Gr_datos.TabStop = false;
             this.Gr_datos.Text = "Datos de la Recepción de Material";
             // 
+            // Cmb_Sucursal
+            // 
+            this.Cmb_Sucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Cmb_Sucursal.FormattingEnabled = true;
+            this.Cmb_Sucursal.Location = new System.Drawing.Point(327, 48);
+            this.Cmb_Sucursal.Name = "Cmb_Sucursal";
+            this.Cmb_Sucursal.Size = new System.Drawing.Size(129, 21);
+            this.Cmb_Sucursal.TabIndex = 11;
+            this.Cmb_Sucursal.Leave += new System.EventHandler(this.Cmb_Sucursal_Leave);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(336, 26);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(104, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Seleccione Sucursal";
+            // 
             // Dtp_Fecha
             // 
             this.Dtp_Fecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -102,6 +123,7 @@
             this.Tx_OC.Name = "Tx_OC";
             this.Tx_OC.Size = new System.Drawing.Size(100, 20);
             this.Tx_OC.TabIndex = 5;
+            this.Tx_OC.TextChanged += new System.EventHandler(this.Tx_OC_TextChanged);
             this.Tx_OC.Leave += new System.EventHandler(this.Tx_OC_Leave);
             this.Tx_OC.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_OC_Validating);
             // 
@@ -406,27 +428,6 @@
             this.Btn_Nueva.Text = "Nuevo";
             this.Btn_Nueva.UseVisualStyleBackColor = true;
             this.Btn_Nueva.Click += new System.EventHandler(this.Btn_Nueva_Click);
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(336, 26);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(104, 13);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Seleccione Sucursal";
-            // 
-            // Cmb_Sucursal
-            // 
-            this.Cmb_Sucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Cmb_Sucursal.FormattingEnabled = true;
-            this.Cmb_Sucursal.Location = new System.Drawing.Point(327, 48);
-            this.Cmb_Sucursal.Name = "Cmb_Sucursal";
-            this.Cmb_Sucursal.Size = new System.Drawing.Size(129, 21);
-            this.Cmb_Sucursal.TabIndex = 11;
-            this.Cmb_Sucursal.Leave += new System.EventHandler(this.Cmb_Sucursal_Leave);
             // 
             // Frm_RecepcionMP
             // 

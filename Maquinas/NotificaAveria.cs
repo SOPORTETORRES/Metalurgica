@@ -352,6 +352,8 @@ namespace Metalurgica.Maquinas
         {
             string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();
+
             DataTable lTblOperario = new DataTable(); DataView lVista = null;
             string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
 
@@ -365,8 +367,6 @@ namespace Metalurgica.Maquinas
                     lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  'Produccion','TOSOL','','','',1");
                     break;
             }
-
-
 
             lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
@@ -388,11 +388,13 @@ namespace Metalurgica.Maquinas
 
             string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
 
-            lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  '", lIdSucursal,"','','','','',4");
-            lDts = lPx.ObtenerDatos(lSql);
+            lDts = lDal.ObtenerDatosIniciales("EP", lIdSucursal);
+
+            //lSql = string.Concat("exec SP_CONSULTAS_NOTIFICACION_AVERIA  '", lIdSucursal,"','','','','',4");
+            //lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
-                CmbMaquinaAveria.DisplayMember = "Par1";
+                CmbMaquinaAveria.DisplayMember = "Elemento";
                 CmbMaquinaAveria.ValueMember = "Id";
                 CmbMaquinaAveria.DataSource = lDts.Tables[0].Copy();
                 if (lCom.Val(iIdElemento) > 0)

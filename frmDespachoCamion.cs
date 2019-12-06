@@ -187,6 +187,10 @@ namespace Metalurgica
             //Integracion_INET.Cls_LN lLogInet = new Integracion_INET.Cls_LN();
             //Integracion_INET.Tipo_InvocaWS lResWS = new Integracion_INET.Tipo_InvocaWS();
 
+            //Si esta en modo ingresar la patente  esta se debe verificar antes de grabar.
+
+
+
             lTbl.TableName = "Piezas";
             lTbl.Columns.Add("usuario", Type.GetType("System.String"));
             lTbl.Columns.Add("colada", Type.GetType("System.String"));

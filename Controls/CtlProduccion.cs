@@ -33,6 +33,8 @@ namespace Metalurgica.Controls
         private string mTipoColada = "";
         public EventHandler BotonClick;
         private  WsOperacion.TipoEtiquetaAza mEtiqueta_Qr = new WsOperacion.TipoEtiquetaAza();
+        private Boolean mInicializaColada = false;
+        private string mIdSucursal = "0";
 
         public CtlProduccion()
         {
@@ -83,17 +85,22 @@ namespace Metalurgica.Controls
                 string lFecha = DateTime.Now.ToShortDateString().Replace("-", "/");
 
                 if (lValidarSolictud_MP.ToString().ToUpper().Equals("S"))
+                    // Version Anterior 11/2019 conn re etiquetado, sin etiqueta QR
                 {
                     lDts = lPxOp.ObtenerSolicitudesMP_PorTotem(mUserLog.IdTotem.ToString(), lFecha, mUserLog.IdMaquina.ToString(), txtEtiquetaPieza.Text);
                     if (ValidaSolicitud_MP(lDts.DataSet) == true)
                     {
-
                         RegistraProduccion();
                     }
                 }
                 else
                 {
+                    // Con versión de codigo QR
+                    //if (mTipoColada.Equals ("QR"))
+                    //{
 
+                    //}
+                    //else
                     RegistraProduccion();
                 }
                 AjustaColumnaGrilla();
@@ -259,9 +266,9 @@ namespace Metalurgica.Controls
                     }
                     // Verificamos que se este pistolemado la etiqueta en la sucursal Programada.
                     // Obtenemos las variables de sesion Sucursal e IdSucursal
-                    string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+ 
                     string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
-                    if (!(lTbl.Rows[0]["IdSucursal"].ToString().ToUpper().Equals(lIdSucursal)))
+                    if (!(lTbl.Rows[0]["IdSucursal"].ToString().ToUpper().Equals(mIdSucursal)))
                     {
                         lEtiquetaImpresa = false;
                         lMsg = string.Concat("Esta etiqueta No puede ser producida, ya que esta asignada a la sucursal de ", lTbl.Rows[0]["SucursalAsiganda"].ToString().ToUpper() , Environment.NewLine);
@@ -461,6 +468,7 @@ namespace Metalurgica.Controls
                                                     mIdEtiquetaColada = "0";
                                                     RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
                                                     lPuedeContinuar = true;
+                                                    mInicializaColada = true;
                                                 }
                                                
                                                 //MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -510,6 +518,7 @@ namespace Metalurgica.Controls
                                                 mIdEtiquetaColada = "0";
                                                 RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
                                                 lPuedeContinuar = true;
+                                               
                                             }
 
 
@@ -962,6 +971,7 @@ namespace Metalurgica.Controls
             //'ValidaColadaEnProduccion'
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string iDiam = "";
+      
 
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
             {
@@ -1011,7 +1021,8 @@ namespace Metalurgica.Controls
                                             {
                                                 txtEtiquetaColada_Validating(null, null);
                                                 lPuedeContinuar = ValidaColadaPieza();
-                                                txtEtiquetaColada_Validating(null, null);
+                                                
+
                                             }
                                                 
                                         }
@@ -1102,6 +1113,15 @@ namespace Metalurgica.Controls
 
                         ActualizaKilosProducidos();
                         txtEtiquetaPieza.Clear();
+                        if (mInicializaColada == true)
+                        {
+                            //inicializamos la colada
+                            tlbNuevo_Click(null, null);
+                            mInicializaColada = false;
+                        }
+                        else
+                            txtEtiquetaColada_Validating(null, null);
+
                         txtEtiquetaPieza.Focus();
                     }
                 }
@@ -1448,22 +1468,32 @@ namespace Metalurgica.Controls
         public void HabilitaOpcionSolicitudMaterial()
         {
             //obtenemos la variable para la solicitud de materia prima
-            mlValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
-            // si no esta habilitada la opción de MP no se muestra en el Menu
-            if (mlValidarSolictud_MP.ToUpper().Equals("N"))
+            //mlValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
+            //// si no esta habilitada la opción de MP no se muestra en el Menu
+            //if (mlValidarSolictud_MP.ToUpper().Equals("N"))
+            //{
+            //    this.TlbNuevaSolicitud.Visible = false;
+            //    tlbRecepcion.Visible = false;
+            //    tlbCierre.Visible = false;
+            //    TlbVer.Visible = false;
+            //}
+            //else
+            //{
+            //    this.TlbNuevaSolicitud.Visible = true;
+            //    this.tlbRecepcion.Visible = true;
+            //    this.tlbRecepcion.Visible = true;
+            //    tlbCierre.Visible = true;
+            //}
+
+            this.TlbNuevaSolicitud.Visible = false;
+            this.tlbRecepcion.Visible = false;
+            string lConQR = ConfigurationManager.AppSettings["TipoColada"].ToString();
+            if (lConQR.ToUpper().Equals("QR"))
             {
-                this.TlbNuevaSolicitud.Visible = false;
-                tlbRecepcion.Visible = false;
-                tlbCierre.Visible = false;
-                TlbVer.Visible = false;
+                this.tlbCierre.Visible = true;
             }
-            else
-            {
-                this.TlbNuevaSolicitud.Visible = true;
-                this.tlbRecepcion.Visible = true;
-                this.tlbRecepcion.Visible = true;
-                tlbCierre.Visible = true;
-            }
+
+
         }
 
 
@@ -1525,6 +1555,11 @@ namespace Metalurgica.Controls
                     Btn_CheckList.Visible = true;
                 else
                     Btn_CheckList.Visible = false;
+
+
+
+                   
+                
 
             }
                       
@@ -1643,6 +1678,7 @@ namespace Metalurgica.Controls
         private void txtEtiquetaColada_Leave(object sender, EventArgs e)
         {
             //txtEtiquetaColada.Text = eliminarCaracteresEspeciales(txtEtiquetaColada.Text.Trim());
+            txtEtiquetaPieza.Focus();
         }
 
        
@@ -1898,6 +1934,8 @@ namespace Metalurgica.Controls
                         ProcesaColadaOriginal_QR(txtEtiquetaColada.Text);
                         break;
                 }
+
+
             }
             catch (Exception exc)
             {
@@ -1951,7 +1989,7 @@ namespace Metalurgica.Controls
         private void CtlProduccion_Load(object sender, EventArgs e)
         {
             mTipoColada =     ConfigurationManager.AppSettings["TipoColada"].ToString();
-            
+            mIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
         }
 
         private void TlbNuevaSolicitud_Click(object sender, EventArgs e)
@@ -2009,10 +2047,10 @@ namespace Metalurgica.Controls
             string lMsg = "";
             //1.-Revisamos en el archivo de configuracion si tiene habilitado la validacion de SMP
             // 1.5.- Si la maquina esta con notificación de averias debe poder salir sin problemas
-
+            string mlValidarSolictud_MP = ConfigurationManager.AppSettings["TipoColada"].ToString();
             if (mIdNotificacion.ToString().Trim().Length == 0)
             {
-                if (mlValidarSolictud_MP.ToUpper().Equals("S"))
+                if (mlValidarSolictud_MP.ToUpper().Equals("QR"))
                 {
                     //2.- Debemos chequear que cerro el turno
                     if (TurnoEstaCerrado() == false)
@@ -2071,7 +2109,7 @@ namespace Metalurgica.Controls
         {
             Clases.Obj.Obj_ElementoProd lObj = new Clases.Obj.Obj_ElementoProd();
             Maquinas.Frm_ElementosProduccion lFrm = new Maquinas.Frm_ElementosProduccion();
-            lFrm.IniciaFormulario(mUserLog .Iduser );
+            lFrm.IniciaFormulario(mUserLog .Iduser, mIdSucursal);
             lFrm.ShowDialog(this);
             lObj=(Clases.Obj.Obj_ElementoProd) AppDomain.CurrentDomain.GetData("ElementoSel" );
            
@@ -2225,6 +2263,58 @@ namespace Metalurgica.Controls
         private void tlbExportar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Btn_cierreEtiquetaAza_Click(object sender, EventArgs e)
+        {
+            string lTolQR = "";Clases.ClsComun lCom = new Clases.ClsComun();
+            double  lTolQrCalculada = 0;Boolean lPuedeSeguir = false;string lVSup = "";
+            //  lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString());
+
+            // Si el saldo de la colada al momento de cerrar la etiqueta es mayor a     
+            //<add key="PorcentajeQR" value="10"/>
+
+            lTolQR = ConfigurationManager.AppSettings["PorcentajeQR"].ToString();
+
+            lTolQrCalculada = (lCom.CDBL(Lbl_SaldoKilosColada.Text) / lCom.Val(lblKilos.Text))*100;
+
+            if (lTolQrCalculada > lCom.Val(lTolQR))
+            {
+                // autorizacion del supervisor
+                // si la autorizacion del supervisor es OK ==> lPuedeSeguir = true
+                //La Autorizacion del supervisor se debe persistir
+                AppDomain.CurrentDomain.SetData("ValidacionSupervisor", "");
+                Produccion.Frm_Supervisor lfrm = new Produccion.Frm_Supervisor();
+                lfrm.IniciaForm(mUserLog, lblKilos.Text, Lbl_SaldoKilosColada.Text, lTolQrCalculada.ToString (),mIdEtiquetaColada );
+                lfrm.ShowDialog();
+
+                lVSup=AppDomain.CurrentDomain.GetData("ValidacionSupervisor").ToString ();
+
+                if (lVSup.ToUpper() .Equals ("OK"))
+                    lPuedeSeguir = true;
+            }
+            else
+                if (lTolQrCalculada>0)
+                lPuedeSeguir = true;
+            else
+                lPuedeSeguir = false ;
+
+            //lPuedeSeguir = true;
+
+
+            if (lPuedeSeguir==true )
+            { 
+                string lSql = ""; DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
+                Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+
+                lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro) ";
+                lSql = string.Concat(lSql, "values(0,", mEtiqueta_Qr.Id.ToString(), ",'D',", Lbl_SaldoKilosColada .Text , ", Getdate())");
+                lPx.ObtenerDatos(lSql);
+
+                MessageBox.Show("La Etiqueta de Colada se ha cerrado Satisfactoriamente ", "Avisos Sistema ");
+
+                 tlbNuevo_Click(null, null);
+            }
         }
     }
 }

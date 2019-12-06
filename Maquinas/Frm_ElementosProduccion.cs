@@ -37,7 +37,7 @@ namespace Metalurgica.Maquinas
         }
 
 
-        public void IniciaFormulario(string iIdUser)
+        public void IniciaFormulario(string iIdUser, string iIdSucursal)
         {
             mIdUserReporta = iIdUser;
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient(); int i = 0;
@@ -53,7 +53,7 @@ namespace Metalurgica.Maquinas
             lTbl.Columns.Add("Elemento", Type.GetType("System.String"));
             lTbl.Columns.Add("NroNotificaciones", Type.GetType("System.String"));
 
-            lDts = lDal.ObtenerDatosIniciales("EP");
+            lDts = lDal.ObtenerDatosIniciales("EP", iIdSucursal);
 
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {

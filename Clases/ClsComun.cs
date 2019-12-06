@@ -662,17 +662,30 @@ namespace Metalurgica.Clases
         public  int ObtenerDiametro(string iTx)
         {
             char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[2].ToString(); int lRes = 1; string lAux = "";
+            string lTmp = words[2].ToString(); int lRes = 1; string lAux = "";int i = 0;
 
-           
-
-            if (words.Length > 0)
+            if (words.Length >0 )
             {
-                //char[] lchar = { ' ' }; string[] lpartes = lTmp.Split(lchar);
-
-                lAux = lTmp.Replace("mm", "");
-                lRes = new Clases.ClsComun().Val(lAux);
+                for (i = 1; i < words.Length; i++)
+                {
+                    lTmp = words[i].ToString();
+                    if (lTmp.IndexOf("mm") > -1)
+                    {
+                        lAux = lTmp.Replace("mm", "");
+                        lRes = new Clases.ClsComun().Val(lAux);
+                    }
+                }
             }
+
+
+            //if (words.Length==6)
+            //{
+            //    lTmp = words[2].ToString();
+            //    lAux = lTmp.Replace("mm", "");
+            //    lRes = new Clases.ClsComun().Val(lAux);
+            //}
+
+
             return lRes;
         }
 
@@ -767,14 +780,41 @@ namespace Metalurgica.Clases
         public int ObtenerLargo(string iTx)
         {
             char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";
+            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";int i = 0;
 
-            if (words.Length >5)
+            iTx = iTx.Replace("mm", "nn");
+            words = iTx.Split(delimiterChars);
+            if (words.Length >0)
             {
-                lAux = lTmp.Replace("m", "");
-                lRes = new Clases.ClsComun().Val(lAux);
+                for (i = 1; i < words.Length; i++)
+                {
+                    lTmp = words[i].ToString();
+                    if (lTmp.IndexOf("m") > -1)
+                    {
+                        lAux = lTmp.Replace("m", "");
+                        lRes = new Clases.ClsComun().Val(lAux);
+                    }
+                }
+                //    lAux = lTmp.Replace("m", "");
+                //lRes = new Clases.ClsComun().Val(lAux);
             }
             return lRes;
+
+
+            //if (words.Length > 0)
+            //{
+            //    for (i = 1; i < words.Length; i++)
+            //    {
+            //        lTmp = words[i].ToString();
+            //        if (lTmp.IndexOf("mm") > -1)
+            //        {
+            //            lAux = lTmp.Replace("mm", "");
+            //            lRes = new Clases.ClsComun().Val(lAux);
+            //        }
+            //    }
+            //}
+
+
         }
 
         #endregion

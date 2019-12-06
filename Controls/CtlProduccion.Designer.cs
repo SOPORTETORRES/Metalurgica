@@ -51,6 +51,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btn_cierreEtiquetaAza = new System.Windows.Forms.Button();
             this.Btn_CheckList = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Lbl_Usuario = new System.Windows.Forms.Label();
@@ -342,6 +343,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Btn_cierreEtiquetaAza);
             this.groupBox1.Controls.Add(this.Btn_CheckList);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.Btn_A_Despacho);
@@ -379,6 +381,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
+            // 
+            // Btn_cierreEtiquetaAza
+            // 
+            this.Btn_cierreEtiquetaAza.Location = new System.Drawing.Point(711, 6);
+            this.Btn_cierreEtiquetaAza.Name = "Btn_cierreEtiquetaAza";
+            this.Btn_cierreEtiquetaAza.Size = new System.Drawing.Size(75, 34);
+            this.Btn_cierreEtiquetaAza.TabIndex = 60;
+            this.Btn_cierreEtiquetaAza.Text = "Cierre Etiqueta MP";
+            this.Btn_cierreEtiquetaAza.UseVisualStyleBackColor = true;
+            this.Btn_cierreEtiquetaAza.Click += new System.EventHandler(this.Btn_cierreEtiquetaAza_Click);
             // 
             // Btn_CheckList
             // 
@@ -428,7 +440,6 @@
             this.Btn_NotificaAveriaElemento.TabIndex = 56;
             this.Btn_NotificaAveriaElemento.Text = "Notificación de Averia Elemento";
             this.Btn_NotificaAveriaElemento.UseVisualStyleBackColor = true;
-            this.Btn_NotificaAveriaElemento.Visible = false;
             this.Btn_NotificaAveriaElemento.Click += new System.EventHandler(this.Btn_NotificaAveriaElemento_Click);
             // 
             // lbl_MsgBloqueo
@@ -456,7 +467,7 @@
             // 
             // Btn_MtoMaq
             // 
-            this.Btn_MtoMaq.Location = new System.Drawing.Point(730, 14);
+            this.Btn_MtoMaq.Location = new System.Drawing.Point(900, 14);
             this.Btn_MtoMaq.Name = "Btn_MtoMaq";
             this.Btn_MtoMaq.Size = new System.Drawing.Size(57, 23);
             this.Btn_MtoMaq.TabIndex = 53;
@@ -479,7 +490,7 @@
             this.Lbl_NroEtiq.AutoSize = true;
             this.Lbl_NroEtiq.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroEtiq.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroEtiq.Location = new System.Drawing.Point(699, 24);
+            this.Lbl_NroEtiq.Location = new System.Drawing.Point(674, 24);
             this.Lbl_NroEtiq.Name = "Lbl_NroEtiq";
             this.Lbl_NroEtiq.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroEtiq.TabIndex = 51;
@@ -488,7 +499,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(623, 24);
+            this.label15.Location = new System.Drawing.Point(598, 24);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 13);
             this.label15.TabIndex = 50;
@@ -499,7 +510,7 @@
             this.Lbl_NroPiezas.AutoSize = true;
             this.Lbl_NroPiezas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroPiezas.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroPiezas.Location = new System.Drawing.Point(585, 24);
+            this.Lbl_NroPiezas.Location = new System.Drawing.Point(570, 24);
             this.Lbl_NroPiezas.Name = "Lbl_NroPiezas";
             this.Lbl_NroPiezas.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroPiezas.TabIndex = 49;
@@ -508,7 +519,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(527, 24);
+            this.label12.Location = new System.Drawing.Point(502, 24);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 13);
             this.label12.TabIndex = 48;
@@ -519,7 +530,7 @@
             this.Lbl_KgsProd.AutoSize = true;
             this.Lbl_KgsProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_KgsProd.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_KgsProd.Location = new System.Drawing.Point(461, 24);
+            this.Lbl_KgsProd.Location = new System.Drawing.Point(451, 24);
             this.Lbl_KgsProd.Name = "Lbl_KgsProd";
             this.Lbl_KgsProd.Size = new System.Drawing.Size(13, 13);
             this.Lbl_KgsProd.TabIndex = 47;
@@ -528,7 +539,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(372, 24);
+            this.label8.Location = new System.Drawing.Point(362, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 13);
             this.label8.TabIndex = 46;
@@ -772,7 +783,7 @@
             this.tlbExportar.Image = global::Metalurgica.Properties.Resources.table_excel;
             this.tlbExportar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tlbExportar.Name = "tlbExportar";
-            this.tlbExportar.Size = new System.Drawing.Size(70, 22);
+            this.tlbExportar.Size = new System.Drawing.Size(71, 22);
             this.tlbExportar.Text = "Exportar";
             this.tlbExportar.Click += new System.EventHandler(this.tlbExportar_Click);
             // 
@@ -813,6 +824,7 @@
             this.TlbVer.Name = "TlbVer";
             this.TlbVer.Size = new System.Drawing.Size(43, 22);
             this.TlbVer.Text = "Ver";
+            this.TlbVer.Visible = false;
             this.TlbVer.Click += new System.EventHandler(this.TlbVer_Click);
             // 
             // tlbSalir
@@ -967,5 +979,6 @@
         private System.Windows.Forms.Label Lbl_Usuario;
         private System.Windows.Forms.Button Btn_CheckList;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button Btn_cierreEtiquetaAza;
     }
 }

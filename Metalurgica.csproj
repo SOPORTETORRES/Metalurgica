@@ -522,6 +522,12 @@
     <Compile Include="Produccion\CargaEstadisticasMaq.Designer.cs">
       <DependentUpon>CargaEstadisticasMaq.cs</DependentUpon>
     </Compile>
+    <Compile Include="Produccion\Frm_Supervisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Produccion\Frm_Supervisor.Designer.cs">
+      <DependentUpon>Frm_Supervisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Produccion\Frm_VinculaQR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -822,6 +828,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Produccion\CargaEstadisticasMaq.resx">
       <DependentUpon>CargaEstadisticasMaq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Produccion\Frm_Supervisor.resx">
+      <DependentUpon>Frm_Supervisor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Produccion\Frm_VinculaQR.resx">
       <DependentUpon>Frm_VinculaQR.cs</DependentUpon>

@@ -280,7 +280,7 @@
             this.Tx_etiquetaQR.Location = new System.Drawing.Point(109, 69);
             this.Tx_etiquetaQR.Name = "Tx_etiquetaQR";
             this.Tx_etiquetaQR.Size = new System.Drawing.Size(472, 20);
-            this.Tx_etiquetaQR.TabIndex = 74;
+            this.Tx_etiquetaQR.TabIndex = 0;
             this.Tx_etiquetaQR.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_etiquetaQR_Validating);
             // 
             // lblColada
@@ -294,7 +294,8 @@
             // 
             // Lbl_Msg
             // 
-            this.Lbl_Msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl_Msg.ForeColor = System.Drawing.Color.Red;
             this.Lbl_Msg.Location = new System.Drawing.Point(601, 69);
             this.Lbl_Msg.Name = "Lbl_Msg";
             this.Lbl_Msg.Size = new System.Drawing.Size(228, 63);
@@ -310,6 +311,7 @@
             this.Btn_Aceptar.TabIndex = 77;
             this.Btn_Aceptar.Text = "Grabar";
             this.Btn_Aceptar.UseVisualStyleBackColor = true;
+            this.Btn_Aceptar.Visible = false;
             this.Btn_Aceptar.Click += new System.EventHandler(this.Btn_Aceptar_Click);
             // 
             // Frm_VinculaQR

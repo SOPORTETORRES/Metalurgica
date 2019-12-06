@@ -43,6 +43,12 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.Pnl_SeleccionAveria = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbl_Averia = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Lbl_IdNotificacion = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Btn_Reparacion = new System.Windows.Forms.Button();
             this.Btn_SalirSelNot = new System.Windows.Forms.Button();
             this.Lbl_Titulo = new System.Windows.Forms.Label();
             this.Lbl_Perfil = new System.Windows.Forms.Label();
@@ -50,12 +56,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Dtg_Averias = new System.Windows.Forms.DataGridView();
-            this.Btn_Reparacion = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.Lbl_IdNotificacion = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lbl_Averia = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dgt_elementos)).BeginInit();
             this.Pnl_Login.SuspendLayout();
             this.Pnl_SeleccionAveria.SuspendLayout();
@@ -233,16 +233,80 @@
             this.Pnl_SeleccionAveria.Controls.Add(this.label5);
             this.Pnl_SeleccionAveria.Controls.Add(this.label4);
             this.Pnl_SeleccionAveria.Controls.Add(this.Dtg_Averias);
-            this.Pnl_SeleccionAveria.Location = new System.Drawing.Point(12, 8);
+            this.Pnl_SeleccionAveria.Location = new System.Drawing.Point(9, 12);
             this.Pnl_SeleccionAveria.Name = "Pnl_SeleccionAveria";
-            this.Pnl_SeleccionAveria.Size = new System.Drawing.Size(691, 162);
+            this.Pnl_SeleccionAveria.Size = new System.Drawing.Size(675, 162);
             this.Pnl_SeleccionAveria.TabIndex = 8;
             this.Pnl_SeleccionAveria.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label8.Location = new System.Drawing.Point(15, 83);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(652, 18);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Detalle de Notificación  Selecionada";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_Averia
+            // 
+            this.lbl_Averia.AutoSize = true;
+            this.lbl_Averia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbl_Averia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lbl_Averia.Location = new System.Drawing.Point(112, 105);
+            this.lbl_Averia.Name = "lbl_Averia";
+            this.lbl_Averia.Size = new System.Drawing.Size(37, 15);
+            this.lbl_Averia.TabIndex = 19;
+            this.lbl_Averia.Text = "label6";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(74, 105);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Averia:";
+            // 
+            // Lbl_IdNotificacion
+            // 
+            this.Lbl_IdNotificacion.AutoSize = true;
+            this.Lbl_IdNotificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Lbl_IdNotificacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Lbl_IdNotificacion.Location = new System.Drawing.Point(33, 105);
+            this.Lbl_IdNotificacion.Name = "Lbl_IdNotificacion";
+            this.Lbl_IdNotificacion.Size = new System.Drawing.Size(37, 15);
+            this.Lbl_IdNotificacion.TabIndex = 17;
+            this.Lbl_IdNotificacion.Text = "label6";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 105);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(19, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Id:";
+            // 
+            // Btn_Reparacion
+            // 
+            this.Btn_Reparacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Reparacion.Location = new System.Drawing.Point(494, 38);
+            this.Btn_Reparacion.Name = "Btn_Reparacion";
+            this.Btn_Reparacion.Size = new System.Drawing.Size(75, 39);
+            this.Btn_Reparacion.TabIndex = 15;
+            this.Btn_Reparacion.Text = "Reparar";
+            this.Btn_Reparacion.UseVisualStyleBackColor = true;
+            this.Btn_Reparacion.Click += new System.EventHandler(this.Btn_Reparacion_Click);
             // 
             // Btn_SalirSelNot
             // 
             this.Btn_SalirSelNot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_SalirSelNot.Location = new System.Drawing.Point(591, 37);
+            this.Btn_SalirSelNot.Location = new System.Drawing.Point(575, 37);
             this.Btn_SalirSelNot.Name = "Btn_SalirSelNot";
             this.Btn_SalirSelNot.Size = new System.Drawing.Size(75, 40);
             this.Btn_SalirSelNot.TabIndex = 14;
@@ -308,73 +372,9 @@
             this.Dtg_Averias.Location = new System.Drawing.Point(10, 123);
             this.Dtg_Averias.Name = "Dtg_Averias";
             this.Dtg_Averias.ReadOnly = true;
-            this.Dtg_Averias.Size = new System.Drawing.Size(656, 32);
+            this.Dtg_Averias.Size = new System.Drawing.Size(640, 32);
             this.Dtg_Averias.TabIndex = 8;
             this.Dtg_Averias.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Averias_CellContentDoubleClick);
-            // 
-            // Btn_Reparacion
-            // 
-            this.Btn_Reparacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Reparacion.Location = new System.Drawing.Point(510, 38);
-            this.Btn_Reparacion.Name = "Btn_Reparacion";
-            this.Btn_Reparacion.Size = new System.Drawing.Size(75, 39);
-            this.Btn_Reparacion.TabIndex = 15;
-            this.Btn_Reparacion.Text = "Reparar";
-            this.Btn_Reparacion.UseVisualStyleBackColor = true;
-            this.Btn_Reparacion.Click += new System.EventHandler(this.Btn_Reparacion_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 105);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Id:";
-            // 
-            // Lbl_IdNotificacion
-            // 
-            this.Lbl_IdNotificacion.AutoSize = true;
-            this.Lbl_IdNotificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Lbl_IdNotificacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Lbl_IdNotificacion.Location = new System.Drawing.Point(33, 105);
-            this.Lbl_IdNotificacion.Name = "Lbl_IdNotificacion";
-            this.Lbl_IdNotificacion.Size = new System.Drawing.Size(37, 15);
-            this.Lbl_IdNotificacion.TabIndex = 17;
-            this.Lbl_IdNotificacion.Text = "label6";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(74, 105);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 13);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "Averia:";
-            // 
-            // lbl_Averia
-            // 
-            this.lbl_Averia.AutoSize = true;
-            this.lbl_Averia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbl_Averia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbl_Averia.Location = new System.Drawing.Point(112, 105);
-            this.lbl_Averia.Name = "lbl_Averia";
-            this.lbl_Averia.Size = new System.Drawing.Size(37, 15);
-            this.lbl_Averia.TabIndex = 19;
-            this.lbl_Averia.Text = "label6";
-            // 
-            // label8
-            // 
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label8.Location = new System.Drawing.Point(15, 83);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(652, 18);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "Detalle de Notificación  Selecionada";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Frm_ElementosProduccion
             // 

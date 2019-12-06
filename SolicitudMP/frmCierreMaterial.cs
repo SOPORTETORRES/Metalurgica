@@ -25,9 +25,13 @@ namespace Metalurgica
         private const string COLUMNNAME_CANTIDAD = "CANTIDAD_SOL";
         private const string COLUMNNAME_KILOS = "CANTIDAD_PROD";
         private const string COLUMNNAME_CANTIDAD_RECEP = "KILOS_PROD";
+        private string  mIdSucursal ="";
+        private DataTable mTblOriginal = new DataTable();
+        private DataTable mTblDetalle = new DataTable();
 
         private Forms forms = new Forms();
         private CurrentUser mUserLog = new CurrentUser();
+        private string mTipoColada = "";
 
 
         public frmCierreMaterial()
@@ -57,31 +61,183 @@ namespace Metalurgica
         }
 
 
-   
 
-
-
-        private void tlbGuardar_Click(object sender, EventArgs e)
+        private string  IntegracionInet(   DataGridViewRow iFila )
         {
-            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();int i = 0;string lIds_SMP = "";
-            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
+            string lRes = ""; DataTable lTblINET = new DataTable();  DataRow iROw = null;
+            string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lFechaMov = "";
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0;  
+            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); string inet_msg = "", email_msg = "";
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
-            int lIdDetalleSM = 0; string lSql = "";
+            string lGlosa1 = ""; string lGlosa2 = "";
+
+            // 1.- Se Integra con INET
+            DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
+            DataView lVista = null;
+
+     
+            lFechaMov = DateTime.Now.ToString();
+            lDts.Tables.Add(lTblINET.Copy());
+            lFechaMov = lFechaMov.Replace("/", "-");
+
+            //Debemos saber que  sucursal esta haciendo la invocaión
+            int lIdSucursal = lCom.OBtenerIdSucursal();
+            string lIdDetalle = "0"; DataSet lDtsTmp = new DataSet();
+
+            //Por cada Fila son 2 Integraciones 1.- Producido 2.- Despuente si lo hay.
+            //Primero lo Produccido 
+            if (lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString().ToString()) > 0)
+            {
+                //Obtenemos el Objeto con los datos
+                lTblFinal = ObtenerTablaINET();
+                iROw = lTblINET.NewRow();
+                iROw["Codigo"] = iFila.Cells["Codigo"].Value.ToString();
+                iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString());
+                iROw["FechaMov"] = lFechaMov;
+                lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
+                iROw["Glosa1"] = lGlosa1;
+                   lGlosa2 = "Producido";
+                iROw["Glosa2"] = lGlosa2;
+                //iROw["Procesado"] = "N";
+             
+                lTblINET.Rows.Add(iFila);
+
+
+                if (lIdSucursal == 1)   //Calama
+                    lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
+                    lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs ) ");
+                lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'P',", lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString()), ")  select @@Identity  ");
+                lDtsTmp = lPX.ObtenerDatos(lSql);
+                if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                    lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
+
+                string lEstado = "";
+                //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+
+                inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                if (inet_msg.Trim().ToUpper().Equals("OK"))
+                {
+                    lEstado = "OK";
+                }
+                else
+                    lEstado = "ER";
+
+                //Ahora Persistimo el detalle 
+                lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                for (i = 0; i < lVista.Count; i++)
+                {
+                    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion)  ");
+                    lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
+                    lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "')  ");
+                    lDtsTmp = lPX.ObtenerDatos(lSql);
+                }
+
+
+                //*********************************************************
+                //Ahora el Despunte 
+                if (lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()) > 0)
+                {
+
+                    lTblFinal = ObtenerTablaINET();
+                    iROw = lTblINET.NewRow();
+                    iROw["Codigo"] = iFila.Cells["Codigo"].Value.ToString();
+                    iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString());
+                    iROw["FechaMov"] = lFechaMov;
+                    lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
+                    iROw["Glosa1"] = lGlosa1;
+                    lGlosa2 = "Despunte";
+                    iROw["Glosa2"] = lGlosa2;
+                    //iROw["Procesado"] = "N";
+
+                    lTblINET.Rows.Add(iFila);
+
+
+                    //Obtenemos el Objeto con los datos
+                    if (lIdSucursal == 1)   //Calama
+                        lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                    if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
+                        lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+
+                    lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs ) ");
+                    lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ")  select @@Identity  ");
+                    lDtsTmp = lPX.ObtenerDatos(lSql);
+                    if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                        lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
+
             
-            int counter = 0;
-            string inet_msg = "", email_msg = "", newLine = Environment.NewLine, tab = "\t";
+                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                    lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
-            string lCodigo="";string lCantidad="";string lFechaMov =""; string lGlosa1=""; string lGlosa2="";
+                    inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                    if (inet_msg.Trim().ToUpper().Equals("OK"))
+                    {
+                        lEstado = "OK";
+                    }
+                    else
+                        lEstado = "ER";
 
-            DataTable lTblINET = new DataTable(); DataRow iFila = null;
-            lTblINET .Columns .Add("Codigo",Type.GetType (("System.String")));
+                    //Ahora Persistimo el detalle 
+                    lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                    for (i = 0; i < lVista.Count; i++)
+                    {
+                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion)  ");
+                        lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
+                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "')  ");
+                        lDtsTmp = lPX.ObtenerDatos(lSql);
+                    }
+
+
+
+                }
+
+            }
+
+            return lRes;
+        }
+
+
+        private DataTable ObtenerTablaINET()
+        {
+            DataTable lTblINET = new DataTable(); 
+            lTblINET.Columns.Add("Codigo", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Cantidad", Type.GetType(("System.String")));
             lTblINET.Columns.Add("FechaMov", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Glosa1", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Glosa2", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Procesado", Type.GetType(("System.String")));
-            //lTblINET.Columns.Add("IdDetalle", Type.GetType(("System.String")));
-            //lTblINET.Columns.Add("NroMov", Type.GetType(("System.String")));
+
+            return lTblINET;
+
+        }
+
+        private void Guardar_Version_Re_Etiquetado()
+        {
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0; string lIds_SMP = "";
+            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
+            Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
+            int lIdDetalleSM = 0;
+
+            int counter = 0;
+            string inet_msg = "", email_msg = "", newLine = Environment.NewLine, tab = "\t";
+
+            string lCodigo = ""; string lCantidad = ""; string lFechaMov = ""; string lGlosa1 = ""; string lGlosa2 = "";
+
+            DataTable lTblINET = new DataTable(); DataRow iFila = null;
+            lTblINET.Columns.Add("Codigo", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Cantidad", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("FechaMov", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Glosa1", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Glosa2", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Procesado", Type.GetType(("System.String")));
 
 
 
@@ -94,16 +250,15 @@ namespace Metalurgica
                 {
                     WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                     WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle = new WsOperacion.Solicitud_Material_Detalle();
-                    int  lKgsProd =0; Clases.ClsComun lCom = new Clases.ClsComun();
+                    int lKgsProd = 0; Clases.ClsComun lCom = new Clases.ClsComun();
                     counter = 0;
                     foreach (DataGridViewRow row in dgvProductos.Rows)
                     {
                         if (row.Cells[COLUMNNAME_MARCA].Value != null)
                         {
-                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true) ) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
+                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
                                 lKgsProd = lCom.Val(row.Cells["KILOS_PROD"].Value.ToString());
-                                inet_msg = "";
                                 // if (((int)row.Cells["KILOS_PROD"].Value> 0) )
                                 if ((lKgsProd > 0))
                                 {
@@ -131,7 +286,6 @@ namespace Metalurgica
                                         iFila["Glosa1"] = lGlosa1;
                                         iFila["Glosa2"] = lGlosa2;
                                         iFila["Procesado"] = "N";
-                                        //iFila["IdDetalle"] = row.Cells["DET_ID"].Value.ToString();
                                         lTblINET.Rows.Add(iFila);
 
 
@@ -150,12 +304,6 @@ namespace Metalurgica
                                         if (lIdSucursal == 4)   // Santiago
                                             lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-                                        //Persistimos el Nro de Movimiento de INET en el detalle de la solicitud
-                                        lSql = string.Concat(" update SOLICITUD_MATERIAL_DETALLE  set DET_MOVNUMDOC=");
-                                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), " Where ");
-                                        lSql = string.Concat(lSql,  " Det_id=", row.Cells["DET_ID"].Value.ToString());
-                                        lPX.ObtenerDatos(lSql);
-
                                         //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                                         lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
@@ -169,9 +317,9 @@ namespace Metalurgica
                                                 email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
                                             }
                                             email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
-                                        }                   
+                                        }
                                     }
-                                   
+
                                     // 2.-  Se Registra el cierre del Producto
                                     solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
                                     solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
@@ -188,7 +336,7 @@ namespace Metalurgica
                                     }
                                     else
                                         MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    
+
                                 }
                                 else
                                 {
@@ -200,10 +348,10 @@ namespace Metalurgica
                     }
                     for (i = 0; i < lLista.Count; i++)
                     {
-                        lIds_SMP = string.Concat(lLista[i], ",", lIds_SMP  );
+                        lIds_SMP = string.Concat(lLista[i], ",", lIds_SMP);
                     }
                     lCom.EnvioCorreo(lIds_SMP, Program.currentUser.Login, "Linea de Corte");
-           
+
 
                     tlbActualizar.PerformClick();
                     MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -217,6 +365,166 @@ namespace Metalurgica
             else
                 MessageBox.Show("No existen registros seleccionados.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+
+
+
+        }
+
+        private void Guardar_Version_QR()
+        {
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0; string lIds_SMP = "";
+            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
+            Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
+            int lIdDetalleSM = 0;
+
+            int counter = 0;
+            string inet_msg = "", email_msg = "", newLine = Environment.NewLine, tab = "\t";
+
+            string lCodigo = ""; string lCantidad = ""; string lFechaMov = ""; string lGlosa1 = ""; string lGlosa2 = "";
+
+            DataTable lTblINET = new DataTable(); DataRow iFila = null;
+            lTblINET.Columns.Add("Codigo", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Cantidad", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("FechaMov", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Glosa1", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Glosa2", Type.GetType(("System.String")));
+            lTblINET.Columns.Add("Procesado", Type.GetType(("System.String")));
+
+            dtpFechaRecepcion.Focus();
+            counter = forms.dataGridViewCountRowsChecked(dgvProductos, COLUMNNAME_MARCA);
+            if (counter > 0)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                    WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle = new WsOperacion.Solicitud_Material_Detalle();
+                    int lKgsProd = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+                    counter = 0;
+                    foreach (DataGridViewRow row in dgvProductos.Rows)
+                    {
+                        if (row.Cells[COLUMNNAME_MARCA].Value != null)
+                        {
+                            if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
+                            {
+                                lKgsProd = lCom.Val(row.Cells["KILOS_PROD"].Value.ToString());
+                                // if (((int)row.Cells["KILOS_PROD"].Value> 0) )
+                                if ((lKgsProd > 0))
+                                {
+                                    lTblINET.Clear();
+                                    if (lCom.Agregar_IdSolicitud(lLista, row.Cells["SOL_ID"].Value.ToString()))
+                                    {
+                                        lLista.Add(row.Cells["SOL_ID"].Value.ToString());
+                                    }
+                                    inet_msg = "";
+                                    if ((!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
+                                    {
+                                        lCodigo = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
+                                        //lCantidad=row.Cells[COLUMNNAME_CANTIDAD].Value.ToString ();
+                                        lCantidad = row.Cells["KILOS_RECEP"].Value.ToString();
+                                        lFechaMov = DateTime.Now.ToString();
+                                        lGlosa1 = Program.currentUser.Login;
+                                        //lGlosa1 = "Adm (Cierre Administrativo)";
+                                        //lGlosa2 = "22/10/2018 "; // ObtenerTurno();
+                                        lGlosa2 = lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString());// ObtenerTurno();
+
+                                        iFila = lTblINET.NewRow();
+                                        iFila["Codigo"] = lCodigo;
+                                        iFila["Cantidad"] = lCantidad;
+                                        iFila["FechaMov"] = lFechaMov;
+                                        iFila["Glosa1"] = lGlosa1;
+                                        iFila["Glosa2"] = lGlosa2;
+                                        iFila["Procesado"] = "N";
+                                        lTblINET.Rows.Add(iFila);
+
+
+                                        // 1.- Se Integra con INET
+                                        DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
+                                        //lTblFinal = ObtenerDatosIntegracionINET(lTblINET);
+                                        lDts.Tables.Add(lTblINET.Copy());
+                                        lFechaMov = lFechaMov.Replace("/", "-");
+
+                                        //Debemos saber que  sucursal esta haciendo la invocaión
+                                        int lIdSucursal = lCom.OBtenerIdSucursal();
+
+                                        if (lIdSucursal == 1)   //Calama
+                                            lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                        if (lIdSucursal == 4)   // Santiago
+                                            lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                                        //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                                        lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+
+                                        inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                                        if (inet_msg.Trim().ToUpper().Equals("OK"))
+                                        {
+                                            counter++;
+                                            if (email_msg.Equals(""))
+                                            {
+                                                email_msg += "Producto(s):" + newLine + newLine;
+                                                email_msg += "Cod.Producto" + tab + "Descripción" + tab + "Cantidad" + newLine;
+                                            }
+                                            email_msg += row.Cells[COLUMNNAME_PRODUCTO].Value.ToString() + tab + row.Cells[COLUMNNAME_PRODUCTO_DESCRIPCION].Value.ToString() + tab + row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString() + newLine;
+                                        }
+                                    }
+
+                                    // 2.-  Se Registra el cierre del Producto
+                                    solicitud_Material_Detalle.Id = Convert.ToInt32(row.Cells[COLUMNNAME_ID].Value.ToString());
+                                    solicitud_Material_Detalle.Producto = row.Cells[COLUMNNAME_PRODUCTO].Value.ToString();
+                                    solicitud_Material_Detalle.Usuario_Cierre = Program.currentUser.Login;
+                                    //solicitud_Material_Detalle.Fecha_Cierre = "";
+                                    solicitud_Material_Detalle.Tipo = row.Cells[COLUMNNAME_TIPO].Value.ToString().Substring(0, 1);
+                                    solicitud_Material_Detalle.Cantidad = Convert.ToInt32(row.Cells[COLUMNNAME_CANTIDAD_RECEP].Value.ToString());
+                                    solicitud_Material_Detalle.Inet_Msg = inet_msg;
+
+                                    solicitud_Material_Detalle = wsOperacion.GuardarCierreMaterial(solicitud_Material_Detalle, inet_msg, Program.currentUser.Login, Program.currentUser.ComputerName, Program.currentUser.IdTotem);
+                                    if (solicitud_Material_Detalle.MensajeError.Equals(""))
+                                    {
+                                        row.Cells[0].Value = false;
+                                    }
+                                    else
+                                        MessageBox.Show(solicitud_Material_Detalle.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                }
+                                else
+                                {
+                                    lIdDetalleSM = new Clases.ClsComun().Val(row.Cells["DET_ID"].Value.ToString());
+                                    wsOperacion.AnularDetalleSolicitudMateriaPrima(lIdDetalleSM);
+                                }
+                            }
+                        }
+                    }
+                    for (i = 0; i < lLista.Count; i++)
+                    {
+                        lIds_SMP = string.Concat(lLista[i], ",", lIds_SMP);
+                    }
+                    lCom.EnvioCorreo(lIds_SMP, Program.currentUser.Login, "Linea de Corte");
+
+
+                    tlbActualizar.PerformClick();
+                    MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Cursor.Current = Cursors.Default;
+            }
+            else
+                MessageBox.Show("No existen registros seleccionados.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+
+        private void tlbGuardar_Click(object sender, EventArgs e)
+        {
+            if (mTipoColada.ToUpper().ToString().Equals("QR"))
+            {
+                Guardar_Version_QR();
+            }
+
+            else { Guardar_Version_Re_Etiquetado(); }
         }
 
         private DataTable ObtenerDatosIntegracionINET(DataTable iTblOrigen)
@@ -700,10 +1008,67 @@ namespace Metalurgica
             return lResultado;
         }
 
-       
-    
 
-       
+
+
+        private DataTable ObtenerTablaFinal(DataTable iOrigen)
+        {
+            DataTable lTblFinal = new DataTable();DataRow lFila = null;Clases.ClsComun lCom = new Clases.ClsComun();
+            string lProd = "";int i = 0; DataView lVista = null;string lWhere = "";
+
+
+            lTblFinal.Columns.Add("CodMaterial", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("KgsProducidos", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("KgsDespunte", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("Producto", Type.GetType("System.String"));
+
+            if (iOrigen.Rows.Count > 0)
+            {
+                for (i = 0; i < iOrigen.Rows.Count; i++)
+                {
+                    lWhere = string.Concat("CodMaterial='", iOrigen.Rows[i]["CodMaterial"].ToString(),"'") ;
+                    lVista = new DataView(lTblFinal, lWhere, "", DataViewRowState.CurrentRows);
+                    if (lVista.Count == 0)
+                    {
+                        lFila = lTblFinal.NewRow();
+                        lFila["CodMaterial"] = iOrigen.Rows[i]["CodMaterial"].ToString();
+                        lFila["Producto"] = iOrigen.Rows[i]["Producto"].ToString();
+                        if (iOrigen.Rows[i]["Tipo"].ToString().ToUpper().Equals("D"))
+                            lFila["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        else
+                            lFila["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+
+
+                        lTblFinal.Rows.Add(lFila);
+                    }
+                    else
+                        if(lVista.Count == 1)
+                    {
+                        //lFila = lTblFinal.NewRow();
+                        //lFila["CodMaterial"] = iOrigen.Rows[i]["CodMaterial"].ToString();
+                        //lFila["Producto"] = iOrigen.Rows[i]["Producto"].ToString();
+                        if (lCom.Val(lVista[0]["KgsProducidos"].ToString()) < 1)
+                        {
+                            lVista[0]["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        }
+                        else
+                        if (lCom.Val(lVista[0]["KgsDespunte"].ToString()) > 0)
+                        {
+                            lVista[0]["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        }
+
+
+
+                    }
+                }
+
+             
+
+            }
+
+
+            return lTblFinal;
+        }
 
        
        
@@ -716,10 +1081,8 @@ namespace Metalurgica
             }
         }
 
-        private void tlbActualizar_Click(object sender, EventArgs e)
+        private void Cierre_Version_Re_Etiquetado()
         {
-            DataView lVista = null;
-            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 //tlbNuevo_Click(sender, e);
@@ -727,15 +1090,20 @@ namespace Metalurgica
                 WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
 
                 //******Temporal por regularizacion de datos
-                //DateTime  lFecha = DateTime.Parse ( string.Concat(dtpFechaRecepcion.Value.ToShortDateString(), " 05:00:00"));
-                //listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(lFecha , Program.currentUser.IdTotem, cboCriterio.Text.Substring(0, 1));
+                DateTime lFecha = DateTime.Parse(string.Concat(dtpFechaRecepcion.Value.ToShortDateString(), " 05:00:00"));
+                listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(lFecha, Program.currentUser.IdTotem, cboCriterio.Text.Substring(0, 1));
                 //******Temporal por regularizacion de datos  fin 
-                 listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(dtpFechaRecepcion.Value, Program.currentUser.IdTotem, cboCriterio.Text.Substring(0,1));
+                //listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre(dtpFechaRecepcion.Value,int .Parse ( mIdSucursal), cboCriterio.Text.Substring(0,1));
                 if (listaDataSet.MensajeError.Equals(""))
                 {
-                   //lVista = new DataView(listaDataSet.DataSet.Tables[0], "Es_Recuperado='N'", "", DataViewRowState.CurrentRows);
+                    //lVista = new DataView(listaDataSet.DataSet.Tables[0], "Es_Recuperado='N'", "", DataViewRowState.CurrentRows);
 
-                    dgvProductos.DataSource =   listaDataSet.DataSet.Tables[0];
+                    //  dgvProductos.DataSource = ObtenerTablaFinal(  listaDataSet.DataSet.Tables[0].Copy ());
+
+                    dgvProductos.DataSource = listaDataSet.DataSet.Tables[0].Copy();
+
+                    //mTblOriginal = listaDataSet.DataSet.Tables[0].Copy ();
+                    //mTblDetalle = listaDataSet.DataSet.Tables[1];
 
                     if (!forms.dataGridViewExistsColumn(dgvProductos, COLUMNNAME_MARCA))
                     {
@@ -758,6 +1126,55 @@ namespace Metalurgica
             {
                 MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Cierre_Version_QR()
+        {
+            try
+            {
+                WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+                listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre_QR(dtpFechaRecepcion.Value, int.Parse(mIdSucursal), cboCriterio.Text.Substring(0, 1));
+                if (listaDataSet.MensajeError.Equals(""))
+                {
+                   dgvProductos.DataSource = ObtenerTablaFinal(  listaDataSet.DataSet.Tables[0].Copy ());
+                    mTblOriginal = listaDataSet.DataSet.Tables[0].Copy();
+                    mTblDetalle = listaDataSet.DataSet.Tables[1];
+
+                    if (!forms.dataGridViewExistsColumn(dgvProductos, COLUMNNAME_MARCA))
+                    {
+                        DataGridViewCheckBoxColumn check = new DataGridViewCheckBoxColumn();
+                        check.Name = COLUMNNAME_MARCA;
+                        dgvProductos.Columns.Insert(0, check);
+                    }
+                    BloquearColumnas(dgvProductos);
+                    //tlbNuevo.PerformClick();
+                    //tlbNuevo_Click(sender, e);
+                    //ID, USUARIO, FECHA, TOTEM, COMPLETA, SOL_ID, PRODUCTO, DIAMETRO, LARGO, ORIGEN, TIPO CANTIDAD, USUARIO_RECEP, FECHA_RECEP, CANTIDAD_RECEP, OBS_RECEP, USUARIO_CIERRE, FECHA_CIERRE, INET_MSG, INET_FECHA
+                    forms.dataGridViewHideColumns(dgvProductos, new string[] { "ID", "USUARIO", "FECHA", "TOTEM", "COMPLETA", "CANTIDAD", "USUARIO_RECEP", "OBS_RECEP", "FECHA_RECEP", "USUARIO_CIERRE", "FECHA_CIERRE" });
+                    forms.dataGridViewAutoSizeColumnsMode(dgvProductos, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                    tlsEstado.Text = "Registro(s): " + dgvProductos.Rows.Count;
+                }
+                else
+                    MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tlbActualizar_Click(object sender, EventArgs e)
+        {
+            DataView lVista = null;
+            Cursor.Current = Cursors.WaitCursor;
+            if (mTipoColada.ToUpper().ToString().Equals("QR"))
+            {
+                Cierre_Version_QR();
+            }
+
+            else { Cierre_Version_Re_Etiquetado(); }
+
             Cursor.Current = Cursors.Default;      
         }
 
@@ -785,6 +1202,8 @@ namespace Metalurgica
 
         private void frmCierreMaterial_Load(object sender, EventArgs e)
         {
+
+            mIdSucursal=ConfigurationManager.AppSettings["IdSucursal"].ToString();
             bool enabledAdmin = Program.currentUser.PerfilUsuario.Equals("ADMIN");
 
             if (Program.currentUser.PerfilUsuario.ToString().IndexOf("Adm") > -1)
@@ -796,6 +1215,8 @@ namespace Metalurgica
             tlbGuardar.Enabled = !enabledAdmin;
             tlbReprocesar.Enabled = enabledAdmin;
             cboCriterio.SelectedIndex = 0;
+
+            mTipoColada = ConfigurationManager.AppSettings["TipoColada"].ToString();
 
             lblAccion.Visible = enabledAdmin;
             cboAccion.Visible = enabledAdmin;

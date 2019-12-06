@@ -66,6 +66,7 @@ namespace Metalurgica.Produccion
 
             Grabar(Tx_Id.Text, iQR, iKgsVinc);
             CargaGrilla(Tx_Id.Text);
+            Tx_etiquetaQR.Focus();
                  
         }
 
@@ -133,6 +134,16 @@ namespace Metalurgica.Produccion
                         if (lSaldoColada < 1)
                         {
                             MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            lSaldoColada = 0;
+                            Lbl_SaldoKilosColada.Text = "";
+                            Lbl_KgsProd.Text = "";
+                            lblColada.Text = "";
+                            lblDiametro.Text = "";
+                            lblLargo.Text = "";
+                            lblKilos.Text = "";
+                            Tx_etiquetaQR.Tag =0;
+                            Tx_etiquetaQR.Text = "";
+                            Tx_etiquetaQR.Focus();
                         }
                     }
                 }

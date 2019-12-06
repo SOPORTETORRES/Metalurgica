@@ -637,5 +637,10 @@ namespace Metalurgica.RecepcionMP
         {
             Tx_OC.Focus();
         }
+
+        private void Tx_OC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
