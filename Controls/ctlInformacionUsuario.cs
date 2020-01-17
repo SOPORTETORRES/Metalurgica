@@ -7,10 +7,19 @@ namespace Metalurgica
     {
         private CurrentUser mUserlog = new CurrentUser();
         private  int mContador= 0;
+        private string mTipoMP_Maq = "";
+        private string mProceso = "";
 
         public ctlInformacionUsuario()
         {
             InitializeComponent();
+        }
+
+        public  void InicializaCtl(string iTipoMP, string iProceso)
+        {
+            mTipoMP_Maq = iTipoMP;
+            mProceso = iProceso;
+
         }
 
         private void ctlInformacionUsuario_Load(object sender, EventArgs e)
@@ -24,8 +33,29 @@ namespace Metalurgica
             lblComputador.Text = lUser.ComputerName;
             lblFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
-            LblMaq.Text = lUser.DescripcionMaq;
+            //LblMaq.Text = lUser.DescripcionMaq;
             LblIdTotem.Text = lUser.IdTotem.ToString ();
+
+            // agregaremos en la parte del nombre de la maquina trabaja con (B-R) Proceso que realiza (C D)
+            string ltmp = ""; string ltmp2 = "";
+
+            if (mProceso == "C")
+                ltmp = " Corte";
+
+            if (mProceso == "D")
+                ltmp = " Doblado";
+
+            if (mProceso == "CYD")
+                ltmp = " Corte y Doblado";
+
+            if (mTipoMP_Maq == "B")
+                ltmp2 = "Barras";
+
+            if (mTipoMP_Maq == "R")
+                ltmp2 = "Rollos";
+
+
+            LblMaq.Text = string.Concat(LblMaq.Text, " Trabaja con :", ltmp2, " -  Proceso: ", ltmp);
 
         }
 

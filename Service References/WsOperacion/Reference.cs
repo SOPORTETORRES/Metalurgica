@@ -282,7 +282,7 @@ namespace Metalurgica.WsOperacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarSolicitudMaterial_Cierre_QR", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_Cierre_QR(System.DateTime fecha, int totem, string errorWS);
+        Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_Cierre_QR(System.DateTime fecha, int IdSucursalTO, string errorWS, string IdMaqProduce);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarSolicitudMaterial_CierreAut", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -4134,8 +4134,8 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ListarSolicitudMaterial_Cierre(fecha, totem, errorWS);
         }
         
-        public Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_Cierre_QR(System.DateTime fecha, int totem, string errorWS) {
-            return base.Channel.ListarSolicitudMaterial_Cierre_QR(fecha, totem, errorWS);
+        public Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_Cierre_QR(System.DateTime fecha, int IdSucursalTO, string errorWS, string IdMaqProduce) {
+            return base.Channel.ListarSolicitudMaterial_Cierre_QR(fecha, IdSucursalTO, errorWS, IdMaqProduce);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ListarSolicitudMaterial_CierreAut(int totem) {

@@ -987,27 +987,17 @@ namespace Metalurgica.Maquinas
                             break;
                         case "4":
                             idListadistribucion = -10;
-                            lTitulo = "Notificación de Averias Planta Calama ";
+                            lTitulo = "Notificación de Averias Planta Santiago  ";
                             break;
                         case "7":
                             idListadistribucion = -12;
                             lTitulo = "Notificación de Averias Planta TOSOL ";
                             break;
-                    }
-
-                    //if (mIdSucursal.Equals("1")) // es Calama
-                    //{
-                    //    idListadistribucion = -11;
-                    //    lTitulo = "Notificación de Averias Planta Calama ";
-                    //}
-
-
-                    //if (mIdSucursal.Equals("4")) // es Santiago
-                    //{
-                    //    idListadistribucion = -10;
-                    //    lTitulo = "Notificación de Averias Planta Vista Clara, Santiago ";
-                    //}
-                        
+                        case "15":
+                            idListadistribucion = -15;
+                            lTitulo = "Notificación de Averias Planta Coronel ";
+                            break;
+                    }                       
 
                     lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
                     //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);

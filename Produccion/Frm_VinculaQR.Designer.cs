@@ -281,6 +281,7 @@
             this.Tx_etiquetaQR.Name = "Tx_etiquetaQR";
             this.Tx_etiquetaQR.Size = new System.Drawing.Size(472, 20);
             this.Tx_etiquetaQR.TabIndex = 0;
+            this.Tx_etiquetaQR.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Tx_etiquetaQR_KeyPress);
             this.Tx_etiquetaQR.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_etiquetaQR_Validating);
             // 
             // lblColada

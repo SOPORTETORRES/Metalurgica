@@ -35,6 +35,10 @@ namespace Metalurgica.Controls
         private  WsOperacion.TipoEtiquetaAza mEtiqueta_Qr = new WsOperacion.TipoEtiquetaAza();
         private Boolean mInicializaColada = false;
         private string mIdSucursal = "0";
+        private DataTable mTblProcesosPieza = new DataTable();
+        private string mTipoMP_Maq = "";
+        private string mTipoProceso = "";
+        private string mValidaCYD ="N";
 
         public CtlProduccion()
         {
@@ -283,23 +287,23 @@ namespace Metalurgica.Controls
                        
                         string lMaq = mUserLog.IdMaquina.ToString();string lWheres = "";
                         //2.- Obtener los diametros permitidos por maquina.
-                        lWheres = string.Concat(" MAQ_NRO=",lMaq , " and diametro='",lDiam ,"'");
-                        DataView lVista = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
-                        if (lVista.Count == 0)  //El diametro no esta permitido.
-                        {
-                            lWheres = string.Concat(" MAQ_NRO=", lMaq);
-                            DataView lVistaDiam = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
-                            int i = 0; string lDiamPermitidos = "";
-                            for (i = 0; i < lVistaDiam.Count; i++)
-                            {
-                                lDiamPermitidos = string.Concat(lVistaDiam[i]["diametro"], "-", lDiamPermitidos);
-                            }
-                            if (lDiamPermitidos.Trim ().Length >0 )
-                                lDiamPermitidos = lDiamPermitidos.Substring(0, lDiamPermitidos.Length - 1);
-                            MessageBox.Show(string.Concat(" Los diámetros permitidos en esta máquina son: ", lDiamPermitidos), "Avisos Sistema", MessageBoxButtons.OK);
-                            lEtiquetaImpresa = false;
-                            txtEtiquetaPieza.Text = "";
-                        }
+                        //lWheres = string.Concat(" MAQ_NRO=",lMaq , " and diametro='",lDiam ,"'");
+                        //DataView lVista = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
+                        //if (lVista.Count == 0)  //El diametro no esta permitido.
+                        //{
+                        //    lWheres = string.Concat(" MAQ_NRO=", lMaq);
+                        //    DataView lVistaDiam = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
+                        //    int i = 0; string lDiamPermitidos = "";
+                        //    for (i = 0; i < lVistaDiam.Count; i++)
+                        //    {
+                        //        lDiamPermitidos = string.Concat(lVistaDiam[i]["diametro"], "-", lDiamPermitidos);
+                        //    }
+                        //    if (lDiamPermitidos.Trim ().Length >0 )
+                        //        lDiamPermitidos = lDiamPermitidos.Substring(0, lDiamPermitidos.Length - 1);
+                        //    MessageBox.Show(string.Concat(" Los diámetros permitidos en esta máquina son: ", lDiamPermitidos), "Avisos Sistema", MessageBoxButtons.OK);
+                        //    lEtiquetaImpresa = false;
+                        //    txtEtiquetaPieza.Text = "";
+                        //}
                     }
                     //****************************************************************************************
                     // Validamos los  idámetros de las Coladas Ingresada v/s Etiqueta
@@ -310,6 +314,70 @@ namespace Metalurgica.Controls
                         txtEtiquetaPieza.Text = "";
                     }
 
+                    //Validamos el corte y doblado
+                    if ((mValidaCYD == "S") &&(mTipoMP_Maq =="B"))
+                    {
+                        DataView lVista = new DataView(mTblProcesosPieza, string.Concat("IdForma=", lTbl.Rows[0]["idForma"].ToString()),"", DataViewRowState.CurrentRows );
+                        if (lVista.Count > 0)
+                        {
+                            if (mTipoProceso == "C") // Si la maquina  es de corte, los estados que me sirven son Vacio
+                            {
+                                if (lTbl.Rows[0]["ProcesoRealizado"].ToString().Trim().Length > 0)
+                                {
+                                    MessageBox.Show(string.Concat(" La etiqueta leida ya ha pasado por el proceso de corte, No se puede Registrar la Producción ", "Avisos Sistema", MessageBoxButtons.OK));
+                                    lEtiquetaImpresa = false;
+                                    txtEtiquetaPieza.Text = "";
+                                }
+                            }
+                            else
+                              if (mTipoProceso == "D") // Si la maquina  es de corte, los estados que me sirven son C
+                            {
+                                if (lTbl.Rows[0]["ProcesoRealizado"].ToString()!="C")
+                                {
+                                    MessageBox.Show(string.Concat(" La etiqueta leida Tiene un proceso distinto a Corte, No se puede Registrar la Producción "), "Avisos Sistema", MessageBoxButtons.OK);
+                                    lEtiquetaImpresa = false;
+                                    txtEtiquetaPieza.Text = "";
+                                }
+                                if (new Clases.ClsComun().Val(lVista[0]["NroProcesos"].ToString()) == 1)
+                                {
+                                    MessageBox.Show(string.Concat(" La Forma de la etiqueta leida Tiene solo UN  proceso Corte, No es necesario Doblar,  No se puede Registrar la Producción "), "Avisos Sistema", MessageBoxButtons.OK);
+                                    lEtiquetaImpresa = false;
+                                    txtEtiquetaPieza.Text = "";
+                                }
+                            }
+
+                            //Validamos Si Trabajamos con MP Barras que los diametros no sean de rollos
+                            string lDiamValidos = "";
+                            if (mTipoMP_Maq == "B")
+                            {
+                                lDiamValidos = ConfigurationManager.AppSettings["DiametrosBarras"].ToString();
+                                if (lDiamValidos.IndexOf(lDiam.ToString()) < 0) // el diametro no est 
+                                {
+                                    MessageBox.Show(string.Concat(" El Diámetro de la etiqueta leida No corresponde a Barras, Esta maquina esta configurada para barras, No se puede  Registrar la Producción ", "Avisos Sistema", MessageBoxButtons.OK));
+                                    lEtiquetaImpresa = false;
+                                    txtEtiquetaPieza.Text = "";
+                                }
+                            }
+
+                            if (mTipoMP_Maq == "R")
+                            {
+                                lDiamValidos = ConfigurationManager.AppSettings["DiametrosRollo"].ToString();
+                                if (lDiamValidos.IndexOf(lDiam.ToString()) < 0) // el diametro no est 
+                                {
+                                    MessageBox.Show(string.Concat(" El Diámetro de la etiqueta leida No corresponde a Barras, Esta maquina esta configurada para barras, No se puede  Registrar la Producción ", "Avisos Sistema", MessageBoxButtons.OK));
+                                    lEtiquetaImpresa = false;
+                                    txtEtiquetaPieza.Text = "";
+                                }
+                            }
+
+                            //if (mTipoProceso.Equals(lVista[0]["TipoProceso"].ToString())==false )
+                            //{
+                            //    MessageBox.Show(string.Concat(" El Proceso definido para esta máquina es de ", string.Concat("", mTipoProceso, ", pero la etiqueta requiere un proceso de ", lVista[0]["TipoProceso"].ToString()), "Avisos Sistema", MessageBoxButtons.OK));
+                            //    lEtiquetaImpresa = false;
+                            //    txtEtiquetaPieza.Text = "";
+                            //}
+                        }
+                    }
 
                     //if ((txtEtiquetaColada.Text.Trim ().Length >0) && (lCom.Val (txtEtiquetaColada.Text )<0 ))
                     //{
@@ -346,11 +414,35 @@ namespace Metalurgica.Controls
             pieza.Estado = "O40";
             lIdUser = int.Parse(iUser.Iduser );
 
+            //  16-01-2020 por registro de corte y doblado
+            // si estamos trabajando con Rollos ==> una Maquina corta y Otra Dobla
+            if (mTipoMP_Maq == "B")
+            {
+                if (mTipoProceso == "D")
+                {
+                    pieza.Colada = "";
+                }
+
+                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+            }
+
+            if (mTipoMP_Maq == "R")
+            {
+                //Primero Corte 
+                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+                // Luego Doblado
+                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+
+            }
+
+
+            //Si estamos trabajando con Rollos ==> Corte y  doblado en un mismo tiempo
+
             //Se comenta hasta paso a produccion de Etiquetas Aza
             // se debe diferenciar si esta activa esta Opcion en .config
             //pieza = wsOperacion.RegistrarPasoaProduccionPieza_V_AZA(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
 
-            pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+
             //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.Machine, Program.currentUser.Login, Program.currentUser.ComputerName);
             if (pieza.MensajeError.Equals(""))
             {
@@ -361,10 +453,7 @@ namespace Metalurgica.Controls
                 lSql = string.Concat(lSql, ",1");
                 lDts = lPx.ObtenerDatos(lSql);
                 //---------------------------
-                //02-07-2014 Por medificaciones funcionales se puede vincular  a un paquete muchas coladas            
-
-
-
+            
                 //this.lbl_Res.Text = " La Etiqueta " + iPieza + " fue grabada Correctamente ";
                 //this.Close();
                 if (lCom.Val(mIdSolicitudMP) > 0)
@@ -452,7 +541,7 @@ namespace Metalurgica.Controls
                                             {
                                                 RegistraPiezaProducida(mEtiqueta_Qr.Id.ToString(), txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
                                                 Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
-                                                lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString());
+                                                lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
                                                 lFrm.Close();
                                                 lPuedeContinuar = true;
                                             }
@@ -460,7 +549,7 @@ namespace Metalurgica.Controls
                                             {
                                                 // debe visualizar el formulario de  vinculación de Coladas
                                                 Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
-                                                lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString (), lKgsVinc.ToString (), lKgsSaldo.ToString (), mEtiqueta_Qr.Id.ToString ());
+                                                lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString (), lKgsVinc.ToString (), lKgsSaldo.ToString (), mEtiqueta_Qr.Id.ToString (),mUserLog );
                                                 lFrm.ShowDialog();
                                                 lColadasOK = AppDomain.CurrentDomain.GetData("KgsOK").ToString ();
                                                 if (lColadasOK.ToString().ToUpper().Equals("S"))
@@ -470,9 +559,7 @@ namespace Metalurgica.Controls
                                                     lPuedeContinuar = true;
                                                     mInicializaColada = true;
                                                 }
-                                               
-                                                //MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                //lPuedeContinuar = false;
+
                                             }
                                         }
                                         break;
@@ -502,7 +589,7 @@ namespace Metalurgica.Controls
                                         {
                                             RegistraPiezaProducida(mEtiqueta_Qr.Id.ToString(), txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
                                             Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
-                                            lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString());
+                                            lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
                                             lFrm.Close();
                                             lPuedeContinuar = true;
                                         }
@@ -510,7 +597,7 @@ namespace Metalurgica.Controls
                                         {
                                             // debe visualizar el formulario de  vinculación de Coladas
                                             Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
-                                            lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString(), lKgsVinc.ToString(), lKgsSaldo.ToString(), mEtiqueta_Qr.Id.ToString());
+                                            lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString(), lKgsVinc.ToString(), lKgsSaldo.ToString(), mEtiqueta_Qr.Id.ToString(), mUserLog);
                                             lFrm.ShowDialog();
                                             lColadasOK = AppDomain.CurrentDomain.GetData("KgsOK").ToString();
                                             if (lColadasOK.ToString().ToUpper().Equals("S"))
@@ -1225,7 +1312,7 @@ namespace Metalurgica.Controls
 
         private bool PaqueteEstaProducido(DataTable iTblPaquete)
         {
-            bool lRes = false;
+            bool lRes = false;Clases.ClsComun lCom = new Clases.ClsComun();
             if (iTblPaquete.Rows[0]["Pie_estado"].ToString().ToUpper().Equals("O60"))
             {
                 //this.lbl_Res.Text = " La Etiqueta " + iPieza + " ha registrado un error, repita la operación ";
@@ -1235,10 +1322,14 @@ namespace Metalurgica.Controls
             }
             if (iTblPaquete.Rows[0]["Pie_estado"].ToString().ToUpper().Equals("O40"))
             {
-                //this.lbl_Res.Text = " La Etiqueta " + iPieza + " ha registrado un error, repita la operación ";
-                lRes = true;
-                MessageBox.Show("Esta etiqueta ya fue Producida , avisar a supervisor ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //"Esta etiqueta fue despachada, avisar a supervisor".
+                //si esta producida y su avance es menor al 100% puede seguir 
+                if (lCom.Val(iTblPaquete.Rows[0]["Pie_estado"].ToString()) >99)
+                  {
+                    lRes = true;
+                    MessageBox.Show("Esta etiqueta ya fue Producida , avisar a supervisor ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //"Esta etiqueta fue despachada, avisar a supervisor".
+                }
+
             }
 
             //this.lbl_Res.Text = " La Etiqueta " + iPieza + " ha registrado un error, repita la operación ";
@@ -1508,6 +1599,7 @@ namespace Metalurgica.Controls
                 Clases.ClsComun lCom = new Clases.ClsComun();
                 this.Text += " - versión: " + lCom.ObtenerVersion();  //Application.ProductVersion;
                 ctlInformacionUsuario1.CargaDatosUserLog(iUserLog);
+               
                 mUserLog = iUserLog;
                 Lbl_Usuario.Text = mUserLog.Login; 
 
@@ -1537,7 +1629,7 @@ namespace Metalurgica.Controls
                     {
                         if (listaDataSet.DataSet.Tables[0].Rows.Count > 0)
                         {
-                            mTblDiametrosMaq  = listaDataSet.DataSet.Tables[0].Copy();
+                            mTblDiametrosMaq = listaDataSet.DataSet.Tables[0].Copy();
                         }
                     }
                 }
@@ -1557,9 +1649,25 @@ namespace Metalurgica.Controls
                     Btn_CheckList.Visible = false;
 
 
+                mValidaCYD  = ConfigurationManager.AppSettings["ValidaCYD"].ToString();
+                if (mValidaCYD.ToUpper().Equals("S"))
+                {
+                    listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(144, lIdSucursal, mUserLog.IdMaquina.ToString() , "", "", "");
+                    if (listaDataSet.MensajeError.Equals(""))
+                    {
+                        if (listaDataSet.DataSet.Tables[0].Rows.Count > 0)
+                        {
+                            mTblProcesosPieza = listaDataSet.DataSet.Tables[0].Copy();
+                            mTipoMP_Maq = mTblProcesosPieza.Rows[0]["TipoMP_Maq"].ToString();
+                            mTipoProceso = mTblProcesosPieza.Rows[0]["TipoProceso"].ToString();
+                            ctlInformacionUsuario1.InicializaCtl(mTipoMP_Maq, mTipoProceso);
+                        }
+                    }
 
-                   
-                
+                }
+
+
+
 
             }
                       
@@ -1666,9 +1774,19 @@ namespace Metalurgica.Controls
 
         public void CargaMaqActual(string iIdMaq, string iNomreMaq)
         {
+            string ltmp = "";
             mMaquinaActiva = iIdMaq;
             mUserLog.IdMaquina = int.Parse (iIdMaq);
-            mUserLog.DescripcionMaq = iNomreMaq;
+            if (mTipoProceso == "C")
+                ltmp = " Corte";
+
+            if (mTipoProceso == "D")
+                ltmp = " Doblado";
+
+            if (mTipoProceso == "CYD")
+                ltmp = " Corte y Doblado";
+
+            iNomreMaq  = string.Concat (iNomreMaq," Trabaja con :",mTipoMP_Maq , " -  Proceso: ", ltmp);
 
             ctlInformacionUsuario1.CargaDatosMaq(iIdMaq, iNomreMaq);
         }
@@ -1896,7 +2014,7 @@ namespace Metalurgica.Controls
                         else
                         {
                             txtEtiquetaPieza.Enabled = true;
-
+                            txtEtiquetaPieza.Focus();
                         }
 
                     }
@@ -2307,13 +2425,21 @@ namespace Metalurgica.Controls
                 string lSql = ""; DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
                 Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
 
-                lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro) ";
-                lSql = string.Concat(lSql, "values(0,", mEtiqueta_Qr.Id.ToString(), ",'D',", Lbl_SaldoKilosColada .Text , ", Getdate())");
+                lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro, IdMaquinaProduce) ";
+                lSql = string.Concat(lSql, "values(0,", mEtiqueta_Qr.Id.ToString(), ",'D',", Lbl_SaldoKilosColada .Text , ", Getdate(),", mUserLog.IdMaquina ,")");
                 lPx.ObtenerDatos(lSql);
 
                 MessageBox.Show("La Etiqueta de Colada se ha cerrado Satisfactoriamente ", "Avisos Sistema ");
 
                  tlbNuevo_Click(null, null);
+            }
+        }
+
+        private void txtEtiquetaColada_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                txtEtiquetaColada_Validating(null, null);
             }
         }
     }

@@ -690,6 +690,7 @@
             this.txtEtiquetaColada.Name = "txtEtiquetaColada";
             this.txtEtiquetaColada.Size = new System.Drawing.Size(110, 20);
             this.txtEtiquetaColada.TabIndex = 0;
+            this.txtEtiquetaColada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEtiquetaColada_KeyPress);
             this.txtEtiquetaColada.Leave += new System.EventHandler(this.txtEtiquetaColada_Leave);
             this.txtEtiquetaColada.Validating += new System.ComponentModel.CancelEventHandler(this.txtEtiquetaColada_Validating);
             // 

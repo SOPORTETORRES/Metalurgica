@@ -25,14 +25,14 @@ namespace Metalurgica.Produccion
         }
 
 
-        public void Grabar(string iEt_TO, string iQR , string iKgsVin)
+        public void Grabar(string iEt_TO, string iQR , string iKgsVin, int iIdMaquinaProd )
         {
 
             string lSql = ""; DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
 
-            lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro) ";
-            lSql = string.Concat(lSql, "values(", iEt_TO, ",", iQR, ",'P',", iKgsVin, ", Getdate())");
+            lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro, IdMaquinaProduce) ";
+            lSql = string.Concat(lSql, "values(", iEt_TO, ",", iQR, ",'P',", iKgsVin, ", Getdate(),", iIdMaquinaProd,")");
             lPx.ObtenerDatos(lSql);
 
         }
@@ -53,7 +53,7 @@ namespace Metalurgica.Produccion
 
         }
 
-        public void IniciaForm(string IdEtqTO, string iEtiq, string iKgsEt, string iKgsVinc, string iKgsSaldo, string iQR)
+        public void IniciaForm(string IdEtqTO, string iEtiq, string iKgsEt, string iKgsVinc, string iKgsSaldo, string iQR, CurrentUser iUser)
         {
             string lSql = "";DataSet lDts = new DataSet();DataTable lTbl = new DataTable();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
@@ -63,8 +63,9 @@ namespace Metalurgica.Produccion
             Tx_KgsEtiqueta.Text = iKgsEt.ToString();
             Tx_Vinculados.Text = iKgsVinc.ToString();
             Tx_Saldo.Text = iKgsSaldo.ToString();
+            mUserLog = iUser;
 
-            Grabar(Tx_Id.Text, iQR, iKgsVinc);
+            Grabar(Tx_Id.Text, iQR, iKgsVinc, mUserLog.IdMaquina);
             CargaGrilla(Tx_Id.Text);
             Tx_etiquetaQR.Focus();
                  
@@ -169,7 +170,7 @@ namespace Metalurgica.Produccion
                 {
                     mTotalKgsOk = "S";
                     lKgsVinc = lSaldoEtiqueta;
-                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString());
+                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina );
                     AppDomain.CurrentDomain.SetData("KgsOK", "S");
                     this.Close();
                 }
@@ -178,7 +179,7 @@ namespace Metalurgica.Produccion
                 {
                     mTotalKgsOk = "N";
                     lKgsVinc = lKgsColada;
-                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString());
+                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina );
                     CargaGrilla(Tx_Id.Text);
                     Lbl_Msg.Text = string.Concat("Debe Leer otra etiqueta de colada ");
                     // Limpiar Datos Colada
@@ -225,6 +226,14 @@ namespace Metalurgica.Produccion
         private void Btn_Aceptar_Click(object sender, EventArgs e)
         {
             GrabarDatos();
+        }
+
+        private void Tx_etiquetaQR_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                this.Tx_etiquetaQR_Validating(null, null);
+            }
         }
     }
 }

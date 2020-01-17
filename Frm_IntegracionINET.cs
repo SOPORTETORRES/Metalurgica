@@ -1437,10 +1437,15 @@ namespace Metalurgica
         lFacturacion.Estado = "0";
         lFacturacion.Bodega_Salida = mCodigoBodega; // ' 105 ' mBodegaSalida.ToString  '105 SAntiago 69 Calama      
 
-        if (mCodigoGuiaINET.Equals("330"))
-            lFacturacion.Bodega_Entrada = mCodigoBodegaEntrada; //"90"; //'mBodegaEntrada ' "90"  cuando es 330 y vacio para otro caso
-        else
-            lFacturacion.Bodega_Entrada = ""; //' "90"  cuando es 330 y vacio para otro caso
+        //if (mCodigoGuiaINET.Equals("330"))
+        //    lFacturacion.Bodega_Entrada = mCodigoBodegaEntrada; //"90"; //'mBodegaEntrada ' "90"  cuando es 330 y vacio para otro caso
+        //else
+        //    lFacturacion.Bodega_Entrada = ""; //' "90"  cuando es 330 y vacio para otro caso
+        //Por cambio a Guia de despacho electronica
+            if (mCodigoGuiaINET.Equals("350"))
+                lFacturacion.Bodega_Entrada = mCodigoBodegaEntrada; //"90"; //'mBodegaEntrada ' "90"  cuando es 330 y vacio para otro caso
+            else
+                lFacturacion.Bodega_Entrada = ""; //' "90"  cuando es 330 y vacio para otro caso
 
 
             //definicion entregada Por lGallardo con fecha 21-01-2019
