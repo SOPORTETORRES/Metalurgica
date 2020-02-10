@@ -53,7 +53,7 @@ namespace Metalurgica.Produccion
 
         }
 
-        public void IniciaForm(string IdEtqTO, string iEtiq, string iKgsEt, string iKgsVinc, string iKgsSaldo, string iQR, CurrentUser iUser)
+        public void IniciaForm(string IdEtqTO, string iEtiq, string iKgsEt, string iKgsVinc, string iKgsSaldo, string iQR, CurrentUser iUser, string iDiam)
         {
             string lSql = "";DataSet lDts = new DataSet();DataTable lTbl = new DataTable();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
@@ -63,6 +63,7 @@ namespace Metalurgica.Produccion
             Tx_KgsEtiqueta.Text = iKgsEt.ToString();
             Tx_Vinculados.Text = iKgsVinc.ToString();
             Tx_Saldo.Text = iKgsSaldo.ToString();
+            Tx_Diam.Text = iDiam;
             mUserLog = iUser;
 
             Grabar(Tx_Id.Text, iQR, iKgsVinc, mUserLog.IdMaquina);
@@ -85,8 +86,17 @@ namespace Metalurgica.Produccion
             lSaldoEtiquetaTO = lCom.Val(Tx_Saldo.Text);
             if ( lSaldoColada >=lSaldoEtiquetaTO  )
             {
-                //grabamos y volvemos a la pantalla anterior
-                GrabarDatos();
+                // Verificamos que el diametro de la colada es igual al de la pieza
+                if (Tx_Diam.Text == lblDiametro.Text)
+                {
+                    //grabamos y volvemos a la pantalla anterior
+                    GrabarDatos();
+                }
+                else
+                {
+                    MessageBox.Show("La colada Ingresada es distinta al diametro de la Paquete, no se puede vincular la colada. Ingrese Una Colada ", "Avisos sistema");
+                    Tx_etiquetaQR.Text = "";
+                }
             }
 
         }
@@ -172,6 +182,7 @@ namespace Metalurgica.Produccion
                     lKgsVinc = lSaldoEtiqueta;
                     Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina );
                     AppDomain.CurrentDomain.SetData("KgsOK", "S");
+                    AppDomain.CurrentDomain.SetData("Colada", this .Tx_etiquetaQR .Text );
                     this.Close();
                 }
 

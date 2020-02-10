@@ -146,10 +146,12 @@ namespace Metalurgica
                 //Ahora el Despunte 
                 if (lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()) > 0)
                 {
-
+                    lTblINET.Clear();
+                    lDts.Tables.Clear();
+                    lDts.Clear();
                     lTblFinal = ObtenerTablaINET();
                     iROw = lTblINET.NewRow();
-                    iROw["Codigo"] = iFila.Cells["Codigo"].Value.ToString();
+                    iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString();
                     iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString());
                     iROw["FechaMov"] = lFechaMov;
                     lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
@@ -158,8 +160,9 @@ namespace Metalurgica
                     iROw["Glosa2"] = lGlosa2;
                     //iROw["Procesado"] = "N";
 
-                    lTblINET.Rows.Add(iFila);
+                    lTblINET.Rows.Add(iROw);
 
+                    lDts.Tables.Add(lTblINET.Copy());
 
                     //Obtenemos el Objeto con los datos
                     if (lIdSucursal == 1)   //Calama

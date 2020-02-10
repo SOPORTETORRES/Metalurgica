@@ -588,9 +588,11 @@
           <s:element minOccurs="1" maxOccurs="1" name="PesoBulto" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdColada" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Largo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Largo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="KgsProducidos" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CalidadAcero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trama" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">

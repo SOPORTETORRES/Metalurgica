@@ -15,6 +15,7 @@ namespace Metalurgica.RecepcionMP
     {
         DataTable mTblDatos = new DataTable();
         DataTable mTBlMP = new DataTable();
+        DataTable mTBlCodigosIntercambio = new DataTable();
         private CurrentUser mUserLog = new CurrentUser();
 
         public Frm_RecepcionMP()
@@ -63,9 +64,6 @@ namespace Metalurgica.RecepcionMP
 
             try
             {
-
-
-
                 for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
                 {
                     lMaterial = mTblDatos.Rows[i]["Codigo"].ToString().Trim();
@@ -79,11 +77,6 @@ namespace Metalurgica.RecepcionMP
                         lTipo = "B";
 
                     lEsSoldable = new Clases.ClsComun().ObtenerSoldable(iEtiqueta.Producto);
-                    //Verificacmos el Tipo de Matrial
-                    //if (lEsSoldable.ToString().ToUpper().IndexOf("(S") > -1)
-                    //    lEsSoldable = "S";
-                    //else
-                    //    lEsSoldable = "N";
 
                     lVista = new DataView(mTBlMP, string.Concat(" Codigo='", lMaterial, "' and Tipo='", lTipo, "' and Soldable='", lEsSoldable, "'"), "", DataViewRowState.CurrentRows);
                     if ((lVista.Count > 0) && (lVista[0]["Descripcion"].ToString().ToUpper().IndexOf("ROLLO") > -1))
@@ -127,10 +120,59 @@ namespace Metalurgica.RecepcionMP
                                 mTblDatos.Rows[i]["IdEtiquetaAza"] = string.Concat(mTblDatos.Rows[i]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
                             }
                         }
+                        else
+                        {
+                            // CAlidad 440
 
+                        }
                     }
-                    //else
 
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            RefescaGrilla();
+        }
+
+        private void RevisaEnOC_PorTablaDeCodigo(WsOperacion.TipoEtiquetaAza iEtiqueta)
+        {
+            int i = 0; string lMaterial = ""; string lPar = ""; int lKgsRecep = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+            string[] lPartes = null; DataView lVista = null; int lKgsSol = 0; int lRecep = 0; string lTipo = "";DataView lVistaCod = null;
+            string lEsSoldable = "";string lCodTO = "";
+
+            try
+            {
+                lVistaCod = new DataView(mTBlCodigosIntercambio, string.Concat("PAr1='", iEtiqueta.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                if (lVistaCod.Count > 0)
+                //for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
+                {
+                    lCodTO = lVistaCod[0]["Par2"].ToString();
+                    lVista = new DataView(mTblDatos, string.Concat(" Codigo='", lCodTO, "'"), "", DataViewRowState.CurrentRows);
+                    if (lVista.Count > 0)
+                    {
+                        lKgsSol = lCom.Val(lVista[0]["Kilos Oc"].ToString());
+                        lPar = lVista[0]["IdEtiquetaAZA"].ToString();
+
+                        lKgsRecep = lCom.Val(lVista[0]["Kilos recibidos"].ToString());
+                        if (lKgsRecep > 0)
+                            lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(lVista[0][4].ToString());
+                        else
+                            lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+
+
+                        lKgsSol = lCom.Val(lVista[0]["Kilos OC"].ToString());
+
+                        lVista[0]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                        lVista[0][4] = lCom.Val(lVista[0][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                        lVista[0]["IdEtiquetaAza"] = string.Concat(lVista[0]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Código leido, No esta en la Base de datos, Avisar a Logistica ", "Avisos Sistema");
                 }
             }
             catch (Exception ex)
@@ -197,6 +239,9 @@ namespace Metalurgica.RecepcionMP
 
         }
 
+
+
+
         private void ProcesaColada(string iTx)
         {
             WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
@@ -216,12 +261,10 @@ namespace Metalurgica.RecepcionMP
                 lEt = lDal.PersistirEtiquetaAZA(lEt);
                 if (Dtg_Etiquetas.Rows.Count > 0)
                 {
-                    RevisaEnOC(lEt);
-                   // debemos crear tabla que almacene IdEtiquetaAza   -  OC 
-
-                }
-               
-    
+                //RevisaEnOC(lEt);
+                // debemos crear tabla que almacene IdEtiquetaAza   -  OC 
+                RevisaEnOC_PorTablaDeCodigo(lEt);
+                }  
         }
 
         private void AgregaEtiqueta(WsOperacion.TipoEtiquetaAza lEt_AZA)
@@ -251,9 +294,11 @@ namespace Metalurgica.RecepcionMP
             lDts = lPx.Obtener_MP( );
             if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
             {
-                if (lDts.DataSet.Tables.Count == 2)
+                if (lDts.DataSet.Tables.Count == 3)
                 {
                     mTBlMP = lDts.DataSet.Tables["MP"].Copy();
+                    mTBlCodigosIntercambio= lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
+
                     lTbl = lDts.DataSet.Tables["Sucursales"].Copy();
                     for (i = 0; i < lTbl.Rows.Count; i++)
                     {
@@ -517,6 +562,81 @@ namespace Metalurgica.RecepcionMP
 
         }
 
+        private WsOperacion.Recepcion_MP CargarObj_Desde_Archivo( DataTable lTblData)
+        {
+            WsOperacion.Recepcion_MP lObj = new WsOperacion.Recepcion_MP(); Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.Detalle_Recepcion_MP lObjDet = new WsOperacion.Detalle_Recepcion_MP();
+            int lCont = 0; DataTable lTblFinal = new DataTable(); int lNroDetalle = 0;
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
+
+            //List<WsOperacion.Detalle_Recepcion_MP> lDetalle = new List<WsOperacion.Detalle_Recepcion_MP>() ;
+
+            int i = 0; int j = 0; string[] lPartes = null;
+            //lPartes = lPar.Split(new Char[] { '-' });
+
+            try
+            {
+                lObj.FechaGD = "03/02/2020 19:20";
+                lObj.IdUserGraba = 1;
+                lObj.NroGD = lCom.Val("1114");
+                lObj.KgsGD = lCom.Val(Tx_TotalKgsGD.Text);
+                lObj.OC = lCom.Val("1114");
+                lObj.SucCod = lCom.Val("1");
+
+                //mTblDatos.Rows
+                lTblFinal = lTblData;
+
+
+                lNroDetalle = 0;
+                //  for (i = 0; i < Dtg_Etiquetas.Rows.Count; i++)
+                //  obtenemos el nro de etiquetas leidas
+                //for (i = 0; i < lTblFinal.Rows.Count; i++)
+                //{
+                //    lPartes = lTblFinal.Rows[i]["IdEtiquetaAZA"].ToString().Split(new Char[] { '-' });
+                //    lNroDetalle = lNroDetalle + lPartes.Length - 1;
+
+                //}
+                lNroDetalle = lTblData.Rows.Count;
+                WsOperacion.Detalle_Recepcion_MP[] lDetalle = new WsOperacion.Detalle_Recepcion_MP[lNroDetalle];
+                for (i = 0; i < lTblFinal.Rows.Count; i++)
+                {
+
+                    if (lTblFinal.Rows[i][0].ToString().Length > 0)
+                    {
+
+                        lEt = ProcesaColada_MAsiva((lTblFinal.Rows[i][0].ToString()));
+
+                        lObjDet = new WsOperacion.Detalle_Recepcion_MP();
+                        lObjDet.CodMaterial = lEt.Codigo;  //lTblFinal.Rows[i]["Codigo"].ToString().Trim();
+                        lObjDet.IdEtiquetaAza = lEt.Id.ToString();  //lPartes[j].ToString();
+                        lObjDet.IdRecepcionMP = 0;
+                        lObjDet.Kgs = 0;
+                        lObjDet.FechaEntrega_OC = "03/02/2020 ";
+
+                        lDetalle[lCont] = lObjDet;
+                        lCont = lCont + 1;
+                    }
+
+                    //lObj.Detalle =(Metalurgica.) lDetalle;
+
+
+                }
+                if (lCont > 0)
+                {
+                    lObj.Detalle = lDetalle;
+                    lCont = 0;
+                }
+
+            }
+            catch (Exception iex)
+            {
+                MessageBox.Show(string.Concat("Ha ocurrido el siguiente error: ", iex.Message.ToString()), "Avisos Sistema");
+
+            }
+            return lObj;
+
+        }
+
         private void PersistirDatos()
         {
             // Se deben Peristir los datos.
@@ -639,6 +759,64 @@ namespace Metalurgica.RecepcionMP
         }
 
         private void Tx_OC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private WsOperacion.TipoEtiquetaAza   ProcesaColada_MAsiva(string iTx)
+        {
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
+            string lTmp = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();
+            DataTable lTblDatos = new DataTable();
+
+            lTmp = iTx.Replace("ñ", ";");
+            lTmp = lTmp.Replace("Ñ", ":");
+            lTmp = lTmp.Replace("'", "-");
+            lTmp = lTmp.Replace(")", "(");
+            lTmp = lTmp.Replace("=", ")");
+
+            lEt = lCom.ObtenerEtiquetaAZA(lTmp, false);
+            lEt = lDal.PersistirEtiquetaAZA(lEt);
+
+            return lEt;
+        }
+
+
+        private void Frm_DesdeArchivo_Click(object sender, EventArgs e)
+        {
+            string lPAth = @"C:\Roberto Becerra\TO\Requerimientos\2020\Produccion\Procesos de Corte y Doblado\Coladas para fabricación con despunte.txt";
+            DataTable lTbDatos = new DataTable(); DataRow lFila = null;
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
+            WsOperacion.Recepcion_MP lObj = new WsOperacion.Recepcion_MP();
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            string line; 
+
+            lTbDatos.Columns.Add("Etiqueta", Type.GetType("System.String"));
+
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file =                 new System.IO.StreamReader(lPAth);
+            while ((line = file.ReadLine()) != null)
+            {
+                if (line.ToString().Trim().Length > 10)
+                {
+                    lFila = lTbDatos.NewRow();
+                    lFila["Etiqueta"] = line;
+                    lTbDatos.Rows.Add(lFila);
+                }
+            }
+            file.Close();
+
+            lObj = CargarObj_Desde_Archivo(lTbDatos);
+
+            lObj = lPx.GrabarRecepcion_MP(lObj);
+            MessageBox.Show("Los Datos  Se han Grabado Correctamente ");
+            Btn_grabar.Enabled = false;
+
+        }
+
+        private void Tx_EtiquetaAza_TextChanged(object sender, EventArgs e)
         {
 
         }

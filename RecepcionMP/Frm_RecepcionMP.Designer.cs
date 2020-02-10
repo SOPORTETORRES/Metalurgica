@@ -61,6 +61,7 @@
             this.Btn_grabar = new System.Windows.Forms.Button();
             this.Btn_InicioL = new System.Windows.Forms.Button();
             this.Btn_Nueva = new System.Windows.Forms.Button();
+            this.Frm_DesdeArchivo = new System.Windows.Forms.Button();
             this.Gr_datos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Etiquetas)).BeginInit();
@@ -216,6 +217,7 @@
             this.Tx_EtiquetaAza.Name = "Tx_EtiquetaAza";
             this.Tx_EtiquetaAza.Size = new System.Drawing.Size(261, 20);
             this.Tx_EtiquetaAza.TabIndex = 7;
+            this.Tx_EtiquetaAza.TextChanged += new System.EventHandler(this.Tx_EtiquetaAza_TextChanged);
             this.Tx_EtiquetaAza.Validating += new System.ComponentModel.CancelEventHandler(this.Tx_EtiquetaAza_Validating);
             // 
             // label4
@@ -429,11 +431,23 @@
             this.Btn_Nueva.UseVisualStyleBackColor = true;
             this.Btn_Nueva.Click += new System.EventHandler(this.Btn_Nueva_Click);
             // 
+            // Frm_DesdeArchivo
+            // 
+            this.Frm_DesdeArchivo.Location = new System.Drawing.Point(378, -2);
+            this.Frm_DesdeArchivo.Name = "Frm_DesdeArchivo";
+            this.Frm_DesdeArchivo.Size = new System.Drawing.Size(219, 21);
+            this.Frm_DesdeArchivo.TabIndex = 14;
+            this.Frm_DesdeArchivo.Text = "Importar desde Archivo";
+            this.Frm_DesdeArchivo.UseVisualStyleBackColor = true;
+            this.Frm_DesdeArchivo.Visible = false;
+            this.Frm_DesdeArchivo.Click += new System.EventHandler(this.Frm_DesdeArchivo_Click);
+            // 
             // Frm_RecepcionMP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1048, 522);
+            this.Controls.Add(this.Frm_DesdeArchivo);
             this.Controls.Add(this.Btn_Nueva);
             this.Controls.Add(this.Btn_InicioL);
             this.Controls.Add(this.Btn_grabar);
@@ -492,5 +506,6 @@
         private System.Windows.Forms.Button Btn_Nueva;
         private System.Windows.Forms.ComboBox Cmb_Sucursal;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button Frm_DesdeArchivo;
     }
 }

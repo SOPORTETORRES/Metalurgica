@@ -2567,11 +2567,15 @@ namespace Metalurgica.WsOperacion {
         
         private int idColadaField;
         
-        private int largoField;
+        private string largoField;
         
         private int kgsProducidosField;
         
         private string errorsField;
+        
+        private string calidadAceroField;
+        
+        private string tramaField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -2683,7 +2687,7 @@ namespace Metalurgica.WsOperacion {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=9)]
-        public int Largo {
+        public string Largo {
             get {
                 return this.largoField;
             }
@@ -2714,6 +2718,30 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.errorsField = value;
                 this.RaisePropertyChanged("Errors");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
+        public string CalidadAcero {
+            get {
+                return this.calidadAceroField;
+            }
+            set {
+                this.calidadAceroField = value;
+                this.RaisePropertyChanged("CalidadAcero");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=13)]
+        public string Trama {
+            get {
+                return this.tramaField;
+            }
+            set {
+                this.tramaField = value;
+                this.RaisePropertyChanged("Trama");
             }
         }
         

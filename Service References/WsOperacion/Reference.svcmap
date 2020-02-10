@@ -21,8 +21,8 @@
     <MetadataSource Address="http://localhost:55038/WS/Operacion.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Operacion.wsdl" MetadataType="Wsdl" ID="cbc0b037-9820-4c16-a0ac-57cb333aa755" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?wsdl" />
-    <MetadataFile FileName="Operacion.disco" MetadataType="Disco" ID="d2a78e6e-4ef5-4309-be33-ca3da44764a8" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?disco" />
+    <MetadataFile FileName="Operacion.wsdl" MetadataType="Wsdl" ID="54f6809d-daa1-46b6-8272-363e18b0544a" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?wsdl" />
+    <MetadataFile FileName="Operacion.disco" MetadataType="Disco" ID="0587d8b5-7b69-4de4-b977-104e083a9637" SourceId="1" SourceUrl="http://localhost:55038/WS/Operacion.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -658,11 +658,48 @@ namespace Metalurgica.Clases
         #region Lectura de etiqueta AZA
 
 
+        public string ObtenerCodigoCubigest(string iTx , DataTable iTBlSuc)
+        {
+
+            string lRes = ""; Clases.ClsComun lCom = new Clases.ClsComun();  
+            DataView lVista = new DataView(iTBlSuc, string.Concat("Par1='", iTx ,"'"), "", DataViewRowState.CurrentRows);
+            if ((iTx.Length > 0)  && (lVista.Count >0))
+            {
+                lRes = lVista[0]["Par2"].ToString();
+            }
+
+            return lRes;
+        }
+
+        public string  ObtenerCalidadAcero(string iTx)
+        {
+             
+             string  lRes = "";      Clases.ClsComun lCom = new Clases.ClsComun();
+
+            if (iTx.Length > 0)
+            {
+
+                if (iTx.IndexOf("A630") > -1)
+                {
+                    lRes = "A630";
+
+                }
+                else
+                    if (iTx.IndexOf("A440") > -1)
+                {
+                    lRes = "A440";
+                }                    
+            }
+
+            return lRes;
+        }
+
 
         public  int ObtenerDiametro(string iTx)
         {
             char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
             string lTmp = words[2].ToString(); int lRes = 1; string lAux = "";int i = 0;
+              Clases.ClsComun lCom =  new Clases.ClsComun();
 
             if (words.Length >0 )
             {
@@ -670,21 +707,23 @@ namespace Metalurgica.Clases
                 {
                     lTmp = words[i].ToString();
                     if (lTmp.IndexOf("mm") > -1)
+                    // if ((lTmp.IndexOf("mm") > -1) || (lTmp.IndexOf("MM") > -1))
                     {
                         lAux = lTmp.Replace("mm", "");
                         lRes = new Clases.ClsComun().Val(lAux);
+                        //if (lCom.Val(lAux) > 0)
+                        //{
+                        //    lRes = lCom.Val(lAux);
+                        //}
+                        //else
+                        //{
+                        //    lAux = lTmp.Replace("MM", "");
+                        //    lRes = lCom.Val(lAux);
+                        //}
+
                     }
                 }
             }
-
-
-            //if (words.Length==6)
-            //{
-            //    lTmp = words[2].ToString();
-            //    lAux = lTmp.Replace("mm", "");
-            //    lRes = new Clases.ClsComun().Val(lAux);
-            //}
-
 
             return lRes;
         }
@@ -752,10 +791,13 @@ namespace Metalurgica.Clases
                 lEt.FechaFabricacion = words[1].ToString().Trim();
                 lEt.Bulto = lCom.Val(words[2].ToString());
                 lEt.Producto = words[3].ToString().Trim();
-                lEt.Codigo = words[4].ToString().Trim();
+                lEt.Codigo =  words[4].ToString().Trim();
                 lEt.PesoBulto = lCom.Val(words[5].ToString());
+                lEt.CalidadAcero  = lCom.ObtenerCalidadAcero(lEt.Producto);
                 lEt.Diam = lCom.ObtenerDiametro(lEt.Producto);
-                lEt.Largo = lCom.ObtenerLargo(lEt.Producto);
+               lEt.Largo = lCom.ObtenerLargo(lEt.Producto);
+                lEt.Trama = lTx;
+
                 lEt.Errors = "";
                 if (incluyeProduccion == true)
                 {
@@ -777,10 +819,10 @@ namespace Metalurgica.Clases
             return lEt;
         }
 
-        public int ObtenerLargo(string iTx)
+        public string   ObtenerLargo(string iTx)
         {
             char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";int i = 0;
+            string lTmp = words[3].ToString(); string   lRes = ""; string lAux = "";int i = 0;
 
             iTx = iTx.Replace("mm", "nn");
             words = iTx.Split(delimiterChars);
@@ -789,10 +831,13 @@ namespace Metalurgica.Clases
                 for (i = 1; i < words.Length; i++)
                 {
                     lTmp = words[i].ToString();
-                    if (lTmp.IndexOf("m") > -1)
+                    if   ((lTmp.ToUpper().ToString  ()!="HORMIGON") &&  ((lTmp.IndexOf("m") > -1) || (lTmp.IndexOf("M") > -1)))
                     {
                         lAux = lTmp.Replace("m", "");
-                        lRes = new Clases.ClsComun().Val(lAux);
+                        lAux = lTmp.Replace("M", "");
+                        lRes = lAux; //new Clases.ClsComun().Val(lAux);
+                        //lAux = lTmp.Replace("m", "");
+                        //lRes = new Clases.ClsComun().Val(lAux);
                     }
                 }
                 //    lAux = lTmp.Replace("m", "");

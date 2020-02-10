@@ -56,6 +56,8 @@
             this.lblColada = new System.Windows.Forms.Label();
             this.Lbl_Msg = new System.Windows.Forms.Label();
             this.Btn_Aceptar = new System.Windows.Forms.Button();
+            this.Tx_Diam = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Resultado)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(130, 18);
+            this.label2.Location = new System.Drawing.Point(193, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
@@ -81,7 +83,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(229, 18);
+            this.label3.Location = new System.Drawing.Point(292, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 2;
@@ -91,7 +93,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(335, 18);
+            this.label4.Location = new System.Drawing.Point(398, 18);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 13);
             this.label4.TabIndex = 3;
@@ -100,7 +102,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(453, 18);
+            this.label5.Location = new System.Drawing.Point(516, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 13);
             this.label5.TabIndex = 4;
@@ -139,36 +141,46 @@
             // 
             // Tx_Id
             // 
-            this.Tx_Id.Location = new System.Drawing.Point(14, 37);
+            this.Tx_Id.BackColor = System.Drawing.Color.White;
+            this.Tx_Id.Location = new System.Drawing.Point(13, 37);
             this.Tx_Id.Name = "Tx_Id";
+            this.Tx_Id.ReadOnly = true;
             this.Tx_Id.Size = new System.Drawing.Size(67, 20);
             this.Tx_Id.TabIndex = 7;
             // 
             // Tx_Etiqueta
             // 
-            this.Tx_Etiqueta.Location = new System.Drawing.Point(112, 37);
+            this.Tx_Etiqueta.BackColor = System.Drawing.Color.White;
+            this.Tx_Etiqueta.Location = new System.Drawing.Point(175, 37);
             this.Tx_Etiqueta.Name = "Tx_Etiqueta";
+            this.Tx_Etiqueta.ReadOnly = true;
             this.Tx_Etiqueta.Size = new System.Drawing.Size(88, 20);
             this.Tx_Etiqueta.TabIndex = 8;
             // 
             // Tx_KgsEtiqueta
             // 
-            this.Tx_KgsEtiqueta.Location = new System.Drawing.Point(232, 37);
+            this.Tx_KgsEtiqueta.BackColor = System.Drawing.Color.White;
+            this.Tx_KgsEtiqueta.Location = new System.Drawing.Point(295, 37);
             this.Tx_KgsEtiqueta.Name = "Tx_KgsEtiqueta";
+            this.Tx_KgsEtiqueta.ReadOnly = true;
             this.Tx_KgsEtiqueta.Size = new System.Drawing.Size(67, 20);
             this.Tx_KgsEtiqueta.TabIndex = 9;
             // 
             // Tx_Vinculados
             // 
-            this.Tx_Vinculados.Location = new System.Drawing.Point(338, 37);
+            this.Tx_Vinculados.BackColor = System.Drawing.Color.White;
+            this.Tx_Vinculados.Location = new System.Drawing.Point(401, 37);
             this.Tx_Vinculados.Name = "Tx_Vinculados";
+            this.Tx_Vinculados.ReadOnly = true;
             this.Tx_Vinculados.Size = new System.Drawing.Size(67, 20);
             this.Tx_Vinculados.TabIndex = 10;
             // 
             // Tx_Saldo
             // 
-            this.Tx_Saldo.Location = new System.Drawing.Point(450, 37);
+            this.Tx_Saldo.BackColor = System.Drawing.Color.White;
+            this.Tx_Saldo.Location = new System.Drawing.Point(513, 37);
             this.Tx_Saldo.Name = "Tx_Saldo";
+            this.Tx_Saldo.ReadOnly = true;
             this.Tx_Saldo.Size = new System.Drawing.Size(67, 20);
             this.Tx_Saldo.TabIndex = 11;
             // 
@@ -306,7 +318,7 @@
             // 
             // Btn_Aceptar
             // 
-            this.Btn_Aceptar.Location = new System.Drawing.Point(646, 18);
+            this.Btn_Aceptar.Location = new System.Drawing.Point(702, 18);
             this.Btn_Aceptar.Name = "Btn_Aceptar";
             this.Btn_Aceptar.Size = new System.Drawing.Size(95, 39);
             this.Btn_Aceptar.TabIndex = 77;
@@ -315,12 +327,32 @@
             this.Btn_Aceptar.Visible = false;
             this.Btn_Aceptar.Click += new System.EventHandler(this.Btn_Aceptar_Click);
             // 
+            // Tx_Diam
+            // 
+            this.Tx_Diam.BackColor = System.Drawing.Color.White;
+            this.Tx_Diam.Location = new System.Drawing.Point(95, 37);
+            this.Tx_Diam.Name = "Tx_Diam";
+            this.Tx_Diam.ReadOnly = true;
+            this.Tx_Diam.Size = new System.Drawing.Size(67, 20);
+            this.Tx_Diam.TabIndex = 79;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(102, 18);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.TabIndex = 78;
+            this.label12.Text = "Diámetro";
+            // 
             // Frm_VinculaQR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 386);
             this.ControlBox = false;
+            this.Controls.Add(this.Tx_Diam);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.Btn_Aceptar);
             this.Controls.Add(this.Lbl_Msg);
             this.Controls.Add(this.lblColada);
@@ -388,5 +420,7 @@
         private System.Windows.Forms.Label lblColada;
         private System.Windows.Forms.Label Lbl_Msg;
         private System.Windows.Forms.Button Btn_Aceptar;
+        private System.Windows.Forms.TextBox Tx_Diam;
+        private System.Windows.Forms.Label label12;
     }
 }

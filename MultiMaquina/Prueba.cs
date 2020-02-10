@@ -222,6 +222,8 @@ namespace Metalurgica.MultiMaquina
                 Btn_UsuarioActiva.Text = string.Concat(  mUserLog.Login , "-", lIdUser);
                 mUserLog.Iduser = lIdUser;
                 mUserLog.IdMaquina = int.Parse(Btn_MaquinaActiva.Tag.ToString());
+                ctlProduccion1.IniciaFormulario(mUserLog);
+
                 ctlProduccion1.CargaUsuarioActual(mUserLog);
                 ctlProduccion1.HabilitaControl(iHabilitado);
                 ctlProduccion1.CargaUsuarioActual(mUserLog);
