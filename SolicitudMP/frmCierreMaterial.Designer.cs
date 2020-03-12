@@ -56,6 +56,7 @@
             this.dtpFechaRecepcion = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_repara = new System.Windows.Forms.Button();
             this.stsStatusStrip.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -160,7 +161,7 @@
             this.tlbExportar.Image = global::Metalurgica.Properties.Resources.table_excel;
             this.tlbExportar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tlbExportar.Name = "tlbExportar";
-            this.tlbExportar.Size = new System.Drawing.Size(70, 22);
+            this.tlbExportar.Size = new System.Drawing.Size(71, 22);
             this.tlbExportar.Text = "Exportar";
             this.tlbExportar.Click += new System.EventHandler(this.tlbExportar_Click);
             // 
@@ -339,11 +340,22 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1088, 22);
             this.ctlInformacionUsuario1.TabIndex = 30;
             // 
+            // Btn_repara
+            // 
+            this.Btn_repara.Location = new System.Drawing.Point(685, 29);
+            this.Btn_repara.Name = "Btn_repara";
+            this.Btn_repara.Size = new System.Drawing.Size(95, 39);
+            this.Btn_repara.TabIndex = 34;
+            this.Btn_repara.Text = "Repara Inconsistencia";
+            this.Btn_repara.UseVisualStyleBackColor = true;
+            this.Btn_repara.Click += new System.EventHandler(this.Btn_repara_Click);
+            // 
             // frmCierreMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 541);
+            this.Controls.Add(this.Btn_repara);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.stsStatusStrip);
             this.Controls.Add(this.tlsToolBar);
@@ -397,5 +409,6 @@
         private System.Windows.Forms.ComboBox cboAccion;
         private System.Windows.Forms.RadioButton Rb_Desmarcar;
         private System.Windows.Forms.RadioButton Rb_MarcarTodas;
+        private System.Windows.Forms.Button Btn_repara;
     }
 }

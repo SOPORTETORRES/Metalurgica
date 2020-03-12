@@ -2280,13 +2280,22 @@ namespace Metalurgica.Controls
         {
             //Salir();
             // registramos que el usuario  salio de sistema 
-            WsSesion.WS_SesionSoapClient lSesion = new WsSesion.WS_SesionSoapClient();
-            string lRes = "";
 
-            lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
+            try
+            {
 
-            BotonClick(this, null);
 
+                WsSesion.WS_SesionSoapClient lSesion = new WsSesion.WS_SesionSoapClient();
+                string lRes = "";
+
+                lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
+
+                BotonClick(this, null);
+            }
+            catch (Exception iex)
+            {
+
+            }
         }
 
         private bool TurnoEstaCerrado()

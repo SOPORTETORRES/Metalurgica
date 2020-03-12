@@ -831,13 +831,13 @@ namespace Metalurgica.Clases
                 for (i = 1; i < words.Length; i++)
                 {
                     lTmp = words[i].ToString();
-                    if   ((lTmp.ToUpper().ToString  ()!="HORMIGON") &&  ((lTmp.IndexOf("m") > -1) || (lTmp.IndexOf("M") > -1)))
+                    if ((lTmp.ToUpper().ToString() != "HORMIGON") && ((lTmp.IndexOf("m") > -1) || (lTmp.IndexOf("M") > -1)))
                     {
                         lAux = lTmp.Replace("m", "");
-                        lAux = lTmp.Replace("M", "");
-                        lRes = lAux; //new Clases.ClsComun().Val(lAux);
-                        //lAux = lTmp.Replace("m", "");
-                        //lRes = new Clases.ClsComun().Val(lAux);
+                        if (Val(lAux) < 1)
+                            lAux = lTmp.Replace("M", "");
+
+                        lRes = lAux;
                     }
                 }
                 //    lAux = lTmp.Replace("m", "");

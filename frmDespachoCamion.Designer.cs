@@ -202,7 +202,7 @@
             this.tlbExportar.Image = global::Metalurgica.Properties.Resources.table_excel;
             this.tlbExportar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tlbExportar.Name = "tlbExportar";
-            this.tlbExportar.Size = new System.Drawing.Size(70, 22);
+            this.tlbExportar.Size = new System.Drawing.Size(71, 22);
             this.tlbExportar.Text = "Exportar";
             this.tlbExportar.Click += new System.EventHandler(this.tlbExportar_Click);
             // 
@@ -211,7 +211,7 @@
             this.tlbIntegrarINET.Image = ((System.Drawing.Image)(resources.GetObject("tlbIntegrarINET.Image")));
             this.tlbIntegrarINET.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tlbIntegrarINET.Name = "tlbIntegrarINET";
-            this.tlbIntegrarINET.Size = new System.Drawing.Size(96, 22);
+            this.tlbIntegrarINET.Size = new System.Drawing.Size(95, 22);
             this.tlbIntegrarINET.Text = "Integrar INET";
             this.tlbIntegrarINET.Click += new System.EventHandler(this.tlbIntegrarINET_Click);
             // 
@@ -319,7 +319,6 @@
             this.Btn_ITDESP.TabIndex = 17;
             this.Btn_ITDESP.Text = "Dejar IT  despachada";
             this.Btn_ITDESP.UseVisualStyleBackColor = true;
-            this.Btn_ITDESP.Visible = false;
             this.Btn_ITDESP.Click += new System.EventHandler(this.Btn_ITDESP_Click);
             // 
             // Gr_empresa

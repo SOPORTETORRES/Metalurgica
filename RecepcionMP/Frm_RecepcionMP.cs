@@ -145,34 +145,56 @@ namespace Metalurgica.RecepcionMP
 
             try
             {
-                lVistaCod = new DataView(mTBlCodigosIntercambio, string.Concat("PAr1='", iEtiqueta.Codigo, "'"), "", DataViewRowState.CurrentRows);
-                if (lVistaCod.Count > 0)
-                //for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
+                lVista = new DataView(mTblDatos, string.Concat(" Codigo='", iEtiqueta.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                if (lVista.Count > 0)
                 {
-                    lCodTO = lVistaCod[0]["Par2"].ToString();
-                    lVista = new DataView(mTblDatos, string.Concat(" Codigo='", lCodTO, "'"), "", DataViewRowState.CurrentRows);
-                    if (lVista.Count > 0)
-                    {
-                        lKgsSol = lCom.Val(lVista[0]["Kilos Oc"].ToString());
-                        lPar = lVista[0]["IdEtiquetaAZA"].ToString();
+                    lKgsSol = lCom.Val(lVista[0]["Kilos Oc"].ToString());
+                    lPar = lVista[0]["IdEtiquetaAZA"].ToString();
 
-                        lKgsRecep = lCom.Val(lVista[0]["Kilos recibidos"].ToString());
-                        if (lKgsRecep > 0)
-                            lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(lVista[0][4].ToString());
-                        else
-                            lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+                    lKgsRecep = lCom.Val(lVista[0]["Kilos recibidos"].ToString());
+                    if (lKgsRecep > 0)
+                        lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(lVista[0][4].ToString());
+                    else
+                        lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
 
 
-                        lKgsSol = lCom.Val(lVista[0]["Kilos OC"].ToString());
+                    lKgsSol = lCom.Val(lVista[0]["Kilos OC"].ToString());
 
-                        lVista[0]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
-                        lVista[0][4] = lCom.Val(lVista[0][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
-                        lVista[0]["IdEtiquetaAza"] = string.Concat(lVista[0]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
-                    }
+                    lVista[0]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                    lVista[0][4] = lCom.Val(lVista[0][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                    lVista[0]["IdEtiquetaAza"] = string.Concat(lVista[0]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
                 }
                 else
                 {
-                    MessageBox.Show("El Código leido, No esta en la Base de datos, Avisar a Logistica ", "Avisos Sistema");
+                    lVistaCod = new DataView(mTBlCodigosIntercambio, string.Concat("PAr1='", iEtiqueta.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                    if (lVistaCod.Count > 0)
+                    //for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
+                    {
+                        lCodTO = lVistaCod[0]["Par2"].ToString();
+                        lVista = new DataView(mTblDatos, string.Concat(" Codigo='", lCodTO, "'"), "", DataViewRowState.CurrentRows);
+                        if (lVista.Count > 0)
+                        {
+                            lKgsSol = lCom.Val(lVista[0]["Kilos Oc"].ToString());
+                            lPar = lVista[0]["IdEtiquetaAZA"].ToString();
+
+                            lKgsRecep = lCom.Val(lVista[0]["Kilos recibidos"].ToString());
+                            if (lKgsRecep > 0)
+                                lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(lVista[0][4].ToString());
+                            else
+                                lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+
+
+                            lKgsSol = lCom.Val(lVista[0]["Kilos OC"].ToString());
+
+                            lVista[0]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                            lVista[0][4] = lCom.Val(lVista[0][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                            lVista[0]["IdEtiquetaAza"] = string.Concat(lVista[0]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Código leido, No esta en la Base de datos, Avisar a Logistica ", "Avisos Sistema");
+                    }
                 }
             }
             catch (Exception ex)
