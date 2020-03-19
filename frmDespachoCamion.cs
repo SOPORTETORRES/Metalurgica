@@ -184,13 +184,7 @@ namespace Metalurgica
             WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
             WsOperacion.Despacho_Camion lDespachoCamion = new WsOperacion.Despacho_Camion();
 
-            //Integracion_INET.Cls_LN lLogInet = new Integracion_INET.Cls_LN();
-            //Integracion_INET.Tipo_InvocaWS lResWS = new Integracion_INET.Tipo_InvocaWS();
-
-            //Si esta en modo ingresar la patente  esta se debe verificar antes de grabar.
-
-
-
+            
             lTbl.TableName = "Piezas";
             lTbl.Columns.Add("usuario", Type.GetType("System.String"));
             lTbl.Columns.Add("colada", Type.GetType("System.String"));
@@ -281,45 +275,13 @@ namespace Metalurgica
 
                         despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
 
-
-
-                        //Insertamos la cabecera  del despacho*******************************************+
-                        //despacho_Camion = wsOperacion.GuardarDespachoPiezaCamion(despacho_Camion, Program.currentUser.ComputerName);
-                        //if (despacho_Camion.MensajeError.Equals(""))
-                        //{
-                        //     idDespacho = despacho_Camion.Id;
-                        //     lDespachoCamion.Id = despacho_Camion.Id;
-                        //     lDespachoCamion.CodigoViaje = Lbl_Viajes.Text;
-                        //    foreach (DataGridViewRow row in dgvEtiquetasPiezas.Rows)
-                        //    {
-                        //        //Solo se deben procersar las que tienen el campo Estado1=POK
-                        //        lEstado = row.Cells["ESTADO1"].Value.ToString();
-                        //        if (lEstado.ToString().Equals("POK"))
-                        //        { 
-
-                        //        lEtiColada = row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString();
-                        //        //'despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, row.Cells[COLUMNNAME_ETIQUETA_COLADA].Value.ToString(), row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
-
-                        //       //Asociamos el detalle a la cabecera
-                        //        despacho_Camion = wsOperacion.AsociarEtiquetaPiezaaCamion(idDespacho, lEtiColada, row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString(), Program.currentUser.Login, Program.currentUser.ComputerName);
-                        //        if (despacho_Camion.MensajeError.Equals(""))
-                        //        {
-                        //            //tlbActualizar.PerformClick();
-                        //            //MessageBox.Show("Registro(s) guardado(s).", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //        }
-                        //        else
-                        //            MessageBox.Show(despacho_Camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        //        }
-                        //    }
-
-                        //    //invocamos el servicion que revisa el viaje una vez grabado para crear el nuevo viaje si corresponde
-                        //   
-
-                        //***********************fin Modificaciones
-
                         //Invocamos el metodo que revisa los bloqueos
                         wsOperacion.RevisaRN(lIdObra);
+
+                        //Generamos el documento en PDF.
+
+
+                        ImprimeDocs(despacho_Camion.Id.ToString ());
 
                         //    //***************************************
                         tlbNuevo_Click(sender, e);
@@ -342,6 +304,24 @@ namespace Metalurgica
 
         }
 
+        private void ImprimeDocs( string  iID)
+        {
+            SolicitudMP.Frm_Imprime lFrm = new SolicitudMP.Frm_Imprime();
+
+            abreExplorador();
+            System.Threading.Thread.Sleep(1500);
+            lFrm.ImprimirInforme(iID, false);
+
+            MessageBox.Show(" Se han  generado los documentos.    \n\n", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void abreExplorador()
+        {
+            string iPath = ConfigurationManager.AppSettings["PathPdf"].ToString();
+
+            System.Diagnostics.Process.Start("explorer", @iPath);
+        }
 
 
         private void SP_VERIFICA_VIAJE_DESPACHO(string lCodViajes)
@@ -525,19 +505,45 @@ namespace Metalurgica
         }
 
 
+        private String ValidaLiberacionDespacho(string iIdObra)
+        {
+            string lRes = "N"; DataView lVista = null; string lWheres = "";
+            string lValidaLiberacionDespacho = ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+           DataSet lDts=new DataSet () ; DataTable lTbl = new DataTable();
+
+            if (lValidaLiberacionDespacho.ToUpper().Equals("S"))
+            {
+                lDts = lPx.ObtenerParametro("ObraLiberacion");
+                
+                    if ((lDts.Tables.Count > 0) && (lDts .Tables[0].Rows.Count > 0))
+                    {
+                        lTbl = lDts.Tables[0].Copy();
+                        lWheres = string.Concat("  Par1='", iIdObra, "'");
+                        lVista = new DataView(lTbl, lWheres, "", DataViewRowState.CurrentRows);
+                        if (lVista.Count > 0)
+                            lRes = "S";
+                        else
+                            lRes = "N";
+
+                    }
+                //}
+            }
+
+            return lRes;
+        }
+
 
         private void LeePiezaCargada(string iEtiquetaPieza)
         {
             Forms forms = new Forms(); Color lColorsel = Color.Black; string lEstadoPaquete = "";
             DataView lVista = null; DataTable lTblPaq = new DataTable(); string lMsg = "";
             string lValidaPiezaProducida = ConfigurationManager.AppSettings["ValidaPaqueteProducido"].ToString().ToUpper ();
-            string lPaqueteLiberado = "";
+            string lPaqueteLiberado = ""; Boolean lPuedeSeguir = true; string lMgs = "";Clases.ClsComun lCom = new Clases.ClsComun();
             string[] split = null    ;//iEtiquetas.ToString().Split(new Char[] { '|' });
-            string lValidaLiberacionDespacho = ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
+            string lValidaLiberacionDespacho = ""; // ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
 
             DataTable lTblPaquete = new DataTable();
-
-
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
             {
                 if (forms.dataGridViewSearchText(dgvEtiquetasPiezas, COLUMNNAME_ETIQUETA_PIEZA, txtEtiquetaPieza.Text) > -1)
@@ -574,9 +580,35 @@ namespace Metalurgica
                             {
                                 lTblPaquete = ObtenerTblPaquete(iEtiquetaPieza);
                                 //Por integracion con liberacion de piezas  para despacho. 09/04/2019
-                                if ((lValidaLiberacionDespacho.Equals("S")) && (lPaqueteLiberado.ToString()!="S"))
+                                lPaqueteLiberado = ValidaLiberacionDespacho(lTblPaquete.Rows [0]["IdObra"].ToString ());
+
+                                if ((lPaqueteLiberado.ToString() == "S") && (lTblPaquete.Rows[0]["Liberada"].ToString() != "S"))
                                 {
-                                    MessageBox.Show(string.Concat("La etiqueta leida No Esta Liberada por Sistema .", Environment.NewLine, "Verificar Liberación de Despacho"), "Control Liberación de Paquetes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    lMgs = string.Concat("La etiqueta leida No Esta Liberada por Sistema, No se puede despachar, Consulte al Supervidor ", Environment.NewLine, Environment.NewLine); //, "Verificar Liberación de Despacho");
+                                    lPuedeSeguir = false;
+                                    //MessageBox.Show(string.Concat("La etiqueta leida No Esta Liberada por Sistema, No se puede despachar, Consulte al Supervidor ", Environment.NewLine, "Verificar Liberación de Despacho"), "Control Liberación de Paquetes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                //Por Cambio de versión de corte y doblado, No se puede despachar un paquete que no ha sido 
+                                // producido en un 100%  18/03/2020 
+                                if ((lTblPaquete.Rows.Count != 1))
+                                {
+                                    lMgs = string.Concat("La etiqueta leida No existe en el Sistema, No se puede despachar, Consulte al Supervidor ", Environment.NewLine, Environment.NewLine);
+                                    lPuedeSeguir = false;
+                                    //MessageBox.Show(string.Concat("La etiqueta leida No Esta Liberada por Sistema, No se puede despachar, Consulte al Supervidor ", Environment.NewLine, "Verificar Liberación de Despacho"), "Control Liberación de Paquetes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else if (lCom.Val(lTblPaquete.Rows[0]["AvancePaquete"].ToString()) < 100)
+                                {
+                                    lMgs = string.Concat(lMgs, "La etiqueta leida No esta 100% producida, el avance de produccion es: ", lCom.Val(lTblPaquete.Rows[0]["AvancePaquete"].ToString()).ToString(), "%,  No se puede despachar, Consulte al Supervidor ", Environment.NewLine); //, "Verificar Liberación de Despacho");
+                                    lPuedeSeguir = false;
+                                }
+
+                                
+                                    //if ((lValidaLiberacionDespacho.Equals("S")) && (lPaqueteLiberado.ToString()!="S"))
+                                    if (lPuedeSeguir==false)
+                                    {
+                                    //lMgs = string.Concat("La etiqueta leida No Esta Liberada por Sistema, No se puede despachar, Consulte al Supervidor ", Environment.NewLine, "Verificar Liberación de Despacho");
+                                    //lPuedeSeguir = false;
+                                    MessageBox.Show(lMgs, "Control Liberación de Paquetes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                                 else
                                 {
@@ -1008,25 +1040,7 @@ namespace Metalurgica
                     }
                        
                     
-                    //WsCrud.CrudSoapClient wsCrud = new WsCrud.CrudSoapClient();
-                    //WsCrud.Camion camion = new WsCrud.Camion();
-
-                        //camion = wsCrud.ObtenerCamion(txtPatente.Text); //Patente
-                        //if (camion.MensajeError.Equals(""))
-                        //{
-                        //    if (camion.Activo.Equals("S"))
-                        //        lblTransportista.Text = camion.Transportista;
-                        //    else
-                        //    {
-                        //        MessageBox.Show("El camión '" + txtPatente.Text + "' no existe o esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //        e.Cancel = true;
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show(camion.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    e.Cancel = true;
-                        //}
+                
                 }
                 catch (Exception exc)
                 {
@@ -1045,14 +1059,9 @@ namespace Metalurgica
         {
             try
             {
-                //Px_Ws_InterfazProd.Ws_InterfazProdSoapClient ldal = new Px_Ws_InterfazProd.Ws_InterfazProdSoapClient();
-                //DataSet lDts = ldal.ObtenerTodasObrasVigentes();
-                //DataTable dt = lDts.Tables[0];
-                DataTable lTbl = new DataTable(); DataRow lFila;
+               
 
-                //WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-                //WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-                //listaDataSet = wsOperacion.ObtenerTodasObrasVigentes();
+                DataTable lTbl = new DataTable(); DataRow lFila;
                 lTbl = CargaTablaObras( );
 
                 //if (listaDataSet.MensajeError.Equals(""))
@@ -1082,6 +1091,8 @@ namespace Metalurgica
                     default:
                                                break;
                 }
+
+                CargaPl_Imprimir();
 
             }
             catch (Exception exc)
@@ -1143,6 +1154,31 @@ namespace Metalurgica
 
 
         }
+
+
+        private void  CargaPl_Imprimir()
+        {
+             string lSql = "";   DataTable lTbl = new DataTable();  WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();
+            WsCrud.ListaDataSet listaDataSet = new WsCrud.ListaDataSet();
+
+            lSql = string.Concat(" select id, fechacreacion, v.codigo, nroguiaINET,  v.IdDespachoCamion  , ");
+            lSql = string.Concat(lSql, " (Select count(1) from ViajesIMpresos vi where vi.codigo=v.codigo  ) Impreso ");
+            lSql = string.Concat(lSql, " from viaje v  where FechaCreacion > getdate()-200 and estado='DES'  ");
+            lSql = string.Concat(lSql, "  and  (Select count(1) from ViajesIMpresos vi where vi.codigo=v.codigo  )<2 ");
+            lSql = string.Concat(lSql, "   order by (Select count(1) from ViajesIMpresos vi where vi.codigo=v.codigo  ) , v.Codigo  ");
+            listaDataSet = lDAl.ListarAyudaSql(lSql);
+            if (listaDataSet.MensajeError.Equals(""))
+            {
+                if (listaDataSet.DataSet.Tables.Count > 0)
+                {
+                    lTbl = listaDataSet.DataSet.Tables[0].Copy();
+
+                    Dtg_Pruebas.DataSource = lTbl;
+
+                }
+            }
+        }
+
 
         private bool RevisaBloqueosObra(string iIdObra)
         {
@@ -2096,5 +2132,22 @@ namespace Metalurgica
             }
         }
 
+        private void Btn_imprime_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+
+            //for (i = 0; i < Dtg_Pruebas.Rows.Count; i++)
+            if (Dtg_Pruebas.Rows.Count>0)
+            {
+                if (Dtg_Pruebas.Rows[i].Cells["IdDespachoCamion"].Value.ToString().Length > 3)
+                {
+                    ImprimeDocs((Dtg_Pruebas.Rows[i].Cells["IdDespachoCamion"].Value.ToString()));
+                    CargaPl_Imprimir();
+                    this.Refresh();
+                    Dtg_Pruebas.Refresh();
+                    Application.DoEvents();
+                }
+            }
+        }
     }
 }

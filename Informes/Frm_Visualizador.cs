@@ -135,7 +135,7 @@ namespace Metalurgica.Informes
                     string[] lPartes = mViaje.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                     if (lPartes.Length > 1)
                     {
-                       // lPathArchivo = string.Concat(lPathArchivo, lPartes[0], "\\");
+                        lPathArchivo = string.Concat(lPathArchivo, lPartes[0], "\\");
                         if (Directory.Exists(lPathArchivo) == false)
                         {
                             Directory.CreateDirectory(lPathArchivo);
@@ -153,7 +153,7 @@ namespace Metalurgica.Informes
                                 mReport.SetDataSource(mDtsInforme);
                                 this.crystalReportViewer1.ReportSource = mReport;
                                 mReport.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, lArchivo);
-                               // GrabaGeneracion_PL(mViaje, lPathArchivo, "P");
+                                GrabaGeneracion_PL(mViaje, lPathArchivo, "P");
 
 
                                 break;
@@ -171,7 +171,7 @@ namespace Metalurgica.Informes
                                 mReportD.SetDataSource(mDtsInforme);
                                 this.crystalReportViewer1.ReportSource = mReportD;
                                 mReportD.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, lArchivo);
-                               // GrabaGeneracion_PL(mViaje, lPathArchivo, "D");
+                                GrabaGeneracion_PL(mViaje, lPathArchivo, "D");
                                 break;
 
                         }
@@ -188,7 +188,17 @@ namespace Metalurgica.Informes
 
         }
 
+        private void GrabaGeneracion_PL(string iViaje, string iPath, string iTipo)
+        {
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            //WsMensajeria.Ws_To lPx = new WsMensajeria.Ws_To(); DataSet lDts = new DataSet();
 
+            string lSql = string.Concat(" insert into ViajesImpresos (codigo, Tipo, FechaImpresion, Path ) Values ('");
+            lSql = string.Concat(lSql, iViaje, "','", iTipo, "',getdate(),'", iPath, "') ");
+            lDts = lPx.ObtenerDatos(lSql);
+
+
+        }
         private void Frm_Visualizador_Load(object sender, EventArgs e)
         {
             //ImprimeInformeCarga();

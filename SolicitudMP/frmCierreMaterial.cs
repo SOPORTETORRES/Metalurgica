@@ -135,9 +135,9 @@ namespace Metalurgica
                 lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
                 for (i = 0; i < lVista.Count; i++)
                 {
-                    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion)  ");
+                    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion,IdEtiquetaVinculada)  ");
                     lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
-                    lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "')  ");
+                    lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "'", lVista[i]["IdEV"].ToString(),")  ");
                     lDtsTmp = lPX.ObtenerDatos(lSql);
                 }
 
@@ -195,9 +195,9 @@ namespace Metalurgica
                     lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
                     for (i = 0; i < lVista.Count; i++)
                     {
-                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion)  ");
+                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion IdEtiquetaVinculada )  ");
                         lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
-                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "')  ");
+                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", "'", lVista[i]["IdEV"].ToString(), ")  ");
                         lDtsTmp = lPX.ObtenerDatos(lSql);
                     }
 
@@ -428,7 +428,9 @@ namespace Metalurgica
 
 
                     tlbActualizar.PerformClick();
-                    MessageBox.Show("Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(" Datos Enviados a INET.  Proceso finalizado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvProductos.DataSource = null;
+                    tlbGuardar.Enabled = false;
                 }
                 catch (Exception exc)
                 {

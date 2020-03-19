@@ -42,6 +42,7 @@
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Dtg_Pruebas = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.Btn_Cambiar_A_PR = new System.Windows.Forms.Button();
@@ -104,9 +105,11 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCantidadEtiquetasPiezas = new System.Windows.Forms.Label();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_imprime = new System.Windows.Forms.Button();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Pruebas)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenCarga)).BeginInit();
@@ -242,6 +245,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Dtg_Pruebas);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -249,6 +253,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1370, 208);
             this.panel1.TabIndex = 26;
+            // 
+            // Dtg_Pruebas
+            // 
+            this.Dtg_Pruebas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_Pruebas.Location = new System.Drawing.Point(9, 171);
+            this.Dtg_Pruebas.Name = "Dtg_Pruebas";
+            this.Dtg_Pruebas.Size = new System.Drawing.Size(125, 25);
+            this.Dtg_Pruebas.TabIndex = 21;
+            this.Dtg_Pruebas.Visible = false;
             // 
             // label4
             // 
@@ -911,12 +924,24 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1370, 36);
             this.ctlInformacionUsuario1.TabIndex = 23;
             // 
+            // Btn_imprime
+            // 
+            this.Btn_imprime.Location = new System.Drawing.Point(622, 0);
+            this.Btn_imprime.Name = "Btn_imprime";
+            this.Btn_imprime.Size = new System.Drawing.Size(115, 32);
+            this.Btn_imprime.TabIndex = 28;
+            this.Btn_imprime.Text = "Imprime";
+            this.Btn_imprime.UseVisualStyleBackColor = true;
+            this.Btn_imprime.Visible = false;
+            this.Btn_imprime.Click += new System.EventHandler(this.Btn_imprime_Click);
+            // 
             // frmDespachoCamion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 494);
             this.ControlBox = false;
+            this.Controls.Add(this.Btn_imprime);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.stsStatusStrip);
@@ -936,6 +961,7 @@
             this.stsStatusStrip.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Pruebas)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1037,5 +1063,7 @@
         private System.Windows.Forms.DataGridView Dtg_ResumenCarga;
         private System.Windows.Forms.Button Btn_Cambiar_A_PR;
         private System.Windows.Forms.Button Btn_BasculaMovil;
+        private System.Windows.Forms.DataGridView Dtg_Pruebas;
+        private System.Windows.Forms.Button Btn_imprime;
     }
 }

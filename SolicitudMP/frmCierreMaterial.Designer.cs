@@ -219,6 +219,7 @@
             this.Rb_Desmarcar.TabStop = true;
             this.Rb_Desmarcar.Text = "Desmarcar Todas";
             this.Rb_Desmarcar.UseVisualStyleBackColor = true;
+            this.Rb_Desmarcar.Visible = false;
             // 
             // Rb_MarcarTodas
             // 
@@ -230,6 +231,7 @@
             this.Rb_MarcarTodas.TabStop = true;
             this.Rb_MarcarTodas.Text = "Marcar Todas";
             this.Rb_MarcarTodas.UseVisualStyleBackColor = true;
+            this.Rb_MarcarTodas.Visible = false;
             this.Rb_MarcarTodas.CheckedChanged += new System.EventHandler(this.Rb_MarcarTodas_CheckedChanged);
             // 
             // lblAccion
