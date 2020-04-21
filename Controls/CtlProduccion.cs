@@ -2255,19 +2255,20 @@ namespace Metalurgica.Controls
                 if (mlValidarSolictud_MP.ToUpper().Equals("QR"))
                 {
                     //2.- Debemos chequear que cerro el turno
-                    if (TurnoEstaCerrado() == false)
-                    {
-                        //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
-                        lMsg = string.Concat("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
-                        MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
-                    }
-                    else
-                    {
-                        //3.- Si cerro, sale de la aplicacion
-                        //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
-                        ValidarSalir();
-                        // BotonClick(this, e);
-                    }
+                    //if (TurnoEstaCerrado() == false)
+                    //{
+                    //    //3.- SI NO cerro, se visualiza mensaje y NO sale de la aplicación
+                    //    lMsg = string.Concat("NO se puede Salir de la aplicación, ya que NO se ha  cerrado el turno", Environment.NewLine, "Debe Cerrar el Turno Para poder Salir de la Aplicación");
+                    //    MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
+                    //}
+                    //else
+                    //{
+                    //    //3.- Si cerro, sale de la aplicacion
+                    //    //MessageBox.Show("SI se puede cerrar el turno", "Avisos Sistema", MessageBoxButtons.OK);
+                    //    ValidarSalir();
+                    //    // BotonClick(this, e);
+                    //}
+                    ValidarSalir();
                 }
                 else
                     ValidarSalir(); //BotonClick(this, e);

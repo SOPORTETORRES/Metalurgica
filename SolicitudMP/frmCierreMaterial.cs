@@ -74,89 +74,32 @@ namespace Metalurgica
             // 1.- Se Integra con INET
             DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
             DataView lVista = null;
-
-     
-            lFechaMov = DateTime.Now.ToString();
-            //lDts.Tables.Add(lTblINET.Copy());
-            lFechaMov = lFechaMov.Replace("/", "-");
-
-            //Debemos saber que  sucursal esta haciendo la invocaión
-            int lIdSucursal = lCom.OBtenerIdSucursal();
-            string lIdDetalle = "0"; DataSet lDtsTmp = new DataSet();
-
-            //Por cada Fila son 2 Integraciones 1.- Producido 2.- Despuente si lo hay.
-            //Primero lo Produccido 
-            if (lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString().ToString()) > 0)
+            try
             {
-                //Obtenemos el Objeto con los datos
-                lTblFinal = ObtenerTablaINET();
-                lTblINET = ObtenerTablaINET();
 
-                iROw = lTblINET.NewRow();
-                iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString();
-                iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString());
-                iROw["FechaMov"] = lFechaMov;
-                lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
-                iROw["Glosa1"] = lGlosa1;
-                   lGlosa2 = "Producido";
-                iROw["Glosa2"] = lGlosa2;
-                //iROw["Procesado"] = "N";
-             
-                lTblINET.Rows.Add(iROw);
+                lFechaMov = DateTime.Now.ToString();
+                //lDts.Tables.Add(lTblINET.Copy());
+                lFechaMov = lFechaMov.Replace("/", "-");
 
-                lDts.Tables.Add(lTblINET.Copy());
+                //Debemos saber que  sucursal esta haciendo la invocaión
+                int lIdSucursal = lCom.OBtenerIdSucursal();
+                string lIdDetalle = "0"; DataSet lDtsTmp = new DataSet();
 
-                if (lIdSucursal == 1)   //Calama
-                    lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
-
-                if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
-                    lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-
-                lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
-                lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
-                lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'P',", lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString()),",", mUserLog .IdMaquina ,")   select @@Identity  ");
-                lDtsTmp = lPX.ObtenerDatos(lSql);
-                if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
-                    lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
-
-                string lEstado = "";
-                //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
-                lRespuestaWS_INET = InvocarWS_INET(lObjINET);
-
-                inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
-                if (inet_msg.Trim().ToUpper().Equals("OK"))
+                //Por cada Fila son 2 Integraciones 1.- Producido 2.- Despuente si lo hay.
+                //Primero lo Produccido 
+                if (lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString().ToString()) > 0)
                 {
-                    lEstado = "OK";
-                }
-                else
-                    lEstado = "ER";
-
-                //Ahora Persistimo el detalle 
-                lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
-                for (i = 0; i < lVista.Count; i++)
-                {
-                    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion,IdEtiquetaVinculada)  ");
-                    lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
-                    lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "'", lVista[i]["IdEV"].ToString(),")  ");
-                    lDtsTmp = lPX.ObtenerDatos(lSql);
-                }
-
-
-                //*********************************************************
-                //Ahora el Despunte 
-                if (lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()) > 0)
-                {
-                    lTblINET.Clear();
-                    lDts.Tables.Clear();
-                    lDts.Clear();
+                    //Obtenemos el Objeto con los datos
                     lTblFinal = ObtenerTablaINET();
+                    lTblINET = ObtenerTablaINET();
+
                     iROw = lTblINET.NewRow();
                     iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString();
-                    iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString());
+                    iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString());
                     iROw["FechaMov"] = lFechaMov;
                     lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
                     iROw["Glosa1"] = lGlosa1;
-                    lGlosa2 = "Despunte";
+                    lGlosa2 = "Producido";
                     iROw["Glosa2"] = lGlosa2;
                     //iROw["Procesado"] = "N";
 
@@ -164,22 +107,20 @@ namespace Metalurgica
 
                     lDts.Tables.Add(lTblINET.Copy());
 
-                    //Obtenemos el Objeto con los datos
                     if (lIdSucursal == 1)   //Calama
                         lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
 
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-
                     lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
-                    lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
-                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
+                    lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'P',", lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
                     lDtsTmp = lPX.ObtenerDatos(lSql);
                     if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
                         lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
 
-            
+                    string lEstado = "";
                     //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                     lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
@@ -192,19 +133,84 @@ namespace Metalurgica
                         lEstado = "ER";
 
                     //Ahora Persistimo el detalle 
-                    lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                    lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
                     for (i = 0; i < lVista.Count; i++)
                     {
-                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion IdEtiquetaVinculada )  ");
-                        lSql = string.Concat(lSql, " values ('", lVista[i]["Id"].ToString(), "',getdate(),");
-                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", "'", lVista[i]["IdEV"].ToString(), ")  ");
+                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion,IdEtiquetaVinculada)  ");
+                        lSql = string.Concat(lSql, " values ('", lVista[i]["IdQR"].ToString(), "',getdate(),");
+                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "',", lVista[i]["IdEV"].ToString(), ")  ");
                         lDtsTmp = lPX.ObtenerDatos(lSql);
                     }
 
 
+                    //*********************************************************
+                    //Ahora el Despunte 
+                    if (lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()) > 0)
+                    {
+                        lTblINET.Clear();
+                        lDts.Tables.Clear();
+                        lDts.Clear();
+                        lTblFinal = ObtenerTablaINET();
+                        iROw = lTblINET.NewRow();
+                        iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString();
+                        iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString());
+                        iROw["FechaMov"] = lFechaMov;
+                        lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
+                        iROw["Glosa1"] = lGlosa1;
+                        lGlosa2 = "Despunte";
+                        iROw["Glosa2"] = lGlosa2;
+                        //iROw["Procesado"] = "N";
+
+                        lTblINET.Rows.Add(iROw);
+
+                        lDts.Tables.Add(lTblINET.Copy());
+
+                        //Obtenemos el Objeto con los datos
+                        if (lIdSucursal == 1)   //Calama
+                            lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                        if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
+                            lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+
+                        lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
+                        lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                        lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
+                        lDtsTmp = lPX.ObtenerDatos(lSql);
+                        if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                            lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
+
+
+                        //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+                        lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+
+                        inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
+                        if (inet_msg.Trim().ToUpper().Equals("OK"))
+                        {
+                            lEstado = "OK";
+                        }
+                        else
+                            lEstado = "ER";
+
+                        //Ahora Persistimo el detalle 
+                        lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                        for (i = 0; i < lVista.Count; i++)
+                        {
+                            lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion, IdEtiquetaVinculada )  ");
+                            lSql = string.Concat(lSql, " values ('", lVista[i]["IdQR"].ToString(), "',getdate(),");
+                            lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "',", lVista[i]["IdEV"].ToString(), ")  ");
+                            lDtsTmp = lPX.ObtenerDatos(lSql);
+                        }
+
+
+
+                    }
 
                 }
-
+            }
+            catch (Exception iEx)
+            {
+                MessageBox.Show(String.Concat("Ha ocurrido el siguiente Error:", iEx.Message.ToString()), "Avisos Sistema", MessageBoxButtons.OK);
             }
 
             return lRes;

@@ -308,12 +308,18 @@ namespace Metalurgica
         {
             SolicitudMP.Frm_Imprime lFrm = new SolicitudMP.Frm_Imprime();
 
-            abreExplorador();
-            System.Threading.Thread.Sleep(1500);
-            lFrm.ImprimirInforme(iID, false);
+            try
+            {
+                abreExplorador();
+                System.Threading.Thread.Sleep(1500);
+                lFrm.ImprimirInforme(iID, false);
 
-            MessageBox.Show(" Se han  generado los documentos.    \n\n", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                //MessageBox.Show(" Se han  generado los documentos.    \n\n", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception iEx)
+            {
+                MessageBox.Show(string.Concat (" Ha Ocurrido el siguiente error :", iEx.Message .ToString ()), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void abreExplorador()
@@ -507,7 +513,7 @@ namespace Metalurgica
 
         private String ValidaLiberacionDespacho(string iIdObra)
         {
-            string lRes = "N"; DataView lVista = null; string lWheres = "";
+            string lRes = "S"; DataView lVista = null; string lWheres = "";
             string lValidaLiberacionDespacho = ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
            DataSet lDts=new DataSet () ; DataTable lTbl = new DataTable();
@@ -1092,7 +1098,7 @@ namespace Metalurgica
                                                break;
                 }
 
-                CargaPl_Imprimir();
+               // CargaPl_Imprimir();
 
             }
             catch (Exception exc)
