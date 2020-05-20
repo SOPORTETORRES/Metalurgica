@@ -392,10 +392,59 @@ namespace Metalurgica.Controls
                     //{
                     //    //pasos   2.- si el campo tiene dato debe ser numero
 
-                        //        MessageBox.Show(string.Concat(" El número ingresado en el campo Colada NO es Válido, Revisar el número de Colada"), "Avisos Sistema", MessageBoxButtons.OK);
-                        //        lEtiquetaImpresa = false;
-                        //          txtEtiquetaColada.Text = "";
-                        //  }
+                    //        MessageBox.Show(string.Concat(" El número ingresado en el campo Colada NO es Válido, Revisar el número de Colada"), "Avisos Sistema", MessageBoxButtons.OK);
+                    //        lEtiquetaImpresa = false;
+                    //          txtEtiquetaColada.Text = "";
+                    //  }
+                    // validamos la calidad del acero en la pieza y la Etiqueta QR
+                    // Segun definiciones entregadas por Leo Gallardo
+
+                  
+                 string lmsg = "";
+                    if (lCom .Val(mEtiqueta_Qr.Id.ToString () )>0)
+                    {
+                        switch (lTbl.Rows[0]["TipoAcero"].ToString().ToUpper())
+                        {
+                            case "A630":
+                                //Al hacer la IT, puede ser A630, SE PUEDE ACEPTAR   A630 Y A630S(POR DEFECTO)
+                                //Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.
+                                if (mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440"))
+                                {
+                                    lEtiquetaImpresa = false;
+                                    lmsg = " Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.";
+                                }
+                                break;
+                            case "A440":
+                                //A440, SOLO A440   Se intenta producir una etiqueta que exige a440 con materia prima
+                                // A630(normal)  A630S(Soldable).
+                                if (mEtiqueta_Qr.CalidadAcero.ToString() != "A440")
+                                {
+                                    lEtiquetaImpresa = false;
+                                    lmsg = " Se intenta producir una etiqueta que exige A440 con materia prima  A630(normal)  A630S(Soldable)";
+                                }
+                                break;
+                            case "A630S":
+                                // A630S SOLO A630S
+                                //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
+                                //A630(normal)  A440.
+
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630") && (mEtiqueta_Qr.EsSoldable == "N"))
+                                {
+                                    lEtiquetaImpresa = false;
+                                    lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";
+                                }
+                                break;
+                        }
+                    }
+
+                    //if (mEtiqueta_Qr.CalidadAcero != lTbl.Rows[0]["TipoAcero"].ToString())
+                    if (lmsg.Trim().Length >0 )
+                    {
+                        MessageBox.Show(lmsg, "Avisos Sistema", MessageBoxButtons.OK);
+                        lEtiquetaImpresa = false;
+                        txtEtiquetaPieza.Text = "";
+                    }
+
                 }
             }
             return lEtiquetaImpresa;
@@ -478,15 +527,15 @@ namespace Metalurgica.Controls
             
                 //this.lbl_Res.Text = " La Etiqueta " + iPieza + " fue grabada Correctamente ";
                 //this.Close();
-                if (lCom.Val(mIdSolicitudMP) > 0)
-                { 
-                    lSql = string.Concat(" Update DetallePaquetesPieza set IdSolicitudMP=", mIdSolicitudMP, " Where id=", pieza.Etiqueta);
-                    lDts = lPx.ObtenerDatos(lSql);
-                    lSql = string.Concat(" SP_Consultas_WS 66, '", mIdSolicitudMP,"', '", pieza.Etiqueta,"', '', '', '', '', ''");
-                    lDts = lPx.ObtenerDatos(lSql);
+                //if (lCom.Val(mIdSolicitudMP) > 0)
+                //{ 
+                //    lSql = string.Concat(" Update DetallePaquetesPieza set IdSolicitudMP=", mIdSolicitudMP, " Where id=", pieza.Etiqueta);
+                //    lDts = lPx.ObtenerDatos(lSql);
+                //    lSql = string.Concat(" SP_Consultas_WS 66, '", mIdSolicitudMP,"', '", pieza.Etiqueta,"', '', '', '', '', ''");
+                //    lDts = lPx.ObtenerDatos(lSql);
 
               
-                }
+                //}
                 string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
                 switch (mTipoColada.ToUpper())
                 {
@@ -1171,36 +1220,15 @@ namespace Metalurgica.Controls
                                             else
                                             {
                                                 txtEtiquetaColada_Validating(null, null);
-                                                lPuedeContinuar = ValidaColadaPieza();
-                                                
-
+                                                lPuedeContinuar = ValidaColadaPieza();    
                                             }
                                                 
                                         }
                                         else
                                         {
-                                            //if (dataTable.Rows[0]["ObrasColadas"].ToString().Equals("S"))
-                                            //{
-                                            //    if (txtEtiquetaColada.Text.Trim().Equals(""))
-                                            //    {
-                                            //        MessageBox.Show("Debe Indicar una Colada para este Material ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            //        lPuedeContinuar = false;
-                                            //    }
-                                            //    else
-                                            //    {
-                                            //        txtEtiquetaColada_Validating(null, null);
-                                            //        lPuedeContinuar = ValidaColadaPieza();
-                                            //        txtEtiquetaColada_Validating(null, null);
-                                            //    }
-
-                                            //}
-                                            //else
-                                            //{
-                                                //txtEtiquetaColada_Validating(null, null);
+                                            
                                                 lPuedeContinuar = ValidaColadaPieza();
-                                               // txtEtiquetaColada_Validating(null, null);
-                                            //}
-                                            //lPuedeContinuar = true;
+                                             
                                         }
 
                                         if (lPuedeContinuar == true)
@@ -2073,38 +2101,46 @@ namespace Metalurgica.Controls
                     lTmp = lTmp.Replace("=", ")");
 
                     mEtiqueta_Qr = lCom.ObtenerEtiquetaAZA(lTmp,true);
-
-                    // MessageBox.Show("Error Wt",mEtiqueta_Qr .Errors.ToString  ());
-
-                    if (mEtiqueta_Qr.Errors.Trim().Length == 0)     //NO hay error 
+                    if ((mEtiqueta_Qr.Errors.Trim().Length == 0)   )   //NO hay error 
                     {
-                        mIdEtiquetaColada = mEtiqueta_Qr.Id.ToString();    // el Id de la etiqueta Aza
-
-                        //ValidaColadaEnProduccion
-                        lSaldoColada = (lCom.Val(mEtiqueta_Qr.PesoBulto.ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
-                        Lbl_SaldoKilosColada.Text = lSaldoColada.ToString();
-                        Lbl_KgsProd.Text = mEtiqueta_Qr.KgsProducidos.ToString();
-                        lblColada.Text = mEtiqueta_Qr.Lote.ToString();
-                        lblDiametro.Text = mEtiqueta_Qr.Diam.ToString();
-                        lblLargo.Text = mEtiqueta_Qr.Largo.ToString();
-                        lblKilos.Text = mEtiqueta_Qr.PesoBulto.ToString();
-                        txtEtiquetaColada.Tag = mIdEtiquetaColada;
-
-                        if (lSaldoColada < 1)
+                        if (mEtiqueta_Qr.Id > 0)
                         {
-                            MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtEtiquetaPieza.Enabled = false;
+                            mIdEtiquetaColada = mEtiqueta_Qr.Id.ToString();    // el Id de la etiqueta Aza
+                                                                               //ValidaColadaEnProduccion
+                            lSaldoColada = (lCom.Val(mEtiqueta_Qr.PesoBulto.ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
+                            Lbl_SaldoKilosColada.Text = lSaldoColada.ToString();
+                            Lbl_KgsProd.Text = mEtiqueta_Qr.KgsProducidos.ToString();
+                            lblColada.Text = mEtiqueta_Qr.Lote.ToString();
+                            lblDiametro.Text = mEtiqueta_Qr.Diam.ToString();
+                            lblLargo.Text = mEtiqueta_Qr.Largo.ToString();
+                            lblKilos.Text = mEtiqueta_Qr.PesoBulto.ToString();
+                            lbl_calidadAcero.Text = String.Concat("Calidad: ", mEtiqueta_Qr.CalidadAcero.ToString());
+                            Lbl_tipo.Text = String.Concat("Es Soldable: ", mEtiqueta_Qr.EsSoldable.ToString());
+                            txtEtiquetaColada.Tag = mIdEtiquetaColada;
+
+                            if (lSaldoColada < 1)
+                            {
+                                MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                txtEtiquetaPieza.Enabled = false;
+                            }
+                            else
+                            {
+                                txtEtiquetaPieza.Enabled = true;
+                                txtEtiquetaPieza.Focus();
+                            }
                         }
                         else
                         {
-                            txtEtiquetaPieza.Enabled = true;
-                            txtEtiquetaPieza.Focus();
+                            MessageBox.Show("La colada Ingresada NO se ha encontrado en la Base de Datos, Revisar", "Avisos Sistema");
+                            txtEtiquetaColada.Text = "";
+                            txtEtiquetaColada.Focus();
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show( mEtiqueta_Qr.Errors.ToString(),"Avisos Sistema");
+                         
+                        MessageBox.Show(mEtiqueta_Qr.Errors.ToString(), "Avisos Sistema");
                         txtEtiquetaColada.Text = "";
                         txtEtiquetaColada.Focus();
                     }
@@ -2535,6 +2571,17 @@ namespace Metalurgica.Controls
             {
                 txtEtiquetaColada_Validating(null, null);
             }
+        }
+
+        private void Btn_Despunte_Click(object sender, EventArgs e)
+        {
+            string lTrama = "";
+            Produccion.Frm_SeleccionaEtiquetaDesp lFrm = new Produccion.Frm_SeleccionaEtiquetaDesp();
+            lFrm.ShowDialog();
+            tlbNuevo_Click(null, null);
+            lTrama = AppDomain.CurrentDomain.GetData("TramaET").ToString ();
+            txtEtiquetaColada.Text = lTrama;
+            txtEtiquetaColada_Validating(null, null);
         }
     }
 }

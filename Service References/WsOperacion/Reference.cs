@@ -2577,6 +2577,8 @@ namespace Metalurgica.WsOperacion {
         
         private string tramaField;
         
+        private string esSoldableField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Lote {
@@ -2742,6 +2744,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.tramaField = value;
                 this.RaisePropertyChanged("Trama");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
+        public string EsSoldable {
+            get {
+                return this.esSoldableField;
+            }
+            set {
+                this.esSoldableField = value;
+                this.RaisePropertyChanged("EsSoldable");
             }
         }
         

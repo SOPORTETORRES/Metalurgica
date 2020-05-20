@@ -593,6 +593,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CalidadAcero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Trama" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EsSoldable" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">

@@ -51,6 +51,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Lbl_tipo = new System.Windows.Forms.Label();
+            this.lbl_calidadAcero = new System.Windows.Forms.Label();
             this.Btn_cierreEtiquetaAza = new System.Windows.Forms.Button();
             this.Btn_CheckList = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -101,6 +103,7 @@
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.Btn_Despunte = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -343,6 +346,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.Btn_Despunte);
+            this.groupBox1.Controls.Add(this.Lbl_tipo);
+            this.groupBox1.Controls.Add(this.lbl_calidadAcero);
             this.groupBox1.Controls.Add(this.Btn_cierreEtiquetaAza);
             this.groupBox1.Controls.Add(this.Btn_CheckList);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -350,7 +356,6 @@
             this.groupBox1.Controls.Add(this.Btn_NotificaAveriaElemento);
             this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.Btn_MtoTotem);
-            this.groupBox1.Controls.Add(this.Btn_MtoMaq);
             this.groupBox1.Controls.Add(this.Btn_NotificacionAveria);
             this.groupBox1.Controls.Add(this.Lbl_NroEtiq);
             this.groupBox1.Controls.Add(this.label15);
@@ -382,9 +387,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
             // 
+            // Lbl_tipo
+            // 
+            this.Lbl_tipo.AutoSize = true;
+            this.Lbl_tipo.Location = new System.Drawing.Point(546, 53);
+            this.Lbl_tipo.Name = "Lbl_tipo";
+            this.Lbl_tipo.Size = new System.Drawing.Size(29, 13);
+            this.Lbl_tipo.TabIndex = 62;
+            this.Lbl_tipo.Text = "Kilos";
+            // 
+            // lbl_calidadAcero
+            // 
+            this.lbl_calidadAcero.AutoSize = true;
+            this.lbl_calidadAcero.Location = new System.Drawing.Point(456, 53);
+            this.lbl_calidadAcero.Name = "lbl_calidadAcero";
+            this.lbl_calidadAcero.Size = new System.Drawing.Size(29, 13);
+            this.lbl_calidadAcero.TabIndex = 61;
+            this.lbl_calidadAcero.Text = "Kilos";
+            // 
             // Btn_cierreEtiquetaAza
             // 
-            this.Btn_cierreEtiquetaAza.Location = new System.Drawing.Point(711, 6);
+            this.Btn_cierreEtiquetaAza.Location = new System.Drawing.Point(726, 6);
             this.Btn_cierreEtiquetaAza.Name = "Btn_cierreEtiquetaAza";
             this.Btn_cierreEtiquetaAza.Size = new System.Drawing.Size(75, 34);
             this.Btn_cierreEtiquetaAza.TabIndex = 60;
@@ -405,6 +428,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Lbl_Usuario);
+            this.groupBox2.Controls.Add(this.Btn_MtoMaq);
             this.groupBox2.Location = new System.Drawing.Point(966, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(297, 101);
@@ -457,7 +481,7 @@
             // 
             // Btn_MtoTotem
             // 
-            this.Btn_MtoTotem.Location = new System.Drawing.Point(828, 15);
+            this.Btn_MtoTotem.Location = new System.Drawing.Point(917, 12);
             this.Btn_MtoTotem.Name = "Btn_MtoTotem";
             this.Btn_MtoTotem.Size = new System.Drawing.Size(66, 23);
             this.Btn_MtoTotem.TabIndex = 54;
@@ -467,7 +491,7 @@
             // 
             // Btn_MtoMaq
             // 
-            this.Btn_MtoMaq.Location = new System.Drawing.Point(900, 14);
+            this.Btn_MtoMaq.Location = new System.Drawing.Point(6, -6);
             this.Btn_MtoMaq.Name = "Btn_MtoMaq";
             this.Btn_MtoMaq.Size = new System.Drawing.Size(57, 23);
             this.Btn_MtoMaq.TabIndex = 53;
@@ -490,7 +514,7 @@
             this.Lbl_NroEtiq.AutoSize = true;
             this.Lbl_NroEtiq.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroEtiq.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroEtiq.Location = new System.Drawing.Point(674, 24);
+            this.Lbl_NroEtiq.Location = new System.Drawing.Point(701, 24);
             this.Lbl_NroEtiq.Name = "Lbl_NroEtiq";
             this.Lbl_NroEtiq.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroEtiq.TabIndex = 51;
@@ -499,7 +523,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(598, 24);
+            this.label15.Location = new System.Drawing.Point(625, 24);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 13);
             this.label15.TabIndex = 50;
@@ -510,7 +534,7 @@
             this.Lbl_NroPiezas.AutoSize = true;
             this.Lbl_NroPiezas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroPiezas.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroPiezas.Location = new System.Drawing.Point(570, 24);
+            this.Lbl_NroPiezas.Location = new System.Drawing.Point(597, 24);
             this.Lbl_NroPiezas.Name = "Lbl_NroPiezas";
             this.Lbl_NroPiezas.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroPiezas.TabIndex = 49;
@@ -519,7 +543,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(502, 24);
+            this.label12.Location = new System.Drawing.Point(529, 24);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 13);
             this.label12.TabIndex = 48;
@@ -530,7 +554,7 @@
             this.Lbl_KgsProd.AutoSize = true;
             this.Lbl_KgsProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_KgsProd.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_KgsProd.Location = new System.Drawing.Point(451, 24);
+            this.Lbl_KgsProd.Location = new System.Drawing.Point(478, 24);
             this.Lbl_KgsProd.Name = "Lbl_KgsProd";
             this.Lbl_KgsProd.Size = new System.Drawing.Size(13, 13);
             this.Lbl_KgsProd.TabIndex = 47;
@@ -539,7 +563,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(362, 24);
+            this.label8.Location = new System.Drawing.Point(389, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 13);
             this.label8.TabIndex = 46;
@@ -550,7 +574,7 @@
             this.Lbl_SaldoKilosColada.AutoSize = true;
             this.Lbl_SaldoKilosColada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_SaldoKilosColada.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_SaldoKilosColada.Location = new System.Drawing.Point(314, 24);
+            this.Lbl_SaldoKilosColada.Location = new System.Drawing.Point(341, 24);
             this.Lbl_SaldoKilosColada.Name = "Lbl_SaldoKilosColada";
             this.Lbl_SaldoKilosColada.Size = new System.Drawing.Size(14, 13);
             this.Lbl_SaldoKilosColada.TabIndex = 44;
@@ -558,7 +582,7 @@
             // 
             // Btn_VerDetalle
             // 
-            this.Btn_VerDetalle.Location = new System.Drawing.Point(793, 14);
+            this.Btn_VerDetalle.Location = new System.Drawing.Point(814, 14);
             this.Btn_VerDetalle.Name = "Btn_VerDetalle";
             this.Btn_VerDetalle.Size = new System.Drawing.Size(68, 23);
             this.Btn_VerDetalle.TabIndex = 45;
@@ -569,7 +593,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(220, 24);
+            this.label11.Location = new System.Drawing.Point(247, 24);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(95, 13);
             this.label11.TabIndex = 43;
@@ -578,7 +602,7 @@
             // lblKilos
             // 
             this.lblKilos.AutoSize = true;
-            this.lblKilos.Location = new System.Drawing.Point(508, 52);
+            this.lblKilos.Location = new System.Drawing.Point(402, 53);
             this.lblKilos.Name = "lblKilos";
             this.lblKilos.Size = new System.Drawing.Size(13, 13);
             this.lblKilos.TabIndex = 42;
@@ -587,7 +611,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(480, 53);
+            this.label10.Location = new System.Drawing.Point(369, 53);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(29, 13);
             this.label10.TabIndex = 41;
@@ -623,7 +647,7 @@
             // lblLargo
             // 
             this.lblLargo.AutoSize = true;
-            this.lblLargo.Location = new System.Drawing.Point(395, 53);
+            this.lblLargo.Location = new System.Drawing.Point(326, 53);
             this.lblLargo.Name = "lblLargo";
             this.lblLargo.Size = new System.Drawing.Size(13, 13);
             this.lblLargo.TabIndex = 37;
@@ -632,7 +656,7 @@
             // lblDiametro
             // 
             this.lblDiametro.AutoSize = true;
-            this.lblDiametro.Location = new System.Drawing.Point(275, 53);
+            this.lblDiametro.Location = new System.Drawing.Point(248, 53);
             this.lblDiametro.Name = "lblDiametro";
             this.lblDiametro.Size = new System.Drawing.Size(13, 13);
             this.lblDiametro.TabIndex = 36;
@@ -650,7 +674,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(351, 54);
+            this.label6.Location = new System.Drawing.Point(287, 54);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 13);
             this.label6.TabIndex = 34;
@@ -659,7 +683,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(216, 54);
+            this.label4.Location = new System.Drawing.Point(198, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 33;
@@ -867,6 +891,16 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1327, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
             // 
+            // Btn_Despunte
+            // 
+            this.Btn_Despunte.Location = new System.Drawing.Point(218, 20);
+            this.Btn_Despunte.Name = "Btn_Despunte";
+            this.Btn_Despunte.Size = new System.Drawing.Size(24, 23);
+            this.Btn_Despunte.TabIndex = 63;
+            this.Btn_Despunte.Text = "D";
+            this.Btn_Despunte.UseVisualStyleBackColor = true;
+            this.Btn_Despunte.Click += new System.EventHandler(this.Btn_Despunte_Click);
+            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -981,5 +1015,8 @@
         private System.Windows.Forms.Button Btn_CheckList;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button Btn_cierreEtiquetaAza;
+        private System.Windows.Forms.Label Lbl_tipo;
+        private System.Windows.Forms.Label lbl_calidadAcero;
+        private System.Windows.Forms.Button Btn_Despunte;
     }
 }

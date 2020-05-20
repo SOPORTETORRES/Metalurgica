@@ -350,6 +350,7 @@
             this.Btn_repara.TabIndex = 34;
             this.Btn_repara.Text = "Repara Inconsistencia";
             this.Btn_repara.UseVisualStyleBackColor = true;
+            this.Btn_repara.Visible = false;
             this.Btn_repara.Click += new System.EventHandler(this.Btn_repara_Click);
             // 
             // frmCierreMaterial

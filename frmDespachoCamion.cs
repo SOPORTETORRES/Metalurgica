@@ -850,7 +850,7 @@ namespace Metalurgica
                         lPiezasCargadas = 0; lPaquetesCargados = 0; lKilosDesa = 0; lKilosViaje = 0; lPiezasViaje = 0;
                         lVista = new DataView(lTblDatos, lWheres, "", DataViewRowState.CurrentRows);
                         {
-                            lKilosCargados = 0; lPiezasCargadas = 0;
+                            lKilosCargados = 0; lPiezasCargadas = 0; lKilosNoVa = 0;
                             for (k = 0; k < lVista.Count; k++)
                             {
                                 lPiezasViaje = lPiezasViaje + lCom.Val(lVista[k]["NroPiezas"].ToString());
