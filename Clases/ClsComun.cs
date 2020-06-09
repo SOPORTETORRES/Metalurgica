@@ -825,6 +825,9 @@ namespace Metalurgica.Clases
                     lTBlMP = lDts.DataSet.Tables["MP"].Copy();
                     lTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
                     lEt.Lote = words[0].ToString().Trim();
+                    if (lEt.Lote.Trim().Length == 10)
+                        lEt.Procedencia  = "AZA";
+
                     lEt.FechaFabricacion = words[1].ToString().Trim();
                     lEt.Bulto = lCom.Val(words[2].ToString());
                     if (incluyeProduccion == true)
@@ -838,7 +841,7 @@ namespace Metalurgica.Clases
                     lEt.Codigo = words[4].ToString().Trim();
                     lEt.PesoBulto = lCom.Val(words[5].ToString());
                     lEt.Errors = "";
-                  
+                    lEt.TipoProduccion = "P";
 
                     lEt.Trama = lTx;
                     // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
@@ -855,11 +858,16 @@ namespace Metalurgica.Clases
                         DataView lvista = new DataView(lTBlMP, string.Concat("Codigo='",lEt .Codigo ,"'"), "", DataViewRowState.CurrentRows);
                         if (lvista.Count > 0)
                         {
-                            lEt.CalidadAcero = lvista[0]["CalidadAcero"].ToString();  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            
                             lEt.Diam = int.Parse(lvista[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
                             lEt.Largo = lvista[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
-                            lEt.EsSoldable = lvista[0]["Soldable"].ToString();
-
+                            lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString());
+                           lEt.EsSoldable = lvista[0]["Soldable"].ToString();
+                            if (lEt.EsSoldable.Equals("S"))
+                            {
+                                lEt.CalidadAcero = string.Concat (lvista[0]["CalidadAcero"].ToString().Trim (),"S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            }
+                           
                         }
 
                     }

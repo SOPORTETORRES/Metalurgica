@@ -436,6 +436,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="OrdenCompra" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EsVaPero_NoVa" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TieneConector" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CalidadAcero" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="ValidarRN">
@@ -594,6 +595,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="CalidadAcero" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Trama" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EsSoldable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Procedencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoProduccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">

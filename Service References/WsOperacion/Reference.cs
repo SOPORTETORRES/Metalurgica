@@ -2579,6 +2579,12 @@ namespace Metalurgica.WsOperacion {
         
         private string esSoldableField;
         
+        private string procedenciaField;
+        
+        private string tipoProduccionField;
+        
+        private string obsField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Lote {
@@ -2759,6 +2765,42 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=15)]
+        public string Procedencia {
+            get {
+                return this.procedenciaField;
+            }
+            set {
+                this.procedenciaField = value;
+                this.RaisePropertyChanged("Procedencia");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=16)]
+        public string TipoProduccion {
+            get {
+                return this.tipoProduccionField;
+            }
+            set {
+                this.tipoProduccionField = value;
+                this.RaisePropertyChanged("TipoProduccion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=17)]
+        public string Obs {
+            get {
+                return this.obsField;
+            }
+            set {
+                this.obsField = value;
+                this.RaisePropertyChanged("Obs");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -2842,6 +2884,8 @@ namespace Metalurgica.WsOperacion {
         private string esVaPero_NoVaField;
         
         private string tieneConectorField;
+        
+        private string calidadAceroField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -3236,6 +3280,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.tieneConectorField = value;
                 this.RaisePropertyChanged("TieneConector");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
+        public string CalidadAcero {
+            get {
+                return this.calidadAceroField;
+            }
+            set {
+                this.calidadAceroField = value;
+                this.RaisePropertyChanged("CalidadAcero");
             }
         }
         

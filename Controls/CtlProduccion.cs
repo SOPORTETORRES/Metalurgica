@@ -428,7 +428,7 @@ namespace Metalurgica.Controls
                                 //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
                                 //A630(normal)  A440.
 
-                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630") && (mEtiqueta_Qr.EsSoldable == "N"))
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630")  || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440"))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";

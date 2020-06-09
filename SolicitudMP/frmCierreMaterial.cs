@@ -166,7 +166,7 @@ namespace Metalurgica
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-
+                    lIdDetalle = "0";
                     lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
                     lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
                     lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
@@ -187,7 +187,7 @@ namespace Metalurgica
                         lEstado = "ER";
 
                     //Ahora Persistimo el detalle 
-                    lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                    lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and TipoEtiqueta='P'  and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
                     for (i = 0; i < lVista.Count; i++)
                     {
                         lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion, IdEtiquetaVinculada )  ");
@@ -198,15 +198,18 @@ namespace Metalurgica
                 }
                 //Ahora el Despunte 
                 if (lCom.Val(iFila.Cells["Fabricado Con Despunte"].Value.ToString()) > 0)
-                    // cuando una etiqueta ha sido fabricada con etiqueta despuente: 
-                    // NO se debe Integrar con INET, y no debe aparecer nuevamente en los siguientes cierres.
-                    lVista = new DataView(mTblDetalle, string.Concat(" tipoEtiqueta='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
-                for (i = 0; i < lVista.Count; i++)
+                // cuando una etiqueta ha sido fabricada con etiqueta despuente: 
+                // NO se debe Integrar con INET, y no debe aparecer nuevamente en los siguientes cierres.
                 {
-                    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion,IdEtiquetaVinculada)  ");
-                    lSql = string.Concat(lSql, " values ('", lVista[i]["IdQR"].ToString(), "',getdate(),");
-                    lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "',", lVista[i]["IdEV"].ToString(), ")  ");
-                    lDtsTmp = lPX.ObtenerDatos(lSql);
+                    lVista = new DataView(mTblDetalle, string.Concat(" tipoEtiqueta='D' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
+                    for (i = 0; i < lVista.Count; i++)
+                    {
+                        lIdDetalle = "0";
+                        lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion,IdEtiquetaVinculada)  ");
+                        lSql = string.Concat(lSql, " values ('", lVista[i]["IdQR"].ToString(), "',getdate(),");
+                        lSql = string.Concat(lSql, lCom.Val(lObjINET.Movnumdoc), ",", mUserLog.Iduser, ",", lIdDetalle, ",", lVista[i]["KgsVinculados"].ToString(), ",'", lEstado, "',", lVista[i]["IdEV"].ToString(), ")  ");
+                        lDtsTmp = lPX.ObtenerDatos(lSql);
+                    }
                 }
                 //{
                 //    lSql = string.Concat(" insert into DetalleProductoIntegrado (IdQr,FechaRegistro,MovNumDoc,IdUsuario, IdProductoIntegrado, KgsVinculados, EstadoIntegracion, IdEtiquetaVinculada )  ");
@@ -988,18 +991,23 @@ namespace Metalurgica
                     else
                         if(lVista.Count == 1)
                     {
-                        //lFila = lTblFinal.NewRow();
-                        //lFila["CodMaterial"] = iOrigen.Rows[i]["CodMaterial"].ToString();
-                        //lFila["Producto"] = iOrigen.Rows[i]["Producto"].ToString();
-                        if (lCom.Val(lVista[0]["KgsProducidos"].ToString()) < 1)
-                        {
-                            lVista[0]["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
-                        }
+                        if (iOrigen.Rows[i]["TipoEtiqueta"].ToString().ToUpper().Equals("D"))
+                            lFila["Fabricado Con Despunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
                         else
-                        if (lCom.Val(lVista[0]["KgsDespunte"].ToString()) > 0)
-                        {
-                            lVista[0]["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
-                        }
+                                if (iOrigen.Rows[i]["Tipo"].ToString().ToUpper().Equals("D"))
+                            lFila["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        else
+                            lFila["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+
+                        //if (lCom.Val(lVista[0]["KgsProducidos"].ToString()) < 1)
+                        //{
+                        //    lVista[0]["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        //}
+                        //else
+                        //if (lCom.Val(lVista[0]["KgsDespunte"].ToString()) > 0)
+                        //{
+                        //    lVista[0]["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                        //}
 
 
 
