@@ -280,13 +280,20 @@ namespace Metalurgica.RecepcionMP
                 lTmp = lTmp.Replace("=", ")");
 
                 lEt = lCom.ObtenerEtiquetaAZA(lTmp,false );
+            if (lEt.Errors.Trim().Length > 3)
+            {
+                MessageBox.Show(lEt.Errors.ToString(), " Error en el sistema ", MessageBoxButtons.OK);
+            }
+            else
+            {
                 lEt = lDal.PersistirEtiquetaAZA(lEt);
                 if (Dtg_Etiquetas.Rows.Count > 0)
                 {
-                //RevisaEnOC(lEt);
-                // debemos crear tabla que almacene IdEtiquetaAza   -  OC 
-                RevisaEnOC_PorTablaDeCodigo(lEt);
-                }  
+                    //RevisaEnOC(lEt);
+                    // debemos crear tabla que almacene IdEtiquetaAza   -  OC 
+                    RevisaEnOC_PorTablaDeCodigo(lEt);
+                }
+            }
         }
 
         private void AgregaEtiqueta(WsOperacion.TipoEtiquetaAza lEt_AZA)

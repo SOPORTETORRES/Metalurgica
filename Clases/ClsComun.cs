@@ -852,29 +852,31 @@ namespace Metalurgica.Clases
                         lEt.Diam = int.Parse(lTbl.Rows[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
                         lEt.Largo = lTbl.Rows[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
                         lEt.EsSoldable = lTbl.Rows[0]["Soldable"].ToString();
+                        if (lEt.EsSoldable.Equals("S"))
+                        {
+                            lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                        }
                     }
                     else
                     {  //buscamos el codigo en TO
                         DataView lvista = new DataView(lTBlMP, string.Concat("Codigo='",lEt .Codigo ,"'"), "", DataViewRowState.CurrentRows);
                         if (lvista.Count > 0)
                         {
-                            
+
                             lEt.Diam = int.Parse(lvista[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
                             lEt.Largo = lvista[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
                             lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString());
-                           lEt.EsSoldable = lvista[0]["Soldable"].ToString();
+                            lEt.EsSoldable = lvista[0]["Soldable"].ToString();
                             if (lEt.EsSoldable.Equals("S"))
                             {
-                                lEt.CalidadAcero = string.Concat (lvista[0]["CalidadAcero"].ToString().Trim (),"S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                                lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
                             }
-                           
                         }
-
-                    }
-
-
-                
-
+                        else
+                        {
+                            lEt.Errors= string.Concat ( "El Código de producto  No se Encuentra en la Base de datos");
+                        }
+                    }            
                 }
                 else
                 {

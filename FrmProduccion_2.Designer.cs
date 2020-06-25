@@ -57,7 +57,7 @@ namespace Metalurgica
             this.Text = "Producción";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmProduccion_2_Load);
-            this.ctlProduccion1.BotonClick += new System.EventHandler(Boton_EventoClick);
+            //this.ctlProduccion1.BotonClick += new System.EventHandler(Boton_EventoClick);
             this.ResumeLayout(false);
 
         }

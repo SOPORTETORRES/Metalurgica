@@ -2328,10 +2328,11 @@ namespace Metalurgica.Controls
                 lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
 
                 BotonClick(this, null);
+                
             }
             catch (Exception iex)
             {
-
+                //EndInvoke;
             }
         }
 
