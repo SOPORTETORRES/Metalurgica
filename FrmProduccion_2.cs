@@ -36,13 +36,15 @@ namespace Metalurgica
 
         private void FrmProduccion_2_Load(object sender, EventArgs e)
         {
-
+            ctlProduccion1.EventoSalir += CtlProduccion1_EventoSalir;
         }
 
-        void Boton_EventoClick(object sender, EventArgs e)
+        private void CtlProduccion1_EventoSalir()
         {
             this.Close();
+            Application.Exit();
         }
+
 
         private void ctlProduccion1_Load(object sender, EventArgs e)
         {

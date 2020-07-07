@@ -31,7 +31,7 @@ namespace Metalurgica.Controls
         DataTable mTblDiametrosMaq = new DataTable();
         string mSoloDiamPermitidos = "N";
         private string mTipoColada = "";
-        public EventHandler BotonClick;
+        //public EventHandler BotonClick;
         private  WsOperacion.TipoEtiquetaAza mEtiqueta_Qr = new WsOperacion.TipoEtiquetaAza();
         private Boolean mInicializaColada = false;
         private string mIdSucursal = "0";
@@ -39,6 +39,9 @@ namespace Metalurgica.Controls
         private string mTipoMP_Maq = "";
         private string mTipoProceso = "";
         private string mValidaCYD ="N";
+        //PAra salir del control
+        public delegate void SalirForm();
+        public event SalirForm EventoSalir;
 
         public CtlProduccion()
         {
@@ -2317,7 +2320,7 @@ namespace Metalurgica.Controls
         {
             //Salir();
             // registramos que el usuario  salio de sistema 
-
+            //BotonClick(null, null);
             try
             {
 
@@ -2327,8 +2330,8 @@ namespace Metalurgica.Controls
 
                 lRes = lSesion.RegistraLogOUT(mUserLog.Iduser.ToString(), mUserLog.IdMaquina.ToString());
 
-                BotonClick(this, null);
-                
+                //BotonClick(this, null);
+                EventoSalir();
             }
             catch (Exception iex)
             {
