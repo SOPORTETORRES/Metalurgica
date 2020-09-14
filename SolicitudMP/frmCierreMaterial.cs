@@ -76,7 +76,6 @@ namespace Metalurgica
             DataView lVista = null; string lEstado = "";
             try
             {
-
                 lFechaMov = DateTime.Now.ToString();
                 lFechaMov = lFechaMov.Replace("/", "-");
                 //Debemos saber que  sucursal esta haciendo la invocaión
@@ -107,15 +106,6 @@ namespace Metalurgica
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-                    lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
-                    lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
-                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'P',", lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
-                    lDtsTmp = lPX.ObtenerDatos(lSql);
-                    if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
-                        lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
-
-             
-                    //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                     lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
                     inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
@@ -125,6 +115,18 @@ namespace Metalurgica
                     }
                     else
                         lEstado = "ER";
+
+                    // Actualizamos los correlativos 
+                    //lSql = string .Concat ("exec SP_CRUD_LOG_WS_INET 5,0,0,'',0,'','','','',", lCom.Val(lObjINET.Movnumdoc) ,",'' ");
+                    
+                    lDtsTmp = lPX.ObtenerDatos(lSql);
+
+                    lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
+                    lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'P',", lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
+                    lDtsTmp = lPX.ObtenerDatos(lSql);
+                    if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                        lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
 
                     //Ahora Persistimo el detalle 
                     lVista = new DataView(mTblDetalle, string.Concat(" tipo='P' and tipoetiqueta='P' and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
@@ -136,6 +138,8 @@ namespace Metalurgica
                         lDtsTmp = lPX.ObtenerDatos(lSql);
                     }                 
                 }
+
+
                 //*********************************************************
                 //Ahora el Despunte 
                 if (lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()) > 0)
@@ -166,14 +170,6 @@ namespace Metalurgica
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-                    lIdDetalle = "0";
-                    lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
-                    lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
-                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
-                    lDtsTmp = lPX.ObtenerDatos(lSql);
-                    if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
-                        lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
-
 
                     //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
                     lRespuestaWS_INET = InvocarWS_INET(lObjINET);
@@ -185,6 +181,18 @@ namespace Metalurgica
                     }
                     else
                         lEstado = "ER";
+
+
+                    lIdDetalle = "0";
+                    lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
+                    lSql = string.Concat(lSql, " values ('", iFila.Cells["CodMaterial"].Value.ToString(), "',", lCom.Val(lObjINET.Movnumdoc), ",");
+                    lSql = string.Concat(lSql, mUserLog.Iduser, ",", mIdSucursal, ",'D',", lCom.Val(iFila.Cells["KgsDespunte"].Value.ToString()), ",", mUserLog.IdMaquina, ")   select @@Identity  ");
+                    lDtsTmp = lPX.ObtenerDatos(lSql);
+                    if ((lDtsTmp.Tables.Count > 0) && (lDtsTmp.Tables[0].Rows.Count > 0))
+                        lIdDetalle = lDtsTmp.Tables[0].Rows[0][0].ToString();
+
+
+         
 
                     //Ahora Persistimo el detalle 
                     lVista = new DataView(mTblDetalle, string.Concat(" tipo='D' and TipoEtiqueta='P'  and CodMaterial='", iFila.Cells["CodMaterial"].Value.ToString(), "'"), "", DataViewRowState.CurrentRows);
@@ -430,7 +438,9 @@ namespace Metalurgica
                             if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
                                 inet_msg = "";
+
                                 IntegracionInet(row);
+                                System.Threading.Thread.Sleep(1000);
                             }
                         }
                     }
@@ -992,12 +1002,12 @@ namespace Metalurgica
                         if(lVista.Count == 1)
                     {
                         if (iOrigen.Rows[i]["TipoEtiqueta"].ToString().ToUpper().Equals("D"))
-                            lFila["Fabricado Con Despunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                            lFila["Fabricado Con Despunte"] = lCom.Val(lFila["Fabricado Con Despunte"].ToString()) + lCom.Val(iOrigen.Rows[i]["TotalKgs"].ToString());
                         else
                                 if (iOrigen.Rows[i]["Tipo"].ToString().ToUpper().Equals("D"))
-                            lFila["KgsDespunte"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                            lFila["KgsDespunte"] = lCom.Val(lFila["KgsDespunte"].ToString()) + lCom.Val(iOrigen.Rows[i]["TotalKgs"].ToString());
                         else
-                            lFila["KgsProducidos"] = iOrigen.Rows[i]["TotalKgs"].ToString();
+                            lFila["KgsProducidos"] = lCom.Val(lFila["KgsProducidos"].ToString ()) + lCom.Val(iOrigen.Rows[i]["TotalKgs"].ToString());
 
                         //if (lCom.Val(lVista[0]["KgsProducidos"].ToString()) < 1)
                         //{
@@ -1012,18 +1022,84 @@ namespace Metalurgica
 
 
                     }
-                }
-
-             
-
+                }            
             }
 
 
             return lTblFinal;
         }
 
-       
-       
+
+        private DataTable ObtenerTablaFinal_desde_El_Detalle(DataTable iOrigen)
+        {
+            DataTable lTblFinal = new DataTable(); DataRow lFila = null; Clases.ClsComun lCom = new Clases.ClsComun();
+            string lProd = ""; int i = 0; DataView lVista = null; string lWhere = "";
+            DataTable lTblTmp = new DataTable();
+
+            lTblFinal.Columns.Add("CodMaterial", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("KgsProducidos", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("KgsDespunte", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("Fabricado Con Despunte", Type.GetType("System.String"));
+            lTblFinal.Columns.Add("Producto", Type.GetType("System.String"));
+
+            lTblTmp = iOrigen.Copy();
+
+            if (lTblTmp.Rows.Count > 0)
+            {
+                for (i = 0; i < lTblTmp.Rows.Count; i++)
+                {
+                    lWhere = string.Concat("CodMaterial='", lTblTmp.Rows[i]["CodMaterial"].ToString(), "'");
+                    lVista = new DataView(lTblFinal, lWhere, "", DataViewRowState.CurrentRows);
+                    if ((lVista.Count == 0)  && (lTblTmp.Rows[i]["KgsVinculados"].ToString () != "0"))
+                    {
+                        lFila = lTblFinal.NewRow();
+                        lFila["CodMaterial"] = lTblTmp.Rows[i]["CodMaterial"].ToString();
+                          lFila["Producto"] = lTblTmp.Rows[i]["Producto"].ToString();
+                        if (lTblTmp.Rows[i]["TipoEtiqueta"].ToString().ToUpper().Equals("D"))
+                        {
+                            lFila["Fabricado Con Despunte"] = lTblTmp.Rows[i]["KgsVinculados"].ToString();
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                        else
+                           if (lTblTmp.Rows[i]["Tipo"].ToString().ToUpper().Equals("D"))
+                        {
+                            lFila["KgsDespunte"] = lTblTmp.Rows[i]["KgsVinculados"].ToString();
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                        else
+                        {
+                            lFila["KgsProducidos"] = lTblTmp.Rows[i]["KgsVinculados"].ToString();
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                        lTblFinal.Rows.Add(lFila);
+                    }
+                    else
+                       // if (lVista.Count == 1)
+                       if ((lVista.Count > 0) && (lTblTmp.Rows[i]["KgsVinculados"].ToString() != "0"))
+                    {
+                        if (lTblTmp.Rows[i]["TipoEtiqueta"].ToString().ToUpper().Equals("D"))
+                        {
+                            lFila["Fabricado Con Despunte"] = lCom.Val(lFila["Fabricado Con Despunte"].ToString()) + lCom.Val(lTblTmp.Rows[i]["KgsVinculados"].ToString());
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                        else
+                            if (lTblTmp.Rows[i]["Tipo"].ToString().ToUpper().Equals("D"))
+                        {
+                            lFila["KgsDespunte"] = lCom.Val(lFila["KgsDespunte"].ToString()) + lCom.Val(lTblTmp.Rows[i]["KgsVinculados"].ToString());
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                        else
+                        {
+                            lFila["KgsProducidos"] = lCom.Val(lFila["KgsProducidos"].ToString()) + lCom.Val(lTblTmp.Rows[i]["KgsVinculados"].ToString());
+                            lTblTmp.Rows[i]["KgsVinculados"] = 0;
+                        }
+                    }
+                }
+            }
+            return lTblFinal;
+        }
+
+
         private void BloquearColumnas(DataGridView dgv)
         {
             foreach (DataGridViewColumn column in dgv.Columns)
@@ -1082,6 +1158,7 @@ namespace Metalurgica
 
         private void Cierre_Version_QR()
         {
+            DataTable lTbl = new DataTable();
             try
             {
                 WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
@@ -1089,9 +1166,14 @@ namespace Metalurgica
                 listaDataSet = wsOperacion.ListarSolicitudMaterial_Cierre_QR(dtpFechaRecepcion.Value, int.Parse(mIdSucursal), cboCriterio.Text.Substring(0, 1),mUserLog .IdMaquina.ToString () );
                 if (listaDataSet.MensajeError.Equals(""))
                 {
-                   dgvProductos.DataSource = ObtenerTablaFinal(  listaDataSet.DataSet.Tables[0].Copy ());
-                    mTblOriginal = listaDataSet.DataSet.Tables[0].Copy();
+                    //dgvProductos.DataSource = ObtenerTablaFinal(  listaDataSet.DataSet.Tables[0].Copy ());
+
+                    // mTblOriginal = listaDataSet.DataSet.Tables[0].Copy();
                     mTblDetalle = listaDataSet.DataSet.Tables[1];
+
+                    lTbl = ObtenerTablaFinal_desde_El_Detalle(mTblDetalle);
+                    dgvProductos.DataSource = lTbl;
+
 
                     if (!forms.dataGridViewExistsColumn(dgvProductos, COLUMNNAME_MARCA))
                     {

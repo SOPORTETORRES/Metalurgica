@@ -269,7 +269,7 @@ namespace Metalurgica.RecepcionMP
             WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
             string lTmp = "";Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();
-            DataTable lTblDatos = new DataTable();
+            DataTable lTblDatos = new DataTable();string lSucursal = "";
 
             //if (iTx.IndexOf("ñ") > -1)  //es etiqueta de AZA ya que el ; es el separador de Caracteres
             //{
@@ -286,7 +286,9 @@ namespace Metalurgica.RecepcionMP
             }
             else
             {
-                lEt = lDal.PersistirEtiquetaAZA(lEt);
+                lSucursal = new Clases .ClsComun ().OBtenerSucursal().ToString();
+
+                lEt = lDal.PersistirEtiquetaAZA(lEt, lSucursal);
                 if (Dtg_Etiquetas.Rows.Count > 0)
                 {
                     //RevisaEnOC(lEt);
@@ -798,7 +800,7 @@ namespace Metalurgica.RecepcionMP
             WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
             string lTmp = ""; Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();
-            DataTable lTblDatos = new DataTable();
+            DataTable lTblDatos = new DataTable();string lSucursal = "";
 
             lTmp = iTx.Replace("ñ", ";");
             lTmp = lTmp.Replace("Ñ", ":");
@@ -807,7 +809,8 @@ namespace Metalurgica.RecepcionMP
             lTmp = lTmp.Replace("=", ")");
 
             lEt = lCom.ObtenerEtiquetaAZA(lTmp, false);
-            lEt = lDal.PersistirEtiquetaAZA(lEt);
+            lSucursal = new Clases.ClsComun().OBtenerSucursal().ToString();
+            lEt = lDal.PersistirEtiquetaAZA(lEt, lSucursal);
 
             return lEt;
         }

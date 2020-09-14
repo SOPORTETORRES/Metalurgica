@@ -1923,7 +1923,7 @@ namespace Metalurgica.Controls
         private void ProcesaColada(string iTx)
         {
             WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();
-            string lTmp = "";Clases.ClsComun lCom = new Clases.ClsComun();
+            string lTmp = "";Clases.ClsComun lCom = new Clases.ClsComun(); string lSucursal = "";
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();
             if (iTx.IndexOf("ñ") > -1)  //es etiqueta de AZA ya que el ; es el separador de Caracteres
             {
@@ -1934,7 +1934,9 @@ namespace Metalurgica.Controls
                 lTmp = lTmp.Replace("=", ")");
 
                 lEt = lCom.ObtenerEtiquetaAZA(lTmp,true);
-                lEt = lDal.PersistirEtiquetaAZA(lEt);
+
+                lSucursal = new Clases.ClsComun().OBtenerSucursal().ToString();
+                lEt = lDal.PersistirEtiquetaAZA(lEt, lSucursal);
                 if (lEt != null)
                 {
                     lblColada.Text = lEt.Lote.ToString();

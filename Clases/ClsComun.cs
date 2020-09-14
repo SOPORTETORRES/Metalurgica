@@ -779,12 +779,20 @@ namespace Metalurgica.Clases
             return lResultado;
         }
 
-        private DataTable ObtenerDatosMP_TO(String iCodAZA, DataTable iTblDePara, DataTable iMP )
+        private DataTable ObtenerDatosMP_TO(String iCodAZA, DataTable iTblDePara, DataTable iMP, string iCodSucursal )
         {
             DataTable lTblDatos = new DataTable();DataView lVistaCod = null;String lCodTO = "";
-            DataView lVista = null; DataRow lFila = null;
+            DataView lVista = null; DataRow lFila = null;string lSucursal = "";
 
-            lVistaCod = new DataView(iTblDePara, string.Concat("PAr1='", iCodAZA, "'"), "", DataViewRowState.CurrentRows);
+            if (iCodSucursal == "1")
+                lSucursal = "Calama";
+
+            if (iCodSucursal == "4")
+                lSucursal = "Santiago";
+
+
+
+            lVistaCod = new DataView(iTblDePara, string.Concat("PAr1='", iCodAZA, "' and par3='", lSucursal, "'"), "", DataViewRowState.CurrentRows);
             if (lVistaCod.Count > 0)
             {
                 lCodTO = lVistaCod[0]["Par2"].ToString();
@@ -799,6 +807,7 @@ namespace Metalurgica.Clases
                     lFila["largo"] = lVista[0]["largo"];
                     lFila["Soldable"] = lVista[0]["Soldable"];
                     lFila["CalidadAcero"] = lVista[0]["CalidadAcero"];
+                    lFila["Descripcion"] = lVista[0]["Descripcion"];
 
                     lTblDatos.Rows.Add(lFila);
                 }
@@ -814,8 +823,10 @@ namespace Metalurgica.Clases
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient(); DataTable lTbl = new DataTable();
             DataTable lTBlMP = new DataTable(); DataTable lTBlCodigosIntercambio = new DataTable();
             char[] delimiterChars = { ';' }; string[] words = lTx.Split(delimiterChars);
+            string lIdSucursal = "";
 
             //******************
+            lIdSucursal = OBtenerIdSucursal().ToString ();
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); 
             lDts = lPx.Obtener_MP();
             if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
@@ -845,7 +856,7 @@ namespace Metalurgica.Clases
 
                     lEt.Trama = lTx;
                     // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
-                    lTbl = ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP);
+                    lTbl = ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP, lIdSucursal);
                     if (lTbl.Rows.Count > 0)
                     {
                         lEt.CalidadAcero = lTbl.Rows[0]["CalidadAcero"].ToString();  // lCom.ObtenerCalidadAcero(lEt.Producto);
@@ -856,6 +867,9 @@ namespace Metalurgica.Clases
                         {
                             lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
                         }
+
+                        if ((lTbl.Rows[0]["Descripcion"].ToString().Trim().Length > 3))
+                            lEt.Producto = lTbl.Rows[0]["Descripcion"].ToString();
                     }
                     else
                     {  //buscamos el codigo en TO
@@ -1116,6 +1130,17 @@ namespace Metalurgica.Clases
             return iIdSucursal;
 
         }
+
+        public string  OBtenerSucursal()
+        {
+            string lAux = "";  
+
+            lAux = ConfigurationManager.AppSettings["Sucursal"].ToString();
+            
+            return lAux;
+
+        }
+
 
         public  string buscarTagError(string texto)
         {
