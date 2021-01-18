@@ -100,16 +100,118 @@ namespace Metalurgica
             return lRes;
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+
+        private void SoloMP()
         {
             try
             {
                 Registry registry = new Registry();
-                Cursor.Current = Cursors.WaitCursor;                
+                Cursor.Current = Cursors.WaitCursor;
                 WsSesion.WS_SesionSoapClient wsSesions = new WsSesion.WS_SesionSoapClient();
-                WsSesion.ListaDataSet  listaDataSet = new WsSesion.ListaDataSet();
+                Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+                WsSesion.ListaDataSet listaDataSet = new WsSesion.ListaDataSet();
                 listaDataSet = wsSesions.ObtenerUsuario(txtUsuario.Text, txtClave.Text);
-                DataSet Ldts = new DataSet(); string lPerfilUser="";
+                DataSet Ldts = new DataSet(); string lPerfilUser = "";
+                DataView lVista = null;DataTable lTblUser = new DataTable();
+                Cursor.Current = Cursors.Default;
+
+                if (listaDataSet.MensajeError.Equals(""))
+                {
+                    DataTable dt = listaDataSet.DataSet.Tables[0];
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (dt.Rows[0]["Vigente"].ToString().Equals("S"))
+                        {
+                            lTblUser = dt.Copy();
+                            Ldts = lPx.ObtenerUsuario(txtUsuario.Text, txtClave.Text);
+                            if (Ldts.Tables["Accesos"].Rows.Count > 0)
+                            {
+                                dt = Ldts.Tables["Accesos"].Copy();
+                                lVista = new DataView(dt, String.Concat("Codigo='I.MP'"), "", DataViewRowState.CurrentRows);
+                                if (lVista.Count == 0)
+                                {
+                                    MessageBox.Show("El Usuario Ingresado No tiene Permiso para Ingresar al Módulo de Ingreso de Materia Prima", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    if (chkRecordarUsuario.Checked)
+                                        registry.SetValue(Program.regeditKeyName, "Usuario", txtUsuario.Text);
+                                    registry.SetValue(Program.regeditKeyName, "Recordar", (chkRecordarUsuario.Checked ? "1" : "0"));
+
+                                    lPerfilUser = lTblUser.Rows[0]["Perfil"].ToString();
+                                    Program.currentUser.Login = lTblUser.Rows[0]["Usuario"].ToString(); ;
+                                    Program.currentUser.Name = lTblUser.Rows[0]["Nombre"].ToString() + " " + lTblUser.Rows[0]["Apellidos"].ToString();
+                                    //Program.currentUser.Machine = 2;
+                                    Program.currentUser.Iduser = lTblUser.Rows[0]["Id"].ToString();
+                                    Program.currentUser.ComputerName = System.Environment.MachineName;
+                                    Program.currentUser.DescripcionTotem = (string)registry.GetValue(Program.regeditKeyName, "Descrición", "");
+                                    Program.currentUser.Machine = int.Parse(registry.GetValue(Program.regeditKeyName, "Maquina", "0").ToString());
+                                    Program.currentUser.IdMaquina = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdMaquina", -1));
+                                    Program.currentUser.IdTotem = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdTotem", -1));
+
+                                    Program.currentUser.DescripcionMaq = ObtenerDescripcionMaquina(Program.currentUser.IdMaquina.ToString());
+
+                                    Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
+                                    if (Program.currentUser.Machine == 2)
+                                    {
+                                        string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+                                        //if (lEmpresa.ToUpper().Equals("TO"))
+                                        //    ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName.ToString());
+                                    }
+                                    //ObtenerPerfilUsuario
+                                    logon = true;
+                                    this.Hide();
+                                    IniciaApp(1, Program.currentUser);
+                                }
+                            }
+                        }
+              
+
+
+
+                        //if (dt.Rows.Count > 0)
+                        //{
+                        //    if (dt.Rows[0]["Vigente"].ToString().Equals("S"))
+                        //    {
+
+                               
+
+
+                        //    }
+                        //    else
+                        //        MessageBox.Show("El usuario " + txtUsuario.Text + " esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //}
+                        //else
+                        //    MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    else
+                        MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                    MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Application.Exit();
+
+        }
+
+        private void IngresoNormal()
+        {
+            try
+            {
+                Registry registry = new Registry();
+                Cursor.Current = Cursors.WaitCursor;
+                WsSesion.WS_SesionSoapClient wsSesions = new WsSesion.WS_SesionSoapClient();
+                WsSesion.ListaDataSet listaDataSet = new WsSesion.ListaDataSet();
+                listaDataSet = wsSesions.ObtenerUsuario(txtUsuario.Text, txtClave.Text);
+                DataSet Ldts = new DataSet(); string lPerfilUser = "";
                 Cursor.Current = Cursors.Default;
 
                 if (listaDataSet.MensajeError.Equals(""))
@@ -156,13 +258,13 @@ namespace Metalurgica
                                 if (Program.currentUser.Machine == 2)
                                 {
                                     string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
-                                    if (lEmpresa .ToUpper ().Equals ("TO"))
-                                         ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName.ToString());
+                                    if (lEmpresa.ToUpper().Equals("TO"))
+                                        ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName.ToString());
                                 }
                                 //ObtenerPerfilUsuario
                                 logon = true;
                                 this.Hide();
-                               IniciaApp(Program.currentUser.Machine, Program.currentUser);
+                                IniciaApp(Program.currentUser.Machine, Program.currentUser);
 
 
                             }
@@ -179,11 +281,108 @@ namespace Metalurgica
                 }
                 else
                     MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } 
+            }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }            Application.Exit();
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Application.Exit();
+
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string lSoloMP = ConfigurationManager.AppSettings["SoloMP"].ToString();
+
+                if (lSoloMP.ToUpper().Equals("S"))
+                    SoloMP();
+                else
+                    IngresoNormal();
+
+                //    Registry registry = new Registry();
+                //    Cursor.Current = Cursors.WaitCursor;
+                //    WsSesion.WS_SesionSoapClient wsSesions = new WsSesion.WS_SesionSoapClient();
+                //    WsSesion.ListaDataSet listaDataSet = new WsSesion.ListaDataSet();
+                //    listaDataSet = wsSesions.ObtenerUsuario(txtUsuario.Text, txtClave.Text);
+                //    DataSet Ldts = new DataSet(); string lPerfilUser = "";
+                //    Cursor.Current = Cursors.Default;
+
+                //    if (listaDataSet.MensajeError.Equals(""))
+                //    {
+                //        DataTable dt = listaDataSet.DataSet.Tables[0];
+
+                //        if (dt.Rows.Count > 0)
+                //        {
+                //            // Por nuevo requerimiento, para los usuarios de produccion deben poder ingresar solo con
+                //            // el RUT.
+                //            if ((dt.Rows.Count == 0) && (mTipoTotem == 2))
+                //            {
+                //                Ldts = ObtenerUsuario(txtUsuario.Text);
+                //                if (Ldts.Tables.Count > 0)
+                //                {
+                //                    dt = Ldts.Tables[0].Copy();
+                //                }
+                //            }
+
+
+                //            if (dt.Rows.Count > 0)
+                //            {
+                //                if (dt.Rows[0]["Vigente"].ToString().Equals("S"))
+                //                {
+
+                //                    if (chkRecordarUsuario.Checked)
+                //                        registry.SetValue(Program.regeditKeyName, "Usuario", txtUsuario.Text);
+                //                    registry.SetValue(Program.regeditKeyName, "Recordar", (chkRecordarUsuario.Checked ? "1" : "0"));
+
+                //                    lPerfilUser = dt.Rows[0]["Perfil"].ToString();
+                //                    Program.currentUser.Login = dt.Rows[0]["Usuario"].ToString(); ;
+                //                    Program.currentUser.Name = dt.Rows[0]["Nombre"].ToString() + " " + dt.Rows[0]["Apellidos"].ToString();
+                //                    //Program.currentUser.Machine = 2;
+                //                    Program.currentUser.Iduser = dt.Rows[0]["Id"].ToString();
+                //                    Program.currentUser.ComputerName = System.Environment.MachineName;
+                //                    Program.currentUser.DescripcionTotem = (string)registry.GetValue(Program.regeditKeyName, "Descrición", "");
+                //                    Program.currentUser.Machine = int.Parse(registry.GetValue(Program.regeditKeyName, "Maquina", "0").ToString());
+                //                    Program.currentUser.IdMaquina = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdMaquina", -1));
+                //                    Program.currentUser.IdTotem = Convert.ToInt16(new Registry().GetValue(Program.regeditKeyName, "IdTotem", -1));
+
+                //                    Program.currentUser.DescripcionMaq = ObtenerDescripcionMaquina(Program.currentUser.IdMaquina.ToString());
+
+                //                    Program.currentUser.PerfilUsuario = ObtenerPerfilUsuario(lPerfilUser);
+                //                    if (Program.currentUser.Machine == 2)
+                //                    {
+                //                        string lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+                //                        if (lEmpresa.ToUpper().Equals("TO"))
+                //                            ValidaAccesoProduccion(Program.currentUser.Iduser.ToString(), Program.currentUser.IdMaquina.ToString(), Program.currentUser.ComputerName.ToString());
+                //                    }
+                //                    //ObtenerPerfilUsuario
+                //                    logon = true;
+                //                    this.Hide();
+                //                    IniciaApp(Program.currentUser.Machine, Program.currentUser);
+
+
+                //                }
+                //                else
+                //                    MessageBox.Show("El usuario " + txtUsuario.Text + " esta inactivo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //            }
+                //            else
+                //                MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //        }
+                //        else
+                //            MessageBox.Show("El usuario " + txtUsuario.Text + " no existe o la contraseña es incorrecta.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //    }
+                //    else
+                //        MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Application.Exit();
         }
 
         private void ValidaAccesoProduccion(string iIdUsuario, string iNroMaquina, string iPcAccede)
@@ -431,9 +630,23 @@ namespace Metalurgica
             //Metalurgica.Controls.CtlProduccion lCtl = new Controls.CtlProduccion();
             //lCtl.ObtenerEtiquetaAZA("2612286902;2019-03-14T01:28;33;B HORMIGON 25mm 7m A630-420H (N);110002927;1660");
 
-            RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
-            lFrm.ShowDialog();
+            //RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
+            //lFrm.ShowDialog();
 
+            //Muestreo.Frm_ControlDimensional lfrm = new Muestreo.Frm_ControlDimensional();
+            //lfrm.ShowDialog();
+
+            Ws_TO.Ws_ToSoapClient PxWS = new Ws_TO.Ws_ToSoapClient();
+            WsCrud.CrudSoapClient lCr = new WsCrud.CrudSoapClient();
+            WsCrud.ListaDataSet lista = new WsCrud.ListaDataSet();
+
+            DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
+            string lRes = "   "; string lSql = string.Concat("  SP_ConsultasGenerales  150, '4','16','','','' ");
+
+            //lDts = PxWS.ObtenerDatos(lSql);
+            lista = lCr.ListarAyudaSql(lSql);
+
+            MessageBox.Show("Termino la carga");
         }
 
         private void label2_Click(object sender, EventArgs e)

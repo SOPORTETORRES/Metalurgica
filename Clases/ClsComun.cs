@@ -826,78 +826,87 @@ namespace Metalurgica.Clases
             string lIdSucursal = "";
 
             //******************
-            lIdSucursal = OBtenerIdSucursal().ToString ();
-            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); 
-            lDts = lPx.Obtener_MP();
-            if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+            try
             {
-                if (lDts.DataSet.Tables.Count == 3)
+                lIdSucursal = OBtenerIdSucursal().ToString();
+                WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
+                lDts = lPx.Obtener_MP();
+                if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
                 {
-                    lTBlMP = lDts.DataSet.Tables["MP"].Copy();
-                    lTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
-                    lEt.Lote = words[0].ToString().Trim();
-                    if (lEt.Lote.Trim().Length == 10)
-                        lEt.Procedencia  = "AZA";
-
-                    lEt.FechaFabricacion = words[1].ToString().Trim();
-                    lEt.Bulto = lCom.Val(words[2].ToString());
-                    if (incluyeProduccion == true)
+                    if (lDts.DataSet.Tables.Count == 3)
                     {
-                        // se debe ir a la base de datos y verificar que exista la información y cargar todos los datos
-                        //la llave es Lote + Bulto 
-                        lEt.KgsProducidos = 0;
-                        lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString());
-                    }
-                    lEt.Producto = words[3].ToString().Trim();
-                    lEt.Codigo = words[4].ToString().Trim();
-                    lEt.PesoBulto = lCom.Val(words[5].ToString());
-                    lEt.Errors = "";
-                    lEt.TipoProduccion = "P";
+                        lTBlMP = lDts.DataSet.Tables["MP"].Copy();
+                        lTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
+                        lEt.Lote = words[0].ToString().Trim();
+                        if (lEt.Lote.Trim().Length == 10)
+                            lEt.Procedencia = "AZA";
 
-                    lEt.Trama = lTx;
-                    // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
-                    lTbl = ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP, lIdSucursal);
-                    if (lTbl.Rows.Count > 0)
-                    {
-                        lEt.CalidadAcero = lTbl.Rows[0]["CalidadAcero"].ToString();  // lCom.ObtenerCalidadAcero(lEt.Producto);
-                        lEt.Diam = int.Parse(lTbl.Rows[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
-                        lEt.Largo = lTbl.Rows[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
-                        lEt.EsSoldable = lTbl.Rows[0]["Soldable"].ToString();
-                        if (lEt.EsSoldable.Equals("S"))
+                        lEt.FechaFabricacion = words[1].ToString().Trim();
+                        lEt.Bulto = lCom.Val(words[2].ToString());
+                        if (incluyeProduccion == true)
                         {
-                            lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            // se debe ir a la base de datos y verificar que exista la información y cargar todos los datos
+                            //la llave es Lote + Bulto 
+                            lEt.KgsProducidos = 0;
+                            lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString());
                         }
+                        lEt.Producto = words[3].ToString().Trim();
+                        lEt.Codigo = words[4].ToString().Trim();
+                        lEt.PesoBulto = lCom.Val(words[5].ToString());
+                        lEt.Errors = "";
+                        lEt.TipoProduccion = "P";
 
-                        if ((lTbl.Rows[0]["Descripcion"].ToString().Trim().Length > 3))
-                            lEt.Producto = lTbl.Rows[0]["Descripcion"].ToString();
-                    }
-                    else
-                    {  //buscamos el codigo en TO
-                        DataView lvista = new DataView(lTBlMP, string.Concat("Codigo='",lEt .Codigo ,"'"), "", DataViewRowState.CurrentRows);
-                        if (lvista.Count > 0)
+                        lEt.Trama = lTx;
+                        // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
+                        lTbl = ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP, lIdSucursal);
+                        if (lTbl.Rows.Count > 0)
                         {
-
-                            lEt.Diam = int.Parse(lvista[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
-                            lEt.Largo = lvista[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
-                            lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString());
-                            lEt.EsSoldable = lvista[0]["Soldable"].ToString();
+                            lEt.CalidadAcero = lTbl.Rows[0]["CalidadAcero"].ToString();  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            lEt.Diam = int.Parse(lTbl.Rows[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
+                            lEt.Largo = lTbl.Rows[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
+                            lEt.EsSoldable = lTbl.Rows[0]["Soldable"].ToString();
                             if (lEt.EsSoldable.Equals("S"))
                             {
-                                lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                                lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
                             }
+
+                            if ((lTbl.Rows[0]["Descripcion"].ToString().Trim().Length > 3))
+                                lEt.Producto = lTbl.Rows[0]["Descripcion"].ToString();
                         }
                         else
-                        {
-                            lEt.Errors= string.Concat ( "El Código de producto  No se Encuentra en la Base de datos");
-                        }
-                    }            
-                }
-                else
-                {
-                    lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
-                }
+                        {  //buscamos el codigo en TO
+                            DataView lvista = new DataView(lTBlMP, string.Concat("Codigo='", lEt.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                            if (lvista.Count > 0)
+                            {
 
+                                lEt.Diam = int.Parse(lvista[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
+                                lEt.Largo = lvista[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
+                                lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString());
+                                lEt.EsSoldable = lvista[0]["Soldable"].ToString();
+                                if (lEt.EsSoldable.Equals("S"))
+                                {
+                                    lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                                }
+                            }
+                            else
+                            {
+                                lEt.Errors = string.Concat("El Código de producto  No se Encuentra en la Base de datos");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
+                    }
+
+                }
             }
+            catch (Exception iex)
+            {
+                lEt = new WsOperacion.TipoEtiquetaAza();
+                lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
+            }
+
                         return lEt;
         }
 

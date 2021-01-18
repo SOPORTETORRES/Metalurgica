@@ -652,7 +652,7 @@ namespace Metalurgica.Maquinas
             {
                 CargaCmb_ElementosProd (mObjEP .IdElemento );
                 VerFormulario("EP");
-                if (ElementoDeProduccion_ConAveria(mIdAveria ) == true)
+                if (ElementoDeProduccion_ConAveria(mIdAveria) == true)
                     CargarDatosNotificacionAveria_EP();
             }
             else
@@ -697,6 +697,7 @@ namespace Metalurgica.Maquinas
         {
             mObjEP = iObj;
             mTipoAveria = "EP";
+            mIdSucursal = ObtenerIdSucursalActual();
         }
 
         public void IniciaReparacion_EP(string iIdAveria, CurrentUser iUser)
@@ -713,6 +714,7 @@ namespace Metalurgica.Maquinas
         {
             //if (e.KeyChar == Convert.ToChar(Keys.Enter))
             //{
+            //            mIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
             //    Tx_TextoAveria.Text = string.Concat(Tx_TextoAveria.Text, Environment.NewLine);
             //    Tx_TextoAveria.Focus();
             //}
@@ -768,13 +770,6 @@ namespace Metalurgica.Maquinas
                         lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
                         //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                         lTxMsg = ObtenerCuerpoMailSolucionAveria();
-                        //lTitulo = "Notificación por Solución  de Averias: ";
-
-                        //if (mIdSucursal.Equals("1")) // es Calama
-                        //    idListadistribucion = -11;
-
-                        //if (mIdSucursal.Equals("4")) // es Calama
-                        //    idListadistribucion = -10;
 
                         switch (mIdSucursal)
                         {
@@ -784,11 +779,15 @@ namespace Metalurgica.Maquinas
                                 break;
                             case "4":
                                 idListadistribucion = -10;
-                                lTitulo = "Notificación Solucion de  Averias para   para Planta Calama ";
+                                lTitulo = "Notificación Solucion de  Averias para   para Planta Santiago ";
                                 break;
                             case "7":
                                 idListadistribucion = -12;
                                 lTitulo = "Notificación de   Solucion de Averias para  Planta TOSOL ";
+                                break;
+                            case "15":
+                                idListadistribucion = -15;
+                                lTitulo = "Notificación de Averias Planta Coronel ";
                                 break;
                         }
 
@@ -895,11 +894,15 @@ namespace Metalurgica.Maquinas
                                 break;
                             case "4":
                                 idListadistribucion = -10;
-                                lTitulo = "Notificación de   Liberación de Averias para Planta Calama ";
+                                lTitulo = "Notificación de   Liberación de Averias para Planta Santiago ";
                                 break;
                             case "7":
                                 idListadistribucion = -12;
                                 lTitulo = "Notificación de   Liberación de Averias para  Planta TOSOL ";
+                                break;
+                            case "15":
+                                idListadistribucion = -15;
+                                lTitulo = "Notificación de Averias Planta Coronel ";
                                 break;
                         }
 

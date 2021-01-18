@@ -18,6 +18,9 @@ namespace Metalurgica.Produccion
         private CurrentUser mUser = new CurrentUser();
         private double  mTolerancia = 0;
         private string mIdQr = "0";
+        private string mTramaEtiqueta = "";
+        private string mSucursal = "";
+        private string  mKgsEtiquetaCierre = "";
 
 
         public Frm_Supervisor()
@@ -75,7 +78,7 @@ namespace Metalurgica.Produccion
         }
 
 
-        private void EnviaCorreo(string  iSupervisor, string iKgsQR, string iKgspr, string iKgsDes, string iPorcentDep, string iObs)
+        private void EnviaCorreo(string  iSupervisor, string iKgsQR, string iKgspr, string iKgsDes, string iPorcentDep, string iObs, string iSucursal, string iTrama)
         {
             string lCuerpo = ""; DataTable lTbl = new DataTable(); string lRes = "";
 
@@ -86,18 +89,28 @@ namespace Metalurgica.Produccion
             lCuerpo = string.Concat(lCuerpo, " Kilos Producidos      :   ", iKgspr, "  <br> ");
             lCuerpo = string.Concat(lCuerpo, " Kilos Despunte        :   ", iKgsDes, "  <br> ");
             lCuerpo = string.Concat(lCuerpo, " Porcentaje  Despunte  :   ", iPorcentDep, "  <br>");
-            lCuerpo = string.Concat(lCuerpo, " Observación del Sup.  :   ", iObs , "  <br>  <br> <br> ");
+            lCuerpo = string.Concat(lCuerpo, " Observación del Sup.  :   ", iObs , "  <br>  ");
+            lCuerpo = string.Concat(lCuerpo, " Sucursal del Totem.   :   ", iSucursal, "  <br>    ");
+            lCuerpo = string.Concat(lCuerpo, " TRAMA                 :   ", iTrama, "  <br>  <br>  ");
+
             lCuerpo = string.Concat(lCuerpo, "  No responda a este Correo, ya que es sólo Informativo <br> ");
-            lTbl = ObtenerDestinatarios("-1500");
+            switch (iSucursal.ToUpper())
+            {
+                case "SANTIAGO":
+                    lTbl = ObtenerDestinatarios("-1500");
+                    break;
+                case "CALAMA":
+                    lTbl = ObtenerDestinatarios("-1550");
+                    break;
+                case "CORONEL":
+                    break;
+            }
+            
             if (lTbl.Rows.Count > 0)
             {
                
                 lRes = EnviarArchivo(lCuerpo, "Autorización Supervidor Por Cierre Etiqueta Proveedor ", lTbl);
 
-                //if (lRes.ToUpper().Equals("OK"))
-                //{
-                //    // Se debe Persistir el archivo 
-                //}
             }
 
         }
@@ -136,7 +149,7 @@ namespace Metalurgica.Produccion
                 //Poder seguir con el proceso
                 // Notificacion por Correo electronico
                 KgsProd = (lCom.Val(Tx_KgsPr.Text) - lCom.Val(Tx_KgsCierre.Text)).ToString();
-                EnviaCorreo(mNombreSup, Tx_KgsPr.Text, KgsProd, Tx_KgsCierre.Text, Tx_Depunte.Text,Tx_Obs .Text );
+                EnviaCorreo(mNombreSup, Tx_KgsPr.Text, KgsProd, Tx_KgsCierre.Text, Tx_Depunte.Text,Tx_Obs .Text,mSucursal ,mTramaEtiqueta  );
                 AppDomain.CurrentDomain.SetData("ValidacionSupervisor", "OK");
                 this.Close();
             }
@@ -189,22 +202,31 @@ namespace Metalurgica.Produccion
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
                 lIdAutorizacion = lDts.Tables[0].Rows[0][0].ToString();
-
             }
+
+
+            lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro, IdMaquinaProduce) ";
+            lSql = string.Concat(lSql, "values(0,", mIdQr.ToString(), ",'D',", lCom .Val (mKgsEtiquetaCierre), ", Getdate(),", lCom.Val(mUser.IdMaquina.ToString ()), ")");
+            lDts = lDAl.ObtenerDatos(lSql);
+
 
             //return mNombreSup;
         }
 
-        public void IniciaForm(CurrentUser iUsuario, string iKgsEtiqueta, string iDespunte, string iPor, string IdQr)
+        public void IniciaForm(CurrentUser iUsuario, string iKgsEtiqueta, string iDespunte, string iPor, string IdQr, string iTrama, string  iSucursal)
         {
             Clases.ClsComun lCom = new Clases.ClsComun();
             mUser = iUsuario;
             mIdQr = IdQr;
+            mTramaEtiqueta = iTrama;
+            mSucursal = iSucursal;
+            mKgsEtiquetaCierre = iDespunte;
             mTolerancia  =lCom .CDBL ( ConfigurationManager.AppSettings["PorcentajeQR"].ToString());
             label3.Text = string.Concat(" Esta Autorizando el cierre de una Etiqueta de Proveedor con mas de un ", mTolerancia.ToString (), " %");
             Tx_KgsCierre.Text = iDespunte ;
             Tx_KgsPr.Text = iKgsEtiqueta;
             Tx_Depunte.Text = Math.Round(lCom.CDBL(iDespunte) / lCom.CDBL(iKgsEtiqueta) * 100, 2).ToString();
+            Tx_trama .Text =iTrama ;
 
             AppDomain.CurrentDomain.SetData("ValidacionSupervisor", "");
 

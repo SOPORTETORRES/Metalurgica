@@ -650,6 +650,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerEtiquetaAZA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EtiquetaColada" type="tns:TipoEtiquetaAza" />
+            <s:element minOccurs="0" maxOccurs="1" name="iSucursal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiquetaAZAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEtiquetaAZAResult" type="tns:TipoEtiquetaAza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Obtener_MP">
         <s:complexType />
       </s:element>
@@ -2771,6 +2786,12 @@
   <wsdl:message name="PersistirEtiquetaAZASoapOut">
     <wsdl:part name="parameters" element="tns:PersistirEtiquetaAZAResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaAZASoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetaAZA" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaAZASoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetaAZAResponse" />
+  </wsdl:message>
   <wsdl:message name="Obtener_MPSoapIn">
     <wsdl:part name="parameters" element="tns:Obtener_MP" />
   </wsdl:message>
@@ -3584,6 +3605,10 @@
       <wsdl:input message="tns:PersistirEtiquetaAZASoapIn" />
       <wsdl:output message="tns:PersistirEtiquetaAZASoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetaAZA">
+      <wsdl:input message="tns:ObtenerEtiquetaAZASoapIn" />
+      <wsdl:output message="tns:ObtenerEtiquetaAZASoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Obtener_MP">
       <wsdl:input message="tns:Obtener_MPSoapIn" />
       <wsdl:output message="tns:Obtener_MPSoapOut" />
@@ -4324,6 +4349,15 @@
     </wsdl:operation>
     <wsdl:operation name="PersistirEtiquetaAZA">
       <soap:operation soapAction="http://tempuri.org/PersistirEtiquetaAZA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetaAZA">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEtiquetaAZA" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5641,6 +5675,15 @@
     </wsdl:operation>
     <wsdl:operation name="PersistirEtiquetaAZA">
       <soap12:operation soapAction="http://tempuri.org/PersistirEtiquetaAZA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiquetaAZA">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEtiquetaAZA" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

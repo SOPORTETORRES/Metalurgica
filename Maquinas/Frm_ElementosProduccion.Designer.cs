@@ -374,6 +374,7 @@
             this.Dtg_Averias.ReadOnly = true;
             this.Dtg_Averias.Size = new System.Drawing.Size(640, 32);
             this.Dtg_Averias.TabIndex = 8;
+            this.Dtg_Averias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Averias_CellContentClick);
             this.Dtg_Averias.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Averias_CellContentDoubleClick);
             // 
             // Frm_ElementosProduccion

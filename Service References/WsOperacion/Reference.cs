@@ -144,6 +144,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.TipoEtiquetaAza PersistirEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada, string iSucursal);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEtiquetaAZA", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada, string iSucursal);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Obtener_MP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet Obtener_MP();
@@ -4106,6 +4110,10 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.TipoEtiquetaAza PersistirEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada, string iSucursal) {
             return base.Channel.PersistirEtiquetaAZA(EtiquetaColada, iSucursal);
+        }
+        
+        public Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(Metalurgica.WsOperacion.TipoEtiquetaAza EtiquetaColada, string iSucursal) {
+            return base.Channel.ObtenerEtiquetaAZA(EtiquetaColada, iSucursal);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet Obtener_MP() {

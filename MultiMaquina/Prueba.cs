@@ -230,6 +230,7 @@ namespace Metalurgica.MultiMaquina
                 ctlProduccion1.CargaMaqActual (mIdMaqSel ,mNombre_MaqSel );
                 Lbl_Mensaje.Text = " Ahora puede Registrar la Producción, para esto lea el código de Barras de Etiquetas";
                 ctlProduccion1.VerificaEstadoMaquina_MM(mUserLog.IdMaquina.ToString());
+                ctlProduccion1.Limpiar();
                 ctlProduccion1.EstablecerFocoEtiqueta();
             }
             HabilitaBotones_De_Bloqueo(mUserLog.IdMaquina);
@@ -254,7 +255,13 @@ namespace Metalurgica.MultiMaquina
 
         private void Prueba_Load(object sender, EventArgs e)
         {
-           
+            ctlProduccion1.EventoSalir += CtlProduccion1_EventoSalir;
+        }
+
+        private void CtlProduccion1_EventoSalir()
+        {
+            this.Close();
+            Application.Exit();
         }
 
         private void Btn_Maquina1_Click(object sender, EventArgs e)

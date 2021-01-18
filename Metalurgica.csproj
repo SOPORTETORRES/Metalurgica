@@ -468,6 +468,12 @@
     <Compile Include="Models\Tipo_MovExistenciasDet.cs" />
     <Compile Include="Models\Tipo_RefDoc.cs" />
     <Compile Include="Models\Tipo_ResumenDoc.cs" />
+    <Compile Include="Muestreo\Frm_ControlDimensional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Muestreo\Frm_ControlDimensional.Designer.cs">
+      <DependentUpon>Frm_ControlDimensional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Muestreo\Frm_RetiraMuestra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -813,6 +819,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Maquinas\NotificaAveria.resx">
       <DependentUpon>NotificaAveria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Muestreo\Frm_ControlDimensional.resx">
+      <DependentUpon>Frm_ControlDimensional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Muestreo\Frm_RetiraMuestra.resx">
       <DependentUpon>Frm_RetiraMuestra.cs</DependentUpon>

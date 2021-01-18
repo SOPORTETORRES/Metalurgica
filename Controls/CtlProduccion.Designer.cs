@@ -31,12 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.Btn_Desbloquea = new System.Windows.Forms.Button();
             this.Chk_MultiplesColadas = new System.Windows.Forms.CheckBox();
             this.Lbl_MsgKgsProd = new System.Windows.Forms.Label();
             this.lbl_Msg = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtEtiquetaPieza = new System.Windows.Forms.TextBox();
+            this.Btn_A_Despacho = new System.Windows.Forms.Button();
             this.tabOperaciones = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -51,18 +53,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Btn_NotificaAveriaElemento = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.Btn_NotificacionAveria = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Btn_cierreEtiquetaAza = new System.Windows.Forms.Button();
+            this.Btn_VerDetalle = new System.Windows.Forms.Button();
+            this.Btn_Despunte = new System.Windows.Forms.Button();
             this.Lbl_tipo = new System.Windows.Forms.Label();
             this.lbl_calidadAcero = new System.Windows.Forms.Label();
-            this.Btn_cierreEtiquetaAza = new System.Windows.Forms.Button();
             this.Btn_CheckList = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Lbl_Usuario = new System.Windows.Forms.Label();
-            this.Btn_A_Despacho = new System.Windows.Forms.Button();
-            this.Btn_NotificaAveriaElemento = new System.Windows.Forms.Button();
+            this.Btn_MtoMaq = new System.Windows.Forms.Button();
             this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.Btn_MtoTotem = new System.Windows.Forms.Button();
-            this.Btn_MtoMaq = new System.Windows.Forms.Button();
-            this.Btn_NotificacionAveria = new System.Windows.Forms.Button();
             this.Lbl_NroEtiq = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.Lbl_NroPiezas = new System.Windows.Forms.Label();
@@ -70,7 +76,6 @@
             this.Lbl_KgsProd = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.Lbl_SaldoKilosColada = new System.Windows.Forms.Label();
-            this.Btn_VerDetalle = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.lblKilos = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -103,7 +108,6 @@
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
-            this.Btn_Despunte = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -116,6 +120,9 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
@@ -133,17 +140,30 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.button1);
             this.panel4.Controls.Add(this.Btn_Desbloquea);
             this.panel4.Controls.Add(this.Chk_MultiplesColadas);
             this.panel4.Controls.Add(this.Lbl_MsgKgsProd);
             this.panel4.Controls.Add(this.lbl_Msg);
             this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.txtEtiquetaPieza);
+            this.panel4.Controls.Add(this.Btn_A_Despacho);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1327, 30);
             this.panel4.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(688, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(115, 23);
+            this.button1.TabIndex = 58;
+            this.button1.Text = "Control Dimensional";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Btn_Desbloquea
             // 
@@ -206,6 +226,16 @@
             this.txtEtiquetaPieza.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEtiquetaPieza_KeyPress);
             this.txtEtiquetaPieza.Leave += new System.EventHandler(this.txtEtiquetaPieza_Leave);
             this.txtEtiquetaPieza.Validating += new System.ComponentModel.CancelEventHandler(this.txtEtiquetaPieza_Validating);
+            // 
+            // Btn_A_Despacho
+            // 
+            this.Btn_A_Despacho.Location = new System.Drawing.Point(819, 1);
+            this.Btn_A_Despacho.Name = "Btn_A_Despacho";
+            this.Btn_A_Despacho.Size = new System.Drawing.Size(123, 23);
+            this.Btn_A_Despacho.TabIndex = 57;
+            this.Btn_A_Despacho.Text = "Cambiar a Despacho";
+            this.Btn_A_Despacho.UseVisualStyleBackColor = true;
+            this.Btn_A_Despacho.Click += new System.EventHandler(this.Btn_A_Despacho_Click);
             // 
             // tabOperaciones
             // 
@@ -346,17 +376,16 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.groupBox5);
+            this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.Btn_Despunte);
             this.groupBox1.Controls.Add(this.Lbl_tipo);
             this.groupBox1.Controls.Add(this.lbl_calidadAcero);
-            this.groupBox1.Controls.Add(this.Btn_cierreEtiquetaAza);
             this.groupBox1.Controls.Add(this.Btn_CheckList);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.Btn_A_Despacho);
-            this.groupBox1.Controls.Add(this.Btn_NotificaAveriaElemento);
             this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.Btn_MtoTotem);
-            this.groupBox1.Controls.Add(this.Btn_NotificacionAveria);
             this.groupBox1.Controls.Add(this.Lbl_NroEtiq);
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Controls.Add(this.Lbl_NroPiezas);
@@ -364,7 +393,6 @@
             this.groupBox1.Controls.Add(this.Lbl_KgsProd);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.Lbl_SaldoKilosColada);
-            this.groupBox1.Controls.Add(this.Btn_VerDetalle);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.lblKilos);
             this.groupBox1.Controls.Add(this.label10);
@@ -387,6 +415,88 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.Btn_NotificaAveriaElemento);
+            this.groupBox5.Location = new System.Drawing.Point(945, 13);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(92, 106);
+            this.groupBox5.TabIndex = 66;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Avería de Elemento";
+            // 
+            // Btn_NotificaAveriaElemento
+            // 
+            this.Btn_NotificaAveriaElemento.Location = new System.Drawing.Point(8, 41);
+            this.Btn_NotificaAveriaElemento.Name = "Btn_NotificaAveriaElemento";
+            this.Btn_NotificaAveriaElemento.Size = new System.Drawing.Size(77, 48);
+            this.Btn_NotificaAveriaElemento.TabIndex = 56;
+            this.Btn_NotificaAveriaElemento.Text = "Notificar Avería de Elemento";
+            this.Btn_NotificaAveriaElemento.UseVisualStyleBackColor = true;
+            this.Btn_NotificaAveriaElemento.Click += new System.EventHandler(this.Btn_NotificaAveriaElemento_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.Btn_NotificacionAveria);
+            this.groupBox4.Location = new System.Drawing.Point(838, 9);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(96, 112);
+            this.groupBox4.TabIndex = 65;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Averia de Máquinaria";
+            // 
+            // Btn_NotificacionAveria
+            // 
+            this.Btn_NotificacionAveria.Location = new System.Drawing.Point(6, 44);
+            this.Btn_NotificacionAveria.Name = "Btn_NotificacionAveria";
+            this.Btn_NotificacionAveria.Size = new System.Drawing.Size(77, 48);
+            this.Btn_NotificacionAveria.TabIndex = 52;
+            this.Btn_NotificacionAveria.Text = "Notificar Avería de Máquina";
+            this.Btn_NotificacionAveria.UseVisualStyleBackColor = true;
+            this.Btn_NotificacionAveria.Click += new System.EventHandler(this.Btn_NotificacionAveria_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.Btn_cierreEtiquetaAza);
+            this.groupBox3.Controls.Add(this.Btn_VerDetalle);
+            this.groupBox3.Location = new System.Drawing.Point(727, 9);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(101, 114);
+            this.groupBox3.TabIndex = 64;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Materia Prima";
+            // 
+            // Btn_cierreEtiquetaAza
+            // 
+            this.Btn_cierreEtiquetaAza.Location = new System.Drawing.Point(7, 25);
+            this.Btn_cierreEtiquetaAza.Name = "Btn_cierreEtiquetaAza";
+            this.Btn_cierreEtiquetaAza.Size = new System.Drawing.Size(90, 35);
+            this.Btn_cierreEtiquetaAza.TabIndex = 60;
+            this.Btn_cierreEtiquetaAza.Text = "Cierre Etiqueta QR de MP";
+            this.Btn_cierreEtiquetaAza.UseVisualStyleBackColor = true;
+            this.Btn_cierreEtiquetaAza.Click += new System.EventHandler(this.Btn_cierreEtiquetaAza_Click);
+            // 
+            // Btn_VerDetalle
+            // 
+            this.Btn_VerDetalle.Location = new System.Drawing.Point(7, 72);
+            this.Btn_VerDetalle.Name = "Btn_VerDetalle";
+            this.Btn_VerDetalle.Size = new System.Drawing.Size(90, 35);
+            this.Btn_VerDetalle.TabIndex = 45;
+            this.Btn_VerDetalle.Text = "Detalle de lo Producido";
+            this.Btn_VerDetalle.UseVisualStyleBackColor = true;
+            this.Btn_VerDetalle.Click += new System.EventHandler(this.Btn_VerDetalle_Click);
+            // 
+            // Btn_Despunte
+            // 
+            this.Btn_Despunte.Enabled = false;
+            this.Btn_Despunte.Location = new System.Drawing.Point(218, 20);
+            this.Btn_Despunte.Name = "Btn_Despunte";
+            this.Btn_Despunte.Size = new System.Drawing.Size(24, 23);
+            this.Btn_Despunte.TabIndex = 63;
+            this.Btn_Despunte.Text = "D";
+            this.Btn_Despunte.UseVisualStyleBackColor = true;
+            this.Btn_Despunte.Click += new System.EventHandler(this.Btn_Despunte_Click);
+            // 
             // Lbl_tipo
             // 
             this.Lbl_tipo.AutoSize = true;
@@ -405,33 +515,24 @@
             this.lbl_calidadAcero.TabIndex = 61;
             this.lbl_calidadAcero.Text = "Kilos";
             // 
-            // Btn_cierreEtiquetaAza
-            // 
-            this.Btn_cierreEtiquetaAza.Location = new System.Drawing.Point(726, 6);
-            this.Btn_cierreEtiquetaAza.Name = "Btn_cierreEtiquetaAza";
-            this.Btn_cierreEtiquetaAza.Size = new System.Drawing.Size(75, 34);
-            this.Btn_cierreEtiquetaAza.TabIndex = 60;
-            this.Btn_cierreEtiquetaAza.Text = "Cierre Etiqueta MP";
-            this.Btn_cierreEtiquetaAza.UseVisualStyleBackColor = true;
-            this.Btn_cierreEtiquetaAza.Click += new System.EventHandler(this.Btn_cierreEtiquetaAza_Click);
-            // 
             // Btn_CheckList
             // 
-            this.Btn_CheckList.Location = new System.Drawing.Point(895, 56);
+            this.Btn_CheckList.Location = new System.Drawing.Point(1102, -12);
             this.Btn_CheckList.Name = "Btn_CheckList";
             this.Btn_CheckList.Size = new System.Drawing.Size(57, 50);
             this.Btn_CheckList.TabIndex = 59;
             this.Btn_CheckList.Text = "Check List Maq";
             this.Btn_CheckList.UseVisualStyleBackColor = true;
+            this.Btn_CheckList.Visible = false;
             this.Btn_CheckList.Click += new System.EventHandler(this.Btn_CheckList_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Lbl_Usuario);
             this.groupBox2.Controls.Add(this.Btn_MtoMaq);
-            this.groupBox2.Location = new System.Drawing.Point(966, 20);
+            this.groupBox2.Location = new System.Drawing.Point(1057, 20);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(297, 101);
+            this.groupBox2.Size = new System.Drawing.Size(244, 101);
             this.groupBox2.TabIndex = 58;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del usuario ";
@@ -440,31 +541,21 @@
             // 
             this.Lbl_Usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_Usuario.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_Usuario.Location = new System.Drawing.Point(6, 25);
+            this.Lbl_Usuario.Location = new System.Drawing.Point(10, 16);
             this.Lbl_Usuario.Name = "Lbl_Usuario";
-            this.Lbl_Usuario.Size = new System.Drawing.Size(285, 61);
+            this.Lbl_Usuario.Size = new System.Drawing.Size(224, 78);
             this.Lbl_Usuario.TabIndex = 51;
             this.Lbl_Usuario.Text = "Nro. Etiquetas";
             // 
-            // Btn_A_Despacho
+            // Btn_MtoMaq
             // 
-            this.Btn_A_Despacho.Location = new System.Drawing.Point(722, 44);
-            this.Btn_A_Despacho.Name = "Btn_A_Despacho";
-            this.Btn_A_Despacho.Size = new System.Drawing.Size(160, 23);
-            this.Btn_A_Despacho.TabIndex = 57;
-            this.Btn_A_Despacho.Text = "Cambiar a Despacho";
-            this.Btn_A_Despacho.UseVisualStyleBackColor = true;
-            this.Btn_A_Despacho.Click += new System.EventHandler(this.Btn_A_Despacho_Click);
-            // 
-            // Btn_NotificaAveriaElemento
-            // 
-            this.Btn_NotificaAveriaElemento.Location = new System.Drawing.Point(808, 73);
-            this.Btn_NotificaAveriaElemento.Name = "Btn_NotificaAveriaElemento";
-            this.Btn_NotificaAveriaElemento.Size = new System.Drawing.Size(77, 48);
-            this.Btn_NotificaAveriaElemento.TabIndex = 56;
-            this.Btn_NotificaAveriaElemento.Text = "Notificación de Averia Elemento";
-            this.Btn_NotificaAveriaElemento.UseVisualStyleBackColor = true;
-            this.Btn_NotificaAveriaElemento.Click += new System.EventHandler(this.Btn_NotificaAveriaElemento_Click);
+            this.Btn_MtoMaq.Location = new System.Drawing.Point(6, -6);
+            this.Btn_MtoMaq.Name = "Btn_MtoMaq";
+            this.Btn_MtoMaq.Size = new System.Drawing.Size(57, 23);
+            this.Btn_MtoMaq.TabIndex = 53;
+            this.Btn_MtoMaq.Text = "Mto Maq";
+            this.Btn_MtoMaq.UseVisualStyleBackColor = true;
+            this.Btn_MtoMaq.Visible = false;
             // 
             // lbl_MsgBloqueo
             // 
@@ -481,33 +572,13 @@
             // 
             // Btn_MtoTotem
             // 
-            this.Btn_MtoTotem.Location = new System.Drawing.Point(917, 12);
+            this.Btn_MtoTotem.Location = new System.Drawing.Point(645, -3);
             this.Btn_MtoTotem.Name = "Btn_MtoTotem";
             this.Btn_MtoTotem.Size = new System.Drawing.Size(66, 23);
             this.Btn_MtoTotem.TabIndex = 54;
             this.Btn_MtoTotem.Text = "Mto Tótem";
             this.Btn_MtoTotem.UseVisualStyleBackColor = true;
             this.Btn_MtoTotem.Visible = false;
-            // 
-            // Btn_MtoMaq
-            // 
-            this.Btn_MtoMaq.Location = new System.Drawing.Point(6, -6);
-            this.Btn_MtoMaq.Name = "Btn_MtoMaq";
-            this.Btn_MtoMaq.Size = new System.Drawing.Size(57, 23);
-            this.Btn_MtoMaq.TabIndex = 53;
-            this.Btn_MtoMaq.Text = "Mto Maq";
-            this.Btn_MtoMaq.UseVisualStyleBackColor = true;
-            this.Btn_MtoMaq.Visible = false;
-            // 
-            // Btn_NotificacionAveria
-            // 
-            this.Btn_NotificacionAveria.Location = new System.Drawing.Point(720, 73);
-            this.Btn_NotificacionAveria.Name = "Btn_NotificacionAveria";
-            this.Btn_NotificacionAveria.Size = new System.Drawing.Size(77, 48);
-            this.Btn_NotificacionAveria.TabIndex = 52;
-            this.Btn_NotificacionAveria.Text = "Notificación de Averia Maquina";
-            this.Btn_NotificacionAveria.UseVisualStyleBackColor = true;
-            this.Btn_NotificacionAveria.Click += new System.EventHandler(this.Btn_NotificacionAveria_Click);
             // 
             // Lbl_NroEtiq
             // 
@@ -579,16 +650,6 @@
             this.Lbl_SaldoKilosColada.Size = new System.Drawing.Size(14, 13);
             this.Lbl_SaldoKilosColada.TabIndex = 44;
             this.Lbl_SaldoKilosColada.Text = "0";
-            // 
-            // Btn_VerDetalle
-            // 
-            this.Btn_VerDetalle.Location = new System.Drawing.Point(814, 14);
-            this.Btn_VerDetalle.Name = "Btn_VerDetalle";
-            this.Btn_VerDetalle.Size = new System.Drawing.Size(68, 23);
-            this.Btn_VerDetalle.TabIndex = 45;
-            this.Btn_VerDetalle.Text = "Ver Detalle";
-            this.Btn_VerDetalle.UseVisualStyleBackColor = true;
-            this.Btn_VerDetalle.Click += new System.EventHandler(this.Btn_VerDetalle_Click);
             // 
             // label11
             // 
@@ -891,16 +952,6 @@
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1327, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
             // 
-            // Btn_Despunte
-            // 
-            this.Btn_Despunte.Location = new System.Drawing.Point(218, 20);
-            this.Btn_Despunte.Name = "Btn_Despunte";
-            this.Btn_Despunte.Size = new System.Drawing.Size(24, 23);
-            this.Btn_Despunte.TabIndex = 63;
-            this.Btn_Despunte.Text = "D";
-            this.Btn_Despunte.UseVisualStyleBackColor = true;
-            this.Btn_Despunte.Click += new System.EventHandler(this.Btn_Despunte_Click);
-            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -931,6 +982,9 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tlsToolBar.ResumeLayout(false);
             this.tlsToolBar.PerformLayout();
@@ -1018,5 +1072,9 @@
         private System.Windows.Forms.Label Lbl_tipo;
         private System.Windows.Forms.Label lbl_calidadAcero;
         private System.Windows.Forms.Button Btn_Despunte;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
     }
 }

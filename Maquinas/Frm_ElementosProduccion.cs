@@ -40,6 +40,7 @@ namespace Metalurgica.Maquinas
         public void IniciaFormulario(string iIdUser, string iIdSucursal)
         {
             mIdUserReporta = iIdUser;
+  
             WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient(); int i = 0;
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
             //DataRow lFila = null;
@@ -178,8 +179,8 @@ namespace Metalurgica.Maquinas
 
                         PuedeIngresarReparacion(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login );
 
-                        //CargaDatosAverias(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login);
-                        //Pnl_SeleccionAveria.Visible = true;
+                        CargaDatosAverias(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login);
+                        Pnl_SeleccionAveria.Visible = true;
 
 
                     }
@@ -216,12 +217,18 @@ namespace Metalurgica.Maquinas
         private void CargaDatosAverias(string iIdElementoPro, string iPerfilUsuario, string iIdUserLog)
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
-            string lSql = ""; string lMsg = "";
+            string lSql = ""; string lMsg = ""; Clases.Obj.Obj_ElementoProd lObj = new Clases.Obj.Obj_ElementoProd();
 
             lMsg = string.Concat(Lbl_Titulo.Text.Replace("|", Lbl_Seleccionado.Text.ToUpper()));
             Lbl_Titulo.Text = lMsg;
             Lbl_Usuario.Text = iIdUserLog;
             Lbl_Perfil.Text = iPerfilUsuario;
+
+            lObj.IdElemento = iIdElementoPro;
+            lObj.DescripcionElemento = Lbl_Seleccionado.Text;
+            lObj.IdUserReporta = this.mUserLog_Frm.Iduser; 
+
+            AppDomain.CurrentDomain.SetData("ElementoSel", lObj);
             //Verificamos el estado de la averia
             lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA 0,0,'','','',0,'',", iIdElementoPro, ",'',5 ");
             lDts = lPx.ObtenerDatos(lSql);
@@ -229,19 +236,19 @@ namespace Metalurgica.Maquinas
             {
 
                 Dtg_Averias.DataSource = lDts.Tables[0].Copy();
-                Dtg_Averias.Columns["MAquina"].Visible = false;
-                Dtg_Averias.Columns["Id"].Visible = false;
-                Dtg_Averias.Columns["IdOperador"].Visible = false;
-                Dtg_Averias.Columns["TipoMaquina"].Visible = false;
-                Dtg_Averias.Columns["Mailenviado"].Visible = false;
-                Dtg_Averias.Columns["IdUserCrea"].Visible = false;
-                Dtg_Averias.Columns["Estado"].Visible = false;
-                Dtg_Averias.Columns["IdMaquina"].Visible = false;
-                Dtg_Averias.Columns["EstadoSupervisor"].Visible = false;
-                Dtg_Averias.Columns["Usuario"].Width = 90;
-                Dtg_Averias.Columns["IDNotificacion"].Width = 50;
-                Dtg_Averias.Columns["EstadoMaq"].Width = 50;
-                Dtg_Averias.Columns["TextoIncidencia"].Width = 150;
+                //Dtg_Averias.Columns["MAquina"].Visible = false;
+                //Dtg_Averias.Columns["Id"].Visible = false;
+                //Dtg_Averias.Columns["IdOperador"].Visible = false;
+                //Dtg_Averias.Columns["TipoMaquina"].Visible = false;
+                //Dtg_Averias.Columns["Mailenviado"].Visible = false;
+                //Dtg_Averias.Columns["IdUserCrea"].Visible = false;
+                //Dtg_Averias.Columns["Estado"].Visible = false;
+                //Dtg_Averias.Columns["IdMaquina"].Visible = false;
+                //Dtg_Averias.Columns["EstadoSupervisor"].Visible = false;
+                //Dtg_Averias.Columns["Usuario"].Width = 90;
+                //Dtg_Averias.Columns["IDNotificacion"].Width = 50;
+                //Dtg_Averias.Columns["EstadoMaq"].Width = 50;
+                //Dtg_Averias.Columns["TextoIncidencia"].Width = 150;
 
                 Pnl_SeleccionAveria.Dock = DockStyle.Fill;
             }
@@ -257,13 +264,14 @@ namespace Metalurgica.Maquinas
             //if (mTipoAveria.Equals("AV"))
             //{
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
-            string lSql = ""; string lPerfil = iPerfilUsuario; string lMsg = "";
+            string lSql = ""; string lPerfil = iPerfilUsuario; string lMsg = ""; Clases.ClsComun lCom = new Clases.ClsComun();
 
             //Verificamos el estado de la averia
-            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveriaSeleccionada ,",0,'','','',0,'',", iIdElemento, ",'',7 ");
+            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", lCom.Val (mIdAveriaSeleccionada) ,",0,'','','',0,'',", iIdElemento, ",'',4 ");
             lDts = lPx.ObtenerDatos(lSql);
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
             {
+                Lbl_IdNotificacion.Text = lDts.Tables[0].Rows[0]["IdNotificacion"].ToString();
                 if (lDts.Tables[0].Rows[0]["EstadoSup"].ToString().Equals("NOOK") && lDts.Tables[0].Rows[0]["EstadoMaq"].ToString().Equals("OP"))
                 {
                     if (lPerfil.ToString().ToUpper().Equals("SUPERVISOR"))
@@ -357,6 +365,11 @@ namespace Metalurgica.Maquinas
                lbl_Averia .Text = Dtg_Averias.Rows[lFila].Cells["TextoIncidencia"].Value.ToString();
                 mIdAveriaSeleccionada = Lbl_IdNotificacion.Text;
             }
+        }
+
+        private void Dtg_Averias_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         //else

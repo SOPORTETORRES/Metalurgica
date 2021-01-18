@@ -288,7 +288,10 @@ namespace Metalurgica.RecepcionMP
             {
                 lSucursal = new Clases .ClsComun ().OBtenerSucursal().ToString();
 
-                lEt = lDal.PersistirEtiquetaAZA(lEt, lSucursal);
+                lEt = lDal.ObtenerEtiquetaAZA(lEt, lSucursal);
+
+                 lEt = lDal.PersistirEtiquetaAZA(lEt, lSucursal);
+                // 
                 if (Dtg_Etiquetas.Rows.Count > 0)
                 {
                     //RevisaEnOC(lEt);
