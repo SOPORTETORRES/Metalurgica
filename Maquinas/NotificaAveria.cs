@@ -65,7 +65,7 @@ namespace Metalurgica.Maquinas
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             string lSql = ""; DataTable lTbl = new DataTable();
 
-            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',7 ");
+            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',6 ");
             listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
             if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
             {
@@ -799,32 +799,32 @@ namespace Metalurgica.Maquinas
                             lMsg = "La Solución  de Averia fue procesada  correctamente";
                             if (Rb_Averia.Checked == true)
                             {
-                                if (EstadoMaq.Equals("OP"))
-                                    lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
+                                //if (EstadoMaq.Equals("OP"))
+                                //    lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
                             }
 
 
                             MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                            if (EstadoMaq.Equals("OP"))
-                            {
-                                lTipoNot = AppDomain.CurrentDomain.GetData("TipoAveria").ToString();
-                                if ((mTipoAveria == "EP"))
-                                    this.Close();
-                                else
-                                     if ((lTipoNot == "MM"))
-                                    this.Close();
-                                else
-                                {
-                                    LogOut();
-                                    Application.Exit();
-                                }
-                            }
-                            else
-                            {
-                                this.Close();
-                            }
+                            //if (EstadoMaq.Equals("OP"))
+                            //{
+                            //    lTipoNot = AppDomain.CurrentDomain.GetData("TipoAveria").ToString();
+                            //    if ((mTipoAveria == "EP"))
+                            //        this.Close();
+                            //    else
+                            //         if ((lTipoNot == "MM"))
+                            //        this.Close();
+                            //    else
+                            //    {
+                            //        LogOut();
+                            //        Application.Exit();
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    this.Close();
+                            //}
 
                         }
                     }
@@ -912,35 +912,7 @@ namespace Metalurgica.Maquinas
                     if (lRes.ToUpper().Equals("OK"))
                     {
                         lMsg = "La Solución  de Averia fue procesada  correctamente";
-                        if (Rb_Averia.Checked == true)
-                        {
-                            if (EstadoMaq.Equals("OP"))
-                                lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
-                        }
-
-
                         MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                        if (EstadoMaq.Equals("OP"))
-                        {
-                            string lTipoAv = AppDomain.CurrentDomain.GetData ("TipoAveria" ).ToString ();
-                            if (mTipoAveria =="EP")
-                                this.Close();
-                            else
-                                if (lTipoAv =="MM")
-                                this.Close();
-                            else
-                                {
-                                    LogOut();
-                                    Application.Exit();
-                                }
-                                    
-                        }
-                        else
-                        {
-                            this.Close();
-                        }
 
                     }
                 }
@@ -1073,7 +1045,7 @@ namespace Metalurgica.Maquinas
             {
                 listaDataSet.MensajeError = "";
                 mTipoNotificacion = "NA";
-                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveria , ", 0,'','','',0,'',0,'',7 ");
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", mIdAveria , ", 0,'','','',0,'',0,'',6 ");
                 listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
                 if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {

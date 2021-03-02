@@ -2389,11 +2389,16 @@ namespace Metalurgica.Controls
         {
             Clases.Obj.Obj_ElementoProd lObj = new Clases.Obj.Obj_ElementoProd();
             Maquinas.Frm_ElementosProduccion lFrm = new Maquinas.Frm_ElementosProduccion();
+            string lAccion = "";
             lFrm.IniciaFormulario(mUserLog .Iduser, mIdSucursal);
             lFrm.ShowDialog(this);
             lObj=(Clases.Obj.Obj_ElementoProd) AppDomain.CurrentDomain.GetData("ElementoSel" );
-           
-            if (lObj != null)
+
+            if (AppDomain.CurrentDomain.GetData("Accion")!=null )
+            lAccion = AppDomain.CurrentDomain.GetData("Accion").ToString ();
+
+            if (lObj !=null)
+            if ((lAccion != "") && (lAccion.ToUpper() .Equals ("NOTIFICAR")))
             {
                 if ((lObj.IdElemento.Trim().Length > 0) && (lObj.IdUserReporta.Trim().Length > 0))
                 {

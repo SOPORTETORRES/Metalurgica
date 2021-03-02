@@ -415,9 +415,6 @@ namespace Metalurgica.RecepcionMP
             if ((lDts.MensajeError.Trim().Length == 0) && (lDts .DataSet .Tables .Count >0))
             {
                 lTbl = lDts.DataSet.Tables[0].Copy();
-                //lTbl.Columns.Add("KgsRecepcionados", Type.GetType("System.String"));
-                //lTbl.Columns.Add("Kgs_a_Recepcionar", Type.GetType("System.String"));
-                //lTbl.Columns.Add("KgsXRecepcionar", Type.GetType("System.String"));
                 lTbl.Columns.Add("IdEtiquetaAZA", Type.GetType("System.String"));
                 mTblDatos = lTbl.Copy();
 

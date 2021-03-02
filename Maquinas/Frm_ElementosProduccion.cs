@@ -15,6 +15,7 @@ namespace Metalurgica.Maquinas
         private string mIdUserReporta = "";
         private CurrentUser mUserLog_Frm = new CurrentUser();
         private string mIdAveriaSeleccionada = "";
+        public  string mAccion = "";
 
         public Frm_ElementosProduccion()
         {
@@ -111,6 +112,7 @@ namespace Metalurgica.Maquinas
                 lObj.IdElemento = Lbl_Seleccionado.Tag.ToString();
                 lObj.IdUserReporta = mIdUserReporta;
                 AppDomain.CurrentDomain.SetData("ElementoSel", lObj);
+                AppDomain.CurrentDomain.SetData("Accion", mAccion);
                 this.Close();
             }
             else
@@ -119,7 +121,9 @@ namespace Metalurgica.Maquinas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            mAccion = "Notificar";
             Btn_Aceptar_Click(null, null);
+        
         }
 
         private void Btn_Solucion_Click(object sender, EventArgs e)
@@ -129,7 +133,8 @@ namespace Metalurgica.Maquinas
             //Pnl_Login.Visible = true;
             CargaDatosAverias(Lbl_Seleccionado.Tag.ToString(), mUserLog_Frm.PerfilUsuario, mUserLog_Frm.Login);
             Pnl_SeleccionAveria.Visible = true;
-
+            mAccion = "Reparar";
+            AppDomain.CurrentDomain.SetData("Accion", mAccion);
 
         }
 
@@ -347,12 +352,8 @@ namespace Metalurgica.Maquinas
             Habilita_Deshabilida(false);
             Pnl_SeleccionAveria.Visible = false;
             Pnl_Login.Visible = true;
+            mAccion = "Reparar";
 
-            //string lIdNotificacion = string.Concat( Lbl_IdNotificacion.Text);
-            //AppDomain.CurrentDomain.SetData("IdAveria", lIdNotificacion);
-            //AppDomain.CurrentDomain.SetData("IdUser", mUserLog_Frm .Iduser );
-            //AppDomain.CurrentDomain.SetData("User", mUserLog_Frm.Login);
-            //this.Close();
 
         }
 
