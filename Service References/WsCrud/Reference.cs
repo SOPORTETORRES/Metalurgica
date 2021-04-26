@@ -64,13 +64,17 @@ namespace Metalurgica.WsCrud {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsCrud.Maquina ObtenerMaquina(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://www.Ssingest.cl/ObtenerDetalleDespachadoSinFacturar", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet ObtenerDetalleDespachadoSinFacturar(string iRut);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://www.Ssingest.cl/ListarAyudaSql", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsCrud.ListaDataSet ListarAyudaSql(string sql);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -172,7 +176,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -260,7 +264,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -348,7 +352,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -494,6 +498,10 @@ namespace Metalurgica.WsCrud {
         
         public Metalurgica.WsCrud.Maquina ObtenerMaquina(int id) {
             return base.Channel.ObtenerMaquina(id);
+        }
+        
+        public System.Data.DataSet ObtenerDetalleDespachadoSinFacturar(string iRut) {
+            return base.Channel.ObtenerDetalleDespachadoSinFacturar(iRut);
         }
         
         public Metalurgica.WsCrud.ListaDataSet ListarAyudaSql(string sql) {

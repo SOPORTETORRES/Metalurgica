@@ -636,17 +636,20 @@ namespace Metalurgica
             //Muestreo.Frm_ControlDimensional lfrm = new Muestreo.Frm_ControlDimensional();
             //lfrm.ShowDialog();
 
-            Ws_TO.Ws_ToSoapClient PxWS = new Ws_TO.Ws_ToSoapClient();
-            WsCrud.CrudSoapClient lCr = new WsCrud.CrudSoapClient();
-            WsCrud.ListaDataSet lista = new WsCrud.ListaDataSet();
+            //Ws_TO.Ws_ToSoapClient PxWS = new Ws_TO.Ws_ToSoapClient();
+            //WsCrud.CrudSoapClient lCr = new WsCrud.CrudSoapClient();
+            //WsCrud.ListaDataSet lista = new WsCrud.ListaDataSet();
 
-            DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
-            string lRes = "   "; string lSql = string.Concat("  SP_ConsultasGenerales  150, '4','16','','','' ");
+            //DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
+            //string lRes = "   "; string lSql = string.Concat("  SP_ConsultasGenerales  150, '4','16','','','' ");
 
-            //lDts = PxWS.ObtenerDatos(lSql);
-            lista = lCr.ListarAyudaSql(lSql);
+            ////lDts = PxWS.ObtenerDatos(lSql);
+            //lista = lCr.ListarAyudaSql(lSql);
 
-            MessageBox.Show("Termino la carga");
+            //MessageBox.Show("Termino la carga");
+
+            Tools .Frm_Tools  lFrm = new Tools.Frm_Tools();
+            lFrm.ShowDialog();
         }
 
         private void label2_Click(object sender, EventArgs e)

@@ -187,6 +187,45 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="grabarProduccionEtiqueta_TO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pieza" type="tns:Pieza" />
+            <s:element minOccurs="1" maxOccurs="1" name="maquina" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iCant" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUser" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iVinculaEt" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iPesoEtiqueta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroPiezas" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroPiezasProd" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="grabarProduccionEtiqueta_TOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="grabarProduccionEtiqueta_TOResult" type="tns:Pieza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersitirLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iEtiquetaTO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersitirLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersitirLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RegistrarPasoaProduccionPieza_V_AZA">
         <s:complexType>
           <s:sequence>
@@ -641,6 +680,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Procedencia" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TipoProduccion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdSucursal" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">
@@ -912,6 +952,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ListarEPExcel_AcumuladoAnteriorxObra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obra" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iEp_Act" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarEPExcel_AcumuladoAnteriorxObraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarEPExcel_AcumuladoAnteriorxObraResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ListarEPExcel_ResumenGuiasxObra">
         <s:complexType>
           <s:sequence>
@@ -1127,18 +1182,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerEtiqueta">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="iLote" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="iBulto" type="s:string" />
-          </s:sequence>
-        </s:complexType>
+      <s:element name="ObtenerInforme_EP">
+        <s:complexType />
       </s:element>
-      <s:element name="ObtenerEtiquetaResponse">
+      <s:element name="ObtenerInforme_EPResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEtiquetaResult" type="tns:TipoEtiquetaAza" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerInforme_EPResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1162,6 +1219,21 @@
                 </s:sequence>
               </s:complexType>
             </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiqueta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iLote" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iBulto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerEtiquetaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerEtiquetaResult" type="tns:TipoEtiquetaAza" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2648,6 +2720,18 @@
   <wsdl:message name="RegistrarPasoaProduccionPiezaSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPiezaResponse" />
   </wsdl:message>
+  <wsdl:message name="grabarProduccionEtiqueta_TOSoapIn">
+    <wsdl:part name="parameters" element="tns:grabarProduccionEtiqueta_TO" />
+  </wsdl:message>
+  <wsdl:message name="grabarProduccionEtiqueta_TOSoapOut">
+    <wsdl:part name="parameters" element="tns:grabarProduccionEtiqueta_TOResponse" />
+  </wsdl:message>
+  <wsdl:message name="PersitirLogSoapIn">
+    <wsdl:part name="parameters" element="tns:PersitirLog" />
+  </wsdl:message>
+  <wsdl:message name="PersitirLogSoapOut">
+    <wsdl:part name="parameters" element="tns:PersitirLogResponse" />
+  </wsdl:message>
   <wsdl:message name="RegistrarPasoaProduccionPieza_V_AZASoapIn">
     <wsdl:part name="parameters" element="tns:RegistrarPasoaProduccionPieza_V_AZA" />
   </wsdl:message>
@@ -2888,6 +2972,12 @@
   <wsdl:message name="ListarEPExcel_ResumenEpGeneradosxObraSoapOut">
     <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenEpGeneradosxObraResponse" />
   </wsdl:message>
+  <wsdl:message name="ListarEPExcel_AcumuladoAnteriorxObraSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_AcumuladoAnteriorxObra" />
+  </wsdl:message>
+  <wsdl:message name="ListarEPExcel_AcumuladoAnteriorxObraSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarEPExcel_AcumuladoAnteriorxObraResponse" />
+  </wsdl:message>
   <wsdl:message name="ListarEPExcel_ResumenGuiasxObraSoapIn">
     <wsdl:part name="parameters" element="tns:ListarEPExcel_ResumenGuiasxObra" />
   </wsdl:message>
@@ -2960,17 +3050,23 @@
   <wsdl:message name="ObtenerBD_ParaExcelSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerBD_ParaExcelResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerEtiquetaSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerEtiqueta" />
+  <wsdl:message name="ObtenerInforme_EPSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerInforme_EP" />
   </wsdl:message>
-  <wsdl:message name="ObtenerEtiquetaSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerEtiquetaResponse" />
+  <wsdl:message name="ObtenerInforme_EPSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerInforme_EPResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerAsignacionITMaqSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaq" />
   </wsdl:message>
   <wsdl:message name="ObtenerAsignacionITMaqSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerAsignacionITMaqResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiqueta" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerEtiquetaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerEtiquetaResponse" />
   </wsdl:message>
   <wsdl:message name="GrabarRecepcion_MPSoapIn">
     <wsdl:part name="parameters" element="tns:GrabarRecepcion_MP" />
@@ -3513,6 +3609,14 @@
       <wsdl:input message="tns:RegistrarPasoaProduccionPiezaSoapIn" />
       <wsdl:output message="tns:RegistrarPasoaProduccionPiezaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TO">
+      <wsdl:input message="tns:grabarProduccionEtiqueta_TOSoapIn" />
+      <wsdl:output message="tns:grabarProduccionEtiqueta_TOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PersitirLog">
+      <wsdl:input message="tns:PersitirLogSoapIn" />
+      <wsdl:output message="tns:PersitirLogSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
       <wsdl:input message="tns:RegistrarPasoaProduccionPieza_V_AZASoapIn" />
       <wsdl:output message="tns:RegistrarPasoaProduccionPieza_V_AZASoapOut" />
@@ -3673,6 +3777,10 @@
       <wsdl:input message="tns:ListarEPExcel_ResumenEpGeneradosxObraSoapIn" />
       <wsdl:output message="tns:ListarEPExcel_ResumenEpGeneradosxObraSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_AcumuladoAnteriorxObra">
+      <wsdl:input message="tns:ListarEPExcel_AcumuladoAnteriorxObraSoapIn" />
+      <wsdl:output message="tns:ListarEPExcel_AcumuladoAnteriorxObraSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
       <wsdl:input message="tns:ListarEPExcel_ResumenGuiasxObraSoapIn" />
       <wsdl:output message="tns:ListarEPExcel_ResumenGuiasxObraSoapOut" />
@@ -3721,13 +3829,17 @@
       <wsdl:input message="tns:ObtenerBD_ParaExcelSoapIn" />
       <wsdl:output message="tns:ObtenerBD_ParaExcelSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerEtiqueta">
-      <wsdl:input message="tns:ObtenerEtiquetaSoapIn" />
-      <wsdl:output message="tns:ObtenerEtiquetaSoapOut" />
+    <wsdl:operation name="ObtenerInforme_EP">
+      <wsdl:input message="tns:ObtenerInforme_EPSoapIn" />
+      <wsdl:output message="tns:ObtenerInforme_EPSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <wsdl:input message="tns:ObtenerAsignacionITMaqSoapIn" />
       <wsdl:output message="tns:ObtenerAsignacionITMaqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <wsdl:input message="tns:ObtenerEtiquetaSoapIn" />
+      <wsdl:output message="tns:ObtenerEtiquetaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GrabarRecepcion_MP">
       <wsdl:input message="tns:GrabarRecepcion_MPSoapIn" />
@@ -4149,6 +4261,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TO">
+      <soap:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersitirLog">
+      <soap:operation soapAction="http://tempuri.org/PersitirLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
       <soap:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA" style="document" />
       <wsdl:input>
@@ -4509,6 +4639,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_AcumuladoAnteriorxObra">
+      <soap:operation soapAction="http://tempuri.org/ListarEPExcel_AcumuladoAnteriorxObra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
       <soap:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra" style="document" />
       <wsdl:input>
@@ -4617,8 +4756,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerEtiqueta">
-      <soap:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
+    <wsdl:operation name="ObtenerInforme_EP">
+      <soap:operation soapAction="http://tempuri.org/ObtenerInforme_EP" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4628,6 +4767,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <soap:operation soapAction="http://tempuri.org/ObtenerAsignacionITMaq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <soap:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5475,6 +5623,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TO">
+      <soap12:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersitirLog">
+      <soap12:operation soapAction="http://tempuri.org/PersitirLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegistrarPasoaProduccionPieza_V_AZA">
       <soap12:operation soapAction="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA" style="document" />
       <wsdl:input>
@@ -5835,6 +6001,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListarEPExcel_AcumuladoAnteriorxObra">
+      <soap12:operation soapAction="http://tempuri.org/ListarEPExcel_AcumuladoAnteriorxObra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarEPExcel_ResumenGuiasxObra">
       <soap12:operation soapAction="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra" style="document" />
       <wsdl:input>
@@ -5943,8 +6118,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerEtiqueta">
-      <soap12:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
+    <wsdl:operation name="ObtenerInforme_EP">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerInforme_EP" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5954,6 +6129,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerAsignacionITMaq">
       <soap12:operation soapAction="http://tempuri.org/ObtenerAsignacionITMaq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEtiqueta">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerEtiqueta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:47827/CUbigest2008/WS/Crud.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:55038/WS/Crud.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Crud1.wsdl" MetadataType="Wsdl" ID="f643510d-a380-4b1b-8a86-adcab84ad48a" SourceId="1" SourceUrl="http://localhost:47827/CUbigest2008/WS/Crud.asmx?wsdl" />
-    <MetadataFile FileName="Crud1.disco" MetadataType="Disco" ID="8d27663f-3ebf-4c0b-b795-29848175de3d" SourceId="1" SourceUrl="http://localhost:47827/CUbigest2008/WS/Crud.asmx?disco" />
+    <MetadataFile FileName="Crud.wsdl" MetadataType="Wsdl" ID="9ce05ac8-2fe7-45e9-bc1c-4ce3cb673198" SourceId="1" SourceUrl="http://localhost:55038/WS/Crud.asmx?wsdl" />
+    <MetadataFile FileName="Crud.disco" MetadataType="Disco" ID="4480df5e-3251-4900-9a10-d1180a2d6159" SourceId="1" SourceUrl="http://localhost:55038/WS/Crud.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -52,6 +52,14 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/grabarProduccionEtiqueta_TO", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Pieza grabarProduccionEtiqueta_TO(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int IdUser, bool iVinculaEt, int iPesoEtiqueta, int iNroPiezas, int iNroPiezasProd);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/PersitirLog", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string PersitirLog(string iEtiquetaTO, string iTipo, string iMsg);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistrarPasoaProduccionPieza_V_AZA", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza_V_AZA(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser);
@@ -212,6 +220,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenEpGeneradosxObra(string obra);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPExcel_AcumuladoAnteriorxObra", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_AcumuladoAnteriorxObra(string obra, int iEp_Act);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarEPExcel_ResumenGuiasxObra", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenGuiasxObra(string obra);
@@ -260,13 +272,17 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ObtenerBD_ParaExcel(string iViaje);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEtiqueta", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerInforme_EP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto);
+        System.Data.DataSet ObtenerInforme_EP();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAsignacionITMaq", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerEtiqueta", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarRecepcion_MP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -606,7 +622,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -680,7 +696,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -838,7 +854,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1108,7 +1124,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1224,7 +1240,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1550,7 +1566,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1834,7 +1850,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1936,7 +1952,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2038,7 +2054,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2182,7 +2198,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2298,7 +2314,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2428,7 +2444,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2470,6 +2486,8 @@ namespace Metalurgica.WsOperacion {
         private string tipoProduccionField;
         
         private string obsField;
+        
+        private string idSucursalField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -2687,6 +2705,18 @@ namespace Metalurgica.WsOperacion {
             }
         }
         
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=18)]
+        public string IdSucursal {
+            get {
+                return this.idSucursalField;
+            }
+            set {
+                this.idSucursalField = value;
+                this.RaisePropertyChanged("IdSucursal");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -2698,7 +2728,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3192,7 +3222,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3364,7 +3394,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3550,7 +3580,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3652,7 +3682,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3726,7 +3756,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3828,7 +3858,7 @@ namespace Metalurgica.WsOperacion {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -4020,6 +4050,14 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.RegistrarPasoaProduccionPieza(pieza, maquina, usuario, terminal, iCant, iIdUser);
         }
         
+        public Metalurgica.WsOperacion.Pieza grabarProduccionEtiqueta_TO(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int IdUser, bool iVinculaEt, int iPesoEtiqueta, int iNroPiezas, int iNroPiezasProd) {
+            return base.Channel.grabarProduccionEtiqueta_TO(pieza, maquina, usuario, terminal, iCant, IdUser, iVinculaEt, iPesoEtiqueta, iNroPiezas, iNroPiezasProd);
+        }
+        
+        public string PersitirLog(string iEtiquetaTO, string iTipo, string iMsg) {
+            return base.Channel.PersitirLog(iEtiquetaTO, iTipo, iMsg);
+        }
+        
         public Metalurgica.WsOperacion.Pieza RegistrarPasoaProduccionPieza_V_AZA(Metalurgica.WsOperacion.Pieza pieza, int maquina, string usuario, string terminal, int iCant, int iIdUser) {
             return base.Channel.RegistrarPasoaProduccionPieza_V_AZA(pieza, maquina, usuario, terminal, iCant, iIdUser);
         }
@@ -4180,6 +4218,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ListarEPExcel_ResumenEpGeneradosxObra(obra);
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_AcumuladoAnteriorxObra(string obra, int iEp_Act) {
+            return base.Channel.ListarEPExcel_AcumuladoAnteriorxObra(obra, iEp_Act);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ListarEPExcel_ResumenGuiasxObra(string obra) {
             return base.Channel.ListarEPExcel_ResumenGuiasxObra(obra);
         }
@@ -4228,12 +4270,16 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ObtenerBD_ParaExcel(iViaje);
         }
         
-        public Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto) {
-            return base.Channel.ObtenerEtiqueta(iLote, iBulto);
+        public System.Data.DataSet ObtenerInforme_EP() {
+            return base.Channel.ObtenerInforme_EP();
         }
         
         public System.Data.DataSet ObtenerAsignacionITMaq(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {
             return base.Channel.ObtenerAsignacionITMaq(iFecha, IdIt_PorAprobar, iPersisteResultado);
+        }
+        
+        public Metalurgica.WsOperacion.TipoEtiquetaAza ObtenerEtiqueta(string iLote, string iBulto) {
+            return base.Channel.ObtenerEtiqueta(iLote, iBulto);
         }
         
         public Metalurgica.WsOperacion.Recepcion_MP GrabarRecepcion_MP(Metalurgica.WsOperacion.Recepcion_MP iRMP) {

@@ -107,6 +107,12 @@
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbl_Inicio = new System.Windows.Forms.Label();
+            this.lbl_fin = new System.Windows.Forms.Label();
+            this.Lbl_dif = new System.Windows.Forms.Label();
+            this.Btn_Estadistica = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.Dtg_estadistica = new System.Windows.Forms.DataGridView();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -126,6 +132,8 @@
             this.groupBox2.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_estadistica)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -250,6 +258,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel7);
             this.tabPage1.Controls.Add(this.panel5);
             this.tabPage1.Controls.Add(this.dgvEtiquetasPiezas);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -528,6 +537,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Lbl_dif);
+            this.groupBox2.Controls.Add(this.lbl_fin);
+            this.groupBox2.Controls.Add(this.lbl_Inicio);
             this.groupBox2.Controls.Add(this.Lbl_Usuario);
             this.groupBox2.Controls.Add(this.Btn_MtoMaq);
             this.groupBox2.Location = new System.Drawing.Point(1057, 20);
@@ -944,6 +956,62 @@
             this.timer1.Interval = 300000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lbl_Inicio
+            // 
+            this.lbl_Inicio.AutoSize = true;
+            this.lbl_Inicio.Location = new System.Drawing.Point(16, 62);
+            this.lbl_Inicio.Name = "lbl_Inicio";
+            this.lbl_Inicio.Size = new System.Drawing.Size(41, 13);
+            this.lbl_Inicio.TabIndex = 54;
+            this.lbl_Inicio.Text = "label13";
+            // 
+            // lbl_fin
+            // 
+            this.lbl_fin.AutoSize = true;
+            this.lbl_fin.Location = new System.Drawing.Point(16, 83);
+            this.lbl_fin.Name = "lbl_fin";
+            this.lbl_fin.Size = new System.Drawing.Size(41, 13);
+            this.lbl_fin.TabIndex = 55;
+            this.lbl_fin.Text = "label14";
+            // 
+            // Lbl_dif
+            // 
+            this.Lbl_dif.AutoSize = true;
+            this.Lbl_dif.Location = new System.Drawing.Point(165, 72);
+            this.Lbl_dif.Name = "Lbl_dif";
+            this.Lbl_dif.Size = new System.Drawing.Size(41, 13);
+            this.Lbl_dif.TabIndex = 56;
+            this.Lbl_dif.Text = "label16";
+            // 
+            // Btn_Estadistica
+            // 
+            this.Btn_Estadistica.Location = new System.Drawing.Point(1222, 39);
+            this.Btn_Estadistica.Name = "Btn_Estadistica";
+            this.Btn_Estadistica.Size = new System.Drawing.Size(87, 22);
+            this.Btn_Estadistica.TabIndex = 46;
+            this.Btn_Estadistica.Text = "Estadisticas";
+            this.Btn_Estadistica.UseVisualStyleBackColor = true;
+            this.Btn_Estadistica.Click += new System.EventHandler(this.Btn_Estadistica_Click_1);
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.Dtg_estadistica);
+            this.panel7.Location = new System.Drawing.Point(255, 26);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(544, 285);
+            this.panel7.TabIndex = 21;
+            // 
+            // Dtg_estadistica
+            // 
+            this.Dtg_estadistica.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Dtg_estadistica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_estadistica.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dtg_estadistica.Location = new System.Drawing.Point(0, 0);
+            this.Dtg_estadistica.Name = "Dtg_estadistica";
+            this.Dtg_estadistica.Size = new System.Drawing.Size(540, 281);
+            this.Dtg_estadistica.TabIndex = 0;
+            // 
             // ctlInformacionUsuario1
             // 
             this.ctlInformacionUsuario1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -956,6 +1024,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Btn_Estadistica);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tlsToolBar);
@@ -986,10 +1055,13 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tlsToolBar.ResumeLayout(false);
             this.tlsToolBar.PerformLayout();
             this.stsStatusStrip.ResumeLayout(false);
             this.stsStatusStrip.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_estadistica)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1076,5 +1148,11 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label Lbl_dif;
+        private System.Windows.Forms.Label lbl_fin;
+        private System.Windows.Forms.Label lbl_Inicio;
+        private System.Windows.Forms.Button Btn_Estadistica;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.DataGridView Dtg_estadistica;
     }
 }

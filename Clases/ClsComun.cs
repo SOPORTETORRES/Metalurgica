@@ -655,6 +655,25 @@ namespace Metalurgica.Clases
         }
 
 
+        public string ObtenerTotalDespachadoSinFacturar(DataView iVista, string iTipo)
+        {
+            string lRes = "";int i = 0;
+            double  ltotal = 0;
+            if (iVista != null)
+            { 
+            for (i = 0; i < iVista.Count; i++)
+            {
+                if (iTipo.Equals ("GXF"))
+                    ltotal = ltotal + CDBL(iVista[i]["TotalGuia"].ToString().Replace(".", ""));
+                else
+                    ltotal = ltotal + CDBL(iVista[i]["ImporteGuia"].ToString().Replace(".", ""));
+            }
+            }
+            return ltotal.ToString ();
+
+        }
+
+
         #region Lectura de etiqueta AZA
 
 
@@ -779,7 +798,7 @@ namespace Metalurgica.Clases
             return lResultado;
         }
 
-        private DataTable ObtenerDatosMP_TO(String iCodAZA, DataTable iTblDePara, DataTable iMP, string iCodSucursal )
+        public  DataTable ObtenerDatosMP_TO(String iCodAZA, DataTable iTblDePara, DataTable iMP, string iCodSucursal )
         {
             DataTable lTblDatos = new DataTable();DataView lVistaCod = null;String lCodTO = "";
             DataView lVista = null; DataRow lFila = null;string lSucursal = "";
@@ -816,6 +835,8 @@ namespace Metalurgica.Clases
 
             return lTblDatos;
         }
+
+
 
         public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA(string lTx, Boolean incluyeProduccion)
         {
@@ -857,6 +878,7 @@ namespace Metalurgica.Clases
                         lEt.TipoProduccion = "P";
 
                         lEt.Trama = lTx;
+
                         // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
                         lTbl = ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP, lIdSucursal);
                         if (lTbl.Rows.Count > 0)
@@ -909,6 +931,10 @@ namespace Metalurgica.Clases
 
                         return lEt;
         }
+
+
+        
+
 
         public string   ObtenerLargo(string iTx)
         {

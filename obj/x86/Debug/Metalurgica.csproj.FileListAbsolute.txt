@@ -248,3 +248,5 @@ C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\bin\Debug
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.SolicitudMP.Frm_Imprime.resources
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Produccion.Frm_SeleccionaEtiquetaDesp.resources
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Muestreo.Frm_ControlDimensional.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Tools.Frm_DetalleCliente.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Tools.Frm_Tools.resources

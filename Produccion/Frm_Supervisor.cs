@@ -82,35 +82,42 @@ namespace Metalurgica.Produccion
         {
             string lCuerpo = ""; DataTable lTbl = new DataTable(); string lRes = "";
 
-            lCuerpo = string.Concat(" Hola Estimados: <br>   El Supervisor: ", iSupervisor);
-            lCuerpo = string.Concat(lCuerpo , " ha autorizado el cierre de una Etiqueta de Colada, superior al 10 % ");
-            lCuerpo = string.Concat(lCuerpo, " los datos de la Etiqueta son:  <br>  <br>  ");
-            lCuerpo = string.Concat(lCuerpo, " Kilos Totales Etiqueta:   ", iKgsQR , "  <br> ");
-            lCuerpo = string.Concat(lCuerpo, " Kilos Producidos      :   ", iKgspr, "  <br> ");
-            lCuerpo = string.Concat(lCuerpo, " Kilos Despunte        :   ", iKgsDes, "  <br> ");
-            lCuerpo = string.Concat(lCuerpo, " Porcentaje  Despunte  :   ", iPorcentDep, "  <br>");
-            lCuerpo = string.Concat(lCuerpo, " Observación del Sup.  :   ", iObs , "  <br>  ");
-            lCuerpo = string.Concat(lCuerpo, " Sucursal del Totem.   :   ", iSucursal, "  <br>    ");
-            lCuerpo = string.Concat(lCuerpo, " TRAMA                 :   ", iTrama, "  <br>  <br>  ");
-
-            lCuerpo = string.Concat(lCuerpo, "  No responda a este Correo, ya que es sólo Informativo <br> ");
-            switch (iSucursal.ToUpper())
+            try
             {
-                case "SANTIAGO":
-                    lTbl = ObtenerDestinatarios("-1500");
-                    break;
-                case "CALAMA":
-                    lTbl = ObtenerDestinatarios("-1550");
-                    break;
-                case "CORONEL":
-                    break;
+                lCuerpo = string.Concat(" Hola Estimados: <br>   El Supervisor: ", iSupervisor);
+                lCuerpo = string.Concat(lCuerpo, " ha autorizado el cierre de una Etiqueta de Colada, superior al 10 % ");
+                lCuerpo = string.Concat(lCuerpo, " los datos de la Etiqueta son:  <br>  <br>  ");
+                lCuerpo = string.Concat(lCuerpo, " Kilos Totales Etiqueta:   ", iKgsQR, "  <br> ");
+                lCuerpo = string.Concat(lCuerpo, " Kilos Producidos      :   ", iKgspr, "  <br> ");
+                lCuerpo = string.Concat(lCuerpo, " Kilos Despunte        :   ", iKgsDes, "  <br> ");
+                lCuerpo = string.Concat(lCuerpo, " Porcentaje  Despunte  :   ", iPorcentDep, "  <br>");
+                lCuerpo = string.Concat(lCuerpo, " Observación del Sup.  :   ", iObs, "  <br>  ");
+                lCuerpo = string.Concat(lCuerpo, " Sucursal del Totem.   :   ", iSucursal, "  <br>    ");
+                lCuerpo = string.Concat(lCuerpo, " TRAMA                 :   ", iTrama, "  <br>  <br>  ");
+
+                lCuerpo = string.Concat(lCuerpo, "  No responda a este Correo, ya que es sólo Informativo <br> ");
+                switch (iSucursal.ToUpper())
+                {
+                    case "SANTIAGO":
+                        lTbl = ObtenerDestinatarios("-1500");
+                        break;
+                    case "CALAMA":
+                        lTbl = ObtenerDestinatarios("-1550");
+                        break;
+                    case "CORONEL":
+                        break;
+                }
+
+                if (lTbl.Rows.Count > 0)
+                {
+
+                    lRes = EnviarArchivo(lCuerpo, "Autorización Supervidor Por Cierre Etiqueta Proveedor ", lTbl);
+
+                }
             }
-            
-            if (lTbl.Rows.Count > 0)
+            catch (Exception iEx)
             {
-               
-                lRes = EnviarArchivo(lCuerpo, "Autorización Supervidor Por Cierre Etiqueta Proveedor ", lTbl);
-
+                throw iEx;
             }
 
         }
@@ -142,17 +149,29 @@ namespace Metalurgica.Produccion
         {
             string KgsProd = "0"; Clases.ClsComun lCom = new Clases.ClsComun();
             //Verificar si la clave esta OK.
-            if (ValidaClave(Tx_clave .Text ) == true)
+            try
             {
-             //Persistir los datos de la autorización 
-                PersistirAutorizacion();
-                //Poder seguir con el proceso
-                // Notificacion por Correo electronico
-                KgsProd = (lCom.Val(Tx_KgsPr.Text) - lCom.Val(Tx_KgsCierre.Text)).ToString();
-                EnviaCorreo(mNombreSup, Tx_KgsPr.Text, KgsProd, Tx_KgsCierre.Text, Tx_Depunte.Text,Tx_Obs .Text,mSucursal ,mTramaEtiqueta  );
+                if (ValidaClave(Tx_clave.Text) == true)
+                {
+                    //Persistir los datos de la autorización 
+                    PersistirAutorizacion();
+                    //Poder seguir con el proceso
+                    // Notificacion por Correo electronico
+                    KgsProd = (lCom.Val(Tx_KgsPr.Text) - lCom.Val(Tx_KgsCierre.Text)).ToString();
+                   EnviaCorreo(mNombreSup, Tx_KgsPr.Text, KgsProd, Tx_KgsCierre.Text, Tx_Depunte.Text, Tx_Obs.Text, mSucursal, mTramaEtiqueta);
+
+                }
+            }
+            catch (Exception iex)
+            {
+                MessageBox.Show(string.Concat("Ha ocurrido el siguiente error: ", iex.Message.ToString()), "Avisos Sistema");
+            }
+            finally
+            {
                 AppDomain.CurrentDomain.SetData("ValidacionSupervisor", "OK");
                 this.Close();
             }
+
         }
 
 

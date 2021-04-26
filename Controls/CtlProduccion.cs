@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLibrary2;
 using System.Drawing;
+using System.Data.SqlClient;
 
 namespace Metalurgica.Controls
 {
@@ -39,6 +40,12 @@ namespace Metalurgica.Controls
         private string mTipoMP_Maq = "";
         private string mTipoProceso = "";
         private string mValidaCYD ="N";
+        private string mLog = "";
+        private DataSet mDtsMP = new DataSet();
+        private int mNRoEtiquetasLeidas = 0;
+        private string mTipoCnn = "URL";
+        private DataTable mTblPieza = new DataTable();
+        private DataTable mEstadistica = new DataTable();
         //PAra salir del control
         public delegate void SalirForm();
         public event SalirForm EventoSalir;
@@ -47,6 +54,34 @@ namespace Metalurgica.Controls
         {
             InitializeComponent();
         }
+
+        #region Metodos conexion LAN
+
+        private DataTable ObtenerTablaDatos(string isql)
+        {
+            DataTable lTbl = new DataTable();
+            string lCnnStr = ConfigurationManager.AppSettings.Get("Cnn").ToString();
+            SqlConnection lCnn = new SqlConnection(lCnnStr);
+            SqlDataAdapter lAdp = new SqlDataAdapter(isql, lCnn);
+
+            try
+            {
+                lAdp.Fill(lTbl);
+            }
+            catch (Exception iex)
+            {
+            //    Dim lErrror As String = "ClsDatos.CargaTabla " & ex.Message.ToString & " sql: " & isql
+            //RegistraError(lErrror)
+            }
+
+            return lTbl;
+
+ 
+        }
+
+
+
+        #endregion
 
         private void txtEtiquetaPieza_TextChanged(object sender, EventArgs e)
         {
@@ -89,6 +124,8 @@ namespace Metalurgica.Controls
             string lValidarColadas = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString();
 
             string lValidarSolictud_MP = ConfigurationManager.AppSettings["ValidaSolicitud_MP"].ToString();
+            DateTime lFechaIni = DateTime.Now; DateTime lFechaFin = DateTime.Now; string lIdPaq = txtEtiquetaPieza.Text;
+            lbl_Inicio.Text = lFechaIni.ToLongDateString();
 
             if (PuedeProducirEtiqueta() == true)
             {
@@ -99,6 +136,8 @@ namespace Metalurgica.Controls
 
                 // Como QR reemplaza a MP
 
+
+                mTipoCnn = ConfigurationManager.AppSettings["TipoCnn"].ToString();
                 if (lValidarSolictud_MP.ToString().ToUpper().Equals("S"))
                     // Version Anterior 11/2019 conn re etiquetado, sin etiqueta QR
                 {
@@ -110,10 +149,25 @@ namespace Metalurgica.Controls
                 }
                 else
                 {
-                    RegistraProduccion();
+                    if (mTipoCnn.ToUpper().ToString().Equals("LAN"))
+                        RegistraProduccion_LAN();
+                    else
+                         RegistraProduccion();
                 }
                 AjustaColumnaGrilla();
+
             }
+            lFechaFin = DateTime.Now;
+            lbl_fin.Text = lFechaFin.ToLongDateString();
+            System.TimeSpan diff1 = lFechaFin.Subtract(lFechaIni );
+            Lbl_dif.Text = diff1.TotalSeconds.ToString();
+            DataRow lFila = mEstadistica.NewRow();
+            lFila["IdPaquete"] = lIdPaq; lFila["Duracion"] = diff1.TotalSeconds ;
+            mEstadistica.Rows.Add(lFila);
+
+            //mEstadistica = new DataTable();
+            //mEstadistica.Columns.Add("IdPaquete", Type.GetType("System.String"));
+            //mEstadistica.Columns.Add("Duracion", Type.GetType("System.String"));
         }
 
         private void txtEtiquetaPieza_Leave(object sender, EventArgs e)
@@ -471,7 +525,6 @@ namespace Metalurgica.Controls
             string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun();
             pieza.Colada = iColada;
             pieza.Etiqueta = iPieza;
-            //row.Cells[COLUMNNAME_ETIQUETA_PIEZA].Value.ToString();
             pieza.Estado = "O40";
             lIdUser = int.Parse(iUser.Iduser );
 
@@ -481,64 +534,44 @@ namespace Metalurgica.Controls
             // si estamos trabajando con Rollos ==> una Maquina corta y Otra Dobla
             if (mValidaCYD == "S")
             {
-
-            
-            if (mTipoMP_Maq == "B")
-            {
-                if (mTipoProceso == "D")
+                mLog = string.Concat(mLog, "Tipo MP Maq:", mTipoMP_Maq, "|");
+                mLog = string.Concat(mLog, "Tipo Proceso:", mTipoProceso, "|");
+                if (mTipoMP_Maq == "B")
                 {
-                    pieza.Colada = "";
+                    if (mTipoProceso == "D")
+                    {
+                        pieza.Colada = "";
+                    }
+
+                    //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+                    pieza = wsOperacion.grabarProduccionEtiqueta_TO(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser, iVinculaEt, int.Parse (iPesoEtiqueta.ToString ()), iNroPiezas, iNroPiezasProd);
+
                 }
 
-                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
-            }
-
-            if (mTipoMP_Maq == "R")
-            {
-                //Primero Corte 
-                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
-                // Luego Doblado Solo si la pieza es <> a 1, se debe corregir.
-                if (idForma != "1")
+                mLog = string.Concat(mLog, "IdForma:", idForma , "|");
+                if (mTipoMP_Maq == "R")
                 {
-                    pieza.Estado = "O40";
-                    pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
-                }
+                    //Primero Corte 
+                    //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+                    pieza = wsOperacion.grabarProduccionEtiqueta_TO(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser, iVinculaEt, int.Parse(iPesoEtiqueta.ToString()), iNroPiezas, iNroPiezasProd);
+                    // Luego Doblado Solo si la pieza es <> a 1, se debe corregir.
+                    if (idForma != "1")
+                    {
+                        pieza.Estado = "O40";
+                        pieza = wsOperacion.grabarProduccionEtiqueta_TO(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser, iVinculaEt, int.Parse(iPesoEtiqueta.ToString()), iNroPiezas, iNroPiezasProd);
+                        //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+                    }
 
-            }
+                }
             }
             else
-                pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
-
-
-            //Si estamos trabajando con Rollos ==> Corte y  doblado en un mismo tiempo
-
-            //Se comenta hasta paso a produccion de Etiquetas Aza
-            // se debe diferenciar si esta activa esta Opcion en .config
-            //pieza = wsOperacion.RegistrarPasoaProduccionPieza_V_AZA(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
-
-
-            //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.Machine, Program.currentUser.Login, Program.currentUser.ComputerName);
-            if (pieza.MensajeError.Equals(""))
             {
-                //Debemos grabar los datos en tabla EtiquetasVinculadas
-                if (iVinculaEt ==true )
-                {
-                    lSql = " insert into   EtiquetasVinculadas(IdEtiquetaTO, IdQR, Tipo, KgsVinculados, FechaRegistro, IdMaquinaProduce) ";
-                    lSql = string.Concat(lSql, "values(", iPieza, ",", iColada, ",'P',", iPesoEtiqueta, ", Getdate(),", Program.currentUser.IdMaquina, ")");
-                    lDts = lPx.ObtenerDatos(lSql);
-                }
-                //***************************
+                pieza = wsOperacion.grabarProduccionEtiqueta_TO(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser, iVinculaEt, int.Parse(iPesoEtiqueta.ToString()), iNroPiezas, iNroPiezasProd);
+                //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
+            }
 
-                mIdEtiquetaColada = "0";
-                //grabados el detalle
-                lSql = string.Concat(" exec SP_CRUD_PaquetesProducidos 0,", iPieza, ",", iUser.IdMaquina, ",");
-                lSql = string.Concat(lSql, iUser.Iduser, ",0,", iNroPiezas, ",", lCom.Val(iColada), ",", iNroPiezasProd);
-                lSql = string.Concat(lSql, ",1");
-                lDts = lPx.ObtenerDatos(lSql);
-                //---------------------------
-            
-             
-                string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
+            //mLog = string.Concat(mLog, "IdForma:", idForma, "|");
+            string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
                 switch (mTipoColada.ToUpper())
                 {
                     case "N":
@@ -554,13 +587,7 @@ namespace Metalurgica.Controls
                     
                 }
 
-            }
-            else
-            {
-                //this.lbl_Res.Text = " La Etiqueta " + iPieza + " ha registrado un error, repita la operación ";
-                MessageBox.Show(pieza.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-          //  ProcesaColadaOriginal();
+
         }
 
 
@@ -573,6 +600,7 @@ namespace Metalurgica.Controls
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string diametro = "";
             string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
 
+            mLog = String.Concat(" IdEtiqueta:", txtEtiquetaPieza.Text,"|");
             listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
             if (listaDataSet.MensajeError.Equals(""))
             {
@@ -584,14 +612,14 @@ namespace Metalurgica.Controls
                         DataTable dataTable = listaDataSet.DataSet.Tables[0];
                         lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
                         lPiezasPaq = (int)listaDataSet.DataSet.Tables[0].Rows[0]["PiezasPaq"];
-
+                        mLog = string.Concat(mLog, "PesoEtiqueta:", lPesoEtiqueta);
                         if (lObligacionColada.Equals("S"))
                         {
+                            
                             // Cuando el totem es de Doblado, no debe pedir colada
                             if (mTipoProceso =="D")
                             {
                                 lblDiametro.Text = listaDataSet.DataSet.Tables[0].Rows[0]["DIAMETRO"].ToString();
-
                             }
                                 
                             //Verifica que la colada y la pieza tengan el mismo diametro
@@ -599,6 +627,7 @@ namespace Metalurgica.Controls
                             if (lblDiametro.Text.Equals(diametro))
                             {
                                 lPuedeContinuar = true;
+                                mLog = string.Concat(mLog, "TipoColada:", mTipoColada, "|");
                                 switch (mTipoColada.ToUpper())
                                 {
                                     case "N":
@@ -622,6 +651,7 @@ namespace Metalurgica.Controls
                                                     //lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
                                                     //lFrm.Close();
                                                     lPuedeContinuar = true;
+                                                    mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:600)|");
                                                 }
                                                 else
                                                 {
@@ -637,8 +667,9 @@ namespace Metalurgica.Controls
                                                         RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, listaDataSet.DataSet.Tables[0].Rows[0]["Idforma"].ToString(),false ,0);
                                                         lPuedeContinuar = true;
                                                         mInicializaColada = true;
+                                                        mLog = string.Concat(mLog, "Con Saldo Colada:NO(L:617)|");
                                                     }
-
+                                                    mLog = string.Concat(mLog, "Fin Form. vinculación de Coladas(L:619)|");
                                                 }
                                             }
                                         }
@@ -677,6 +708,7 @@ namespace Metalurgica.Controls
                                             //lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
                                             //lFrm.Close();
                                             lPuedeContinuar = true;
+                                            mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:658)|");
                                         }
                                         else
                                         {
@@ -691,9 +723,9 @@ namespace Metalurgica.Controls
                                                 mIdEtiquetaColada = "0";
                                                 RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, listaDataSet.DataSet.Tables[0].Rows[0]["Idforma"].ToString(),false ,0);
                                                 lPuedeContinuar = true;
-                                               
+                                                mLog = string.Concat(mLog, "Con Saldo Colada:NO(L:673)|");
                                             }
-
+                                            mLog = string.Concat(mLog, "Fin Form. vinculación de Coladas(L:675)|");
 
 
                                             MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -712,9 +744,171 @@ namespace Metalurgica.Controls
             else
                 MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
+            wsOperacion.PersitirLog(txtEtiquetaPieza.Text, "E", mLog);
             return lPuedeContinuar;
         }
+
+
+        private bool ValidaColadaPieza_LAN()
+        {
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            bool lPuedeContinuar = true; double lPesoEtiqueta = 0; int lPiezasPaq = 0;  string lSql = "";
+            int lKgsVinc = 0; int lKgsSaldo = 0; string lColadasOK = "N"; string lTramaQr = "";DataTable lTbl = new DataTable();
+            int lSaldoEtiqueta = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string diametro = "";
+            string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
+
+            mLog = String.Concat(" IdEtiqueta:", txtEtiquetaPieza.Text, "|");
+          //  lSql = String.Concat("EXEC SP_ConsultasGenerales 8,'", txtEtiquetaPieza.Text, "',' ',' ',' ',' '");
+            lTbl = mTblPieza; // ObtenerTablaDatos(lSql);
+
+            //if (listaDataSet.MensajeError.Equals(""))
+            //{
+                if (lTbl.Rows.Count > 0)
+                {
+                    //verificamos que el paquete no este  despachado
+                    if (PaqueteEstaProducido(lTbl.Copy()) == false)
+                    {
+                        DataTable dataTable = lTbl;
+                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                        lPiezasPaq = (int) dataTable.Rows[0]["PiezasPaq"];
+                        mLog = string.Concat(mLog, "PesoEtiqueta:", lPesoEtiqueta);
+                        if (lObligacionColada.Equals("S"))
+                        {
+
+                            // Cuando el totem es de Doblado, no debe pedir colada
+                            if (mTipoProceso == "D")
+                            {
+                                lblDiametro.Text = lTbl.Rows[0]["DIAMETRO"].ToString();
+                            }
+
+                            //Verifica que la colada y la pieza tengan el mismo diametro
+                            diametro = lTbl.Rows[0]["DIAMETRO"].ToString();
+                            if (lblDiametro.Text.Equals(diametro))
+                            {
+                                lPuedeContinuar = true;
+                                mLog = string.Concat(mLog, "TipoColada:", mTipoColada, "|");
+                                switch (mTipoColada.ToUpper())
+                                {
+                                    case "N":
+                                        lPuedeContinuar = true;
+                                        RegistraPiezaProducida(txtEtiquetaColada.Text, txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), false, 0);
+                                        break;
+                                    case "QR":
+                                        if (mTipoProceso == "C")
+                                        {
+                                            if ((mEtiqueta_Qr.Errors == ""))
+                                            {
+                                                lSaldoEtiqueta = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos) - int.Parse(lPesoEtiqueta.ToString());
+                                                //lKgsVinc = lSaldoEtiqueta;
+                                                lKgsVinc = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos);
+                                                lKgsSaldo = (int)lPesoEtiqueta - lKgsVinc;
+                                                if (lSaldoEtiqueta >= 0) // (lSaldoEtiqueta >= lPesoEtiqueta)
+                                                {
+                                                    RegistraPiezaProducida(mEtiqueta_Qr.Id.ToString(), txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), true, lPesoEtiqueta);
+                                                    // 11/12/2020 RBT se comenta ya que la persistencia en tabla etiquetasVincualdas se hace en la linea de arriba
+                                                    //Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
+                                                    //lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
+                                                    //lFrm.Close();
+                                                    lPuedeContinuar = true;
+                                                    mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:600)|");
+                                                }
+                                                else
+                                                {
+                                                    // debe visualizar el formulario de  vinculación de Coladas
+                                                    Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
+                                                    lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString(), lKgsVinc.ToString(), lKgsSaldo.ToString(), mEtiqueta_Qr.Id.ToString(), mUserLog, lTbl.Rows[0]["Diametro"].ToString());
+                                                    lFrm.ShowDialog();
+                                                    lColadasOK = AppDomain.CurrentDomain.GetData("KgsOK").ToString();
+                                                    lTramaQr = AppDomain.CurrentDomain.GetData("Colada").ToString();
+                                                    if (lColadasOK.ToString().ToUpper().Equals("S"))
+                                                    {
+                                                        mIdEtiquetaColada = "0";
+                                                        RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), false, 0);
+                                                        lPuedeContinuar = true;
+                                                        mInicializaColada = true;
+                                                        mLog = string.Concat(mLog, "Con Saldo Colada:NO(L:617)|");
+                                                    }
+                                                    mLog = string.Concat(mLog, "Fin Form. vinculación de Coladas(L:619)|");
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            RegistraPiezaProducida("", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), false, 0);
+                                        }
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("La etiqueta '" + txtEtiquetaPieza.Text + "' tiene un diametro (" + diametro + ") distinto al de la colada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lPuedeContinuar = false;
+                            }
+                        }
+                        else
+                        {
+                            lPuedeContinuar = true;
+                            switch (mTipoColada.ToUpper())
+                            {
+                                case "N":
+                                    lPuedeContinuar = true;
+                                    RegistraPiezaProducida(txtEtiquetaColada.Text, txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), false, 0);
+                                    break;
+                                case "QR":
+                                    if ((mEtiqueta_Qr.Errors == ""))
+                                    {
+                                        lSaldoEtiqueta = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos) - int.Parse(lPesoEtiqueta.ToString());
+                                        lKgsVinc = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos);
+                                        lKgsSaldo = (int)lPesoEtiqueta - lKgsVinc;
+                                        if (lSaldoEtiqueta >= 0) // (lSaldoEtiqueta >= lPesoEtiqueta)
+                                        {
+                                            RegistraPiezaProducida(mEtiqueta_Qr.Id.ToString(), txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), true, lPesoEtiqueta);
+                                            // 11/12/2020 RBT se comenta ya que la persistencia en tabla etiquetasVincualdas se hace en la linea de arriba
+                                            //Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
+                                            //lFrm.Grabar(txtEtiquetaPieza.Text, mEtiqueta_Qr.Id.ToString(), lPesoEtiqueta.ToString(), Program.currentUser.IdMaquina);
+                                            //lFrm.Close();
+                                            lPuedeContinuar = true;
+                                            mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:658)|");
+                                        }
+                                        else
+                                        {
+                                            // debe visualizar el formulario de  vinculación de Coladas
+                                            Produccion.Frm_VinculaQR lFrm = new Produccion.Frm_VinculaQR();
+                                            lFrm.IniciaForm(txtEtiquetaPieza.Text, "", lPesoEtiqueta.ToString(), lKgsVinc.ToString(), lKgsSaldo.ToString(), mEtiqueta_Qr.Id.ToString(), mUserLog, lTbl.Rows[0]["Diametro"].ToString());
+                                            lFrm.ShowDialog();
+                                            lTramaQr = AppDomain.CurrentDomain.GetData("Colada").ToString();
+                                            lColadasOK = AppDomain.CurrentDomain.GetData("KgsOK").ToString();
+                                            if (lColadasOK.ToString().ToUpper().Equals("S"))
+                                            {
+                                                mIdEtiquetaColada = "0";
+                                                RegistraPiezaProducida("-1", txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq, lTbl.Rows[0]["Idforma"].ToString(), false, 0);
+                                                lPuedeContinuar = true;
+                                                mLog = string.Concat(mLog, "Con Saldo Colada:NO(L:673)|");
+                                            }
+                                            mLog = string.Concat(mLog, "Fin Form. vinculación de Coladas(L:675)|");
+
+
+                                            MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            lPuedeContinuar = false;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+
+                    }
+                }
+                else
+                    MessageBox.Show("La etiqueta '" + txtEtiquetaPieza.Text + "' no existe.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //    MessageBox.Show(listaDataSet.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            wsOperacion.PersitirLog(txtEtiquetaPieza.Text, "E", mLog);
+            return lPuedeContinuar;
+        }
+
 
         //private void RegistraDatosConColadas()
         //{
@@ -752,7 +946,7 @@ namespace Metalurgica.Controls
         //                            if (PaqueteEstaProducido(listaDataSet.DataSet.Tables[0].Copy()) == false)
         //                            {
         //                                //Verifica que la colada y la pieza tengan el mismo diametro
-                              
+
         //                                diametro = listaDataSet.DataSet.Tables[0].Rows[0]["DIAMETRO"].ToString();
 
         //                                if (lblDiametro.Text.Equals(diametro))
@@ -841,13 +1035,13 @@ namespace Metalurgica.Controls
         //                                            dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
         //                                            dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
         //                                        }
-                                                                                       
+
 
         //                                        mTblDatos = dataTable.Copy();
         //                                        //dgvActiva.DataSource = dataTable;
         //                                        mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
         //                                        dgvActiva.DataSource = mVistaPr;
-                                               
+
         //                                    }
         //                                    else
         //                                    {
@@ -902,7 +1096,7 @@ namespace Metalurgica.Controls
         //            {
 
         //            }
-                  
+
         //            if (mIdEtiquetaColada.ToString().Trim().Length > 0)
         //            //if (txtEtiquetaColada.Text.Trim().Length > 0)
         //            {
@@ -982,7 +1176,7 @@ namespace Metalurgica.Controls
 
         //                                diametro = listaDataSet.DataSet.Tables[0].Rows[0]["DIAMETRO"].ToString();
 
-                                        
+
         //                                    if (dataTable.Rows[0]["ObrasColadas"].ToString().Equals("S"))
         //                                {
         //                                    //Debemos exigir la Colada y  validar la colada
@@ -1001,9 +1195,9 @@ namespace Metalurgica.Controls
         //                                            //RegistraPiezaProducida(txtEtiquetaColada.Text, txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
         //                                            lPuedeContinuar = true;
         //                                        }
-                                                
+
         //                                    }
-                                              
+
         //                                }
         //                                else
         //                                {
@@ -1023,7 +1217,7 @@ namespace Metalurgica.Controls
         //                                            //RegistraPiezaProducida(txtEtiquetaColada.Text, txtEtiquetaPieza.Text, lPiezasPaq, mUserLog, lPiezasPaq);
         //                                            lPuedeContinuar = true;
         //                                        }
-                                             
+
         //                                    }
         //                                }
         //                            }
@@ -1310,6 +1504,163 @@ namespace Metalurgica.Controls
 
             }
         }
+
+
+
+        private void RegistraProduccion_LAN()
+        {
+            DataGridView dgvActiva = null; bool lPuedeContinuar = false;
+            Forms forms = new Forms(); string diametro = ""; DataTable dataTable = new DataTable();
+            string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
+            //'ValidaColadaEnProduccion'
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string lSql = "";
+
+
+            if (!txtEtiquetaPieza.Text.Trim().Equals(""))
+            {
+                switch (tabOperaciones.SelectedIndex)
+                {
+                    case 0:
+                        dgvActiva = dgvEtiquetasPiezas;
+                        break;
+                    case 1:
+                        dgvActiva = dgvEtiquetasPiezasExcepciones;
+                        break;
+                }
+                if (dgvActiva != null)
+                {
+                    if (forms.dataGridViewSearchText(dgvActiva, COLUMNNAME_ETIQUETA_PIEZA, txtEtiquetaPieza.Text) == -1)
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        try
+                        {
+                            lSql = String.Concat("EXEC SP_ConsultasGenerales 8,'", txtEtiquetaPieza.Text, "',' ',' ',' ',' '");
+                            mTblPieza = ObtenerTablaDatos(lSql);
+                            //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                            //if  (  )                  // (listaDataSet.MensajeError.Equals(""))
+                            //{
+                                if (mTblPieza.Rows.Count > 0)
+                                {
+                                    //verificamos que el paquete no este  despachado
+                                    if (PaqueteEstaProducido(mTblPieza.Copy()) == false)
+                                    {
+                                        double lPesoEtiqueta = 0;
+                                        diametro = mTblPieza.Rows[0]["DIAMETRO"].ToString();
+                                    //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                                    dataTable = mTblPieza; // listaDataSet.DataSet.Tables[0];
+                                        if (dataTable.Rows.Count > 0)
+                                        {
+                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                                        }
+                                        int lPiezasPaq = (int) dataTable.Rows[0]["PiezasPaq"];
+
+                                        //Validamos la Obligatoriedad de las Coladas
+                                        // Para todos los casos excepto MAteria Prima=B y Proceso=D
+                                        // casi siempre deberia pasar por el True
+                                        if (HayQuePedirColada() == true) //   (lObligacionColada.ToUpper().Equals("S"))
+                                        {
+                                            if (txtEtiquetaColada.Text.Trim().Equals(""))
+                                            {
+                                                MessageBox.Show("Debe Indicar una Colada para este Material ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                lPuedeContinuar = false;
+                                            }
+                                            else
+                                            {
+                                                txtEtiquetaColada_Validating(null, null);
+                                                lPuedeContinuar = ValidaColadaPieza_LAN();
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            lPuedeContinuar = ValidaColadaPieza_LAN();
+
+                                        }
+
+                                        if (lPuedeContinuar == true)
+                                        {
+                                            if (dgvActiva.DataSource == null) // if (dgvActiva.DataSource == null)
+                                            {
+                                            //mVistaPr = (DataView)dgvActiva.DataSource;
+                                            //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                                            dataTable = mTblPieza; // listaDataSet.DataSet.Tables[0];
+                                                //if (dataTable.Rows.Count > 0)
+                                                //{
+                                                //    //dataTable.Rows[0][COLUMNNAME_ESTADO] = (tabOperaciones.SelectedIndex == 0 ? "" : cboExcepciones.SelectedValue.ToString());
+                                                //    dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
+                                                //    dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
+                                                //}
+                                                //mTotalKilos =double.Parse (dataTable.Rows[0]["Pesopaquete"].ToString ());                                            
+                                                mTblDatos = dataTable.Copy();
+                                                //dgvActiva.DataSource = dataTable;
+                                                mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
+                                                dgvActiva.DataSource = mVistaPr;
+                                                dgvActiva.Columns["Obra"].Width = 500;
+                                            }
+                                            else
+                                            {
+                                                //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+
+                                            DataRow row = mTblDatos.NewRow();
+
+                                                foreach (DataGridViewColumn column in dgvActiva.Columns)
+                                                {
+                                                    row[column.Index] = mTblPieza.Rows[0][column.Index];
+                                                }
+
+                                                row[COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
+                                                row[COLUMNNAME_ESTADO] = cboExcepciones.Text;
+                                                mTotalKilos = mTotalKilos + double.Parse(row["PesoPaquete"].ToString());
+                                                //dataTable.Rows.Add(row);
+                                                mTblDatos.Rows.Add(row);
+                                                txtEtiquetaPieza.Text = "";
+                                            }
+                                            if (tabOperaciones.SelectedIndex == 0)
+                                                forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "ERR", "PIE_ESTADO", "ESTADO" });
+                                            else
+                                                forms.dataGridViewHideColumns(dgvEtiquetasPiezasExcepciones, new string[] { "ERR", "PIE_ESTADO" });
+
+                                            forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                                            //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
+                                            lblCantidadEtiquetasPiezas.Text = "Registro(s): " + dgvEtiquetasPiezas.Rows.Count;
+                                            lblCantidadEtiquetasPiezasExcepciones.Text = "Registro(s): " + dgvEtiquetasPiezasExcepciones.Rows.Count;
+                                            //txtEtiquetaPieza.Text = (int.Parse(txtEtiquetaPieza.Text) + 1).ToString() ;                                           
+
+                                        }
+                                    }
+                                }
+                            //}
+                        }
+                        catch (Exception exc)
+                        {
+                            MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Cursor.Current = Cursors.Default;
+                        string lTramaQr = "";
+                        ActualizaKilosProducidos();
+                        txtEtiquetaPieza.Clear();
+                        if (mInicializaColada == true)
+                        {
+                            //inicializamos la colada
+                            lTramaQr = AppDomain.CurrentDomain.GetData("Colada").ToString();
+                            txtEtiquetaColada.Text = lTramaQr;
+                            txtEtiquetaColada_Validating(null, null);
+                            // tlbNuevo_Click(null, null);
+                            mInicializaColada = false;
+                        }
+                        else
+                            txtEtiquetaColada_Validating(null, null);
+
+
+                        mNRoEtiquetasLeidas = mNRoEtiquetasLeidas+1;
+                        txtEtiquetaPieza.Focus();
+                    }
+                }
+
+            }
+        }
         private void ActualizaKilosProducidos()
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
@@ -1427,9 +1778,7 @@ namespace Metalurgica.Controls
 
             }
 
-            //this.lbl_Res.Text = " La Etiqueta " + iPieza + " ha registrado un error, repita la operación ";
-            // MessageBox.Show("Se ha Producido el siguiente error: " + pieza.MensajeError.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return lRes;
+             return lRes;
         }
 
         private string validarControlesRequeridos()
@@ -1784,10 +2133,14 @@ namespace Metalurgica.Controls
                     }
 
                 }
+                WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
+                WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+                lDts = lPx.Obtener_MP();
+                mDtsMP = lDts.DataSet.Copy();
 
-
-
-
+                mEstadistica = new DataTable();
+                mEstadistica.Columns.Add("IdPaquete", Type.GetType("System.String"));
+                mEstadistica.Columns.Add("Duracion", Type.GetType("System.String"));
             }
                       
             catch (Exception exc)
@@ -2097,9 +2450,6 @@ namespace Metalurgica.Controls
                 {
                     if (iTx.Length < 100)
                     {
-
-
-
                         //Inicializamos las variables
                         lblColada.Text = ".";
                         lblDiametro.Text = ".";
@@ -2182,6 +2532,103 @@ namespace Metalurgica.Controls
         }
 
 
+        private void ProcesaColadaOriginal_QR_LAN(string iTx)
+        {
+            string lTmp = "";
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
+            int lSaldoColada = 0;
+
+            DataTable dt = new DataTable(); Clases.ClsComun lCom = new Clases.ClsComun();
+            if (!txtEtiquetaColada.Text.Trim().Equals(""))
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    if (iTx.Length < 100)
+                    {
+                        //Inicializamos las variables
+                        lblColada.Text = ".";
+                        lblDiametro.Text = ".";
+                        lblLargo.Text = ".";
+                        lblNroCertificado.Text = ".";
+
+                        string lValidaColadaEnProduccion = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
+
+                        lTmp = iTx.Replace("ñ", ";");
+                        lTmp = lTmp.Replace("Ñ", ":");
+                        lTmp = lTmp.Replace("'", "-");
+                        lTmp = lTmp.Replace(")", "(");
+                        lTmp = lTmp.Replace("=", ")");
+
+                        mEtiqueta_Qr = ObtenerEtiquetaAZA_LAN(lTmp, true);
+                        if ((mEtiqueta_Qr.Errors.Trim().Length == 0))   //NO hay error 
+                        {
+                            if (mEtiqueta_Qr.Id > 0)
+                            {
+                                mIdEtiquetaColada = mEtiqueta_Qr.Id.ToString();    // el Id de la etiqueta Aza
+                                                                                   //ValidaColadaEnProduccion
+                                lSaldoColada = (lCom.Val(mEtiqueta_Qr.PesoBulto.ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
+                                Lbl_SaldoKilosColada.Text = lSaldoColada.ToString();
+                                Lbl_KgsProd.Text = mEtiqueta_Qr.KgsProducidos.ToString();
+                                lblColada.Text = mEtiqueta_Qr.Lote.ToString();
+                                lblDiametro.Text = mEtiqueta_Qr.Diam.ToString();
+                                lblLargo.Text = mEtiqueta_Qr.Largo.ToString();
+                                lblKilos.Text = mEtiqueta_Qr.PesoBulto.ToString();
+                                lbl_calidadAcero.Text = String.Concat("Calidad: ", mEtiqueta_Qr.CalidadAcero.ToString());
+                                Lbl_tipo.Text = String.Concat("Es Soldable: ", mEtiqueta_Qr.EsSoldable.ToString());
+                                txtEtiquetaColada.Tag = mIdEtiquetaColada;
+
+                                if (lSaldoColada < 1)
+                                {
+                                    MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    //txtEtiquetaPieza.Enabled = false;
+                                    // tlbNuevo_Click(null, null);
+
+                                }
+                                else
+                                {
+                                    txtEtiquetaPieza.Enabled = true;
+                                    txtEtiquetaPieza.Focus();
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("La colada Ingresada NO se ha encontrado en la Base de Datos, Revisar", "Avisos Sistema");
+                                txtEtiquetaColada.Text = "";
+                                txtEtiquetaColada.Focus();
+                            }
+
+                        }
+                        else
+                        {
+
+                            MessageBox.Show(mEtiqueta_Qr.Errors.ToString(), "Avisos Sistema");
+                            //tlbNuevo_Click(null, null);
+                            txtEtiquetaColada.Text = "";
+                            txtEtiquetaColada.Focus();
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("La Trama de la Etiqueta ingresada exece el maximo de caracteres ingresados  ", "Avisos Sistema");
+                        //tlbNuevo_Click(null, null);
+                        txtEtiquetaColada.Text = "";
+                        txtEtiquetaColada.Focus();
+                    }
+
+                }
+
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+
         private void txtEtiquetaColada_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -2193,7 +2640,11 @@ namespace Metalurgica.Controls
                         ProcesaColadaOriginal();
                         break;
                     case "QR":
-                        ProcesaColadaOriginal_QR(txtEtiquetaColada.Text);
+                        if (mTipoCnn.ToUpper().ToString().Equals("LAN"))
+                            ProcesaColadaOriginal_QR_LAN(txtEtiquetaColada.Text);
+                        else
+                            ProcesaColadaOriginal_QR(txtEtiquetaColada.Text);
+
                         txtEtiquetaColada.Enabled = false;
                         break;
                 }
@@ -2630,6 +3081,176 @@ namespace Metalurgica.Controls
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+        }
+        public int OBtenerIdSucursal()
+        {
+            int iIdSucursal = 0; string lAux = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+
+            lAux = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            if (lCom.EsNumero(lAux) == true)
+            {
+                iIdSucursal = lCom.Val(lAux);
+            }
+
+            return iIdSucursal;
+
+        }
+
+
+        private void ObtenerMP()
+        {
+            string lSql = ""; DataTable lTblTmp = new DataTable(); DataSet lDts = new DataSet();
+            try
+            {
+                lSql = String.Concat(" Select * from MateriaPrima ");
+                lTblTmp = ObtenerTablaDatos(lSql);
+                lTblTmp.TableName = "MP";
+                lDts.Tables.Add(lTblTmp);
+
+                lSql = String.Concat("  Select PAr1 Sucursal , Par2 Id  from to_parametros where SubTabla like '%SucursalesINET%' ");
+                lTblTmp = new DataTable();
+                lTblTmp = ObtenerTablaDatos(lSql);
+                lTblTmp.TableName = "Sucursales";
+                lDts.Tables.Add(lTblTmp);
+
+                lTblTmp = new DataTable();
+                lSql = String.Concat(" Select * from  to_parametros  where  subtabla='CodigoProd_INET_Cubigest'  ");
+                lTblTmp = ObtenerTablaDatos(lSql);
+                lTblTmp.TableName = "Codigos_Intercambio";
+                lDts.Tables.Add(lTblTmp);
+                mDtsMP = lDts;
+            }
+            catch (Exception iEx)
+            {
+                MessageBox.Show(String.Concat("Ha ocurrido el siguiente Error : ", iEx.Message.ToString()), "Avisos sistema");
+            }
+
+       // Return result
+}
+
+        public WsOperacion.TipoEtiquetaAza ObtenerEtiquetaAZA_LAN(string lTx, Boolean incluyeProduccion)
+        {
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza(); Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient(); DataTable lTbl = new DataTable();
+            DataTable lTBlMP = new DataTable(); DataTable lTBlCodigosIntercambio = new DataTable();
+            char[] delimiterChars = { ';' }; string[] words = lTx.Split(delimiterChars);
+            string lIdSucursal = "";
+
+            //******************
+            try
+            {
+                lIdSucursal = OBtenerIdSucursal().ToString();
+                WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
+                if ((mNRoEtiquetasLeidas < 100)  && (mDtsMP != null))
+                {
+                    if   (mDtsMP.Tables.Count == 0)
+                    {
+                        lDts = lPx.Obtener_MP();
+                        mDtsMP = lDts.DataSet.Copy();
+                    }
+                    else
+                        lDts.DataSet = mDtsMP.Copy();
+
+                }
+                else
+                {
+                    lDts = lPx.Obtener_MP();
+                    mDtsMP = lDts.DataSet.Copy();
+                }
+               
+
+                //if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+                //{
+                    if (mDtsMP.Tables.Count == 3)
+                    {
+                        lTBlMP = mDtsMP.Tables["MP"].Copy();
+                        lTBlCodigosIntercambio = mDtsMP.Tables["Codigos_Intercambio"].Copy();
+                        lEt.Lote = words[0].ToString().Trim();
+                        if (lEt.Lote.Trim().Length == 10)
+                            lEt.Procedencia = "AZA";
+
+                        lEt.FechaFabricacion = words[1].ToString().Trim();
+                        lEt.Bulto = lCom.Val(words[2].ToString());
+                        if (incluyeProduccion == true)
+                        {
+                            // se debe ir a la base de datos y verificar que exista la información y cargar todos los datos
+                            //la llave es Lote + Bulto 
+                            lEt.KgsProducidos = 0;
+                            lEt = lPx.ObtenerEtiqueta(lEt.Lote, lEt.Bulto.ToString());
+                        }
+                        lEt.Producto = words[3].ToString().Trim();
+                        lEt.Codigo = words[4].ToString().Trim();
+                        lEt.PesoBulto = lCom.Val(words[5].ToString());
+                        lEt.Errors = "";
+                        lEt.TipoProduccion = "P";
+
+                        lEt.Trama = lTx;
+
+                        // con el codigo de Aza, vamos a la tabla de intercambio, obtenemos el codigo de  TO y con este vamos a la tabla de MP y obtenemos los datos
+                        lTbl = lCom.ObtenerDatosMP_TO(lEt.Codigo, lTBlCodigosIntercambio, lTBlMP, lIdSucursal);
+                        if (lTbl.Rows.Count > 0)
+                        {
+                            lEt.CalidadAcero = lTbl.Rows[0]["CalidadAcero"].ToString();  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            lEt.Diam = int.Parse(lTbl.Rows[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
+                            lEt.Largo = lTbl.Rows[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
+                            lEt.EsSoldable = lTbl.Rows[0]["Soldable"].ToString();
+                            if (lEt.EsSoldable.Equals("S"))
+                            {
+                                lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                            }
+
+                            if ((lTbl.Rows[0]["Descripcion"].ToString().Trim().Length > 3))
+                                lEt.Producto = lTbl.Rows[0]["Descripcion"].ToString();
+                        }
+                        else
+                        {  //buscamos el codigo en TO
+                            DataView lvista = new DataView(lTBlMP, string.Concat("Codigo='", lEt.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                            if (lvista.Count > 0)
+                            {
+
+                                lEt.Diam = int.Parse(lvista[0]["NombreMedidas"].ToString());  // lCom.ObtenerDiametro(lEt.Producto);
+                                lEt.Largo = lvista[0]["Largo"].ToString();  // lCom.ObtenerLargo(lEt.Producto);
+                                lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString());
+                                lEt.EsSoldable = lvista[0]["Soldable"].ToString();
+                                if (lEt.EsSoldable.Equals("S"))
+                                {
+                                    lEt.CalidadAcero = string.Concat(lvista[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                                }
+                            }
+                            else
+                            {
+                                lEt.Errors = string.Concat("El Código de producto  No se Encuentra en la Base de datos");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
+                    }
+
+                //}
+            }
+            catch (Exception iex)
+            {
+                lEt = new WsOperacion.TipoEtiquetaAza();
+                lEt.Errors = " La colada ingresada NO es Valida, Revisar.";
+            }
+
+            return lEt;
+        }
+
+        private void Btn_estadistica_Click(object sender, EventArgs e)
+        {
+            //Dtg_estadistica.DataSource = mEstadistica;
+            //panel4.Visible = true;
+
+        }
+
+        private void Btn_Estadistica_Click_1(object sender, EventArgs e)
+        {
+            Dtg_estadistica.DataSource = mEstadistica;
+            panel7.Visible = true;
 
         }
     }
