@@ -109,7 +109,9 @@ namespace Metalurgica.Controls
                 dgvEtiquetasPiezas.Columns["NroPaq"].Width = 30;
                 dgvEtiquetasPiezas.Columns["totalpaq"].Width = 40;
                 dgvEtiquetasPiezas.Refresh();
-                dgvEtiquetasPiezas.ReadOnly = true;
+                this.Refresh();
+                Application.DoEvents();
+                //dgvEtiquetasPiezas.ReadOnly = true;
 
                 if (dgvEtiquetasPiezas.Rows.Count > 0)
                     dgvEtiquetasPiezas.Columns["KgsProducido"].Visible = false;
@@ -1583,26 +1585,28 @@ namespace Metalurgica.Controls
                                         {
                                             if (dgvActiva.DataSource == null) // if (dgvActiva.DataSource == null)
                                             {
-                                            //mVistaPr = (DataView)dgvActiva.DataSource;
+                                            lSql = String.Concat("EXEC SP_ConsultasGenerales 8,'", txtEtiquetaPieza.Text, "',' ',' ',' ',' '");
+                                            mTblPieza = ObtenerTablaDatos(lSql);
                                             //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
-                                            dataTable = mTblPieza; // listaDataSet.DataSet.Tables[0];
-                                                //if (dataTable.Rows.Count > 0)
-                                                //{
-                                                //    //dataTable.Rows[0][COLUMNNAME_ESTADO] = (tabOperaciones.SelectedIndex == 0 ? "" : cboExcepciones.SelectedValue.ToString());
-                                                //    dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
-                                                //    dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
-                                                //}
-                                                //mTotalKilos =double.Parse (dataTable.Rows[0]["Pesopaquete"].ToString ());                                            
-                                                mTblDatos = dataTable.Copy();
-                                                //dgvActiva.DataSource = dataTable;
+                                            dataTable = mTblPieza; /// listaDataSet.DataSet.Tables[0];
+                                            if (dataTable.Rows.Count > 0)
+                                            {
+                                                //dataTable.Rows[0][COLUMNNAME_ESTADO] = (tabOperaciones.SelectedIndex == 0 ? "" : cboExcepciones.SelectedValue.ToString());
+                                                dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
+                                                dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
+                                            }
+                                                                                 
+                                            mTblDatos = dataTable.Copy();
+                                               
                                                 mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
                                                 dgvActiva.DataSource = mVistaPr;
                                                 dgvActiva.Columns["Obra"].Width = 500;
                                             }
                                             else
                                             {
-                                                //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
-
+                                            //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                                            lSql = String.Concat("EXEC SP_ConsultasGenerales 8,'", txtEtiquetaPieza.Text, "',' ',' ',' ',' '");
+                                            mTblPieza = ObtenerTablaDatos(lSql);
                                             DataRow row = mTblDatos.NewRow();
 
                                                 foreach (DataGridViewColumn column in dgvActiva.Columns)
@@ -1613,9 +1617,11 @@ namespace Metalurgica.Controls
                                                 row[COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
                                                 row[COLUMNNAME_ESTADO] = cboExcepciones.Text;
                                                 mTotalKilos = mTotalKilos + double.Parse(row["PesoPaquete"].ToString());
-                                                //dataTable.Rows.Add(row);
+      
                                                 mTblDatos.Rows.Add(row);
-                                                txtEtiquetaPieza.Text = "";
+                                            mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
+                                            dgvEtiquetasPiezas.DataSource = mVistaPr;
+                                            txtEtiquetaPieza.Text = "";
                                             }
                                             if (tabOperaciones.SelectedIndex == 0)
                                                 forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "ERR", "PIE_ESTADO", "ESTADO" });
@@ -2922,7 +2928,7 @@ namespace Metalurgica.Controls
             if (EvaluaTimer==true )
             {
                 EvaluaTimer = false;
-                VerificaChequeoMaquina();
+               VerificaChequeoMaquina();
                 EvaluaTimer = true;
             }
             

@@ -648,8 +648,11 @@ namespace Metalurgica
 
             //MessageBox.Show("Termino la carga");
 
-            Tools .Frm_Tools  lFrm = new Tools.Frm_Tools();
+            Tools.Frm_Tools lFrm = new Tools.Frm_Tools();
             lFrm.ShowDialog();
+
+            //Tools.Frm_CorrigeKilos lFrm = new Tools.Frm_CorrigeKilos();
+            //lFrm.ShowDialog();
         }
 
         private void label2_Click(object sender, EventArgs e)

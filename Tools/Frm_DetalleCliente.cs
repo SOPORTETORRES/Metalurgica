@@ -129,7 +129,7 @@ namespace Metalurgica.Tools
                         lGuiaXVin = Dtg_PorVinc.Rows[i].Cells["AteNum"].Value .ToString();
                         if (ExisteGuiaEn_Gr_LC(lGuiaXVin) == false)
                         {
-                            InsertaGuiaVinculada(lGuiaXVin, mRut, "943");
+                            InsertaGuiaVinculada(lGuiaXVin, mRut, "834");
                         }
                 //}
                 

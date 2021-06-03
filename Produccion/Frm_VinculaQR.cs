@@ -84,7 +84,8 @@ namespace Metalurgica.Produccion
             ProcesaColadaOriginal_QR(this.Tx_etiquetaQR.Text);
             lSaldoColada = lCom.Val(Lbl_SaldoKilosColada.Text);
             lSaldoEtiquetaTO = lCom.Val(Tx_Saldo.Text);
-            if ( lSaldoColada >=lSaldoEtiquetaTO  )
+            //while (lSaldoEtiquetaTO> 0 )
+            if ( lSaldoColada > 0) // >=lSaldoEtiquetaTO  )
             {
                 // Verificamos que el diametro de la colada es igual al de la pieza
                 if (Tx_Diam.Text == lblDiametro.Text)
@@ -157,6 +158,10 @@ namespace Metalurgica.Produccion
                             Tx_etiquetaQR.Focus();
                         }
                     }
+                    else
+                        MessageBox.Show("Ha ocurrido el siguiente error:  " + mEtiqueta_Qr.Errors.ToString (), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
                 }
                 catch (Exception exc)
                 {
@@ -176,50 +181,55 @@ namespace Metalurgica.Produccion
                 lSaldoEtiqueta =  int.Parse (Tx_Saldo.Text);
                 lKgsColada = int.Parse(Lbl_SaldoKilosColada.Text);
 
-                if (lSaldoEtiqueta <= lKgsColada)  //todo OK.
+                if (int.Parse (mIdEtiquetaColada)>0)
                 {
-                    mTotalKgsOk = "S";
-                    lKgsVinc = lSaldoEtiqueta;
-                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina );
-                    AppDomain.CurrentDomain.SetData("KgsOK", "S");
-                    AppDomain.CurrentDomain.SetData("Colada", this .Tx_etiquetaQR .Text );
-                    this.Close();
-                }
-
-                else  // Hay que vincular Otra etiqueta
-                {
-                    mTotalKgsOk = "N";
-                    lKgsVinc = lKgsColada;
-                    Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina );
-                    CargaGrilla(Tx_Id.Text);
-                    Lbl_Msg.Text = string.Concat("Debe Leer otra etiqueta de colada ");
-                    // Limpiar Datos Colada
-                    Tx_etiquetaQR.Text = "";
-                    lblColada.Text = "";
-                    lblDiametro.Text = "";
-                    lblLargo.Text = "";
-                    Lbl_SaldoKilosColada.Text = "";
-                    Lbl_KgsProd.Text = "";
-                    lblColada.Text = "";
-                    lblDiametro.Text = "";
-                    lblLargo.Text = "";
-                    lblKilos.Text = "";
-                    Tx_etiquetaQR.Tag = "0";
-                    // Actualizar los Datos
-                    lKgsVinc = 0;
-                    for (i = 0; i < this.Dtg_Resultado.Rows.Count; i++)
+                    if (lSaldoEtiqueta <= lKgsColada)  //todo OK.
                     {
-                        if ( Dtg_Resultado.Rows[i].Cells["KgsVinculados"].Value!=null)
+                        mTotalKgsOk = "S";
+                        lKgsVinc = lSaldoEtiqueta;
+                        Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina);
+                        AppDomain.CurrentDomain.SetData("KgsOK", "S");
+                        AppDomain.CurrentDomain.SetData("Colada", this.Tx_etiquetaQR.Text);
+                        this.Close();
+                    }
+
+                    else  // Hay que vincular Otra etiqueta
+                    {
+                        mTotalKgsOk = "N";
+                        lKgsVinc = lKgsColada;
+                        Grabar(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina);
+                        CargaGrilla(Tx_Id.Text);
+                        Lbl_Msg.Text = string.Concat("Debe Leer otra etiqueta de colada ");
+                        // Limpiar Datos Colada
+                        Tx_etiquetaQR.Text = "";
+                        lblColada.Text = "";
+                        lblDiametro.Text = "";
+                        lblLargo.Text = "";
+                        Lbl_SaldoKilosColada.Text = "";
+                        Lbl_KgsProd.Text = "";
+                        lblColada.Text = "";
+                        lblDiametro.Text = "";
+                        lblLargo.Text = "";
+                        lblKilos.Text = "";
+                        Tx_etiquetaQR.Tag = "0";
+                        // Actualizar los Datos
+                        lKgsVinc = 0;
+                        for (i = 0; i < this.Dtg_Resultado.Rows.Count; i++)
+                        {
+                            if (Dtg_Resultado.Rows[i].Cells["KgsVinculados"].Value != null)
                                 lKgsVinc = lKgsVinc + int.Parse(Dtg_Resultado.Rows[i].Cells["KgsVinculados"].Value.ToString());
 
+                        }
+                        Tx_Vinculados.Text = lKgsVinc.ToString();
+                        lSaldoEtiqueta = int.Parse(Tx_KgsEtiqueta.Text) - lKgsVinc;
+                        Tx_Saldo.Text = lSaldoEtiqueta.ToString();
+
                     }
-                    Tx_Vinculados.Text = lKgsVinc.ToString();
-                    lSaldoEtiqueta = int.Parse(Tx_KgsEtiqueta.Text) - lKgsVinc;
-                    Tx_Saldo.Text = lSaldoEtiqueta.ToString ();
-
-
 
                 }
+                 else
+                    MessageBox.Show(" La etiqueta colada NO puede ser 0, revisar :  " , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
             }
         }

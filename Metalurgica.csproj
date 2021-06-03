@@ -422,6 +422,24 @@
     <Compile Include="Maquinas\NotificaAveria.Designer.cs">
       <DependentUpon>NotificaAveria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Maquinas\PLC\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\PLC\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\PLC\FrmProducciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\PLC\FrmProducciones.Designer.cs">
+      <DependentUpon>FrmProducciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maquinas\PLC\Frm_ControlDim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\PLC\Frm_ControlDim.Designer.cs">
+      <DependentUpon>Frm_ControlDim.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Cruds\frmCrudCamion.cs">
       <SubType>Form</SubType>
@@ -675,6 +693,12 @@
     <Compile Include="SolicitudMP\Frm_Imprime.Designer.cs">
       <DependentUpon>Frm_Imprime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\Frm_CorrigeKilos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Frm_CorrigeKilos.Designer.cs">
+      <DependentUpon>Frm_CorrigeKilos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\Frm_Tools.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -832,6 +856,15 @@
     <EmbeddedResource Include="Maquinas\NotificaAveria.resx">
       <DependentUpon>NotificaAveria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\PLC\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\PLC\FrmProducciones.resx">
+      <DependentUpon>FrmProducciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\PLC\Frm_ControlDim.resx">
+      <DependentUpon>Frm_ControlDim.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Muestreo\Frm_ControlDimensional.resx">
       <DependentUpon>Frm_ControlDimensional.cs</DependentUpon>
     </EmbeddedResource>
@@ -916,6 +949,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SolicitudMP\Frm_Imprime.resx">
       <DependentUpon>Frm_Imprime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Frm_CorrigeKilos.resx">
+      <DependentUpon>Frm_CorrigeKilos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\Frm_DetalleCliente.resx">
       <DependentUpon>Frm_DetalleCliente.cs</DependentUpon>
@@ -1157,6 +1193,9 @@
     <Content Include="application-form.ico" />
     <Content Include="bin\Debug\Metalurgica.exe" />
     <Content Include="bin\Debug\Metalurgica.pdb" />
+    <None Include="Resources\Pieza.JPG" />
+    <None Include="Resources\Pieza_.JPG" />
+    <None Include="Resources\Cotas.JPG" />
     <Content Include="Resources\to_do_list.png" />
     <None Include="Service References\WsCrud\Crud.disco" />
     <None Include="Service References\WsOperacion\Operacion.disco" />
@@ -1306,6 +1345,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NewFolder1\" />
     <Folder Include="Pedidos\" />
   </ItemGroup>
   <ItemGroup>
