@@ -106,6 +106,13 @@ namespace Metalurgica
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
+                    if (lIdSucursal == 14)     // Coronel
+                        lObjINET = lPX.ObtenerObjetoINET_Coronel(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                    if (lIdSucursal == 16)     // Concepcion
+                        lObjINET = lPX.ObtenerObjetoINET_Concepcion(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+
                     lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
                     inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
@@ -169,6 +176,9 @@ namespace Metalurgica
 
                     if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
                         lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+
+                    if (lIdSucursal == 14)     // Coronel
+                        lObjINET = lPX.ObtenerObjetoINET_Coronel(lDts, lFechaMov, lGlosa1, lGlosa2);
 
 
                     //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);

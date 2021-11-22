@@ -1178,6 +1178,9 @@
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Hd.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_IT.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\Ws_TO\Metalurgica.Ws_TO.Tipo_Obra.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

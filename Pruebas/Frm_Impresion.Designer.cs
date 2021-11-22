@@ -32,6 +32,7 @@
             this.dtg_Impresoras = new System.Windows.Forms.DataGridView();
             this.Btn_GeneraTurno = new System.Windows.Forms.Button();
             this.Lbl_MsgTurno = new System.Windows.Forms.Label();
+            this.Btn_Api = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Impresoras)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@
             // 
             // Btn_GeneraTurno
             // 
-            this.Btn_GeneraTurno.Location = new System.Drawing.Point(209, 254);
+            this.Btn_GeneraTurno.Location = new System.Drawing.Point(536, 94);
             this.Btn_GeneraTurno.Name = "Btn_GeneraTurno";
             this.Btn_GeneraTurno.Size = new System.Drawing.Size(99, 103);
             this.Btn_GeneraTurno.TabIndex = 2;
@@ -75,11 +76,22 @@
             this.Lbl_MsgTurno.TabIndex = 3;
             this.Lbl_MsgTurno.Text = "label1";
             // 
+            // Btn_Api
+            // 
+            this.Btn_Api.Location = new System.Drawing.Point(102, 222);
+            this.Btn_Api.Name = "Btn_Api";
+            this.Btn_Api.Size = new System.Drawing.Size(98, 69);
+            this.Btn_Api.TabIndex = 4;
+            this.Btn_Api.Text = "API RindeGastos";
+            this.Btn_Api.UseVisualStyleBackColor = true;
+            this.Btn_Api.Click += new System.EventHandler(this.Btn_Api_Click);
+            // 
             // Frm_Impresion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(666, 456);
+            this.Controls.Add(this.Btn_Api);
             this.Controls.Add(this.Lbl_MsgTurno);
             this.Controls.Add(this.Btn_GeneraTurno);
             this.Controls.Add(this.dtg_Impresoras);
@@ -98,5 +110,6 @@
         private System.Windows.Forms.DataGridView dtg_Impresoras;
         private System.Windows.Forms.Button Btn_GeneraTurno;
         private System.Windows.Forms.Label Lbl_MsgTurno;
+        private System.Windows.Forms.Button Btn_Api;
     }
 }

@@ -806,9 +806,14 @@ namespace Metalurgica.Clases
             if (iCodSucursal == "1")
                 lSucursal = "Calama";
 
-            if (iCodSucursal == "4")
+            if ((iCodSucursal == "4") || (iCodSucursal == "2"))
                 lSucursal = "Santiago";
 
+            if (iCodSucursal == "14")
+                lSucursal = "Coronel";
+
+            if (iCodSucursal == "16")
+                lSucursal = "Concepcion";
 
 
             lVistaCod = new DataView(iTblDePara, string.Concat("PAr1='", iCodAZA, "' and par3='", lSucursal, "'"), "", DataViewRowState.CurrentRows);
@@ -854,7 +859,7 @@ namespace Metalurgica.Clases
                 lDts = lPx.Obtener_MP();
                 if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
                 {
-                    if (lDts.DataSet.Tables.Count == 3)
+                    if (lDts.DataSet.Tables.Count == 4)
                     {
                         lTBlMP = lDts.DataSet.Tables["MP"].Copy();
                         lTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();

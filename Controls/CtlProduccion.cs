@@ -286,8 +286,8 @@ namespace Metalurgica.Controls
         {
             bool lEtiquetaImpresa = true ;Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = "";
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();string lTipoSucursal = "";
+            Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = ""; string lSucursalReferencia = "";
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable(); string lDiam = "";
 
             string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; string lCuerpoMsg = "";
@@ -333,12 +333,18 @@ namespace Metalurgica.Controls
                     // Obtenemos las variables de sesion Sucursal e IdSucursal
  
                     string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
+                    lTipoSucursal = lTbl.Rows[0]["TipoSucursal"].ToString();
+                    lSucursalReferencia = lTbl.Rows[0]["SucursalReferencia"].ToString();
                     if (!(lTbl.Rows[0]["IdSucursal"].ToString().ToUpper().Equals(mIdSucursal)))
                     {
-                        lEtiquetaImpresa = false;
-                        lMsg = string.Concat("Esta etiqueta No puede ser producida, ya que esta asignada a la sucursal de ", lTbl.Rows[0]["SucursalAsiganda"].ToString().ToUpper() , Environment.NewLine);
-                        lMsg = string.Concat(lMsg," Este Tótem esta configurado como Sucursal ", lSucursal, Environment.NewLine);
-                        MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // Verificamos el TipoDeSucursal y la SucursalReferencia
+                        if ((lTipoSucursal.ToUpper().Equals("FC"))  && (lSucursalReferencia!= mIdSucursal) )
+                        {
+                            lEtiquetaImpresa = false;
+                            lMsg = string.Concat("Esta etiqueta No puede ser producida, ya que esta asignada a la sucursal de ", lTbl.Rows[0]["SucursalAsiganda"].ToString().ToUpper(), Environment.NewLine);
+                            lMsg = string.Concat(lMsg, " Este Tótem esta configurado como Sucursal ", lSucursal, Environment.NewLine);
+                            MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
 
                     // Verificamos que la maquina pistolee solo los  diametros permitidos
@@ -2238,8 +2244,10 @@ namespace Metalurgica.Controls
 
         public void EstablecerFocoEtiqueta()
         {
-
-            txtEtiquetaPieza.Focus(); 
+            if (mTipoProceso.ToString ().Equals("C"))
+                this.tlbNuevo_Click(null, null); 
+            else
+                txtEtiquetaPieza.Focus(); 
         }
 
         public void CargaUsuarioActual(CurrentUser iUsuarioActual)
@@ -2690,8 +2698,14 @@ namespace Metalurgica.Controls
             tabOperaciones.TabIndex = 0;
             mTotalKilos = 0;
             mIdEtiquetaColada = "0";
-            txtEtiquetaColada.Enabled = true;
-            txtEtiquetaColada.Focus();
+            if (mTipoProceso.Equals("C"))
+            {
+                txtEtiquetaColada.Enabled = true;
+                txtEtiquetaColada.Focus();
+            }
+            else
+                txtEtiquetaPieza.Focus();
+            
         }
 
         private void tlbNuevo_Click(object sender, EventArgs e)

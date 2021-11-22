@@ -422,15 +422,15 @@ namespace Metalurgica.Tools
                 lTblINET.Rows.Add(iROw);
                 lDts.Tables.Add(lTblINET.Copy());
             //if (lIdSucursal == 1)   //Calama
-                lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
+                //lObjINET = lPX.ObtenerObjetoINET_Calama(lDts, lFechaMov, lGlosa1, lGlosa2);
 
- 
+
 
 
             //if ((lIdSucursal == 4) || (lIdSucursal == 2))   // Santiago
-            //lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
+            lObjINET = lPX.ObtenerObjetoINET(lDts, lFechaMov, lGlosa1, lGlosa2);
 
-                lRespuestaWS_INET = InvocarWS_INET(lObjINET);
+            lRespuestaWS_INET = InvocarWS_INET(lObjINET);
 
                 inet_msg = lCom.buscarTagError(lRespuestaWS_INET.XML_Respuesta.ToString());
                 if (inet_msg.Trim().ToUpper().Equals("OK"))

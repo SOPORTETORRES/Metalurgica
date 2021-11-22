@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Gr_datos = new System.Windows.Forms.GroupBox();
             this.Cmb_Sucursal = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -40,32 +46,38 @@
             this.Tx_GuiaDesp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Pnl_EtRecepcionadas = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Dtg_Et_recepcionadas = new System.Windows.Forms.DataGridView();
             this.Dtg_Etiquetas = new System.Windows.Forms.DataGridView();
             this.Tx_EtiquetaAza = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.Tx_largo = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.Tx_PesoBulto = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.Tx_CB = new System.Windows.Forms.TextBox();
-            this.Btn_ImprimeQR = new System.Windows.Forms.Button();
-            this.Tx_diametro = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.Tx_producto = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.Tx_nroBulto = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.Tx_lote = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.Btn_grabar = new System.Windows.Forms.Button();
             this.Btn_InicioL = new System.Windows.Forms.Button();
             this.Btn_Nueva = new System.Windows.Forms.Button();
             this.Frm_DesdeArchivo = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Btn_GrabaTol = new System.Windows.Forms.Button();
+            this.Gr_autorizacion = new System.Windows.Forms.GroupBox();
+            this.Btn_aceptar = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Tx_clave = new System.Windows.Forms.TextBox();
+            this.Btn_Cambiar = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Tx_tolerancia = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Btn_AceptarRec = new System.Windows.Forms.Button();
             this.Gr_datos.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.Pnl_EtRecepcionadas.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Et_recepcionadas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Etiquetas)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.Gr_autorizacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // Gr_datos
@@ -82,7 +94,7 @@
             this.Gr_datos.Controls.Add(this.label1);
             this.Gr_datos.Location = new System.Drawing.Point(13, 13);
             this.Gr_datos.Name = "Gr_datos";
-            this.Gr_datos.Size = new System.Drawing.Size(747, 83);
+            this.Gr_datos.Size = new System.Drawing.Size(747, 84);
             this.Gr_datos.TabIndex = 0;
             this.Gr_datos.TabStop = false;
             this.Gr_datos.Text = "Datos de la Recepción de Material";
@@ -191,28 +203,144 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.Pnl_EtRecepcionadas);
             this.groupBox2.Controls.Add(this.Dtg_Etiquetas);
-            this.groupBox2.Location = new System.Drawing.Point(13, 103);
+            this.groupBox2.Location = new System.Drawing.Point(13, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1013, 415);
+            this.groupBox2.Size = new System.Drawing.Size(1026, 368);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Etiquetas AZA ingresadas";
             // 
+            // Pnl_EtRecepcionadas
+            // 
+            this.Pnl_EtRecepcionadas.BackColor = System.Drawing.Color.Red;
+            this.Pnl_EtRecepcionadas.Controls.Add(this.Btn_AceptarRec);
+            this.Pnl_EtRecepcionadas.Controls.Add(this.label8);
+            this.Pnl_EtRecepcionadas.Controls.Add(this.label7);
+            this.Pnl_EtRecepcionadas.Controls.Add(this.label6);
+            this.Pnl_EtRecepcionadas.Controls.Add(this.groupBox1);
+            this.Pnl_EtRecepcionadas.Location = new System.Drawing.Point(151, 43);
+            this.Pnl_EtRecepcionadas.Name = "Pnl_EtRecepcionadas";
+            this.Pnl_EtRecepcionadas.Size = new System.Drawing.Size(819, 322);
+            this.Pnl_EtRecepcionadas.TabIndex = 1;
+            this.Pnl_EtRecepcionadas.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(14, 66);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(622, 17);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Finalmente, informe de esta situación por mail a Adquisiciones para realizar el r" +
+    "eclamo respectivo";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(14, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(798, 17);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Imprima nuevas etiquetas utilizando la información de la etiqueta QR con problema" +
+    "s , pero cambiando el número de paquete.";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(111, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(562, 17);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "La(s) siguiente(s) etiqueta(s) QR ha(n) sido recepcionada(s) anteriormente:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Dtg_Et_recepcionadas);
+            this.groupBox1.Location = new System.Drawing.Point(14, 86);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(796, 197);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            // 
+            // Dtg_Et_recepcionadas
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dtg_Et_recepcionadas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.Dtg_Et_recepcionadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Dtg_Et_recepcionadas.DefaultCellStyle = dataGridViewCellStyle11;
+            this.Dtg_Et_recepcionadas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dtg_Et_recepcionadas.Location = new System.Drawing.Point(3, 16);
+            this.Dtg_Et_recepcionadas.Name = "Dtg_Et_recepcionadas";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dtg_Et_recepcionadas.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.Dtg_Et_recepcionadas.Size = new System.Drawing.Size(790, 178);
+            this.Dtg_Et_recepcionadas.TabIndex = 0;
+            // 
             // Dtg_Etiquetas
             // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dtg_Etiquetas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.Dtg_Etiquetas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Dtg_Etiquetas.DefaultCellStyle = dataGridViewCellStyle8;
             this.Dtg_Etiquetas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Dtg_Etiquetas.Location = new System.Drawing.Point(3, 16);
             this.Dtg_Etiquetas.Name = "Dtg_Etiquetas";
             this.Dtg_Etiquetas.ReadOnly = true;
-            this.Dtg_Etiquetas.Size = new System.Drawing.Size(1007, 396);
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dtg_Etiquetas.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.Dtg_Etiquetas.Size = new System.Drawing.Size(1020, 349);
             this.Dtg_Etiquetas.TabIndex = 0;
             this.Dtg_Etiquetas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Etiquetas_CellDoubleClick);
             // 
             // Tx_EtiquetaAza
             // 
-            this.Tx_EtiquetaAza.Location = new System.Drawing.Point(777, 82);
+            this.Tx_EtiquetaAza.Location = new System.Drawing.Point(777, 74);
             this.Tx_EtiquetaAza.MaxLength = 100;
             this.Tx_EtiquetaAza.Name = "Tx_EtiquetaAza";
             this.Tx_EtiquetaAza.Size = new System.Drawing.Size(261, 20);
@@ -223,189 +351,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(782, 66);
+            this.label4.Location = new System.Drawing.Point(782, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Etiqueta Aza";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.Tx_largo);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.Tx_PesoBulto);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.Tx_CB);
-            this.groupBox3.Controls.Add(this.Btn_ImprimeQR);
-            this.groupBox3.Controls.Add(this.Tx_diametro);
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.Tx_producto);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.Tx_nroBulto);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.Tx_lote);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(896, 141);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(140, 374);
-            this.groupBox3.TabIndex = 10;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Datos Etiqueta aza";
-            this.groupBox3.Visible = false;
-            // 
-            // Tx_largo
-            // 
-            this.Tx_largo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_largo.Location = new System.Drawing.Point(11, 222);
-            this.Tx_largo.MaxLength = 100;
-            this.Tx_largo.Name = "Tx_largo";
-            this.Tx_largo.Size = new System.Drawing.Size(96, 20);
-            this.Tx_largo.TabIndex = 20;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 206);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(30, 13);
-            this.label11.TabIndex = 19;
-            this.label11.Text = "largo";
-            // 
-            // Tx_PesoBulto
-            // 
-            this.Tx_PesoBulto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_PesoBulto.Location = new System.Drawing.Point(11, 271);
-            this.Tx_PesoBulto.MaxLength = 100;
-            this.Tx_PesoBulto.Name = "Tx_PesoBulto";
-            this.Tx_PesoBulto.Size = new System.Drawing.Size(96, 20);
-            this.Tx_PesoBulto.TabIndex = 18;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 255);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 13);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "Peso Bulto";
-            // 
-            // Tx_CB
-            // 
-            this.Tx_CB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_CB.Location = new System.Drawing.Point(7, 344);
-            this.Tx_CB.MaxLength = 100;
-            this.Tx_CB.Name = "Tx_CB";
-            this.Tx_CB.Size = new System.Drawing.Size(124, 20);
-            this.Tx_CB.TabIndex = 16;
-            // 
-            // Btn_ImprimeQR
-            // 
-            this.Btn_ImprimeQR.Location = new System.Drawing.Point(13, 311);
-            this.Btn_ImprimeQR.Name = "Btn_ImprimeQR";
-            this.Btn_ImprimeQR.Size = new System.Drawing.Size(102, 22);
-            this.Btn_ImprimeQR.TabIndex = 15;
-            this.Btn_ImprimeQR.Text = "Genera";
-            this.Btn_ImprimeQR.UseVisualStyleBackColor = true;
-            this.Btn_ImprimeQR.Click += new System.EventHandler(this.Btn_ImprimeQR_Click);
-            // 
-            // Tx_diametro
-            // 
-            this.Tx_diametro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_diametro.Location = new System.Drawing.Point(8, 180);
-            this.Tx_diametro.MaxLength = 100;
-            this.Tx_diametro.Name = "Tx_diametro";
-            this.Tx_diametro.Size = new System.Drawing.Size(96, 20);
-            this.Tx_diametro.TabIndex = 14;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 164);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 13);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "Diametro";
-            // 
-            // Tx_producto
-            // 
-            this.Tx_producto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_producto.Location = new System.Drawing.Point(6, 134);
-            this.Tx_producto.MaxLength = 100;
-            this.Tx_producto.Name = "Tx_producto";
-            this.Tx_producto.Size = new System.Drawing.Size(124, 20);
-            this.Tx_producto.TabIndex = 12;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 118);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Producto";
-            // 
-            // Tx_nroBulto
-            // 
-            this.Tx_nroBulto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_nroBulto.Location = new System.Drawing.Point(6, 81);
-            this.Tx_nroBulto.MaxLength = 100;
-            this.Tx_nroBulto.Name = "Tx_nroBulto";
-            this.Tx_nroBulto.Size = new System.Drawing.Size(100, 20);
-            this.Tx_nroBulto.TabIndex = 10;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 65);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "NroBulto";
-            // 
-            // Tx_lote
-            // 
-            this.Tx_lote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tx_lote.Location = new System.Drawing.Point(6, 32);
-            this.Tx_lote.MaxLength = 100;
-            this.Tx_lote.Name = "Tx_lote";
-            this.Tx_lote.Size = new System.Drawing.Size(100, 20);
-            this.Tx_lote.TabIndex = 8;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Lote";
-            // 
             // Btn_grabar
             // 
             this.Btn_grabar.Location = new System.Drawing.Point(964, 18);
             this.Btn_grabar.Name = "Btn_grabar";
-            this.Btn_grabar.Size = new System.Drawing.Size(75, 46);
+            this.Btn_grabar.Size = new System.Drawing.Size(75, 37);
             this.Btn_grabar.TabIndex = 11;
             this.Btn_grabar.Text = "Grabar";
             this.Btn_grabar.UseVisualStyleBackColor = true;
@@ -415,7 +371,7 @@
             // 
             this.Btn_InicioL.Location = new System.Drawing.Point(777, 18);
             this.Btn_InicioL.Name = "Btn_InicioL";
-            this.Btn_InicioL.Size = new System.Drawing.Size(75, 46);
+            this.Btn_InicioL.Size = new System.Drawing.Size(75, 37);
             this.Btn_InicioL.TabIndex = 12;
             this.Btn_InicioL.Text = "Inicio Lecturas";
             this.Btn_InicioL.UseVisualStyleBackColor = true;
@@ -425,7 +381,7 @@
             // 
             this.Btn_Nueva.Location = new System.Drawing.Point(867, 18);
             this.Btn_Nueva.Name = "Btn_Nueva";
-            this.Btn_Nueva.Size = new System.Drawing.Size(75, 46);
+            this.Btn_Nueva.Size = new System.Drawing.Size(75, 37);
             this.Btn_Nueva.TabIndex = 13;
             this.Btn_Nueva.Text = "Nuevo";
             this.Btn_Nueva.UseVisualStyleBackColor = true;
@@ -442,16 +398,143 @@
             this.Frm_DesdeArchivo.Visible = false;
             this.Frm_DesdeArchivo.Click += new System.EventHandler(this.Frm_DesdeArchivo_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.Btn_GrabaTol);
+            this.groupBox3.Controls.Add(this.Gr_autorizacion);
+            this.groupBox3.Controls.Add(this.Btn_Cambiar);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.Tx_tolerancia);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Location = new System.Drawing.Point(16, 99);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1020, 59);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Toterancia";
+            // 
+            // Btn_GrabaTol
+            // 
+            this.Btn_GrabaTol.Location = new System.Drawing.Point(503, 14);
+            this.Btn_GrabaTol.Name = "Btn_GrabaTol";
+            this.Btn_GrabaTol.Size = new System.Drawing.Size(78, 37);
+            this.Btn_GrabaTol.TabIndex = 14;
+            this.Btn_GrabaTol.Text = "Grabar Tolerancia";
+            this.Btn_GrabaTol.UseVisualStyleBackColor = true;
+            this.Btn_GrabaTol.Visible = false;
+            this.Btn_GrabaTol.Click += new System.EventHandler(this.Btn_GrabaTol_Click);
+            // 
+            // Gr_autorizacion
+            // 
+            this.Gr_autorizacion.BackColor = System.Drawing.Color.Red;
+            this.Gr_autorizacion.Controls.Add(this.Btn_aceptar);
+            this.Gr_autorizacion.Controls.Add(this.label11);
+            this.Gr_autorizacion.Controls.Add(this.Tx_clave);
+            this.Gr_autorizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Gr_autorizacion.ForeColor = System.Drawing.Color.White;
+            this.Gr_autorizacion.Location = new System.Drawing.Point(595, 7);
+            this.Gr_autorizacion.Name = "Gr_autorizacion";
+            this.Gr_autorizacion.Size = new System.Drawing.Size(386, 46);
+            this.Gr_autorizacion.TabIndex = 13;
+            this.Gr_autorizacion.TabStop = false;
+            this.Gr_autorizacion.Text = "Clave de autorización";
+            this.Gr_autorizacion.Visible = false;
+            // 
+            // Btn_aceptar
+            // 
+            this.Btn_aceptar.ForeColor = System.Drawing.Color.Black;
+            this.Btn_aceptar.Location = new System.Drawing.Point(296, 8);
+            this.Btn_aceptar.Name = "Btn_aceptar";
+            this.Btn_aceptar.Size = new System.Drawing.Size(67, 32);
+            this.Btn_aceptar.TabIndex = 15;
+            this.Btn_aceptar.Text = "Aceptar";
+            this.Btn_aceptar.UseVisualStyleBackColor = true;
+            this.Btn_aceptar.Click += new System.EventHandler(this.Btn_aceptar_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(36, 19);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(98, 15);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Ingrese Clave ";
+            // 
+            // Tx_clave
+            // 
+            this.Tx_clave.Location = new System.Drawing.Point(151, 17);
+            this.Tx_clave.Name = "Tx_clave";
+            this.Tx_clave.PasswordChar = '*';
+            this.Tx_clave.Size = new System.Drawing.Size(120, 21);
+            this.Tx_clave.TabIndex = 0;
+            // 
+            // Btn_Cambiar
+            // 
+            this.Btn_Cambiar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Cambiar.Location = new System.Drawing.Point(396, 11);
+            this.Btn_Cambiar.Name = "Btn_Cambiar";
+            this.Btn_Cambiar.Size = new System.Drawing.Size(89, 42);
+            this.Btn_Cambiar.TabIndex = 12;
+            this.Btn_Cambiar.Text = "Modificar Tolerancia";
+            this.Btn_Cambiar.UseVisualStyleBackColor = true;
+            this.Btn_Cambiar.Click += new System.EventHandler(this.Btn_Cambiar_Click);
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(330, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 17);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "KGS";
+            // 
+            // Tx_tolerancia
+            // 
+            this.Tx_tolerancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tx_tolerancia.Location = new System.Drawing.Point(283, 25);
+            this.Tx_tolerancia.Multiline = true;
+            this.Tx_tolerancia.Name = "Tx_tolerancia";
+            this.Tx_tolerancia.ReadOnly = true;
+            this.Tx_tolerancia.Size = new System.Drawing.Size(36, 20);
+            this.Tx_tolerancia.TabIndex = 10;
+            this.Tx_tolerancia.Text = "5";
+            this.Tx_tolerancia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(12, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(263, 17);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Total Toterancia Permitida  ( + / - )";
+            // 
+            // Btn_AceptarRec
+            // 
+            this.Btn_AceptarRec.Location = new System.Drawing.Point(375, 287);
+            this.Btn_AceptarRec.Name = "Btn_AceptarRec";
+            this.Btn_AceptarRec.Size = new System.Drawing.Size(75, 32);
+            this.Btn_AceptarRec.TabIndex = 4;
+            this.Btn_AceptarRec.Text = "Aceptar";
+            this.Btn_AceptarRec.UseVisualStyleBackColor = true;
+            this.Btn_AceptarRec.Click += new System.EventHandler(this.Btn_AceptarRec_Click);
+            // 
             // Frm_RecepcionMP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 522);
+            this.ClientSize = new System.Drawing.Size(1048, 540);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Frm_DesdeArchivo);
             this.Controls.Add(this.Btn_Nueva);
             this.Controls.Add(this.Btn_InicioL);
             this.Controls.Add(this.Btn_grabar);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Tx_EtiquetaAza);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
@@ -463,9 +546,15 @@
             this.Gr_datos.ResumeLayout(false);
             this.Gr_datos.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.Pnl_EtRecepcionadas.ResumeLayout(false);
+            this.Pnl_EtRecepcionadas.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Dtg_Et_recepcionadas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Etiquetas)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.Gr_autorizacion.ResumeLayout(false);
+            this.Gr_autorizacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,21 +574,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Tx_TotalKgsGD;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox Tx_diametro;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox Tx_producto;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox Tx_nroBulto;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox Tx_lote;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button Btn_ImprimeQR;
-        private System.Windows.Forms.TextBox Tx_CB;
-        private System.Windows.Forms.TextBox Tx_PesoBulto;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox Tx_largo;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker Dtp_Fecha;
         private System.Windows.Forms.Button Btn_grabar;
         private System.Windows.Forms.Button Btn_InicioL;
@@ -507,5 +581,22 @@
         private System.Windows.Forms.ComboBox Cmb_Sucursal;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button Frm_DesdeArchivo;
+        private System.Windows.Forms.Panel Pnl_EtRecepcionadas;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView Dtg_Et_recepcionadas;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button Btn_Cambiar;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox Tx_tolerancia;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button Btn_GrabaTol;
+        private System.Windows.Forms.GroupBox Gr_autorizacion;
+        private System.Windows.Forms.Button Btn_aceptar;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox Tx_clave;
+        private System.Windows.Forms.Button Btn_AceptarRec;
     }
 }

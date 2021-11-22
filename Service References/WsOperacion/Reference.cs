@@ -16,6 +16,10 @@ namespace Metalurgica.WsOperacion {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WsOperacion.OperacionSoap")]
     public interface OperacionSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarRecepcionColada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColada(System.DateTime fecha);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarRecepcionColadaPorBodega", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColadaPorBodega(System.DateTime fecha, string iBodega);
@@ -412,6 +416,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet ListarObraEPNoAprobado(string obra);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerAcumuladoAnterior_DevAnt", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string ObtenerAcumuladoAnterior_DevAnt(int Id_EP_Actual, string IdObra);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/EliminarEPCreacionEtiquetaxEP", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxEP(string obra, int ep, string usuario, string terminal);
@@ -615,10 +623,6 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DesactivarRecepcion_Colada", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Recepcion_Colada DesactivarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ListarRecepcionColada", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColada(System.DateTime fecha);
     }
     
     /// <remarks/>
@@ -2079,6 +2083,8 @@ namespace Metalurgica.WsOperacion {
         
         private int kgsGDField;
         
+        private System.Data.DataSet dts_EtRecepcionadasField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int IdRecepcionMP {
@@ -2184,6 +2190,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.kgsGDField = value;
                 this.RaisePropertyChanged("KgsGD");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public System.Data.DataSet Dts_EtRecepcionadas {
+            get {
+                return this.dts_EtRecepcionadasField;
+            }
+            set {
+                this.dts_EtRecepcionadasField = value;
+                this.RaisePropertyChanged("Dts_EtRecepcionadas");
             }
         }
         
@@ -3251,6 +3269,8 @@ namespace Metalurgica.WsOperacion {
         
         private string etiquetaField;
         
+        private string idSucursalField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
@@ -3380,6 +3400,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.etiquetaField = value;
                 this.RaisePropertyChanged("Etiqueta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public string IdSucursal {
+            get {
+                return this.idSucursalField;
+            }
+            set {
+                this.idSucursalField = value;
+                this.RaisePropertyChanged("IdSucursal");
             }
         }
         
@@ -4014,6 +4046,10 @@ namespace Metalurgica.WsOperacion {
                 base(binding, remoteAddress) {
         }
         
+        public Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColada(System.DateTime fecha) {
+            return base.Channel.ListarRecepcionColada(fecha);
+        }
+        
         public Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColadaPorBodega(System.DateTime fecha, string iBodega) {
             return base.Channel.ListarRecepcionColadaPorBodega(fecha, iBodega);
         }
@@ -4410,6 +4446,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.ListarObraEPNoAprobado(obra);
         }
         
+        public string ObtenerAcumuladoAnterior_DevAnt(int Id_EP_Actual, string IdObra) {
+            return base.Channel.ObtenerAcumuladoAnterior_DevAnt(Id_EP_Actual, IdObra);
+        }
+        
         public Metalurgica.WsOperacion.Estado_Pago EliminarEPCreacionEtiquetaxEP(string obra, int ep, string usuario, string terminal) {
             return base.Channel.EliminarEPCreacionEtiquetaxEP(obra, ep, usuario, terminal);
         }
@@ -4612,10 +4652,6 @@ namespace Metalurgica.WsOperacion {
         
         public Metalurgica.WsOperacion.Recepcion_Colada DesactivarRecepcion_Colada(Metalurgica.WsOperacion.Recepcion_Colada recepcion_Colada, string terminal) {
             return base.Channel.DesactivarRecepcion_Colada(recepcion_Colada, terminal);
-        }
-        
-        public Metalurgica.WsOperacion.ListaDataSet ListarRecepcionColada(System.DateTime fecha) {
-            return base.Channel.ListarRecepcionColada(fecha);
         }
     }
 }

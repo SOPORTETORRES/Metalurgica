@@ -40,6 +40,8 @@
               <xs:element minOccurs="0" name="Obra" type="xs:string" />
               <xs:element minOccurs="0" name="NroGD" type="xs:string" />
               <xs:element minOccurs="0" name="PesoTotal" type="xs:string" />
+              <xs:element minOccurs="0" name="NroEtiquetasConectores" type="xs:string" />
+              <xs:element minOccurs="0" name="ValorTotal_ITCon" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -485,7 +485,7 @@ namespace Metalurgica.Maquinas
 
         }
 
- private string  ObtenerCuerpoMail(string iUser, string iTxAveria, string iMaq, string iFecha, string iEstado, string iIdAveria ) 
+ private string  ObtenerCuerpoMail(string iUser, string iTxAveria, string iMaq, string iFecha, string iEstado, string iIdAveria, string lPrioridad ) 
     {
         string  lRes  = "";
             //lRes = String.Concat(" Señores Mantenimiento:  ", Environment.NewLine, Environment.NewLine);
@@ -504,6 +504,7 @@ namespace Metalurgica.Maquinas
             lRes = String.Concat(lRes, " Maquina Afectada   :", iMaq, "  <br> ");
             lRes = String.Concat(lRes, " Fecha Notificacion :", iFecha, "  <br> ");
             lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, "  <br> ");
+            lRes = String.Concat(lRes, " Prioridad          :", lPrioridad.ToUpper (), "  <br> ");
 
             if (iTxAveria.Equals ("Cambio de Rollo"))
      {
@@ -927,7 +928,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaNotificacionAveria()
         {
-            int idListadistribucion = -1;
+            int idListadistribucion = -1; string lPrioridad = "";
             if (DatosOKParaGrabar("NA") == true)
             {
                 string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lIdAveria = "";
@@ -937,10 +938,18 @@ namespace Metalurgica.Maquinas
                 lTexto = Tx_TextoAveria.Text.Replace("\n", Environment.NewLine);
 
                 if (Rb_Detenida.Checked == true)
+                {
                     EstadoMaq = "DET";
+                    lPrioridad = "ALTA";
+                }
+
 
                 if (this.Rb_Operativa.Checked == true)
+                {
+                    lPrioridad = "BAJA";
                     EstadoMaq = "OP";
+                }
+                   
                 
 
                 lSql = string.Concat("exec SP_CRUD_NOTIFICACION_AVERIA ", lCom.Val(Tx_Id.Text), ",", CmbOperador.SelectedValue);
@@ -950,7 +959,7 @@ namespace Metalurgica.Maquinas
                 {
                     lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
                     //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
-                    lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria);
+                    lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria, lPrioridad);
                     lTitulo = "Notificación por Notificación de Averias: ";
 
 

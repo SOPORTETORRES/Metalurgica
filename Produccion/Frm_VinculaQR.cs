@@ -256,5 +256,10 @@ namespace Metalurgica.Produccion
                 this.Tx_etiquetaQR_Validating(null, null);
             }
         }
+
+        private void Tx_etiquetaQR_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
