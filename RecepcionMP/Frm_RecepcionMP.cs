@@ -807,20 +807,12 @@ namespace Metalurgica.RecepcionMP
                     if (lPartes[j].ToString().Length > 0)
                     {
                         // Eliminamos las etiquetas que no han sido grabadas
-                        lSql = string.Concat(" delete from etiquetaAza where id=", lCom.Val(lPartes[j].ToString ()));
+                        lSql = string.Concat(" delete from etiquetaAza where id=", lCom.Val(lPartes[j].ToString ()), " and grabada='N'");
                         lDal.ObtenerDatos(lSql);
-                        //lObjDet = new WsOperacion.Detalle_Recepcion_MP();
-                        //lObjDet.CodMaterial = lTblFinal.Rows[i]["Codigo"].ToString().Trim();
-                        //lObjDet.IdEtiquetaAza = lPartes[j].ToString();
-                        //lObjDet.IdRecepcionMP = 0;
-                        //lObjDet.Kgs = lCom.Val(lTblFinal.Rows[i]["Kilos Oc"].ToString().Trim());
-                        //lObjDet.FechaEntrega_OC = lTblFinal.Rows[i]["Fecha de entrega"].ToString();
-
-                        //lDetalle[lCont] = lObjDet;
-                        //lCont = lCont + 1;
+                        
                     }
                 }
-                //lObj.Detalle =(Metalurgica.) lDetalle;
+
             }
         }
 

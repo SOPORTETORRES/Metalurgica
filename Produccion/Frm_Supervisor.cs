@@ -58,7 +58,7 @@ namespace Metalurgica.Produccion
 
                 //'Definimos nuestras credenciales para el unvio de emails a traves de Gmail
                 SmtpClient SClient = new SmtpClient();
-                SClient.Credentials = new System.Net.NetworkCredential("notificaciones@smtyo.cl", "ADM_OC.SSGT.2013");
+                SClient.Credentials = new System.Net.NetworkCredential("cubenotificacion@gmail.com", "cbnkfhxfmoxthxsq");
                 SClient.Host = "smtp.gmail.com";  //'Servidor SMTP de Gmail
                 SClient.Port = 587; // 'Puerto del SMTP de Gmail
                 SClient.EnableSsl = true; // 'Habilita el SSL, necesio en Gmail

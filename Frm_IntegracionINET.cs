@@ -17,36 +17,36 @@ namespace Metalurgica
 {
     public partial class Frm_IntegracionINET : Form
     {
-        private string  mViajesCargados=  "";
-    private int  mIdObra  = 0;
-    private int mIdDespachoCamion = 0;
-    private int mKilosCargados  = 0;
-    private int mTotalCosto  = 0;
-    private string  mMOVNUMDOC  = "0";
-    
-    private string mMsgEjecucionWs = "";
-    private bool  mWSIntegracionGuiaOK  = true;
-    private bool  mWSEntradaStockOK = true;
+        private string mViajesCargados = "";
+        private int mIdObra = 0;
+        private int mIdDespachoCamion = 0;
+        private int mKilosCargados = 0;
+        private int mTotalCosto = 0;
+        private string mMOVNUMDOC = "0";
 
-    private  string mCodigoINET="";
-    private string mCodigoGuiaINET="";
-    private int mprecioRef =0;
-    private int   mTotalNeto =0;
-    private int   mPrecioCostoKilo=0;
-    private string  mSucursal  = "";
-    private string  mCodigoBodega = "";
-    private string mCodigoBodegaEntrada = "";
-    private string  mCodigoSucursal_INET = "";
-    private string mTransportista  = "";
-    private string mpatenteCamion = "";
-    private string  mNombreObra  = "";
-    private string mRutObra = "";
-    private string mPatenteCamion = "";
-    private int mPrecioRef = 0;
-    //private int mPrecioCostoKilo = 0;
-    private bool mAgregaColumna = true;
-    private string  mIdObraSel = "";
-    private string mSucursalTO = "";
+        private string mMsgEjecucionWs = "";
+        private bool mWSIntegracionGuiaOK = true;
+        private bool mWSEntradaStockOK = true;
+
+        private string mCodigoINET = "";
+        private string mCodigoGuiaINET = "";
+        private int mprecioRef = 0;
+        private int mTotalNeto = 0;
+        private int mPrecioCostoKilo = 0;
+        private string mSucursal = "";
+        private string mCodigoBodega = "";
+        private string mCodigoBodegaEntrada = "";
+        private string mCodigoSucursal_INET = "";
+        private string mTransportista = "";
+        private string mpatenteCamion = "";
+        private string mNombreObra = "";
+        private string mRutObra = "";
+        private string mPatenteCamion = "";
+        private int mPrecioRef = 0;
+        //private int mPrecioCostoKilo = 0;
+        private bool mAgregaColumna = true;
+        private string mIdObraSel = "";
+        private string mSucursalTO = "";
         private string mEmpresa = "";
         private string mSoloCamionesBascula = "";
 
@@ -57,26 +57,48 @@ namespace Metalurgica
 
         private void Frm_IntegracionINET_Load(object sender, EventArgs e)
         {
-           
+
         }
 
-        public void IniciaForm(string iEmpresa ,string iSoloCamionEnBascula)
+        public void IniciaForm(string iEmpresa, string iSoloCamionEnBascula)
         {
             mEmpresa = iEmpresa;
             mSoloCamionesBascula = ConfigurationManager.AppSettings["SoloCamionesBascula"].ToString(); ;
             mSucursalTO = ConfigurationManager.AppSettings["Sucursal"].ToString();
-            CargaCamiones(mSucursalTO , mEmpresa,mSoloCamionesBascula);
-            Lbl_titulo.Text = string.Concat ("Este Formulario muestra la información de despacho de la empresa ",mEmpresa .ToUpper ());
-
+            CargaCamiones(mSucursalTO, mEmpresa, mSoloCamionesBascula);
+            Lbl_titulo.Text = string.Concat("Este Formulario muestra la información de despacho de la empresa ", mEmpresa.ToUpper());
+            CargaSucursal();
         }
 
+        private void CargaSucursal()
+        {
+            DataTable lTbl = new DataTable(); DataRow lFila = null; string lEmpresa = "";
+            lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
+            if ((mSucursalTO.ToUpper().Equals("SANTIAGO")) && (lEmpresa.ToUpper().Equals("TO")))
+            {
+                lTbl.Columns.Add("Sucursal");
+
+                lFila = lTbl.NewRow();
+                lFila["Sucursal"] = "Santiago";
+                lTbl.Rows.Add(lFila);
+                lFila = lTbl.NewRow();
+                lFila["Sucursal"] = "Bodega FE Punta LC";
+                lTbl.Rows.Add(lFila);
+
+                new Forms().comboBoxFill(Cmb_Sucursal, lTbl, "Sucursal", "Sucursal", 0);
+                label9.Visible = true;
+                Cmb_Sucursal.Visible = true;
+                btn_Ir.Visible = true;
+            }
+
+        }
         public void AgregaColumnaCheck()
         {
 
 
             DataGridViewCheckBoxColumn colcheckBox = new DataGridViewCheckBoxColumn();
             //        Dgt_Piezas.Columns.Insert(0, colcheckBox)
-            this.Dtg_Camiones .Columns.Insert(0, colcheckBox);
+            this.Dtg_Camiones.Columns.Insert(0, colcheckBox);
             colcheckBox.HeaderText = "Sel";
             colcheckBox.Name = "Sel";
             colcheckBox.Width = 50;
@@ -84,65 +106,47 @@ namespace Metalurgica
         }
 
         private void CargaCamiones(string lSucursalTO, string lEmpresa, string lBascula)
-    {
-        Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
-        DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();string lTmp="";
-        DataTable lTbl2 = new DataTable(); int j = 0; string lStrLlave = ""; string lPatente = "";
-        TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0; string lPar1="";
-        //string lEmpresa = "";
-
-        //Create PROCEDURE [dbo].[SP_Consultas_FacturacionPorCamion]
-        //@Opcion INT,          //@Par1 Varchar(100),       //@Par2 Varchar(100),
-        //@Par3 Varchar(150),   //@Par4 Varchar(100),       //@Par5 Varchar(100),
-        //@Par6 Varchar(100),   //@Par7 Varchar(100)
-
-      
-        //lEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
-
-
-        //if (lEmpresa.ToUpper().Equals("TO"))
-        //{
-        //    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", mSucursalTO, "','','','','','',''");
-        //}
-        //else
-        //{
-        //    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 8,'", lEmpresa, "','','','','','',''");
-        //}
-
-            lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", mSucursalTO, "','','','','','',''");
-            lDts =lPx .ObtenerDatos (lSql);
-        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
         {
-            lTbl = lDts.Tables[0].Copy();
-            Dtg_Camiones.DataSource = lTbl;
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
+            DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable(); string lTmp = "";
+            DataTable lTbl2 = new DataTable(); int j = 0; string lStrLlave = ""; string lPatente = "";
+            TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0; string lPar1 = "";
+            //string lEmpresa = "";
 
-              //'Prepara la carga del árbol
-              this.TR_Arbol.BeginUpdate();
-               TR_Arbol.Nodes.Clear();
-               for (i = 0; i < lTbl.Rows.Count ; i++)
-               { 
-                   lTmp=string .Concat(lTbl.Rows[i]["Fecha"].ToString() , " (" ,lTbl.Rows[i]["Kilos"].ToString() ,")");
-                   lNodo = new TreeNode(lTmp);
-                   lNodo.Name = "FECHA";
-                 //  lNodo = new TreeNode(lTmp);
-                   lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lTbl.Rows[i]["Fecha"].ToString(), "','", mSucursalTO, "','','','','',''");
-                    lDts=lPx .ObtenerDatos (lSql);
+            lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", lSucursalTO, "','','','','','',''");
+            lDts = lPx.ObtenerDatos(lSql);
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTbl = lDts.Tables[0].Copy();
+                Dtg_Camiones.DataSource = lTbl;
+
+                //'Prepara la carga del árbol
+                this.TR_Arbol.BeginUpdate();
+                TR_Arbol.Nodes.Clear();
+                for (i = 0; i < lTbl.Rows.Count; i++)
+                {
+                    lTmp = string.Concat(lTbl.Rows[i]["Fecha"].ToString(), " (", lTbl.Rows[i]["Kilos"].ToString(), ")");
+                    lNodo = new TreeNode(lTmp);
+                    lNodo.Name = "FECHA";
+                    //  lNodo = new TreeNode(lTmp);
+                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lTbl.Rows[i]["Fecha"].ToString(), "','", mSucursalTO, "','','','','',''");
+                    lDts = lPx.ObtenerDatos(lSql);
                     if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                     {
                         lTbl2 = lDts.Tables[0].Copy();
                         lStrLlave = "";
-                        for (j = 0; j < lTbl2.Rows.Count ; j++)
+                        for (j = 0; j < lTbl2.Rows.Count; j++)
                         {
-                            lPatente = lTbl2.Rows[j]["Patente"].ToString();                            
+                            lPatente = lTbl2.Rows[j]["Patente"].ToString();
                             if (lStrLlave.IndexOf(lPatente) < 0)
-                            {                                
+                            {
                                 lStrLlave = string.Concat(lStrLlave, lPatente, "|");
-                                lVista = new DataView(lTbl2, string.Concat ("Patente='" , lPatente , "'"), "", DataViewRowState.CurrentRows);
+                                lVista = new DataView(lTbl2, string.Concat("Patente='", lPatente, "'"), "", DataViewRowState.CurrentRows);
                                 if (lVista.Count > 0)
                                 {
-                                    for (k = 0; k < lVista.Count ; k++)
+                                    for (k = 0; k < lVista.Count; k++)
                                     {
-                                        lKilos = lKilos + int.Parse(lVista[k]["Kilos"].ToString());                                        
+                                        lKilos = lKilos + int.Parse(lVista[k]["Kilos"].ToString());
                                     }
                                 }
                                 lNodo2 = new TreeNode(string.Concat(lPatente, " (", lKilos.ToString(), ")"));
@@ -151,8 +155,8 @@ namespace Metalurgica
                                 {
                                     for (k = 0; k < lVista.Count; k++)
                                     {
-                                        lNodo2.Nodes.Add(string.Concat(lVista[k]["Codigo"].ToString(), " (",lVista[k]["Kilos"].ToString(),")" ));
-                                        
+                                        lNodo2.Nodes.Add(string.Concat(lVista[k]["Codigo"].ToString(), " (", lVista[k]["Kilos"].ToString(), ")"));
+
                                         lNodo2.Nodes[0].ImageIndex = 0;
                                     }
                                 }
@@ -160,33 +164,33 @@ namespace Metalurgica
                                 lNodo.Nodes[0].ImageIndex = 2;
                                 lKilos = 0;
                             }
-                        }                        
+                        }
                     }
                     TR_Arbol.Nodes.Add(lNodo);
                     TR_Arbol.Nodes[0].ImageIndex = 1;
 
-               }
+                }
 
-               TR_Arbol.EndUpdate();
-               TR_Arbol.CollapseAll ();
+                TR_Arbol.EndUpdate();
+                TR_Arbol.CollapseAll();
+            }
+
         }
-    
-    }
 
         private void TR_Arbol_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Name.ToUpper().Equals("FECHA"))
-                CargaDetalleNodo(e.Node.FullPath.ToString(), "F", mSucursalTO); 
+                CargaDetalleNodo(e.Node.FullPath.ToString(), "F", mSucursalTO);
 
             if (e.Node.Name.ToUpper().Equals("PATENTE"))
-                CargaDetalleNodo(e.Node.FullPath.ToString(), "P", mSucursalTO); 
+                CargaDetalleNodo(e.Node.FullPath.ToString(), "P", mSucursalTO);
 
         }
 
-        private string ValidaIntegracionINET(string iPatente )
+        private string ValidaIntegracionINET(string iPatente)
         {
-            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); 
-            DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();  
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+            DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable();
             string lRes = "";
             //Si la variable de configuración  SoloCamionesBascula esta en S
             // al momento de despachar el camión este deberia haber sido pesada la tara
@@ -210,9 +214,9 @@ namespace Metalurgica
             {
                 //Si la variable no esta activada, no se debe validar nada 
                 lRes = "OK";
-                Btn_INET.Enabled = true ;
+                Btn_INET.Enabled = true;
             }
-            
+
             return lRes;
 
         }
@@ -221,56 +225,56 @@ namespace Metalurgica
         {
             string[] split = iTextNodo.Split(new Char[] { '\\' });
             string lFecha = ""; string lPatente = ""; string[] lPartes = null; int i = 0;
-            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();   DataSet lDts = new DataSet(); 
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
 
             string lSql = "";
             Btn_INET.Enabled = false;
-          
-                switch (iTipo)
+
+            switch (iTipo)
+            {
+                case "P":
+                    lPartes = split[0].Split(new Char[] { '(' });
+                    lFecha = lPartes[0].ToString().Trim();
+                    lPartes = split[1].Split(new Char[] { '(' });
+                    lPatente = lPartes[0].ToString().Trim();
+                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 3,'", lFecha, "','", lPatente, "','", iSucursal, "','','','',''");
+
+                    Btn_INET.Enabled = true;
+                    break;
+                case "F":
+                    lPartes = split[0].Split(new Char[] { '(' });
+                    lFecha = lPartes[0].ToString().Trim();
+                    lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lFecha, "','','','','','',''");
+                    break;
+
+            }
+            if (lSql.Trim().Length > 0)
+            {
+                lDts = lPx.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                 {
-                    case "P":
-                        lPartes = split[0].Split(new Char[] { '(' });
-                        lFecha = lPartes[0].ToString().Trim();
-                        lPartes = split[1].Split(new Char[] { '(' });
-                        lPatente = lPartes[0].ToString().Trim();
-                        lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 3,'", lFecha, "','", lPatente, "','", iSucursal, "','','','',''");
-
-                        Btn_INET.Enabled = true;
-                        break;
-                    case "F":
-                        lPartes = split[0].Split(new Char[] { '(' });
-                        lFecha = lPartes[0].ToString().Trim();
-                        lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 2,'", lFecha, "','','','','','',''");
-                        break;
-
+                    Dtg_Camiones.DataSource = lDts.Tables[0].Copy();
                 }
-                if (lSql.Trim().Length > 0)
+            }
+            if (mAgregaColumna == true)
+                AgregaColumnaCheck();
+
+
+            if (iTipo == "P")
+            {
+                //formateamos la grilla
+                Dtg_Camiones.Columns[0].Width = 60;
+                Dtg_Camiones.Columns[2].Width = 60;
+                Dtg_Camiones.Columns[3].Width = 250;
+                Dtg_Camiones.Columns[4].Width = 80;
+                Dtg_Camiones.Columns[5].Width = 60;
+
+                for (i = 0; i < Dtg_Camiones.RowCount; i++)
                 {
-                    lDts = lPx.ObtenerDatos(lSql);
-                    if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
-                    {
-                        Dtg_Camiones.DataSource = lDts.Tables[0].Copy();
-                    }
+                    PintaGrilla(i, Dtg_Camiones.Rows[i].Cells["TipoGuiaINET"].Value.ToString());
                 }
-                if (mAgregaColumna == true)
-                    AgregaColumnaCheck();
+            }
 
-
-                if (iTipo == "P")
-                {
-                    //formateamos la grilla
-                    Dtg_Camiones.Columns[0].Width = 60;
-                    Dtg_Camiones.Columns[2].Width = 60;
-                    Dtg_Camiones.Columns[3].Width = 250;
-                    Dtg_Camiones.Columns[4].Width = 80;
-                    Dtg_Camiones.Columns[5].Width = 60;
-
-                    for (i = 0; i < Dtg_Camiones.RowCount; i++)
-                    {
-                        PintaGrilla(i, Dtg_Camiones.Rows[i].Cells["TipoGuiaINET"].Value.ToString());
-                    }
-                }
-          
             Tx_Fecha.Text = lFecha;
             Tx_Patente.Text = lPatente;
             string lValidacionINET = ValidaIntegracionINET(Tx_Patente.Text);
@@ -289,7 +293,7 @@ namespace Metalurgica
         {
             Color lColor = Color.Black;
 
-            
+
             if (iTipo.ToUpper().Equals("R"))
                 lColor = Color.Yellow;
 
@@ -297,7 +301,15 @@ namespace Metalurgica
                 lColor = Color.LightGreen;
 
             if (iTipo.ToUpper().Equals("FE"))
-                lColor = Color.LightSalmon ;
+                lColor = Color.LightSalmon;
+
+            if (iTipo.ToUpper().Equals("LC"))
+                lColor = Color.LightSalmon;
+
+            if (iTipo.ToUpper().Equals("FC"))
+                lColor = Color.LightSalmon;
+
+            // if ((lPartes[j].ToUpper().Equals("FE")) || ((lPartes[j].ToUpper().Equals("FC"))) || ((lPartes[j].ToUpper().Equals("LC"))))
 
             int i = 0;
 
@@ -311,11 +323,11 @@ namespace Metalurgica
         private void Btn_INET_Click(object sender, EventArgs e)
         {
             int i = 0; string lSQl = ""; int lRespINET = 0; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); int j = 0;
-            
-            Integracion_INET.Tipo_InvocaWS lRes= new  Integracion_INET.Tipo_InvocaWS();  int TotalKgs = 0; int NroIT = 0;
+            string[] lPartes;
+            Integracion_INET.Tipo_InvocaWS lRes = new Integracion_INET.Tipo_InvocaWS(); int TotalKgs = 0; int NroIT = 0;
             string lDespachosCam = ""; string lViajes = ""; List<Tipo_GuiaOC> lListaOC = new List<Tipo_GuiaOC>();
-            Btn_INET.Enabled = false;int NroGuiasCreadas = 0;
-          
+            Btn_INET.Enabled = false; int NroGuiasCreadas = 0;
+
             if (ValidaDatos() == true)
             {
                 foreach (DataGridViewRow lRow in this.Dtg_Camiones.Rows)
@@ -325,32 +337,32 @@ namespace Metalurgica
                         {
                             TotalKgs = TotalKgs + int.Parse(lRow.Cells["Kilos"].Value.ToString());
                             NroIT = NroIT + 1;
-                            
+
                         }
                 }
                 if (MessageBox.Show(string.Concat("¿Esta Seguro que desea realizar la generación de  la guía de depacho por ", TotalKgs, " kilos,  para el camión ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (TotalKgs>0)   //(lDespachosCam.Length > 2)
+                    if (TotalKgs > 0)   //(lDespachosCam.Length > 2)
                     {
                         //el objeto lListaOC entrega solo VIajes con un numero de OC, con lo cual las guias de reposición NO TENDRAN UNA OC
                         // Los viajes con Nro de OC pueden tener codigo de guia 330 Facturable, 333 facturable FE en punta
-                       lListaOC= ObtenerGuiasPorOC();
+                        lListaOC = ObtenerGuiasPorOC();
                         //MessageBox.Show("Despues de Obtener lListaOC");
-                       for (i = 0; i < lListaOC.Count; i++)
-                       {
-                           lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
-                           lViajes = lListaOC[i].Viajes ;  //lViajes.Substring(0, lViajes.Length - 1);
-                           lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes, lListaOC[i].CodigoGuiaINET);
-                           lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
-                           string[] lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
-                           for (j = 0; j < lPartes.Length; j++)
-                           {
-                               lIdDespacho = Obtener_IdDespacho(lPartes[j].ToString());
-                               lSQl = string.Concat(" Update viaje set IdRespuestaINET=", lRespINET, ", patente='", Tx_Patente.Text, "', IdDespachoCamion=", lIdDespacho);
-                               lSQl = string.Concat(lSQl, ", IdLogWsINET=", lRes.Id, " where Codigo='", lPartes[j].ToString(), "'");
-                               lDal.ObtenerDatos(lSQl);
-                           }
-                       }
+                        for (i = 0; i < lListaOC.Count; i++)
+                        {
+                            lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);mSucursalTO
+                            lViajes = lListaOC[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
+                            lRes = InvocaWS_INET(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes, lListaOC[i].CodigoGuiaINET);
+                            lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
+                              lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
+                            for (j = 0; j < lPartes.Length; j++)
+                            {
+                                lIdDespacho = Obtener_IdDespacho(lPartes[j].ToString());
+                                lSQl = string.Concat(" Update viaje set IdRespuestaINET=", lRespINET, ", patente='", Tx_Patente.Text, "', IdDespachoCamion=", lIdDespacho);
+                                lSQl = string.Concat(lSQl, ", IdLogWsINET=", lRes.Id, " where Codigo='", lPartes[j].ToString(), "'");
+                                lDal.ObtenerDatos(lSQl);
+                            }
+                        }
                         NroGuiasCreadas = lListaOC.Count;
                         //*************************************************************************************************************************
                         //Ahora revisamos las guias de reposición
@@ -362,7 +374,7 @@ namespace Metalurgica
                             lViajes = lListaOC[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
                             lRes = InvocaWS_INET_Reposicion(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes);
                             lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
-                            string[] lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
+                             lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
                             for (j = 0; j < lPartes.Length; j++)
                             {
                                 lIdDespacho = Obtener_IdDespacho(lPartes[j].ToString());
@@ -371,7 +383,7 @@ namespace Metalurgica
                                 lDal.ObtenerDatos(lSQl);
                             }
                         }
-                        NroGuiasCreadas = NroGuiasCreadas+ lListaOC.Count;
+                        NroGuiasCreadas = NroGuiasCreadas + lListaOC.Count;
                         //*************************************************************************************************************************
 
                         MessageBox.Show(string.Concat("Se han Creado ", NroGuiasCreadas, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -393,8 +405,34 @@ namespace Metalurgica
             lSQl = string.Concat(" SP_CRUD_PesajeCamion 0,'", Tx_Patente.Text, "',0,'',0,0,'',0,0,'',0,11 ");
             lDal.ObtenerDatos(lSQl);
             //********************************************************************************
-            Btn_INET.Enabled = true ;
-            CargaCamiones(mSucursalTO ,mEmpresa , mSoloCamionesBascula);
+            Btn_INET.Enabled = true;
+            CargaCamiones(mSucursalTO, mEmpresa, mSoloCamionesBascula);
+            // *************************
+            //  Imprimimos los PL Despacho
+            //DataSet lDts = new DataSet();string lIdIt = ""; string IdObra = ""; string IdUser = "";
+            //  lPartes =     lViajes.Split(new Char[] { ',' });
+            //try
+            //{
+            //    for (i = 0; i < lPartes.Length; i++)
+            //    {
+            //        lSQl = string.Concat(" Select  v.idIt , it.idObra  from viaje v, it  where v.idit=it.id and codigo='", lPartes[i].ToString(), "'");
+            //        lDts = lDal.ObtenerDatos(lSQl);
+            //        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            //        {
+            //            lIdIt = lDts.Tables[0].Rows[0]["idIt"].ToString();
+            //            IdObra = lDts.Tables[0].Rows[0]["idObra"].ToString();
+            //            ImprimeViajeDespachado(lIdIt, lPartes[i].ToString(), IdObra, "2");
+            //        }
+            //    }
+            //}
+            //catch (Exception iex)
+            //{
+
+            //}
+
+
+
+
         }
 
 
@@ -402,16 +440,24 @@ namespace Metalurgica
 
         #region Impresion de Informes
 
-        private void ImprimeDocumentos()
+       private void  ImprimeViajeDespachado(string  IdIt , string  iCodViaje , string  IdObra, string iUser )
+      {
+            //ObraCivil.Frm_ImprimirPL lFrm = new ObraCivil.Frm_ImprimirPL();
+            //lFrm.ImprimeViajeDespacho(IdIt, iCodViaje, iUser, IdObra);
+
+        }
+
+
+        private void ImprimeDocumentos(string iViaje )
         {
             //1.- primero Resumen Despacho
            // ImprimeResumenDespacho(false);
 
             //2.- los PL Despachados de cada viaje
-            ImprimirInforme("HCO-1064/1", true);
+            //ImprimirInforme("HSG-896/1", true);
+            ImprimirInforme(iViaje, true);
             //3.- Unimos los Archivos en uno 
-            TerminaProceso();
-
+            TerminaProceso(iViaje);
 
         }
 
@@ -431,27 +477,48 @@ namespace Metalurgica
             }
             return  lTbl;
         }
-        private void TerminaProceso()
+        private void TerminaProceso(string iViaje )
         {
-            string lPathArchivo = string.Concat("C:\\Informes\\TMP\\");
+            string lPathArchivo = string.Concat("C:\\TMP\\Logistica\\ImpresionPL\\HSG\\");
             Clases.ClsComun lCom = new Clases.ClsComun(); string lImp = "";int i = 0;
-            string lres = ""; DataTable lTblImp = new DataTable();
-            lres = lCom.UnirOdf(lPathArchivo);
+            string lres = ""; DataTable lTblImp = new DataTable(); string[] separators = { "-" };
+            string lPathBase = ConfigurationManager.AppSettings["PathPdf"].ToString();
+
+            string[] lPartes = iViaje.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            if (lPartes.Length > 1)
+            {
+                lPathArchivo = string.Concat(lPathBase, lPartes[0], "\\");
+                if (Directory.Exists(lPathArchivo) == false)
+                {
+                    Directory.CreateDirectory(lPathArchivo);
+                }
+            }
+                lres = lCom.UnirOdf(lPathArchivo);
 
             //Aqui debemos enviar a imprimir el archivo a la impresora indicada.
-            lTblImp = ImpresorasInstaladas();
-            for (i = 0; i < lTblImp.Rows.Count; i++)
-            {
-                lImp = string.Concat(lImp, lTblImp.Rows[i]["impresora"].ToString(), " - ");
-
-            }
+            //lTblImp = ImpresorasInstaladas();
+            //for (i = 0; i < lTblImp.Rows.Count; i++)
+            //{
+            //    lImp = string.Concat(lImp, lTblImp.Rows[i]["impresora"].ToString(), " - ");
+            //}
            
 
             SendToPrinter(lres);
 
-          //  MessageBox.Show(lImp);
+            if (File.Exists(lres) == true)
+                File.Delete(lres);
 
-        }
+            DirectoryInfo di = new DirectoryInfo(lPathArchivo);
+            foreach (var fi in di.GetFiles())
+            {
+                lImp = string.Concat(lPathArchivo, fi.ToString());
+                if (File.Exists(lImp) == true )
+                    File.Delete(lImp);
+            }
+
+                //  MessageBox.Show(lImp);
+
+            }
 
         private void SendToPrinter(string iPath)
         {
@@ -812,8 +879,12 @@ namespace Metalurgica
                             {
                                 lVista[0]["IdIt"] = string.Concat (lVista[0]["IdIt"] , ",",lListas[j].IdIt);
                                 lVista[0]["Viajes"] = string.Concat(lVista[0]["Viajes"], ",", lListas[j].Viajes );
-                                lVista[0]["DespachoCamion"] = string.Concat(lVista[0]["DespachoCamion"], ",", lListas[j].DespachosCamion);
-                                lVista[0]["TipoGuia_INET"] = string.Concat(lVista[0]["TipoGuia_INET"], ",", lListas[j].CodigoGuiaINET) ; 
+                                //if (lVista[0]["DespachoCamion"].ToString ().IndexOf(lListas[j].DespachosCamion.ToString ()) ==-1)
+                                    lVista[0]["DespachoCamion"] = string.Concat(lVista[0]["DespachoCamion"], ",", lListas[j].DespachosCamion);
+
+                                //if (lVista[0]["TipoGuia_INET"].ToString().IndexOf(lListas[j].CodigoGuiaINET.ToString()) == -1)
+                                    lVista[0]["TipoGuia_INET"] = string.Concat(lVista[0]["TipoGuia_INET"], ",", lListas[j].CodigoGuiaINET) ; 
+
                                 lListas[j].OC = "";
                             }
                         }
@@ -843,7 +914,7 @@ namespace Metalurgica
                                 lGuiaOC_F.CodigoGuiaINET = string.Concat(lPartes [j].ToString(), ",", lGuiaOC_F.CodigoGuiaINET);
                             }
 
-                            if (lPartes[j].ToUpper().Equals("FE"))
+                            if ((lPartes[j].ToUpper().Equals("FE")) || ((lPartes[j].ToUpper().Equals("FC"))) || ((lPartes[j].ToUpper().Equals("LC"))))
                             {
                                 lGuiaOC_FE.OC = lTbl.Rows[i]["OC"].ToString();
                                 lGuiaOC_FE.IdIt = string.Concat(lPartesIdIT[j].ToString(),",", lGuiaOC_FE.IdIt);
@@ -1730,9 +1801,7 @@ namespace Metalurgica
 
          private Integracion_INET.Tipo_InvocaWS InvocaWS_INET(string ipatente, string iFecha, string IdObra, string lDespachosCam, string lViajes, string lTipoGuiaINET)
         {        
-            //Tipo_InvocaWS  lResultado = new Tipo_InvocaWS ();
-            //Tipo_DocVentaExt lImputObj=new Tipo_DocVentaExt ();
-               //StringWriter  strDataXml =new StringWriter ();
+           
             Integracion_INET.Cls_LN lIntegra = new Integracion_INET.Cls_LN(); 
          WsCrud .CrudSoapClient  lDAl =new WsCrud.CrudSoapClient() ;
             WsCrud .ListaDataSet lDts=new WsCrud.ListaDataSet ();
@@ -2003,12 +2072,24 @@ namespace Metalurgica
         {
             //ImprimeResumenDespacho(false);
 
-            ImprimeDocumentos();
+            ImprimeDocumentos("HSG-896/1");
         }
 
         private void PDoc_PrintPage(object sender, PrintPageEventArgs e)
         {
             String m = "";
+        }
+
+        private void Cmb_Sucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (Cmb_Sucursal .SelectedValue !=null)
+            //    CargaCamiones(Cmb_Sucursal.SelectedValue.ToString (), mEmpresa, mSoloCamionesBascula);
+        }
+
+        private void btn_Ir_Click(object sender, EventArgs e)
+        {
+            CargaCamiones(Cmb_Sucursal.SelectedValue.ToString(), mEmpresa, mSoloCamionesBascula);
+
         }
     }
 }

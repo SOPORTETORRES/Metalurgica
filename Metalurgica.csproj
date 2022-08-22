@@ -404,6 +404,12 @@
     <Compile Include="Maquinas\Frm_ElementosProduccion.Designer.cs">
       <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Maquinas\Frm_IngresoRepuestos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maquinas\Frm_IngresoRepuestos.Designer.cs">
+      <DependentUpon>Frm_IngresoRepuestos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Maquinas\Frm_MtoMaquina.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -566,6 +572,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pruebas\Frm_FichaObra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pruebas\Frm_FichaObra.Designer.cs">
+      <DependentUpon>Frm_FichaObra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pruebas\Frm_Impresion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -713,6 +725,7 @@
     </Compile>
     <EmbeddedResource Include="Bascula\Frm_AutorizaDespacho.resx">
       <DependentUpon>Frm_AutorizaDespacho.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Bascula\Frm_CargaBasculaMovil.resx">
       <DependentUpon>Frm_CargaBasculaMovil.cs</DependentUpon>
@@ -847,6 +860,9 @@
     <EmbeddedResource Include="Maquinas\Frm_ElementosProduccion.resx">
       <DependentUpon>Frm_ElementosProduccion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Maquinas\Frm_IngresoRepuestos.resx">
+      <DependentUpon>Frm_IngresoRepuestos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maquinas\Frm_MtoMaquina.resx">
       <DependentUpon>Frm_MtoMaquina.cs</DependentUpon>
     </EmbeddedResource>
@@ -914,6 +930,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Pruebas\Frm_FichaObra.resx">
+      <DependentUpon>Frm_FichaObra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pruebas\Frm_Impresion.resx">
       <DependentUpon>Frm_Impresion.cs</DependentUpon>
     </EmbeddedResource>

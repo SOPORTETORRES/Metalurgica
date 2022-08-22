@@ -404,7 +404,7 @@ namespace Metalurgica.MultiMaquina
                 Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina5.Text, " - ", Btn_Maquina5.Tag.ToString());
                 mIdMaqSel = Btn_Maquina5.Tag.ToString();
                 mNombre_MaqSel = Btn_Maquina5.Text;
-                Btn_MaquinaActiva.Tag = Btn_Maquina1.Tag;
+                Btn_MaquinaActiva.Tag = Btn_Maquina5.Tag;
                 string lMsg = "La Máquina Seleccionada se encuentra Bloqueda por  Averia.  No se puede Registrar la Producción. ";
                 lMsg = string.Concat(lMsg, Environment.NewLine, "¿ Desea Reparar/Desbloquear la Máquina Seleccionada?");
                 if (MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

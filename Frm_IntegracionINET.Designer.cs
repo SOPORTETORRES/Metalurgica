@@ -50,6 +50,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.PDoc = new System.Drawing.Printing.PrintDocument();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Cmb_Sucursal = new System.Windows.Forms.ComboBox();
+            this.btn_Ir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Camiones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -201,7 +204,7 @@
             // 
             // BTN_actualizarViaje
             // 
-            this.BTN_actualizarViaje.Location = new System.Drawing.Point(325, 61);
+            this.BTN_actualizarViaje.Location = new System.Drawing.Point(591, 12);
             this.BTN_actualizarViaje.Name = "BTN_actualizarViaje";
             this.BTN_actualizarViaje.Size = new System.Drawing.Size(180, 22);
             this.BTN_actualizarViaje.TabIndex = 13;
@@ -259,18 +262,51 @@
             this.button1.TabIndex = 18;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // PDoc
             // 
             this.PDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.PDoc_PrintPage);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(340, 79);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Seleccione Sucursal";
+            this.label9.Visible = false;
+            // 
+            // Cmb_Sucursal
+            // 
+            this.Cmb_Sucursal.FormattingEnabled = true;
+            this.Cmb_Sucursal.Location = new System.Drawing.Point(325, 96);
+            this.Cmb_Sucursal.Name = "Cmb_Sucursal";
+            this.Cmb_Sucursal.Size = new System.Drawing.Size(147, 21);
+            this.Cmb_Sucursal.TabIndex = 20;
+            this.Cmb_Sucursal.Visible = false;
+            this.Cmb_Sucursal.SelectedIndexChanged += new System.EventHandler(this.Cmb_Sucursal_SelectedIndexChanged);
+            // 
+            // btn_Ir
+            // 
+            this.btn_Ir.Location = new System.Drawing.Point(482, 93);
+            this.btn_Ir.Name = "btn_Ir";
+            this.btn_Ir.Size = new System.Drawing.Size(27, 23);
+            this.btn_Ir.TabIndex = 21;
+            this.btn_Ir.Text = "Ir";
+            this.btn_Ir.UseVisualStyleBackColor = true;
+            this.btn_Ir.Visible = false;
+            this.btn_Ir.Click += new System.EventHandler(this.btn_Ir_Click);
+            // 
             // Frm_IntegracionINET
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 560);
+            this.Controls.Add(this.btn_Ir);
+            this.Controls.Add(this.Cmb_Sucursal);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -321,5 +357,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
         private System.Drawing.Printing.PrintDocument PDoc;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox Cmb_Sucursal;
+        private System.Windows.Forms.Button btn_Ir;
     }
 }

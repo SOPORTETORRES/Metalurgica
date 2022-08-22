@@ -612,6 +612,25 @@ namespace Metalurgica
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            //string textoAveria = "QUEDAN 3 FIERROS APRETADOS EN EL SECTOR DEL CUCHILLO";
+            //Maquinas.Frm_IngresoRepuestos Frm = new Maquinas.Frm_IngresoRepuestos();
+            //Frm.inicializar("8424", textoAveria, "442", "4", "10");
+            //Frm.ShowDialog();
+
+            //'Probamos Cambio en GDE 
+            string iViajes = "";string iRespuesta = "";
+            Integracion_INET.Cls_LN lDal = new Integracion_INET.Cls_LN();
+            iViajes = "HBL-1582/1,HBL-1562/2,HBL-1563/2,HBL-1566/2,HBL-1567/2,HBL-1574/2,HBL-1568/2,HBL-1569/2,HBL-1570/2,HBL-1571/2,HBL-1577/2,HBL-1558/2,HBL-1559/2,HBL-1560/2,HBL-1554/2,HBL-1561/2,HBL-1552/2,HBL-1576/1,HBL-1575/1,HBL-1514/2,HBL-1530/2,HBL-1573/1,HBL-1540/1,HBL-1531/1";
+            iRespuesta = "<?xml version='1.0' encoding='utf-16'?>  <ExecuteResponse xmlns:xsi='http//www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>  ";
+            iRespuesta = String.Concat(iRespuesta, " <Xmlout>     <SDT_ERRORES_ERROR xmlns = 'http//www.informat.cl/ws' <> NUMERROR > 0</NUMERROR>    ");
+            iRespuesta = String.Concat(iRespuesta, "  <DESCERROR><SDT_RESP_PROCESO xmlns='http://www.informat.cl/ws'>  <NRO_DOC>0</NRO_DOC>  <CAJCOD>0</CAJCOD>   ");
+            iRespuesta = String.Concat(iRespuesta, "  	 <DOCCOD>363</DOCCOD>  <ATENUMREA>2777</ATENUMREA>  ");
+            iRespuesta = String.Concat(iRespuesta, "   <COD_ESTADO>0</COD_ESTADO>  <DSC_ESTADO>Pendiente</DSC_ESTADO>");
+            iRespuesta = String.Concat(iRespuesta, " <MOT_ESTADO/> </SDT_RESP_PROCESO> </DESCERROR>      </SDT_ERRORES_ERROR>    </Xmlout>  </ExecuteResponse> ");
+
+            lDal.GrabaDetalleViajes_GDE(iRespuesta, iViajes);
+
             //string lSucursal = ""; string lPar = "SG-295/1|15|Stgo|60";
             //Registry registry = new Registry();
             //lSucursal = (string)registry.GetValue(Program.regeditKeyName, "Sucursal", "");
@@ -648,8 +667,8 @@ namespace Metalurgica
 
             //MessageBox.Show("Termino la carga");
 
-            Tools.Frm_Tools lFrm = new Tools.Frm_Tools();
-            lFrm.ShowDialog();
+            //Tools.Frm_Tools lFrm = new Tools.Frm_Tools();
+            //lFrm.ShowDialog();
 
             //Tools.Frm_CorrigeKilos lFrm = new Tools.Frm_CorrigeKilos();
             //lFrm.ShowDialog();

@@ -1017,24 +1017,7 @@ namespace Metalurgica.Bascula
                     lColor = Color.Red;
             }
 
-            //if ((iTolCal < lTolSuperior) && (iTolCal > 0))   // Esta  entre 0 y 2 
-            //{
-            //    if ((iTolDesa < lTolSuperior) && (iTolDesa > 0))
-            //    {
-            //        lColor = Color.Yellow;
-            //        Btn_Grabar.Enabled = true;
-            //    }     
-            //}
 
-
-            //if ((iTolCal > lTolInferior) && (iTolCal < 0))   // Esta  entre 0 y  -2 
-            //{
-            //    if ((iTolDesa > lTolSuperior) && (iTolDesa > 0))
-            //    {
-            //        lColor = Color.Green;
-            //        Btn_Grabar.Enabled = true;
-            //    }
-            //}
                
 
             if ((iTolCal  == 0))   // Esta  entre 0 y  -2 

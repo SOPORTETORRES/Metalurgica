@@ -41,11 +41,11 @@
             this.Btn_A_Despacho = new System.Windows.Forms.Button();
             this.tabOperaciones = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgvEtiquetasPiezas = new System.Windows.Forms.DataGridView();
             this.panel7 = new System.Windows.Forms.Panel();
             this.Dtg_estadistica = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblCantidadEtiquetasPiezas = new System.Windows.Forms.Label();
-            this.dgvEtiquetasPiezas = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgvEtiquetasPiezasExcepciones = new System.Windows.Forms.DataGridView();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -118,10 +118,10 @@
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezas)).BeginInit();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_estadistica)).BeginInit();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezas)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezasExcepciones)).BeginInit();
             this.panel6.SuspendLayout();
@@ -269,6 +269,18 @@
             this.tabPage1.Text = "Piezas";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dgvEtiquetasPiezas
+            // 
+            this.dgvEtiquetasPiezas.AllowUserToAddRows = false;
+            this.dgvEtiquetasPiezas.AllowUserToDeleteRows = false;
+            this.dgvEtiquetasPiezas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEtiquetasPiezas.Location = new System.Drawing.Point(3, 3);
+            this.dgvEtiquetasPiezas.MultiSelect = false;
+            this.dgvEtiquetasPiezas.Name = "dgvEtiquetasPiezas";
+            this.dgvEtiquetasPiezas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1313, 314);
+            this.dgvEtiquetasPiezas.TabIndex = 0;
+            // 
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -306,18 +318,6 @@
             this.lblCantidadEtiquetasPiezas.Size = new System.Drawing.Size(69, 13);
             this.lblCantidadEtiquetasPiezas.TabIndex = 19;
             this.lblCantidadEtiquetasPiezas.Text = "Registro(s): 0";
-            // 
-            // dgvEtiquetasPiezas
-            // 
-            this.dgvEtiquetasPiezas.AllowUserToAddRows = false;
-            this.dgvEtiquetasPiezas.AllowUserToDeleteRows = false;
-            this.dgvEtiquetasPiezas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvEtiquetasPiezas.Location = new System.Drawing.Point(3, 3);
-            this.dgvEtiquetasPiezas.MultiSelect = false;
-            this.dgvEtiquetasPiezas.Name = "dgvEtiquetasPiezas";
-            this.dgvEtiquetasPiezas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1313, 314);
-            this.dgvEtiquetasPiezas.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -1011,6 +1011,7 @@
             this.Btn_Estadistica.TabIndex = 46;
             this.Btn_Estadistica.Text = "Estadisticas";
             this.Btn_Estadistica.UseVisualStyleBackColor = true;
+            this.Btn_Estadistica.Visible = false;
             this.Btn_Estadistica.Click += new System.EventHandler(this.Btn_Estadistica_Click_1);
             // 
             // ctlInformacionUsuario1
@@ -1040,11 +1041,11 @@
             this.panel4.PerformLayout();
             this.tabOperaciones.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezas)).EndInit();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_estadistica)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezas)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEtiquetasPiezasExcepciones)).EndInit();
             this.panel6.ResumeLayout(false);

@@ -33,6 +33,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Dtg_ResumenGuia = new System.Windows.Forms.DataGridView();
+            this.Btn_Verificar = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.Btn_Inicia = new System.Windows.Forms.Button();
             this.Btn_pruebas = new System.Windows.Forms.Button();
             this.Tx_INET = new System.Windows.Forms.TextBox();
@@ -40,10 +44,6 @@
             this.Tx_Mail = new System.Windows.Forms.TextBox();
             this.Tx_Grabar = new System.Windows.Forms.TextBox();
             this.Btn_Salir = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Btn_Verificar = new System.Windows.Forms.Button();
-            this.Dtg_ResumenGuia = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_ResumenGuia)).BeginInit();
             this.SuspendLayout();
@@ -104,16 +104,57 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(713, 505);
+            this.groupBox1.Size = new System.Drawing.Size(715, 505);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tareas Finales";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // Dtg_ResumenGuia
+            // 
+            this.Dtg_ResumenGuia.AllowUserToAddRows = false;
+            this.Dtg_ResumenGuia.AllowUserToDeleteRows = false;
+            this.Dtg_ResumenGuia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dtg_ResumenGuia.Location = new System.Drawing.Point(10, 252);
+            this.Dtg_ResumenGuia.Name = "Dtg_ResumenGuia";
+            this.Dtg_ResumenGuia.ReadOnly = true;
+            this.Dtg_ResumenGuia.Size = new System.Drawing.Size(394, 244);
+            this.Dtg_ResumenGuia.TabIndex = 24;
+            // 
+            // Btn_Verificar
+            // 
+            this.Btn_Verificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Verificar.Location = new System.Drawing.Point(234, 221);
+            this.Btn_Verificar.Name = "Btn_Verificar";
+            this.Btn_Verificar.Size = new System.Drawing.Size(82, 21);
+            this.Btn_Verificar.TabIndex = 23;
+            this.Btn_Verificar.Text = "Vincular Guía";
+            this.Btn_Verificar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_Verificar.UseVisualStyleBackColor = true;
+            this.Btn_Verificar.Visible = false;
+            this.Btn_Verificar.Click += new System.EventHandler(this.Btn_Verificar_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 221);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(214, 20);
+            this.textBox1.TabIndex = 22;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 205);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(217, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Vinculación de la Guía de INET en Cubigest";
+            // 
             // Btn_Inicia
             // 
             this.Btn_Inicia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Inicia.Location = new System.Drawing.Point(538, 75);
+            this.Btn_Inicia.Location = new System.Drawing.Point(621, 75);
             this.Btn_Inicia.Name = "Btn_Inicia";
             this.Btn_Inicia.Size = new System.Drawing.Size(82, 53);
             this.Btn_Inicia.TabIndex = 20;
@@ -125,7 +166,7 @@
             // Btn_pruebas
             // 
             this.Btn_pruebas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_pruebas.Location = new System.Drawing.Point(450, 12);
+            this.Btn_pruebas.Location = new System.Drawing.Point(533, 12);
             this.Btn_pruebas.Name = "Btn_pruebas";
             this.Btn_pruebas.Size = new System.Drawing.Size(82, 53);
             this.Btn_pruebas.TabIndex = 19;
@@ -169,7 +210,7 @@
             // Btn_Salir
             // 
             this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.Location = new System.Drawing.Point(538, 12);
+            this.Btn_Salir.Location = new System.Drawing.Point(621, 12);
             this.Btn_Salir.Name = "Btn_Salir";
             this.Btn_Salir.Size = new System.Drawing.Size(82, 53);
             this.Btn_Salir.TabIndex = 14;
@@ -177,52 +218,11 @@
             this.Btn_Salir.UseVisualStyleBackColor = true;
             this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 221);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(214, 20);
-            this.textBox1.TabIndex = 22;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 205);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(217, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Vinculación de la Guía de INET en Cubigest";
-            // 
-            // Btn_Verificar
-            // 
-            this.Btn_Verificar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Verificar.Location = new System.Drawing.Point(232, 221);
-            this.Btn_Verificar.Name = "Btn_Verificar";
-            this.Btn_Verificar.Size = new System.Drawing.Size(82, 21);
-            this.Btn_Verificar.TabIndex = 23;
-            this.Btn_Verificar.Text = "Vincular Guía";
-            this.Btn_Verificar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_Verificar.UseVisualStyleBackColor = true;
-            this.Btn_Verificar.Visible = false;
-            this.Btn_Verificar.Click += new System.EventHandler(this.Btn_Verificar_Click);
-            // 
-            // Dtg_ResumenGuia
-            // 
-            this.Dtg_ResumenGuia.AllowUserToAddRows = false;
-            this.Dtg_ResumenGuia.AllowUserToDeleteRows = false;
-            this.Dtg_ResumenGuia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dtg_ResumenGuia.Location = new System.Drawing.Point(10, 252);
-            this.Dtg_ResumenGuia.Name = "Dtg_ResumenGuia";
-            this.Dtg_ResumenGuia.ReadOnly = true;
-            this.Dtg_ResumenGuia.Size = new System.Drawing.Size(394, 244);
-            this.Dtg_ResumenGuia.TabIndex = 24;
-            // 
             // Frm_DetalleGrabacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 505);
+            this.ClientSize = new System.Drawing.Size(715, 505);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Name = "Frm_DetalleGrabacion";

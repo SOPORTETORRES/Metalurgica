@@ -864,7 +864,11 @@ namespace Metalurgica.Clases
                         lTBlMP = lDts.DataSet.Tables["MP"].Copy();
                         lTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
                         lEt.Lote = words[0].ToString().Trim();
-                        if (lEt.Lote.Trim().Length == 10)
+
+                        if (lEt.Lote.Trim().Length == 5)
+                            lEt.Procedencia = "CAP";
+                               
+                        if (lEt.Lote.Trim().Length > 5)
                             lEt.Procedencia = "AZA";
 
                         lEt.FechaFabricacion = words[1].ToString().Trim();
@@ -894,7 +898,7 @@ namespace Metalurgica.Clases
                             lEt.EsSoldable = lTbl.Rows[0]["Soldable"].ToString();
                             if (lEt.EsSoldable.Equals("S"))
                             {
-                                lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim(), "S");  // lCom.ObtenerCalidadAcero(lEt.Producto);
+                                lEt.CalidadAcero = string.Concat(lTbl.Rows[0]["CalidadAcero"].ToString().Trim() );  // lCom.ObtenerCalidadAcero(lEt.Producto);
                             }
 
                             if ((lTbl.Rows[0]["Descripcion"].ToString().Trim().Length > 3))
@@ -1373,9 +1377,9 @@ namespace Metalurgica.Clases
                 lXML = String.Concat(lXML, "  	            <DMOCAN>", iObj.DetalleMov[i].Dmocan.ToString(), "</DMOCAN>", Environment.NewLine);
                 lXML = String.Concat(lXML, "  	            <DMOPREUNI>", iObj.DetalleMov[i].Dmopreuni.ToString(), "</DMOPREUNI>", Environment.NewLine);
                 lXML = String.Concat(lXML, "  	            <DMOVALTOT>", iObj.DetalleMov[i].Dmovaltot.ToString(), "</DMOVALTOT>", Environment.NewLine);
-                lXML = String.Concat(lXML, "  	            <INVMOV11>", iObj.DetalleMov[i].Invmov11.ToString(), "</INVMOV11>", Environment.NewLine);
 
-                lXML = String.Concat(lXML, "  	            <INVMOV12>", iObj.DetalleMov[i].Invmov12.ToString(), "</INVMOV12>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV11>", iObj.DetalleMov[i].Dmopreuni.ToString(), "</INVMOV11>", Environment.NewLine);
+                lXML = String.Concat(lXML, "  	            <INVMOV12>", iObj.DetalleMov[i].Dmovaltot.ToString(), "</INVMOV12>", Environment.NewLine);
 
                 lXML = String.Concat(lXML, "  	            <INVMOV13>", iObj.DetalleMov[i].Invmov13.ToString(), "</INVMOV13>", Environment.NewLine);
                 lXML = String.Concat(lXML, "  	            <INVMOV14>", iObj.DetalleMov[i].Invmov14.ToString(), "</INVMOV14>", Environment.NewLine);

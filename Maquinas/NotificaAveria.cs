@@ -986,11 +986,13 @@ namespace Metalurgica.Maquinas
                     lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
                     //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
                     if (lRes.ToUpper().Equals("OK"))
-                    {
-                        lMsg = "La Notificación de Averia fue procesada  correctamente, Se enviara un mail para que se gestione la reparación de la Averia";
-                        MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        this.Close();
-                    }
+                        lMsg = "La Notificación de Averia fue procesada  correctamente, Se enviara un mail para que se gestione la reparación de la Averia";             
+                    else
+                          lMsg = "La Notificación de Averia fue procesada  correctamente, Pero hubo un problema al enviar el mail ";
+                  
+
+                    MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.Close();
                 }
             }              
         }
@@ -1162,8 +1164,21 @@ namespace Metalurgica.Maquinas
 
         }
 
+
         #endregion
 
+        private void Btn_IngRepuestos_Click(object sender, EventArgs e)
+        {
+            //string textoAveria = "QUEDAN 3 FIERROS APRETADOS EN EL SECTOR DEL CUCHILLO";
+            //Frm_IngresoRepuestos  Frm = new Frm_IngresoRepuestos();
+            //Frm.inicializar("8424", textoAveria, "442", "4", "13");
+            //Frm.ShowDialog();
 
+            Clases.ClsComun lCom = new Clases.ClsComun();
+            string textoAveria = Tx_TextoAveria.Text ;
+            Frm_IngresoRepuestos Frm = new Frm_IngresoRepuestos();
+            Frm.inicializar(Tx_Id.Text, textoAveria, mIdMecanico, mIdSucursal, mIdMaquina);
+            Frm.ShowDialog();
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace Metalurgica.Controls
         private DataSet mDtsMP = new DataSet();
         private int mNRoEtiquetasLeidas = 0;
         private string mTipoCnn = "URL";
+        private string mEmpresa = "";
         private DataTable mTblPieza = new DataTable();
         private DataTable mEstadistica = new DataTable();
         //PAra salir del control
@@ -138,7 +139,7 @@ namespace Metalurgica.Controls
 
                 // Como QR reemplaza a MP
 
-
+                mEmpresa  = ConfigurationManager.AppSettings["Empresa"].ToString();
                 mTipoCnn = ConfigurationManager.AppSettings["TipoCnn"].ToString();
                 if (lValidarSolictud_MP.ToString().ToUpper().Equals("S"))
                     // Version Anterior 11/2019 conn re etiquetado, sin etiqueta QR
@@ -167,9 +168,6 @@ namespace Metalurgica.Controls
             lFila["IdPaquete"] = lIdPaq; lFila["Duracion"] = diff1.TotalSeconds ;
             mEstadistica.Rows.Add(lFila);
 
-            //mEstadistica = new DataTable();
-            //mEstadistica.Columns.Add("IdPaquete", Type.GetType("System.String"));
-            //mEstadistica.Columns.Add("Duracion", Type.GetType("System.String"));
         }
 
         private void txtEtiquetaPieza_Leave(object sender, EventArgs e)
@@ -503,7 +501,7 @@ namespace Metalurgica.Controls
                     }
 
                     //if (mEtiqueta_Qr.CalidadAcero != lTbl.Rows[0]["TipoAcero"].ToString())
-                    if (lmsg.Trim().Length >0 )
+                        if (lmsg.Trim().Length >0 )
                     {
                         MessageBox.Show(lmsg, "Avisos Sistema", MessageBoxButtons.OK);
                         lEtiquetaImpresa = false;
@@ -560,6 +558,10 @@ namespace Metalurgica.Controls
                 if (mTipoMP_Maq == "R")
                 {
                     //Primero Corte 
+                    // Para el caso de TOSOL, se inserta en la colada -1 en caso que esta sin datos
+                    if ((pieza.Colada.ToString().Trim().Length == 0) && (mEmpresa.ToUpper() .Equals ("TOSOL")))
+                        pieza.Colada = "-5";
+
                     //pieza = wsOperacion.RegistrarPasoaProduccionPieza(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser);
                     pieza = wsOperacion.grabarProduccionEtiqueta_TO(pieza, Program.currentUser.IdMaquina, Program.currentUser.Login, Program.currentUser.ComputerName, 0, lIdUser, iVinculaEt, int.Parse(iPesoEtiqueta.ToString()), iNroPiezas, iNroPiezasProd);
                     // Luego Doblado Solo si la pieza es <> a 1, se debe corregir.
@@ -618,7 +620,7 @@ namespace Metalurgica.Controls
                     if (PaqueteEstaProducido(listaDataSet.DataSet.Tables[0].Copy()) == false)
                     {
                         DataTable dataTable = listaDataSet.DataSet.Tables[0];
-                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString())- double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
                         lPiezasPaq = (int)listaDataSet.DataSet.Tables[0].Rows[0]["PiezasPaq"];
                         mLog = string.Concat(mLog, "PesoEtiqueta:", lPesoEtiqueta);
                         if (lObligacionColada.Equals("S"))
@@ -1365,7 +1367,7 @@ namespace Metalurgica.Controls
 
         private void RegistraProduccion()
         {
-            DataGridView dgvActiva = null; bool lPuedeContinuar = false;
+            DataGridView dgvActiva = null; bool lPuedeContinuar = false; double lPesoEtiqueta = 0;
             Forms forms = new Forms(); string diametro = ""; DataTable dataTable = new DataTable();
             string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
             //'ValidaColadaEnProduccion'
@@ -1399,13 +1401,13 @@ namespace Metalurgica.Controls
                                     //verificamos que el paquete no este  despachado
                                     if (PaqueteEstaProducido(listaDataSet.DataSet.Tables[0].Copy()) == false)
                                     {
-                                        double lPesoEtiqueta = 0;
+                                    
                                         diametro = listaDataSet.DataSet.Tables[0].Rows[0]["DIAMETRO"].ToString();
                                         //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
                                         dataTable = listaDataSet.DataSet.Tables[0];
                                         if (dataTable.Rows.Count > 0)
                                         {
-                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString())- double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
                                         }
                                         int lPiezasPaq = (int)listaDataSet.DataSet.Tables[0].Rows[0]["PiezasPaq"];
 
@@ -1465,7 +1467,7 @@ namespace Metalurgica.Controls
 
                                                     row[COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
                                                     row[COLUMNNAME_ESTADO] = cboExcepciones.Text;
-                                                    mTotalKilos = mTotalKilos + double.Parse(row["PesoPaquete"].ToString());
+                                                    mTotalKilos = mTotalKilos + double.Parse(row["PesoPaquete"].ToString()) - double.Parse(row["KgsNorma353"].ToString());
                                                     //dataTable.Rows.Add(row);
                                                     mTblDatos.Rows.Add(row);
                                                     txtEtiquetaPieza.Text = "";

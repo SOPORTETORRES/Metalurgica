@@ -47,10 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.CmbOperador = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Btn_Salir = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.Btn_Limpiar = new System.Windows.Forms.Button();
-            this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Cargar = new System.Windows.Forms.Button();
             this.GB_Reparacion = new System.Windows.Forms.GroupBox();
             this.Tx_IdSolucion = new System.Windows.Forms.TextBox();
@@ -78,6 +75,10 @@
             this.label15 = new System.Windows.Forms.Label();
             this.Tx_Supervisor = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.Btn_IngRepuestos = new System.Windows.Forms.Button();
+            this.Btn_Grabar = new System.Windows.Forms.Button();
+            this.Btn_Limpiar = new System.Windows.Forms.Button();
+            this.Btn_Salir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.Gb_Averia.SuspendLayout();
             this.GB_Reparacion.SuspendLayout();
@@ -269,21 +270,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Operador a Cargo";
             // 
-            // Btn_Salir
-            // 
-            this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_Salir.ImageIndex = 5;
-            this.Btn_Salir.ImageList = this.imageList1;
-            this.Btn_Salir.Location = new System.Drawing.Point(804, 141);
-            this.Btn_Salir.Name = "Btn_Salir";
-            this.Btn_Salir.Size = new System.Drawing.Size(75, 56);
-            this.Btn_Salir.TabIndex = 15;
-            this.Btn_Salir.Text = "&Salir";
-            this.Btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_Salir.UseVisualStyleBackColor = true;
-            this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -295,36 +281,6 @@
             this.imageList1.Images.SetKeyName(4, "Untitled (149).ico");
             this.imageList1.Images.SetKeyName(5, "Untitled (157).ico");
             this.imageList1.Images.SetKeyName(6, "Untitled (182).ico");
-            // 
-            // Btn_Limpiar
-            // 
-            this.Btn_Limpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Limpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_Limpiar.ImageIndex = 6;
-            this.Btn_Limpiar.ImageList = this.imageList1;
-            this.Btn_Limpiar.Location = new System.Drawing.Point(803, 76);
-            this.Btn_Limpiar.Name = "Btn_Limpiar";
-            this.Btn_Limpiar.Size = new System.Drawing.Size(75, 56);
-            this.Btn_Limpiar.TabIndex = 14;
-            this.Btn_Limpiar.Text = "&Limpiar";
-            this.Btn_Limpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_Limpiar.UseVisualStyleBackColor = true;
-            this.Btn_Limpiar.Click += new System.EventHandler(this.Btn_Limpiar_Click);
-            // 
-            // Btn_Grabar
-            // 
-            this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Grabar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_Grabar.ImageIndex = 0;
-            this.Btn_Grabar.ImageList = this.imageList1;
-            this.Btn_Grabar.Location = new System.Drawing.Point(803, 14);
-            this.Btn_Grabar.Name = "Btn_Grabar";
-            this.Btn_Grabar.Size = new System.Drawing.Size(75, 56);
-            this.Btn_Grabar.TabIndex = 13;
-            this.Btn_Grabar.Text = "&Grabar";
-            this.Btn_Grabar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_Grabar.UseVisualStyleBackColor = true;
-            this.Btn_Grabar.Click += new System.EventHandler(this.Btn_Grabar_Click_1);
             // 
             // Btn_Cargar
             // 
@@ -339,6 +295,9 @@
             // 
             // GB_Reparacion
             // 
+            this.GB_Reparacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GB_Reparacion.Controls.Add(this.Btn_IngRepuestos);
             this.GB_Reparacion.Controls.Add(this.Tx_IdSolucion);
             this.GB_Reparacion.Controls.Add(this.label11);
             this.GB_Reparacion.Controls.Add(this.Rb_RepDetenida);
@@ -354,7 +313,7 @@
             this.GB_Reparacion.Enabled = false;
             this.GB_Reparacion.Location = new System.Drawing.Point(9, 204);
             this.GB_Reparacion.Name = "GB_Reparacion";
-            this.GB_Reparacion.Size = new System.Drawing.Size(869, 253);
+            this.GB_Reparacion.Size = new System.Drawing.Size(938, 253);
             this.GB_Reparacion.TabIndex = 16;
             this.GB_Reparacion.TabStop = false;
             this.GB_Reparacion.Text = "Datos de la Reparación";
@@ -416,7 +375,7 @@
             this.Tx_ReparacionAveria.Multiline = true;
             this.Tx_ReparacionAveria.Name = "Tx_ReparacionAveria";
             this.Tx_ReparacionAveria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Tx_ReparacionAveria.Size = new System.Drawing.Size(839, 46);
+            this.Tx_ReparacionAveria.Size = new System.Drawing.Size(908, 46);
             this.Tx_ReparacionAveria.TabIndex = 17;
             // 
             // label9
@@ -436,7 +395,7 @@
             this.Dtg_SolucionAveria.Location = new System.Drawing.Point(19, 129);
             this.Dtg_SolucionAveria.Name = "Dtg_SolucionAveria";
             this.Dtg_SolucionAveria.ReadOnly = true;
-            this.Dtg_SolucionAveria.Size = new System.Drawing.Size(833, 113);
+            this.Dtg_SolucionAveria.Size = new System.Drawing.Size(906, 113);
             this.Dtg_SolucionAveria.TabIndex = 15;
             // 
             // dateTimePicker1
@@ -615,11 +574,71 @@
             this.label16.TabIndex = 2;
             this.label16.Text = "Operador a Cargo";
             // 
+            // Btn_IngRepuestos
+            // 
+            this.Btn_IngRepuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_IngRepuestos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_IngRepuestos.ImageIndex = 2;
+            this.Btn_IngRepuestos.ImageList = this.imageList1;
+            this.Btn_IngRepuestos.Location = new System.Drawing.Point(857, 0);
+            this.Btn_IngRepuestos.Name = "Btn_IngRepuestos";
+            this.Btn_IngRepuestos.Size = new System.Drawing.Size(75, 56);
+            this.Btn_IngRepuestos.TabIndex = 23;
+            this.Btn_IngRepuestos.Text = "Ingresa Repuestos";
+            this.Btn_IngRepuestos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_IngRepuestos.UseVisualStyleBackColor = true;
+            this.Btn_IngRepuestos.Click += new System.EventHandler(this.Btn_IngRepuestos_Click);
+            // 
+            // Btn_Grabar
+            // 
+            this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Grabar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_Grabar.ImageIndex = 0;
+            this.Btn_Grabar.ImageList = this.imageList1;
+            this.Btn_Grabar.Location = new System.Drawing.Point(867, 6);
+            this.Btn_Grabar.Name = "Btn_Grabar";
+            this.Btn_Grabar.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Grabar.TabIndex = 13;
+            this.Btn_Grabar.Text = "&Grabar";
+            this.Btn_Grabar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_Grabar.UseVisualStyleBackColor = true;
+            this.Btn_Grabar.Click += new System.EventHandler(this.Btn_Grabar_Click_1);
+            // 
+            // Btn_Limpiar
+            // 
+            this.Btn_Limpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Limpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_Limpiar.ImageIndex = 6;
+            this.Btn_Limpiar.ImageList = this.imageList1;
+            this.Btn_Limpiar.Location = new System.Drawing.Point(867, 68);
+            this.Btn_Limpiar.Name = "Btn_Limpiar";
+            this.Btn_Limpiar.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Limpiar.TabIndex = 14;
+            this.Btn_Limpiar.Text = "&Limpiar";
+            this.Btn_Limpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_Limpiar.UseVisualStyleBackColor = true;
+            this.Btn_Limpiar.Click += new System.EventHandler(this.Btn_Limpiar_Click);
+            // 
+            // Btn_Salir
+            // 
+            this.Btn_Salir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_Salir.ImageIndex = 5;
+            this.Btn_Salir.ImageList = this.imageList1;
+            this.Btn_Salir.Location = new System.Drawing.Point(867, 130);
+            this.Btn_Salir.Name = "Btn_Salir";
+            this.Btn_Salir.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Salir.TabIndex = 15;
+            this.Btn_Salir.Text = "&Salir";
+            this.Btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_Salir.UseVisualStyleBackColor = true;
+            this.Btn_Salir.Click += new System.EventHandler(this.Btn_Salir_Click);
+            // 
             // NotificaAveria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(890, 741);
+            this.ClientSize = new System.Drawing.Size(953, 741);
             this.ControlBox = false;
             this.Controls.Add(this.Gr_Supervisor);
             this.Controls.Add(this.GB_Reparacion);
@@ -696,5 +715,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox Tx_Supervisor;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button Btn_IngRepuestos;
     }
 }

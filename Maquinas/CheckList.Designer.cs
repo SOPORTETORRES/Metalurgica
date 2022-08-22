@@ -261,7 +261,7 @@
             this.Gr_RM.Controls.Add(this.RB_RM_S);
             this.Gr_RM.Location = new System.Drawing.Point(317, 27);
             this.Gr_RM.Name = "Gr_RM";
-            this.Gr_RM.Size = new System.Drawing.Size(239, 47);
+            this.Gr_RM.Size = new System.Drawing.Size(186, 47);
             this.Gr_RM.TabIndex = 2;
             this.Gr_RM.TabStop = false;
             this.Gr_RM.Text = "RUEDA DE MEDIDA";
@@ -1556,7 +1556,7 @@
             this.groupBox36.Controls.Add(this.label5);
             this.groupBox36.Controls.Add(this.Lbl_Operario);
             this.groupBox36.Controls.Add(this.label2);
-            this.groupBox36.Location = new System.Drawing.Point(5, 9);
+            this.groupBox36.Location = new System.Drawing.Point(5, 7);
             this.groupBox36.Name = "groupBox36";
             this.groupBox36.Size = new System.Drawing.Size(874, 73);
             this.groupBox36.TabIndex = 10;
