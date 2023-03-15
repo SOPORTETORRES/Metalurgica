@@ -261,5 +261,36 @@ namespace Metalurgica.Produccion
         {
 
         }
+
+        private void Frm_VinculaQR_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Mostrar un mensaje de porqué se está cerrando
+            // MessageBox.Show(e.CloseReason.ToString());
+            // Estos son los valores posibles
+            string lKgsOK = "N";
+            lKgsOK =AppDomain.CurrentDomain.GetData ("KgsOK").ToString ();
+            switch (e.CloseReason)
+            {
+                case CloseReason.ApplicationExitCall:
+                    break;
+                case CloseReason.FormOwnerClosing:
+                    break;
+                case CloseReason.MdiFormClosing:
+                    break;
+                case CloseReason.None:
+                    break;
+                case CloseReason.TaskManagerClosing:
+                    break;
+                case CloseReason.UserClosing:
+                    if (lKgsOK == "N")
+                    {
+                        MessageBox.Show("Debe registrar la etiqueta QR, si no lo hace NO se puede salir del formulario ", "Avisos sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        e.Cancel = true;
+                    }
+                    break;
+                case CloseReason.WindowsShutDown:
+                    break;
+            }
+        }
     }
 }

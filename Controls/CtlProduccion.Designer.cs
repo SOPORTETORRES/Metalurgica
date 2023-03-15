@@ -111,9 +111,10 @@
             this.tlbSalir = new System.Windows.Forms.ToolStripButton();
             this.stsStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tlsEstado = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.TM_proceme = new System.Windows.Forms.Timer(this.components);
             this.Btn_Estadistica = new System.Windows.Forms.Button();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -552,7 +553,6 @@
             this.Btn_CheckList.TabIndex = 59;
             this.Btn_CheckList.Text = "Check List Maq";
             this.Btn_CheckList.UseVisualStyleBackColor = true;
-            this.Btn_CheckList.Visible = false;
             this.Btn_CheckList.Click += new System.EventHandler(this.Btn_CheckList_Click);
             // 
             // groupBox2
@@ -997,11 +997,10 @@
             this.tlsEstado.Size = new System.Drawing.Size(32, 17);
             this.tlsEstado.Text = "Listo";
             // 
-            // timer1
+            // TM_proceme
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 300000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.TM_proceme.Interval = 1800000;
+            this.TM_proceme.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Btn_Estadistica
             // 
@@ -1021,6 +1020,10 @@
             this.ctlInformacionUsuario1.Name = "ctlInformacionUsuario1";
             this.ctlInformacionUsuario1.Size = new System.Drawing.Size(1327, 36);
             this.ctlInformacionUsuario1.TabIndex = 42;
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // CtlProduccion
             // 
@@ -1141,7 +1144,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label Lbl_Usuario;
         private System.Windows.Forms.Button Btn_CheckList;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer TM_proceme;
         private System.Windows.Forms.Button Btn_cierreEtiquetaAza;
         private System.Windows.Forms.Label Lbl_tipo;
         private System.Windows.Forms.Label lbl_calidadAcero;
@@ -1156,5 +1159,6 @@
         private System.Windows.Forms.Button Btn_Estadistica;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.DataGridView Dtg_estadistica;
+        private System.Windows.Forms.Timer timer2;
     }
 }

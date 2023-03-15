@@ -5,18 +5,18 @@
     <Setting Name="CubigestConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=informat;Password=centauro&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=informat;Password= 12345&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=informat;Password=centauro</Value>
+      <Value Profile="(Default)">Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=informat;Password= 12345</Value>
     </Setting>
     <Setting Name="CubigestConnectionString1" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=cubigest;Password=cubiplop&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=cubigest;Password=654321&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=cubigest;Password=cubiplop</Value>
+      <Value Profile="(Default)">Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;User ID=cubigest;Password=654321</Value>
     </Setting>
   </Settings>
 </SettingsFile>

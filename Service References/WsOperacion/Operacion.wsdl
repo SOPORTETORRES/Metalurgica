@@ -329,7 +329,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarDespachoCamion">
+      <s:element name="RegistraEtiqueta_Cargada">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
@@ -380,8 +380,32 @@
           <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="IdSucursal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="KgsNorma353" type="s:double" />
         </s:sequence>
       </s:complexType>
+      <s:element name="RegistraEtiqueta_CargadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraEtiqueta_CargadaResult" type="tns:Despacho_Camion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoCamion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iDtsDatos">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarDespachoCamionResponse">
         <s:complexType>
           <s:sequence>
@@ -696,6 +720,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="TipoProduccion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="IdSucursal" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoMaterial" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersistirEtiquetaAZAResponse">
@@ -1112,10 +1137,32 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GrabarChequeoMaquina_Proceme">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Dts">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabarChequeoMaquina_ProcemeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarChequeoMaquina_ProcemeResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="VerificaChequeo">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="IdMaquina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdUsuario" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1137,7 +1184,11 @@
         </s:complexType>
       </s:element>
       <s:element name="ObtenerDatosParaEnvioMail">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iNroMaq" type="s:string" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="ObtenerDatosParaEnvioMailResponse">
         <s:complexType>
@@ -2792,6 +2843,12 @@
   <wsdl:message name="SP_VERIFICA_VIAJE_DESPACHOSoapOut">
     <wsdl:part name="parameters" element="tns:SP_VERIFICA_VIAJE_DESPACHOResponse" />
   </wsdl:message>
+  <wsdl:message name="RegistraEtiqueta_CargadaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraEtiqueta_Cargada" />
+  </wsdl:message>
+  <wsdl:message name="RegistraEtiqueta_CargadaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraEtiqueta_CargadaResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarDespachoCamionSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDespachoCamion" />
   </wsdl:message>
@@ -3043,6 +3100,12 @@
   </wsdl:message>
   <wsdl:message name="GrabarChequeoMaquinaSoapOut">
     <wsdl:part name="parameters" element="tns:GrabarChequeoMaquinaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrabarChequeoMaquina_ProcemeSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarChequeoMaquina_Proceme" />
+  </wsdl:message>
+  <wsdl:message name="GrabarChequeoMaquina_ProcemeSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarChequeoMaquina_ProcemeResponse" />
   </wsdl:message>
   <wsdl:message name="VerificaChequeoSoapIn">
     <wsdl:part name="parameters" element="tns:VerificaChequeo" />
@@ -3671,6 +3734,10 @@
       <wsdl:input message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapIn" />
       <wsdl:output message="tns:SP_VERIFICA_VIAJE_DESPACHOSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="RegistraEtiqueta_Cargada">
+      <wsdl:input message="tns:RegistraEtiqueta_CargadaSoapIn" />
+      <wsdl:output message="tns:RegistraEtiqueta_CargadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoCamion">
       <wsdl:input message="tns:GuardarDespachoCamionSoapIn" />
       <wsdl:output message="tns:GuardarDespachoCamionSoapOut" />
@@ -3838,6 +3905,10 @@
     <wsdl:operation name="GrabarChequeoMaquina">
       <wsdl:input message="tns:GrabarChequeoMaquinaSoapIn" />
       <wsdl:output message="tns:GrabarChequeoMaquinaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina_Proceme">
+      <wsdl:input message="tns:GrabarChequeoMaquina_ProcemeSoapIn" />
+      <wsdl:output message="tns:GrabarChequeoMaquina_ProcemeSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="VerificaChequeo">
       <wsdl:input message="tns:VerificaChequeoSoapIn" />
@@ -4367,6 +4438,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RegistraEtiqueta_Cargada">
+      <soap:operation soapAction="http://tempuri.org/RegistraEtiqueta_Cargada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoCamion">
       <soap:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
       <wsdl:input>
@@ -4738,6 +4818,15 @@
     </wsdl:operation>
     <wsdl:operation name="GrabarChequeoMaquina">
       <soap:operation soapAction="http://tempuri.org/GrabarChequeoMaquina" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina_Proceme">
+      <soap:operation soapAction="http://tempuri.org/GrabarChequeoMaquina_Proceme" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5738,6 +5827,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RegistraEtiqueta_Cargada">
+      <soap12:operation soapAction="http://tempuri.org/RegistraEtiqueta_Cargada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoCamion">
       <soap12:operation soapAction="http://tempuri.org/GuardarDespachoCamion" style="document" />
       <wsdl:input>
@@ -6109,6 +6207,15 @@
     </wsdl:operation>
     <wsdl:operation name="GrabarChequeoMaquina">
       <soap12:operation soapAction="http://tempuri.org/GrabarChequeoMaquina" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarChequeoMaquina_Proceme">
+      <soap12:operation soapAction="http://tempuri.org/GrabarChequeoMaquina_Proceme" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

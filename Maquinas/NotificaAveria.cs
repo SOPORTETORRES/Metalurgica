@@ -65,23 +65,26 @@ namespace Metalurgica.Maquinas
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             string lSql = ""; DataTable lTbl = new DataTable();
 
-            lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',6 ");
-            listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
-            if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
-            {
-                lTbl = listaDataSet.DataSet.Tables[0].Copy();
-                if (lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("OK"))
-                    lRes = false;
-                else
+            if (iIdNotificacion.ToString().Trim().Length > 0)
+            { 
+                lSql = string.Concat("exec  SP_CRUD_NOTIFICACION_AVERIA ", iIdNotificacion, ", 0,'','','',0,'',0,'',6 ");
+                listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
+                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
                 {
-                    //if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("CAMBIO DE ROLLO"))
-                    if ((lTbl.Rows[0]["TextoIncidencia"].ToString().ToUpper().Equals("CAMBIO DE ROLLO")) && (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP")))
-                    {
+                    lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                    if (lTbl.Rows[0]["EstadoSupervisor"].ToString().ToUpper().Equals("OK"))
                         lRes = false;
-                    }
                     else
                     {
-                        lRes = true;
+                        //if (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("CAMBIO DE ROLLO"))
+                        if ((lTbl.Rows[0]["TextoIncidencia"].ToString().ToUpper().Equals("CAMBIO DE ROLLO")) && (lTbl.Rows[0]["EstadoMaq"].ToString().ToUpper().Equals("OP")))
+                        {
+                            lRes = false;
+                        }
+                        else
+                        {
+                            lRes = true;
+                        }
                     }
                 }
             }
@@ -157,7 +160,7 @@ namespace Metalurgica.Maquinas
                         Gr_Supervisor.Enabled = false;
                         if (lIdSolAveria.Trim().Length == 0)
                         {
-                            this.Width = 906;
+                            this.Width = 970;
                             this.Height = 265;                        
                         }
 
@@ -167,7 +170,7 @@ namespace Metalurgica.Maquinas
                         GB_Reparacion.Enabled = true;
                         groupBox1.Enabled = false;
                         Gr_Supervisor.Enabled = false;
-                        this.Width = 906;
+                        this.Width = 970;
                         this.Height = 688;
                         if (lEstadoMaq.ToUpper().Equals("DET"))  
                                 CargarDatosSolucionAveria();
@@ -177,7 +180,7 @@ namespace Metalurgica.Maquinas
                         GB_Reparacion.Enabled = false;
                         groupBox1.Enabled = false;
                         Gr_Supervisor.Enabled = true ;
-                        this.Width = 906;
+                        this.Width = 970;
                         this.Height = 780;
                               CmbOperador.SelectedValue = lTbl.Rows[0]["IdOperador"];
                              CmbMaquinaAveria.SelectedValue = lTbl.Rows[0]["IdMaquina"];
@@ -254,18 +257,21 @@ namespace Metalurgica.Maquinas
                 //------------------------------------
                 listaDataSet.MensajeError = "";
                 //mTipoNotificacion = "NA";
-                lSql = string.Concat("exec  SP_CRUD_SOLUCION_AVERIA 0,", Tx_Id.Text, ",'','','','LA','',2 ");
-                listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
-                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                if (Tx_Id.Text.Trim().Length > 0)
                 {
-                    lTbl = listaDataSet.DataSet.Tables[0].Copy();
-                    Dtg_LiberacionAveria.DataSource = lTbl;
-                    Dtg_LiberacionAveria.Columns["Id"].Width = 50;
-                    Dtg_LiberacionAveria.Columns["IdNotificacion"].Visible = false;
-                    Dtg_LiberacionAveria.Columns["Obs"].Width = 500;
-                    Dtg_LiberacionAveria.Columns["UsuarioRegistra"].Width = 100;
-                    Dtg_LiberacionAveria.Columns["FechaRegistro"].Width = 100;
-                    Dtg_LiberacionAveria.Columns["Estado"].Width = 60;
+                    lSql = string.Concat("exec  SP_CRUD_SOLUCION_AVERIA 0,", Tx_Id.Text, ",'','','','LA','',2 ");
+                    listaDataSet.DataSet = ldal.ObtenerDatos(lSql);
+                    if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                    {
+                        lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                        Dtg_LiberacionAveria.DataSource = lTbl;
+                        Dtg_LiberacionAveria.Columns["Id"].Width = 50;
+                        Dtg_LiberacionAveria.Columns["IdNotificacion"].Visible = false;
+                        Dtg_LiberacionAveria.Columns["Obs"].Width = 500;
+                        Dtg_LiberacionAveria.Columns["UsuarioRegistra"].Width = 100;
+                        Dtg_LiberacionAveria.Columns["FechaRegistro"].Width = 100;
+                        Dtg_LiberacionAveria.Columns["Estado"].Width = 60;
+                    }
                 }
             }
             catch (Exception exc)
@@ -569,13 +575,46 @@ namespace Metalurgica.Maquinas
      }
 
 
-     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en minutos) que estuvo detenida la máquina fue de ", Math.Round( lMinutos,0).ToString (), "  <br> ");
-     //lRes = String.Concat(lRes, " Estado de Maquina  :", iEstado, Environment.NewLine);
+     lRes = String.Concat(lRes, "  <br> ", " El Tiempo (en minutos) que estuvo detenida la máquina fue de ", Math.Round( lMinutos,0).ToString (), "  <br>  <br> ");
+            //Debemos agregar el detalle del costo de la reparación de la Averia
+            //
+            string lSolicitaRepuestos = ConfigurationManager.AppSettings["AveriaRepuestos"].ToString();
+
+            if (lSolicitaRepuestos.ToUpper().Equals("S"))
+            { 
+                int lPU = 0;int lTotalFila = 0;int lTotal = 0;
+                lTbl = ObtenerDatosRepuestosUtilizados(Tx_Id.Text);
+                //***********************************
+                if (lTbl.Rows.Count > 0)
+                {
+                    lRes = String.Concat(lRes, "  <br> ", "  <br> ", " Datos de los repuestos utilizados en la reparación de la Averia ", "  <br> ");
+                    lRes = string.Concat(lRes, "<table   border='1'>    <tr>  ");
+                    lRes = string.Concat(lRes, "  <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'> Código Repuesto </td> ");
+                    lRes = string.Concat(lRes, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Nombre Repuesto </td>");
+                    lRes = string.Concat(lRes, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Cantidad </td> ");
+                    lRes = string.Concat(lRes, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Precio Unitario</td> ");
+                    lRes = string.Concat(lRes, " <td style = 'color: #FFFFFF; background-color: #000000 ;font-weight: normal; font-size: small;'>Total </td> ");
      
+                    lRes = string.Concat(lRes, "  </tr> ");
 
-     lRes = String.Concat(lRes, "  <br> ", "  <br> ");
 
-     lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", "  <br> ");
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        lPU = (int) lTbl.Rows[i]["PrecioUnitario"];
+                        lTotalFila = (int)lTbl.Rows[i]["Total"];
+                        lRes = string.Concat(lRes, "  <tr> ");
+                        lRes = string.Concat(lRes, "  <td>", lTbl.Rows[i]["Codigo"].ToString(), "</td> ");
+                        lRes = string.Concat(lRes, "  <td>", lTbl.Rows[i]["item"].ToString(), "</td> ");
+                        lRes = string.Concat(lRes, "  <td>", lTbl.Rows[i]["Cantidad"].ToString(), "</td> ");
+                        lRes = string.Concat(lRes, "  <td>", lPU.ToString("N0"), "</td> ");
+                        lRes = string.Concat(lRes, "  <td>", lTotalFila.ToString("N0"), "</td>  </tr> ");
+                        lTotal = lTotal + lTotalFila;
+                    }
+                    lRes = string.Concat(lRes, "       </table>  ");
+                    lRes = String.Concat(lRes, "  <br>   El valor total de los  repuestos utilizados es: <b>", lTotal .ToString ("N0") ," </b>  <br> ");
+                }
+            }
+            lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema", "  <br> ");
 
      return lRes;
  }
@@ -633,8 +672,20 @@ namespace Metalurgica.Maquinas
              return lTbl;
          }
 
+        private DataTable ObtenerDatosRepuestosUtilizados(string iIdAveria)
+        {
+            DataTable lTbl = new DataTable(); string lSql = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
+            lSql = string.Concat("   SP_CRUD_Repuestos 19, '', '', ' ', '', '', '', '', '', '', '', '", iIdAveria,"', '', '' ");
+            lDts = lPx.ObtenerDatos(lSql);
+            if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+            {
+                lTbl = lDts.Tables[0].Copy();
+            }
+            return lTbl;
+        }
 
-         private DataTable ObtenerDatosLiberacionAveria(string iIdAveria)
+        private DataTable ObtenerDatosLiberacionAveria(string iIdAveria)
          {
              DataTable lTbl = new DataTable(); string lSql = "";
              Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
@@ -721,6 +772,35 @@ namespace Metalurgica.Maquinas
             //}
         }
 
+        private Boolean ValidarDatosAntesGrabar()
+        {
+            Boolean lRes = true;string lMsg = "";
+
+            if (Tx_TextoAveria.Text.Trim().Length == 0)
+            {
+                lMsg = " Debe Ingresar  la causa de la Averia";
+                lRes = false;
+                Tx_TextoAveria.Focus();
+            }
+            if (CmbOperador.SelectedValue ==null  )
+            {
+                lMsg = "  Debe Seleccionar al un Operardor ";
+                lRes = false;
+                CmbOperador.Focus();
+            }
+
+            if ((Rb_Detenida.Checked ==false) && (Rb_Operativa.Checked == false))
+            {
+                lMsg = "  Debe  indicar si esta  Operativa o Detenida  ";
+                lRes = false;
+                //Rb_Operativa.Focus()  ;
+            }
+
+            if (lMsg .Length >0 )
+                    MessageBox.Show(lMsg, "Avisos sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return lRes;
+        }
         private void Btn_Grabar_Click_1(object sender, EventArgs e)
         {
             //  ALTER PROCEDURE [dbo].[SP_CRUD_NOTIFICACION_AVERIA]
@@ -730,7 +810,8 @@ namespace Metalurgica.Maquinas
 
             if (groupBox1.Enabled == true)  // Estamos ingresando un Notificacion de averia
             {
-                GrabaNotificacionAveria();
+                if (ValidarDatosAntesGrabar())
+                        GrabaNotificacionAveria();
             }
             else
                 if (Gr_Supervisor.Enabled == true) // Estamos ingresando una Liberación de Averia
@@ -745,7 +826,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaSolucionAveria()
         {
-            string lTipoNot = ""; int idListadistribucion = 0;
+            string lTipoNot = ""; int idListadistribucion = 0;string lSolicitaRepuestos = "";
             try
             {
                 if (DatosOKParaGrabar("SA") == true)
@@ -763,13 +844,33 @@ namespace Metalurgica.Maquinas
                         EstadoMaq = "DET";
 
                     //*****************************************************
+                    //  1.- Persistimos la solución de la Averia
                     lSql = string.Concat("exec SP_CRUD_SOLUCION_AVERIA ", lCom.Val(Tx_IdSolucion.Text), ",", Tx_Id.Text, ",'");
                     lSql = string.Concat(lSql, Tx_ReparacionAveria.Text, "','", lCom.Val(mIdMecanico), "','", EstadoMaq, "','SA','',1");
                     lDts = lPx.ObtenerDatos(lSql);
                     if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                     {
                         lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
-                        //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
+                        lMsg = "La Solución  de Averia fue procesada  correctamente";
+
+                        //Si la grabación es OK:
+                        // 2.- Se deben registrar el ingreso de los repuestos utilizados en la reparación de la Averia
+                        lSolicitaRepuestos= ConfigurationManager.AppSettings["AveriaRepuestos"].ToString();
+                        mIdSucursal = ObtenerIdSucursalActual();
+                        if ((lCom.Val(lIdAveria.ToString()) > 0) && (lSolicitaRepuestos.ToUpper ().Equals ("S")))
+                        {
+                            // 3.- se debe Integrear con INET los repuestos Utilizados  
+                            // 4.- Se  debe persistir la notificación 
+                            // 5.- En caso de error en la integración se debe enviar un correo  informando
+                            string textoAveria = Tx_TextoAveria.Text;
+                           
+                            Frm_IngresoRepuestos Frm = new Frm_IngresoRepuestos();
+                            Frm.inicializar(Tx_Id.Text, textoAveria, mIdMecanico, mIdSucursal, CmbMaquinaAveria.SelectedValue.ToString () );
+                            Frm.ShowDialog();
+                        }
+                       
+                        // 6.- Se debe Enviar mail de notificación  y  el detalle de los repuestos Utilizados
+                      
                         lTxMsg = ObtenerCuerpoMailSolucionAveria();
 
                         switch (mIdSucursal)
@@ -795,39 +896,19 @@ namespace Metalurgica.Maquinas
 
                         lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
                         //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
-                        if (lRes.ToUpper().Equals("OK"))
-                        {
-                            lMsg = "La Solución  de Averia fue procesada  correctamente";
-                            if (Rb_Averia.Checked == true)
-                            {
-                                //if (EstadoMaq.Equals("OP"))
-                                //    lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
-                            }
+                        //if (lRes.ToUpper().Equals("OK"))
+                        //{
+                        //  if (Rb_Averia.Checked == true)
+                        //    {
+                        //        //if (EstadoMaq.Equals("OP"))
+                        //        //    lMsg = string.Concat(lMsg, Environment.NewLine, " El sistema se cerrara, debe ingresar nuevamente");
+                        //    }             
+                        //}
 
+                     
 
-                            MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                            //if (EstadoMaq.Equals("OP"))
-                            //{
-                            //    lTipoNot = AppDomain.CurrentDomain.GetData("TipoAveria").ToString();
-                            //    if ((mTipoAveria == "EP"))
-                            //        this.Close();
-                            //    else
-                            //         if ((lTipoNot == "MM"))
-                            //        this.Close();
-                            //    else
-                            //    {
-                            //        LogOut();
-                            //        Application.Exit();
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    this.Close();
-                            //}
-
-                        }
+                        Btn_Grabar.Enabled = false;
+                        MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -877,8 +958,11 @@ namespace Metalurgica.Maquinas
                 if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                 {
                     lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
-                    //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
-                    lTxMsg = ObtenerCuerpoMailSolucionAveria();
+                        lMsg = "La Solución  de Averia fue procesada  correctamente";
+
+
+                        //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
+                        lTxMsg = ObtenerCuerpoMailSolucionAveria();
                     lTitulo = "Notificación por Solución  de Averias: ";
 
                         //if (mIdSucursal.Equals("1")) // es Calama
@@ -886,7 +970,7 @@ namespace Metalurgica.Maquinas
 
                         //if (mIdSucursal.Equals("4")) // es Calama
                         //    idListadistribucion = -10;
-
+                        mIdSucursal = ObtenerIdSucursalActual();
                         switch (mIdSucursal)
                         {
                             case "1":
@@ -910,12 +994,12 @@ namespace Metalurgica.Maquinas
                         lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
 
                         //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
-                    if (lRes.ToUpper().Equals("OK"))
-                    {
-                        lMsg = "La Solución  de Averia fue procesada  correctamente";
+                    //if (lRes.ToUpper().Equals("OK"))
+                    //{
+                        //lMsg = "La Solución  de Averia fue procesada  correctamente";
                         MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    }
+                        Btn_Grabar.Enabled = false;
+                    //}
                 }
 
             }
@@ -937,6 +1021,8 @@ namespace Metalurgica.Maquinas
                 string lTexto = ""; string lTxMsg = ""; string lTitulo = ""; string lRes = "";
                 lTexto = Tx_TextoAveria.Text.Replace("\n", Environment.NewLine);
 
+
+     
                 if (Rb_Detenida.Checked == true)
                 {
                     EstadoMaq = "DET";
@@ -957,7 +1043,14 @@ namespace Metalurgica.Maquinas
                 lDts = lPx.ObtenerDatos(lSql);
                 if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                 {
+
                     lIdAveria = lDts.Tables[0].Rows[0][0].ToString();
+
+                    if (lCom.Val(lIdAveria) >0)
+                        lMsg = "La Notificación de Averia fue procesada  correctamente, Se enviara un mail para que se gestione la reparación de la Averia";
+                    else
+                        lMsg = "La Notificación de Averia fue procesada  correctamente, Pero hubo un problema al enviar el mail ";
+
                     //Si la grabación es OK se debe enviar mail de notificación  y persistir ma notificación.
                     lTxMsg = ObtenerCuerpoMail(CmbOperador.Text, lTexto, CmbMaquinaAveria.Text, Dtp_Fecha.Value.ToString(), EstadoMaq, lIdAveria, lPrioridad);
                     lTitulo = "Notificación por Notificación de Averias: ";
@@ -977,7 +1070,7 @@ namespace Metalurgica.Maquinas
                             idListadistribucion = -12;
                             lTitulo = "Notificación de Averias Planta TOSOL ";
                             break;
-                        case "15":
+                        case "14":
                             idListadistribucion = -15;
                             lTitulo = "Notificación de Averias Planta Coronel ";
                             break;
@@ -985,12 +1078,15 @@ namespace Metalurgica.Maquinas
 
                     lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, idListadistribucion, lTitulo);
                     //lRes = lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lTxMsg, -10, lTitulo);
-                    if (lRes.ToUpper().Equals("OK"))
-                        lMsg = "La Notificación de Averia fue procesada  correctamente, Se enviara un mail para que se gestione la reparación de la Averia";             
-                    else
-                          lMsg = "La Notificación de Averia fue procesada  correctamente, Pero hubo un problema al enviar el mail ";
-                  
 
+                    string lTmp = "";
+                    if (lRes.ToUpper().Equals("OK"))
+                        lTmp = "SI";
+                    else
+                        lTmp = "NO";
+
+
+                    lMsg = string.Concat(lMsg, " - Correo enviado:", lTmp); 
                     MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     this.Close();
                 }

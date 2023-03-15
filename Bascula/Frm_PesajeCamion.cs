@@ -295,7 +295,7 @@ namespace Metalurgica.Bascula
 
         private string ObtenerPesoBruto()
         {
-            string lRes = "0"; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
+            string lRes = "0";  Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
             DataTable lTbl = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun();
             string lFecha = DateTime.Now.ToShortDateString(); int lPesoTara = int.Parse(Tx_Tara.Text);
 
@@ -338,7 +338,7 @@ namespace Metalurgica.Bascula
 
         private string ObtenerEstadoProcesoBascula( string IdCorrelativo)
         {
-            string lRes = "0"; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
+            string lRes = "0";  Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
             DataTable lTbl = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun(); int lPesoNeto = 0;
             //string lFecha = DateTime.Now.ToShortDateString(); int lPesoTara = int.Parse(Tx_Tara.Text);
 
@@ -992,12 +992,12 @@ namespace Metalurgica.Bascula
                 //Obtemos la tolerancia  Inferior
                 lVista = new DataView(mTblConfTolerancia, "SubTabla='ToleranciaInferior'", "", DataViewRowState.CurrentRows);
                 if (lVista.Count > 0)
-                    lTolInferior = lCom .CDBL (lVista[0]["Par1"].ToString ());
+                    lTolInferior = lCom.CDBL(lVista[0]["Par1"].ToString().Replace (".",","));
 
                 //Obtemos la tolerancia Superior
                 lVista = new DataView(mTblConfTolerancia, "SubTabla='ToleranciaSuperior'", "", DataViewRowState.CurrentRows);
                 if (lVista.Count > 0)
-                    lTolSuperior = lCom.CDBL(lVista[0]["Par1"].ToString());
+                    lTolSuperior = lCom.CDBL(lVista[0]["Par1"].ToString().Replace(".", ","));
 
 
             }

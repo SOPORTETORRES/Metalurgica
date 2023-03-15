@@ -323,10 +323,10 @@ namespace Metalurgica
         private void Btn_INET_Click(object sender, EventArgs e)
         {
             int i = 0; string lSQl = ""; int lRespINET = 0; Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); int j = 0;
-            string[] lPartes;
+            string[] lPartes; int k = 0;
             Integracion_INET.Tipo_InvocaWS lRes = new Integracion_INET.Tipo_InvocaWS(); int TotalKgs = 0; int NroIT = 0;
             string lDespachosCam = ""; string lViajes = ""; List<Tipo_GuiaOC> lListaOC = new List<Tipo_GuiaOC>();
-            Btn_INET.Enabled = false; int NroGuiasCreadas = 0;
+            Btn_INET.Enabled = false; int NroGuiasCreadas = 0; List<Tipo_GuiaOC> lListaOC_Rep = new List<Tipo_GuiaOC>();
 
             if (ValidaDatos() == true)
             {
@@ -366,12 +366,12 @@ namespace Metalurgica
                         NroGuiasCreadas = lListaOC.Count;
                         //*************************************************************************************************************************
                         //Ahora revisamos las guias de reposición
-                        lListaOC = new List<Tipo_GuiaOC>();
-                        lListaOC = ObtenerGuias_DeReposicion();
-                        for (i = 0; i < lListaOC.Count; i++)
+                        lListaOC_Rep = new List<Tipo_GuiaOC>();
+                        lListaOC_Rep = ObtenerGuias_DeReposicion();
+                        for (i = 0; i < lListaOC_Rep.Count; i++)
                         {
-                            lDespachosCam = lListaOC[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
-                            lViajes = lListaOC[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
+                            lDespachosCam = lListaOC_Rep[i].DespachosCamion;    //lDespachosCam.Substring(0, lDespachosCam.Length - 1);
+                            lViajes = lListaOC_Rep[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
                             lRes = InvocaWS_INET_Reposicion(Tx_Patente.Text, Tx_Fecha.Text, mIdObraSel, lDespachosCam, lViajes);
                             lRespINET = PersisteRespuesta_INET(lRes.XML_Respuesta, Tx_Patente.Text);
                              lPartes = lViajes.Split(new Char[] { ',' }); string lIdDespacho = "";
@@ -383,7 +383,7 @@ namespace Metalurgica
                                 lDal.ObtenerDatos(lSQl);
                             }
                         }
-                        NroGuiasCreadas = NroGuiasCreadas + lListaOC.Count;
+                        NroGuiasCreadas = NroGuiasCreadas + lListaOC_Rep.Count;
                         //*************************************************************************************************************************
 
                         MessageBox.Show(string.Concat("Se han Creado ", NroGuiasCreadas, " Guía(s) para el camión patente ", Tx_Patente.Text), "Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -398,37 +398,55 @@ namespace Metalurgica
                         //https://social.msdn.microsoft.com/Forums/es-ES/898271af-4622-4165-a50d-ccbbc4d3609b/imprimir-crystal-report-por-impresora-sin-que-se-vea-en-pantalla?forum=vsrepcrystales
                         //*****************************************************************************
                     }
+
+                    //  ******* cerramos el proceso de despacho de camion  ***************************
+                    lSQl = string.Concat(" SP_CRUD_PesajeCamion 0,'", Tx_Patente.Text, "',0,'',0,0,'',0,0,'',0,11 ");
+                    lDal.ObtenerDatos(lSQl);
+
+                    //******************Imprimimos los PL
+                    //  Imprimimos los PL Despacho
+                    //DataSet lDts = new DataSet();string lIdIt = ""; string IdObra = ""; string IdUser = "";
+                    //MessageBox.Show("Despues de Antes Camiones", "Trama de la aplicaión");
+                    //  lPartes = lViajes.Split(new Char[] { ',' });
+                    try
+                    {
+                        for (i = 0; i < lListaOC.Count; i++)
+                        {
+
+                            lViajes = lListaOC[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
+                            lPartes = lViajes.Split(new Char[] { ',' });
+                            for (k = 0; k < lPartes.Length; k++)
+                            {
+                                ImprimeDocumentos(lPartes[k].ToString());
+                            }
+                        }
+                        for (i = 0; i < lListaOC_Rep.Count; i++)
+                        {
+
+                            lViajes = lListaOC_Rep[i].Viajes;  //lViajes.Substring(0, lViajes.Length - 1);
+                            lPartes = lViajes.Split(new Char[] { ',' });
+                            for (k = 0; k < lPartes.Length; k++)
+                            {
+                                ImprimeDocumentos(lPartes[k].ToString());
+                            }
+                        }
+                        //***********
+                    }
+                    catch (Exception iex)
+                    {
+                        MessageBox.Show(string.Concat(" HA ocurrido el siguiente error:", iex.Message.ToString()), "Avisos Sistema");
+                    }
+
                 }
 
             }
-            //  ******* cerramos el proceso de despacho de camion  ***************************
-            lSQl = string.Concat(" SP_CRUD_PesajeCamion 0,'", Tx_Patente.Text, "',0,'',0,0,'',0,0,'',0,11 ");
-            lDal.ObtenerDatos(lSQl);
+   
+
             //********************************************************************************
             Btn_INET.Enabled = true;
             CargaCamiones(mSucursalTO, mEmpresa, mSoloCamionesBascula);
-            // *************************
-            //  Imprimimos los PL Despacho
-            //DataSet lDts = new DataSet();string lIdIt = ""; string IdObra = ""; string IdUser = "";
-            //  lPartes =     lViajes.Split(new Char[] { ',' });
-            //try
-            //{
-            //    for (i = 0; i < lPartes.Length; i++)
-            //    {
-            //        lSQl = string.Concat(" Select  v.idIt , it.idObra  from viaje v, it  where v.idit=it.id and codigo='", lPartes[i].ToString(), "'");
-            //        lDts = lDal.ObtenerDatos(lSQl);
-            //        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
-            //        {
-            //            lIdIt = lDts.Tables[0].Rows[0]["idIt"].ToString();
-            //            IdObra = lDts.Tables[0].Rows[0]["idObra"].ToString();
-            //            ImprimeViajeDespachado(lIdIt, lPartes[i].ToString(), IdObra, "2");
-            //        }
-            //    }
-            //}
-            //catch (Exception iex)
-            //{
 
-            //}
+        
 
 
 
@@ -440,7 +458,7 @@ namespace Metalurgica
 
         #region Impresion de Informes
 
-       private void  ImprimeViajeDespachado(string  IdIt , string  iCodViaje , string  IdObra, string iUser )
+        private void  ImprimeViajeDespachado(string  IdIt , string  iCodViaje , string  IdObra, string iUser )
       {
             //ObraCivil.Frm_ImprimirPL lFrm = new ObraCivil.Frm_ImprimirPL();
             //lFrm.ImprimeViajeDespacho(IdIt, iCodViaje, iUser, IdObra);
@@ -451,10 +469,12 @@ namespace Metalurgica
         private void ImprimeDocumentos(string iViaje )
         {
             //1.- primero Resumen Despacho
-           // ImprimeResumenDespacho(false);
+            // ImprimeResumenDespacho(false);
 
             //2.- los PL Despachados de cada viaje
             //ImprimirInforme("HSG-896/1", true);
+
+            //MessageBox.Show("Antes de Imprimir el Viaje ", "Avisos Sistema");
             ImprimirInforme(iViaje, true);
             //3.- Unimos los Archivos en uno 
             TerminaProceso(iViaje);
@@ -479,7 +499,7 @@ namespace Metalurgica
         }
         private void TerminaProceso(string iViaje )
         {
-            string lPathArchivo = string.Concat("C:\\TMP\\Logistica\\ImpresionPL\\HSG\\");
+            string lPathArchivo = ""; //string.Concat("C:\\TMP\\Logistica\\ImpresionPL\\HSG\\");
             Clases.ClsComun lCom = new Clases.ClsComun(); string lImp = "";int i = 0;
             string lres = ""; DataTable lTblImp = new DataTable(); string[] separators = { "-" };
             string lPathBase = ConfigurationManager.AppSettings["PathPdf"].ToString();
@@ -608,7 +628,7 @@ namespace Metalurgica
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
             ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
-            string lTmp = ""; DataSet lDtsTmp = new DataSet();
+           DataSet lDtsTmp = new DataSet();
             DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
       
             string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
@@ -999,7 +1019,8 @@ namespace Metalurgica
                     }
             }
             //Revisamos las listas y solo dejamos las 
-            string lViajes = ""; string lDespachos = ""; string lOC_Tmp = ""; string lOC = ""; int j = 0;
+           // string lViajes = ""; string lDespachos = "";
+            string lOC_Tmp = ""; string lOC = ""; int j = 0;
             DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
 
             lTbl = CreaCampo(lTbl);
@@ -2077,7 +2098,7 @@ namespace Metalurgica
 
         private void PDoc_PrintPage(object sender, PrintPageEventArgs e)
         {
-            String m = "";
+            //String m = "";
         }
 
         private void Cmb_Sucursal_SelectedIndexChanged(object sender, EventArgs e)

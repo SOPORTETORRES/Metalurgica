@@ -89,7 +89,7 @@ namespace Metalurgica.Tools
 
         private void Btn_eliminar_Click(object sender, EventArgs e)
         {
-            string lSql = ""; DataTable lTbl = new DataTable(); int i = 0;
+            DataTable lTbl = new DataTable(); int i = 0;
             WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();
 
 
@@ -384,11 +384,11 @@ namespace Metalurgica.Tools
             Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); string inet_msg = "";
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
             string lGlosa1 = ""; string lGlosa2 = ""; string lCodMaterial = ""; string lCantidad = "";
-            string Old_MovNumDoc = ""; string lId_LogWS = "";
+            string Old_MovNumDoc = ""; string lId_LogWS = "";string lEstado = "";
 
             // 1.- Se Integra con INET
             DataTable lTblFinal = new DataTable(); DataSet lDts = new DataSet();
-            DataView lVista = null; string lEstado = "";
+         //   DataView lVista = null; string lEstado = "";
             //try
             //{
 

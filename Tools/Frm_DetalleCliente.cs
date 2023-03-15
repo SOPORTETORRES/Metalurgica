@@ -65,7 +65,7 @@ namespace Metalurgica.Tools
             string lSql = " "; DataTable lTbl = new DataTable(); string lrut = ""; int i = 0;
             DataTable lTbl2 = new DataTable(); int k = 0; DataTable lTblFinal = new DataTable();
             WsCrud.ListaDataSet listaDataSet = new WsCrud.ListaDataSet();
-            DataView lVista = null;
+           // DataView lVista = null;
 
             lSql = String.Concat(" select  distinct cliente, estadoalta,  codigo_inet,  Empresa  from obras  ");
             lSql = String.Concat(lSql, " Where rutCliente like '%", irut, "%'  and estadoalta<>'FIN' ");

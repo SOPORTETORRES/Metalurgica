@@ -417,8 +417,8 @@ namespace Metalurgica.Bascula
         private DtsInformes CargaDatosPortada_ViajeSaldo(string iViaje)
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
-            ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
-            string lTmp = ""; DataSet lDtsTmp = new DataSet();
+            ArrayList lIdsPiezas = new ArrayList(); //string lRes = "";
+            DataSet lDtsTmp = new DataSet();
             DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
 
             string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");
@@ -903,7 +903,8 @@ namespace Metalurgica.Bascula
                     
             }
             //Revisamos las listas y solo dejamos las 
-            string lViajes = ""; string lDespachos = ""; string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            //string lViajes = ""; string lDespachos = "";
+            string lOC_Tmp = ""; string lOC = ""; int j = 0;
             DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
 
             lTbl = CreaCampo(lTbl);

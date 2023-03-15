@@ -123,10 +123,7 @@ namespace Metalurgica
                     else
                         lEstado = "ER";
 
-                    // Actualizamos los correlativos 
-                    //lSql = string .Concat ("exec SP_CRUD_LOG_WS_INET 5,0,0,'',0,'','','','',", lCom.Val(lObjINET.Movnumdoc) ,",'' ");
-                    
-                    lDtsTmp = lPX.ObtenerDatos(lSql);
+
 
                     lSql = string.Concat(" insert into ProductosIntegradosINET (CodProducto,MovNumDoc,IdUsuario,IdSucursal, Tipo ,Kgs , IdMaquinaIntegra) ");
                     lSql = string.Concat(lSql, " values ('", (iFila.Cells["CodMaterial"].Value.ToString()), "',", lCom.Val(lObjINET.Movnumdoc), ",");
@@ -912,6 +909,18 @@ namespace Metalurgica
             return lResultado;              
         }
 
+        private string ObtenerMovNumDoc()
+        {
+            WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();string lRes = "";
+            WsCrud.ListaDataSet lDts = new WsCrud.ListaDataSet(); String lSql = "";
+            // Actualizamos los correlativos 
+            lSql = string.Concat("exec SP_CRUD_LOG_WS_INET 4,0,0,'',0,'','','','','','' ");
+            lDts = lDAl.ListarAyudaSql(lSql);
+            if (lDts.DataSet.Tables.Count > 0)
+                lRes = lDts.DataSet.Tables[0].Rows[0][0].ToString();
+
+                return lRes;
+        }
 
         private Integracion_INET.Tipo_InvocaWS InvocarWS_INET(Ws_TO.Objeto_WsINET iObjINET)
         {
@@ -923,40 +932,42 @@ namespace Metalurgica
             XmlSerializer lXmlSal = null; StringWriter strDataXml = new StringWriter(); string lEstadoProceso = "";
             String lSql = ""; WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();
             WsCrud.ListaDataSet lDts = new WsCrud.ListaDataSet(); Clases.ClsComun lCom = new Clases.ClsComun();
-            //lDts As New ListaDataSet
-            //DataSet   lDts =new DataSet ();
-
-            //Integracion_INET .MovExistencias             
+            Boolean lSeguir = true; int lCont = 0;
             try
             {
-                // iEstado.Text = iEstado.Text & vbCrLf & "Cargando Objeto Entrada Bodega Productos Terminados  " : iEstado.Refresh()
-                lTipoEntradaEx = lCom.CargaObjEntradaBodegaProdTerm_INET(iObjINET);
-              // lObjEntradaMov.Intrasnporte = lTipoEntradaEx.ToString ();
-                lObjEntradaMov.Intrasnporte = lCom.CreaXmlEntradaProductosTerminados_INET_SolicitudMP(iObjINET);// CreaXmlEntradaProductosTErminados_INET(lTipoEntradaEx);
+                while (lSeguir || lCont <10)
+                {
+                    lResultado = new Integracion_INET.Tipo_InvocaWS();
+                    iObjINET.Movnumdoc = ObtenerMovNumDoc();
+                    lTipoEntradaEx = lCom.CargaObjEntradaBodegaProdTerm_INET(iObjINET);
+                    lObjEntradaMov.Intrasnporte = lCom.CreaXmlEntradaProductosTerminados_INET_SolicitudMP(iObjINET);// CreaXmlEntradaProductosTErminados_INET(lTipoEntradaEx);
 
-                //    'Cargamos el log para la el invocación del WS
-                //    iEstado.Text = iEstado.Text & vbCrLf & " Objeto Entrada Bodega Productos Terminados-- OK " & lResultado.Err
-                //   lResultado = New Tipo_InvocaWS
-                //    Application.DoEvents()
-                lResultado.XML_Enviado = lObjEntradaMov.Intrasnporte;
-                //    lResultado.IdDespachoCamion = mIdDespachoCamion
-                lResultado.URL_WS = lPxMovEx.Endpoint.ListenUri.AbsoluteUri;
-                //    iEstado.Text = iEstado.Text & vbCrLf & " Antes de  Invocar  WS INET :" & vbCrLf & lResultado.XML_Enviado : iEstado.Refresh()
-                lResMovEx.Outtansporte = lPxMovEx.Execute(lObjEntradaMov.Intrasnporte);
-                //Dim lXmlSal As New XmlSerializer(lResMovEx.Outtansporte.GetType)
-                lXmlSal = new XmlSerializer(lResMovEx.Outtansporte.GetType());
-                lXmlSal.Serialize(strDataXml, lResMovEx.Outtansporte);
-                lResultado.XML_Respuesta = strDataXml.ToString();
-                //    iEstado.Text = iEstado.Text & vbCrLf & "Estado P1  :" & lResultado.XML_Respuesta.ToUpper.IndexOf("OK") : iEstado.Refresh()
-                if (lResultado.XML_Respuesta.ToUpper().IndexOf("OK") > -1)
-                    lEstadoProceso = "OK";
-                else
-                    lEstadoProceso = "ER";
+                    lResultado.XML_Enviado = lObjEntradaMov.Intrasnporte;
+                    lResultado.URL_WS = lPxMovEx.Endpoint.ListenUri.AbsoluteUri;
+                    lResMovEx.Outtansporte = lPxMovEx.Execute(lObjEntradaMov.Intrasnporte);
+                    lXmlSal = new XmlSerializer(lResMovEx.Outtansporte.GetType());
+                    lXmlSal.Serialize(strDataXml, lResMovEx.Outtansporte);
+                    lResultado.XML_Respuesta = strDataXml.ToString();
+                    if (lResultado.XML_Respuesta.ToUpper().IndexOf("OK") > -1)
+                    {
+                        lEstadoProceso = "OK";lSeguir = false;
+                        lCont = 11;
+                    }
+                       
+                    else
+                    {
+                        lCont = lCont+1;
+                        lEstadoProceso = "ER";
+                        lSeguir = false;
+                    }
+                        
 
-                lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&lt;", "<");
-                lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&gt;", ">");
-                lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&amp;lt;", "<");
-                lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&amp;gt;", ">");
+                    lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&lt;", "<");
+                    lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&gt;", ">");
+                    lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&amp;lt;", "<");
+                    lResultado.XML_Respuesta = lResultado.XML_Respuesta.Replace("&amp;gt;", ">");
+                }
+             
             }
 
             catch (Exception exc)
@@ -1213,7 +1224,7 @@ namespace Metalurgica
 
         private void tlbActualizar_Click(object sender, EventArgs e)
         {
-            DataView lVista = null;
+           // DataView lVista = null;
             Cursor.Current = Cursors.WaitCursor;
 
             mTipoColada = ConfigurationManager.AppSettings["TipoColada"].ToString();

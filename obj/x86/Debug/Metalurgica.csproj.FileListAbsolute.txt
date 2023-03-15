@@ -256,3 +256,4 @@ C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\D
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Maquinas.PLC.Frm_ControlDim.resources
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Pruebas.Frm_FichaObra.resources
 C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.Maquinas.Frm_IngresoRepuestos.resources
+C:\Roberto Becerra\TO\Desarrollo\Metalurgia\Metalurgia\app\Metalurgica\obj\x86\Debug\Metalurgica.TrustInfo.xml

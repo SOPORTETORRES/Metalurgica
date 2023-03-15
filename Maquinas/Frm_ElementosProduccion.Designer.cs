@@ -233,9 +233,9 @@
             this.Pnl_SeleccionAveria.Controls.Add(this.label5);
             this.Pnl_SeleccionAveria.Controls.Add(this.label4);
             this.Pnl_SeleccionAveria.Controls.Add(this.Dtg_Averias);
-            this.Pnl_SeleccionAveria.Location = new System.Drawing.Point(9, 12);
+            this.Pnl_SeleccionAveria.Location = new System.Drawing.Point(9, 2);
             this.Pnl_SeleccionAveria.Name = "Pnl_SeleccionAveria";
-            this.Pnl_SeleccionAveria.Size = new System.Drawing.Size(675, 162);
+            this.Pnl_SeleccionAveria.Size = new System.Drawing.Size(675, 172);
             this.Pnl_SeleccionAveria.TabIndex = 8;
             this.Pnl_SeleccionAveria.Visible = false;
             // 
@@ -295,7 +295,7 @@
             // Btn_Reparacion
             // 
             this.Btn_Reparacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Reparacion.Location = new System.Drawing.Point(494, 38);
+            this.Btn_Reparacion.Location = new System.Drawing.Point(583, 43);
             this.Btn_Reparacion.Name = "Btn_Reparacion";
             this.Btn_Reparacion.Size = new System.Drawing.Size(75, 39);
             this.Btn_Reparacion.TabIndex = 15;
@@ -306,7 +306,7 @@
             // Btn_SalirSelNot
             // 
             this.Btn_SalirSelNot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_SalirSelNot.Location = new System.Drawing.Point(575, 37);
+            this.Btn_SalirSelNot.Location = new System.Drawing.Point(583, 3);
             this.Btn_SalirSelNot.Name = "Btn_SalirSelNot";
             this.Btn_SalirSelNot.Size = new System.Drawing.Size(75, 40);
             this.Btn_SalirSelNot.TabIndex = 14;
@@ -316,12 +316,11 @@
             // 
             // Lbl_Titulo
             // 
-            this.Lbl_Titulo.AutoSize = true;
             this.Lbl_Titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_Titulo.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_Titulo.Location = new System.Drawing.Point(7, 10);
+            this.Lbl_Titulo.Location = new System.Drawing.Point(7, 1);
             this.Lbl_Titulo.Name = "Lbl_Titulo";
-            this.Lbl_Titulo.Size = new System.Drawing.Size(537, 17);
+            this.Lbl_Titulo.Size = new System.Drawing.Size(568, 38);
             this.Lbl_Titulo.TabIndex = 13;
             this.Lbl_Titulo.Text = "Seleccione una Notificación a Reparar, para el elemento de Producción |";
             // 
@@ -372,7 +371,7 @@
             this.Dtg_Averias.Location = new System.Drawing.Point(10, 123);
             this.Dtg_Averias.Name = "Dtg_Averias";
             this.Dtg_Averias.ReadOnly = true;
-            this.Dtg_Averias.Size = new System.Drawing.Size(640, 32);
+            this.Dtg_Averias.Size = new System.Drawing.Size(640, 42);
             this.Dtg_Averias.TabIndex = 8;
             this.Dtg_Averias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Averias_CellContentClick);
             this.Dtg_Averias.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Averias_CellContentDoubleClick);

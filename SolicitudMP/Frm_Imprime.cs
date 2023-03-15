@@ -93,7 +93,7 @@ namespace Metalurgica.SolicitudMP
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
             ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
-            string lTmp = ""; DataSet lDtsTmp = new DataSet();
+            DataSet lDtsTmp = new DataSet();
             DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
 
             string lSql = string.Concat("select IdIt, IdObra  from viaje v, it where v.IdIt =it.id and Codigo ='", iViaje, "' ");

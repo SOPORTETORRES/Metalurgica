@@ -278,7 +278,7 @@ namespace Metalurgica.Bascula
         private void CargaDatosPorCorrelativo(string iCorrelativo)
         {
             //ObtenerSqlEstadoProceso
-            string lRes = "0"; Clases.SqlBascula lTipoSql = new Clases.SqlBascula(); 
+             Clases.SqlBascula lTipoSql = new Clases.SqlBascula(); 
             DataTable lTblGuiasCorr = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun();
             DataTable lTbmTmp = new DataTable(); string lTicketAsoc = "";DataRow lFila = null;
             string lFecha = DateTime.Now.ToShortDateString(); //int lPesoTara = int.Parse(Tx_Tara.Text);

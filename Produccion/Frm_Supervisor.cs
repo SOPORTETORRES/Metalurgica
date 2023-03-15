@@ -105,6 +105,7 @@ namespace Metalurgica.Produccion
                         lTbl = ObtenerDestinatarios("-1550");
                         break;
                     case "CORONEL":
+                        lTbl = ObtenerDestinatarios("-1560");
                         break;
                 }
 

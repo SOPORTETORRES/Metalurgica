@@ -83,7 +83,7 @@ namespace Metalurgica
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
+     {
             lblHora.Text = DateTime.Now.ToString("H:mm:ss");
             //if (mContador > 60)
             //{

@@ -5,8 +5,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
-    <PublishUrlHistory>F:\T_O\CubiGest Fase2\Desarrollo\Publicacion\Metalurgia\|publish\</PublishUrlHistory>
-    <InstallUrlHistory>http://www.ssingest.cl/Publicaciones/|http://www.ssingest.cl/html/Publicaciones/|http://www.ssingest.cl/html/Publicaciones/inicio.htm/</InstallUrlHistory>
+    <PublishUrlHistory>C:\TMP\Publicaciones\Metalurgia\Vista Clara\Produccion\|F:\T_O\CubiGest Fase2\Desarrollo\Publicacion\Metalurgia\|publish\</PublishUrlHistory>
+    <InstallUrlHistory>http://192.168.1.195/Publicaciones/Metalurgia/Produccion/VistaClara/|http://192.168.1.195/Publicaciones/Metalurgia/Produccion/VistaClara/inicio.htm/|http://www.ssingest.cl/Publicaciones/|http://www.ssingest.cl/html/Publicaciones/|http://www.ssingest.cl/html/Publicaciones/inicio.htm/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />

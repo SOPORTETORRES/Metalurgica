@@ -84,6 +84,10 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         string SP_VERIFICA_VIAJE_DESPACHO(string iViaje);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RegistraEtiqueta_Cargada", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.Despacho_Camion RegistraEtiqueta_Cargada(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GuardarDespachoCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos);
@@ -252,9 +256,13 @@ namespace Metalurgica.WsOperacion {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsOperacion.ListaDataSet GrabarChequeoMaquina(System.Data.DataSet Dts);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GrabarChequeoMaquina_Proceme", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsOperacion.ListaDataSet GrabarChequeoMaquina_Proceme(System.Data.DataSet Dts);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/VerificaChequeo", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        string VerificaChequeo(string IdMaquina);
+        string VerificaChequeo(string IdMaquina, string IdUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerSupervisores", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -262,7 +270,7 @@ namespace Metalurgica.WsOperacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ObtenerDatosParaEnvioMail", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail();
+        Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail(string iNroMaq);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IntegraBodegasINET", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -2507,6 +2515,8 @@ namespace Metalurgica.WsOperacion {
         
         private string idSucursalField;
         
+        private string tipoMaterialField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Lote {
@@ -2732,6 +2742,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.idSucursalField = value;
                 this.RaisePropertyChanged("IdSucursal");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=19)]
+        public string TipoMaterial {
+            get {
+                return this.tipoMaterialField;
+            }
+            set {
+                this.tipoMaterialField = value;
+                this.RaisePropertyChanged("TipoMaterial");
             }
         }
         
@@ -3271,6 +3293,8 @@ namespace Metalurgica.WsOperacion {
         
         private string idSucursalField;
         
+        private double kgsNorma353Field;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int Id {
@@ -3412,6 +3436,18 @@ namespace Metalurgica.WsOperacion {
             set {
                 this.idSucursalField = value;
                 this.RaisePropertyChanged("IdSucursal");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=12)]
+        public double KgsNorma353 {
+            get {
+                return this.kgsNorma353Field;
+            }
+            set {
+                this.kgsNorma353Field = value;
+                this.RaisePropertyChanged("KgsNorma353");
             }
         }
         
@@ -4114,6 +4150,10 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.SP_VERIFICA_VIAJE_DESPACHO(iViaje);
         }
         
+        public Metalurgica.WsOperacion.Despacho_Camion RegistraEtiqueta_Cargada(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos) {
+            return base.Channel.RegistraEtiqueta_Cargada(despacho_Camion, terminal, iDtsDatos);
+        }
+        
         public Metalurgica.WsOperacion.Despacho_Camion GuardarDespachoCamion(Metalurgica.WsOperacion.Despacho_Camion despacho_Camion, string terminal, System.Data.DataSet iDtsDatos) {
             return base.Channel.GuardarDespachoCamion(despacho_Camion, terminal, iDtsDatos);
         }
@@ -4282,16 +4322,20 @@ namespace Metalurgica.WsOperacion {
             return base.Channel.GrabarChequeoMaquina(Dts);
         }
         
-        public string VerificaChequeo(string IdMaquina) {
-            return base.Channel.VerificaChequeo(IdMaquina);
+        public Metalurgica.WsOperacion.ListaDataSet GrabarChequeoMaquina_Proceme(System.Data.DataSet Dts) {
+            return base.Channel.GrabarChequeoMaquina_Proceme(Dts);
+        }
+        
+        public string VerificaChequeo(string IdMaquina, string IdUsuario) {
+            return base.Channel.VerificaChequeo(IdMaquina, IdUsuario);
         }
         
         public Metalurgica.WsOperacion.ListaDataSet ObtenerSupervisores() {
             return base.Channel.ObtenerSupervisores();
         }
         
-        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail() {
-            return base.Channel.ObtenerDatosParaEnvioMail();
+        public Metalurgica.WsOperacion.ListaDataSet ObtenerDatosParaEnvioMail(string iNroMaq) {
+            return base.Channel.ObtenerDatosParaEnvioMail(iNroMaq);
         }
         
         public System.Data.DataSet IntegraBodegasINET(string iFecha, string IdIt_PorAprobar, bool iPersisteResultado) {

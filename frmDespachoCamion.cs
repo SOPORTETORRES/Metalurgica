@@ -25,7 +25,7 @@ namespace Metalurgica
         private string mSoloCamionesBascula = "";
         private bool mPrimeraVez = true;
         private string mEmpresa = "";
-
+        private int  mIdDespachoCamion = 0;
         public frmDespachoCamion()
         {
             InitializeComponent();
@@ -118,6 +118,8 @@ namespace Metalurgica
             lblCantidadEtiquetasPiezas.Text = "Registro(s): 0";
             mTotalKgsCargado = 0;
             txtPatente.Focus();
+
+            Dtg_ResumenCarga .DataSource = null;
 
             lbl_TotalKgsCar.Text = "";
             this.Lbl_PiezasPorCar.Text = "";
@@ -272,8 +274,10 @@ namespace Metalurgica
                             }
                         }
                         lDtsDatos.Tables.Add(lTblViajes);
-
                         despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
+                        
+                        //despacho_Camion.Id = Obtener_IdDespacho();
+                        //despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
 
                         //Invocamos el metodo que revisa los bloqueos
                         wsOperacion.RevisaRN(lIdObra);
@@ -548,6 +552,9 @@ namespace Metalurgica
             string lPaqueteLiberado = ""; Boolean lPuedeSeguir = true; string lMgs = "";Clases.ClsComun lCom = new Clases.ClsComun();
             string[] split = null    ;//iEtiquetas.ToString().Split(new Char[] { '|' });
             string lValidaLiberacionDespacho = ""; // ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
+            WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion(); DataTable lTbl = new DataTable(); DataRow lFila = null;
+            DataTable lTblViajes = new DataTable(); DataSet lDtsDatos = new DataSet(); string lEstado = "";
+            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
 
             DataTable lTblPaquete = new DataTable();
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
@@ -641,6 +648,43 @@ namespace Metalurgica
                                     }
                                     else
                                     {
+                                        // hay que hacer la llamanda al WS que marca la etiquta como en carga 
+                                        //***************************************************************
+                                        lTbl.TableName = "Piezas";
+                                        lTbl.Columns.Add("usuario", Type.GetType("System.String"));
+                                        lTbl.Columns.Add("colada", Type.GetType("System.String"));
+                                        lTbl.Columns.Add("etiqueta_pieza", Type.GetType("System.String"));
+
+                                        lTblViajes.TableName = "Viajes";
+                                        lTblViajes.Columns.Add("Codigo", Type.GetType("System.String"));
+
+                                        despacho_Camion.Id = mIdDespachoCamion; //lDespachoCamion.Id = 0;
+                                       if (mSoloCamionesBascula.ToUpper().Equals("S"))
+                                        {
+                                            despacho_Camion.Camion = Cmb_Patentes.SelectedValue.ToString();
+                                        }
+                                        else
+                                        {
+                                            despacho_Camion.Camion = txtPatente.Text.Trim();
+                                        }
+
+          
+                                        despacho_Camion.Obra_Destino = (cboObraDestino.SelectedValue == null ? "" : cboObraDestino.SelectedValue.ToString());
+                                          despacho_Camion.Usuario = Program.currentUser.Login;
+                                 
+                                        despacho_Camion.Obs = txtObs.Text;
+                                        //despacho_Camion.Id = Obtener_IdDespacho();
+                                         lFila = lTbl.NewRow();
+                                        lFila["usuario"] = Program.currentUser.Login;
+                                        lFila["colada"] = "";
+                                        lFila["etiqueta_pieza"] = iEtiquetaPieza;
+                                        lTbl.Rows.Add(lFila);
+                                
+                                        lDtsDatos.Tables.Add(lTbl);
+                                        //**********************Requerimieto Leo *******************
+                                        //despacho_Camion = wsOperacion.RegistraEtiqueta_Cargada(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
+                                        //mIdDespachoCamion = despacho_Camion.Id;
+                                        //****************************************************************************
                                         lVista[0]["Estado1"] = "POK";
                                         lVista[0]["Estado2"] = lEstadoPaquete;
                                         forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "CAMION", "OBRA_DESTINO", "CAM_USUARIO", "CAM_FECHA", "CAM_OBSERVACION", "CAM_USUARIO_VB", "CAM_FECHA_VB", "CAM_OBSERVACION_VB", "PIE_ESTADO", "DES_ACO_ID", "DES_CAM_ID" });
@@ -667,7 +711,7 @@ namespace Metalurgica
                 }
                 else
                 {
-                    WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+                    //WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                     WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();                        
                     listaDataSet = wsOperacion.ObtenerPiezaProduccion(txtEtiquetaPieza.Text);
                     if (listaDataSet.MensajeError.Equals(""))
@@ -707,6 +751,24 @@ namespace Metalurgica
             //mPaqPorCargar = 0;         mTotalPiezasCargado = 0;
                     //ActualizaColoresGrilla();
         
+        }
+
+        private int Obtener_IdDespacho()
+        {
+            int lRes = 0; int i = 0;
+
+            for (i = 0; i < dgvEtiquetasPiezas.RowCount; i++)
+            {
+                if (dgvEtiquetasPiezas.Rows[i].Cells["EstadoDespacho"].Value.ToString() == "EnCarga")
+                {
+                    lRes = (int)  dgvEtiquetasPiezas.Rows[i].Cells["IdDespacho"].Value;
+                    i = dgvEtiquetasPiezas.RowCount;
+                }
+            }
+
+
+
+            return lRes;
         }
 
         private void PosicionaEnFila(string iEtiquetaPieza)
@@ -1003,9 +1065,13 @@ namespace Metalurgica
                     case "O60": 
                         PintaFila(i, Color.LightGreen);
                         //' Dtg_Resultado.Rows[i].Cells["Codigo"].Style.BackColor = Color.LightSalmon;
-                        this.tlbGuardar.Enabled = false;
+                        if (dgvEtiquetasPiezas.Rows [i].Cells ["EstadoDespacho"].Value. ToString ().ToUpper() !="ENCARGA")
+                        {
+                            this.tlbGuardar.Enabled = false;
+                           
+                        }
+
                         break;
-                    
                 }
                 //Cuando el un Va pero No Va se debe indicar en campo Estado2
                 if (dgvEtiquetasPiezas.Rows[i].Cells["NoVa"].Value.ToString().ToUpper().Equals("S"))
@@ -1241,7 +1307,7 @@ namespace Metalurgica
                     MessageBox.Show(lMsg, "Avisos Sistema", MessageBoxButtons.OK);
                 }
 
-            return lRes;
+          return lRes;
         }
 
         private void cargaViaje(string iIdObra)

@@ -619,17 +619,19 @@ namespace Metalurgica
             //Frm.ShowDialog();
 
             //'Probamos Cambio en GDE 
-            string iViajes = "";string iRespuesta = "";
-            Integracion_INET.Cls_LN lDal = new Integracion_INET.Cls_LN();
-            iViajes = "HBL-1582/1,HBL-1562/2,HBL-1563/2,HBL-1566/2,HBL-1567/2,HBL-1574/2,HBL-1568/2,HBL-1569/2,HBL-1570/2,HBL-1571/2,HBL-1577/2,HBL-1558/2,HBL-1559/2,HBL-1560/2,HBL-1554/2,HBL-1561/2,HBL-1552/2,HBL-1576/1,HBL-1575/1,HBL-1514/2,HBL-1530/2,HBL-1573/1,HBL-1540/1,HBL-1531/1";
-            iRespuesta = "<?xml version='1.0' encoding='utf-16'?>  <ExecuteResponse xmlns:xsi='http//www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>  ";
-            iRespuesta = String.Concat(iRespuesta, " <Xmlout>     <SDT_ERRORES_ERROR xmlns = 'http//www.informat.cl/ws' <> NUMERROR > 0</NUMERROR>    ");
-            iRespuesta = String.Concat(iRespuesta, "  <DESCERROR><SDT_RESP_PROCESO xmlns='http://www.informat.cl/ws'>  <NRO_DOC>0</NRO_DOC>  <CAJCOD>0</CAJCOD>   ");
-            iRespuesta = String.Concat(iRespuesta, "  	 <DOCCOD>363</DOCCOD>  <ATENUMREA>2777</ATENUMREA>  ");
-            iRespuesta = String.Concat(iRespuesta, "   <COD_ESTADO>0</COD_ESTADO>  <DSC_ESTADO>Pendiente</DSC_ESTADO>");
-            iRespuesta = String.Concat(iRespuesta, " <MOT_ESTADO/> </SDT_RESP_PROCESO> </DESCERROR>      </SDT_ERRORES_ERROR>    </Xmlout>  </ExecuteResponse> ");
+            //string iViajes = "";string iRespuesta = "";
+            //Integracion_INET.Cls_LN lDal = new Integracion_INET.Cls_LN();
+            //iViajes = "HBL-1582/1,HBL-1562/2,HBL-1563/2,HBL-1566/2,HBL-1567/2,HBL-1574/2,HBL-1568/2,HBL-1569/2,HBL-1570/2,HBL-1571/2,HBL-1577/2,HBL-1558/2,HBL-1559/2,HBL-1560/2,HBL-1554/2,HBL-1561/2,HBL-1552/2,HBL-1576/1,HBL-1575/1,HBL-1514/2,HBL-1530/2,HBL-1573/1,HBL-1540/1,HBL-1531/1";
+            //iRespuesta = "<?xml version='1.0' encoding='utf-16'?>  <ExecuteResponse xmlns:xsi='http//www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>  ";
+            //iRespuesta = String.Concat(iRespuesta, " <Xmlout>     <SDT_ERRORES_ERROR xmlns = 'http//www.informat.cl/ws' <> NUMERROR > 0</NUMERROR>    ");
+            //iRespuesta = String.Concat(iRespuesta, "  <DESCERROR><SDT_RESP_PROCESO xmlns='http://www.informat.cl/ws'>  <NRO_DOC>0</NRO_DOC>  <CAJCOD>0</CAJCOD>   ");
+            //iRespuesta = String.Concat(iRespuesta, "  	 <DOCCOD>363</DOCCOD>  <ATENUMREA>2777</ATENUMREA>  ");
+            //iRespuesta = String.Concat(iRespuesta, "   <COD_ESTADO>0</COD_ESTADO>  <DSC_ESTADO>Pendiente</DSC_ESTADO>");
+            //iRespuesta = String.Concat(iRespuesta, " <MOT_ESTADO/> </SDT_RESP_PROCESO> </DESCERROR>      </SDT_ERRORES_ERROR>    </Xmlout>  </ExecuteResponse> ");
 
-            lDal.GrabaDetalleViajes_GDE(iRespuesta, iViajes);
+            //lDal.GrabaDetalleViajes_GDE(iRespuesta, iViajes);
+
+
 
             //string lSucursal = ""; string lPar = "SG-295/1|15|Stgo|60";
             //Registry registry = new Registry();
@@ -672,6 +674,140 @@ namespace Metalurgica
 
             //Tools.Frm_CorrigeKilos lFrm = new Tools.Frm_CorrigeKilos();
             //lFrm.ShowDialog();
+
+            //************************************************************
+            // string lIds = "2239024,2239025,2239026,2239027,2239028,2239029,2239030,2239031,2239032,2239033,2239034,2239035,2239036,2239037,2239038,2239039,2239040,2239041,2239042,2239043,2239044,2239045,2239046,2239047,2239048,2239049,2239050,2239051,2239052,2239053,2239054,2239055,2239056,2239057,2239058,2239059,2239060,2239061,2239062,2239063,2239064,2239065,2239066,2239067,2239068,2239069,2239070,2239071,2239072,2239073,2239074,2239075,2239076,2239077,2239078,2239079,2239080,2239081,2239082,2239083,2239084,2239085,2239086,2239087,2239088,2239089,2239090,2239091,2239092,2239093,2239094,2239095,2239096";
+
+
+            //string[] lPartes = lIds.Split(new Char[] { ',' });
+            // int i = 0;
+            // for (i = 0; i < lPartes.Length; i++)
+            //     ReparaDetallepaquetesPieza(lPartes[i]);
+            //************************************************************
+
+            Maquinas.CheckList lFrm = new Maquinas.CheckList();
+            lFrm.Show();
+
+
+        }
+
+        private void ReparaDetallepaquetesPieza(string iDMov)
+        {
+            DataTable lTbl = new DataTable(); int i = 0; int lNroPaquetes = 0;Clases.ClsComun lCom = new Clases.ClsComun();
+            string lPiezasXPaq = ""; double lPiezasTotales = 0; double lKgsTotales = 0;double lPesoXPieza = 0;
+            int lPiezasPaq_inicial = 0; int lPiezasPaq_Final = 0; double lKgsPaquete = 0;string lIdPieza = "0";
+            string lIdViaje = ""; string iNroPiezas = "";
+            WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient();
+            WsCrud.ListaDataSet listaDataSet = new WsCrud.ListaDataSet();
+            string lSql = string.Concat(" Select * from movimientos where id=", iDMov);
+            listaDataSet = lDAl.ListarAyudaSql(lSql);
+            if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+            {
+                lNroPaquetes = lCom.Val(listaDataSet.DataSet.Tables[0].Rows[0]["NroPaquetes"].ToString());
+                lPiezasXPaq = listaDataSet.DataSet.Tables[0].Rows[0]["PiezasXPaquete"].ToString();
+                lPiezasTotales = lCom.Val(listaDataSet.DataSet.Tables[0].Rows[0]["PiezasTotales"].ToString());
+                lKgsTotales = lCom.Val(listaDataSet.DataSet.Tables[0].Rows[0]["PesoAsignado"].ToString());
+                lPesoXPieza = Math.Round(lKgsTotales / lPiezasTotales, 2);
+                string[] lPartes = lPiezasXPaq.Split(new Char[] { '/' });
+                if (lPartes.Length == 2)
+                {
+                    lPiezasPaq_inicial = lCom.Val(lPartes[0].ToString());
+                    lPiezasPaq_Final = lCom.Val(lPartes[1].ToString());
+
+                    lSql = string.Concat(" select * from DetallePaquetesPieza WHERE IdMov=", iDMov);
+                    listaDataSet = lDAl.ListarAyudaSql(lSql);
+                    if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                    {
+                        lTbl = listaDataSet.DataSet.Tables[0].Copy();
+                        for (i = 1; i < lNroPaquetes + 1; i++)
+                        {
+                            DataView lVista = new DataView(lTbl, string.Concat("nroPaq=", i), "", DataViewRowState.CurrentRows);
+                            if (lVista.Count > 0)
+                            {
+                                if (lNroPaquetes != i)
+                                    lKgsPaquete = Math.Round(lPiezasPaq_inicial * lPesoXPieza, 0);
+                                else
+                                    lKgsPaquete = Math.Round(lPiezasPaq_Final * lPesoXPieza, 0);
+
+
+                                lSql = string.Concat(" update DetallePaquetesPieza set etiqueta=null, NroPiezas =", lPiezasPaq_inicial, ",");
+                                lSql = string.Concat(lSql, "KgsPaquete='", lKgsPaquete, "',KgsReales = '", lKgsPaquete, "',");
+                                lSql = string.Concat(lSql, "KgsNorma353='", Math.Round((lKgsPaquete * 1 / 100), 2).ToString().Replace(",", "."), "' where Id=", lVista[0]["Id"].ToString());
+                                lDAl.ListarAyudaSql(lSql);
+                            }
+                            else
+                            {
+                                if (lNroPaquetes != i)
+                                {
+                                    lKgsPaquete = Math.Round(lPiezasPaq_inicial * lPesoXPieza, 0);
+                                    iNroPiezas = lPiezasPaq_inicial.ToString();
+                                }
+                                else
+                                {
+                                    lKgsPaquete = Math.Round(lPiezasPaq_Final * lPesoXPieza, 0);
+                                    iNroPiezas = lPiezasPaq_Final.ToString();
+                                }
+
+
+                                //Obtenemos el Id de la Pieza
+                                lSql = string.Concat(" Select * from Piezas where idmov=", iDMov);
+                                listaDataSet = lDAl.ListarAyudaSql(lSql);
+                                if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                                {
+                                    lIdPieza = listaDataSet.DataSet.Tables[0].Rows[0]["Id"].ToString();
+                                    lIdViaje = listaDataSet.DataSet.Tables[0].Rows[0]["IdViaje"].ToString();
+                                    lSql = string.Concat(" insert into DetallePaquetesPieza  ( IdPieza ,IdMov ,NroPaq ,	TotalPaq , ");
+                                    lSql = string.Concat(lSql, " KgsPaquete ,	Estado ,	fechaRegistro ,		NroPiezas , idviaje,");
+                                    lSql = string.Concat(lSql, " 		KgsReales  ,IdSucursal ,KgsNorma353) Values (");
+                                    lSql = string.Concat(lSql, lIdPieza, ",", iDMov, ",", i, ",", lNroPaquetes, ",'", lKgsPaquete, "','',getdate(),", iNroPiezas, ",");
+                                    lSql = string.Concat(lSql, lIdViaje, ",'", lKgsPaquete.ToString(), "',14,'", Math.Round((lKgsPaquete * 1 / 100), 2).ToString().Replace(",", "."), "')");
+                                    lDAl.ListarAyudaSql(lSql);
+                                }
+
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        for (i = 1; i < lNroPaquetes + 1; i++)
+                        {
+                            if ((lNroPaquetes ) != i)
+                            {
+                                lKgsPaquete = Math.Round(lPiezasPaq_inicial * lPesoXPieza, 0);
+                                iNroPiezas = lPiezasPaq_inicial.ToString();
+                            }
+                            else
+                            {
+                                lKgsPaquete = Math.Round(lPiezasPaq_Final * lPesoXPieza, 0);
+                                iNroPiezas = lPiezasPaq_Final.ToString();
+                            }
+
+
+                            //Obtenemos el Id de la Pieza
+                            lSql = string.Concat(" Select * from Piezas where idmov=", iDMov);
+                            listaDataSet = lDAl.ListarAyudaSql(lSql);
+                            if ((listaDataSet.DataSet.Tables.Count > 0) && (listaDataSet.DataSet.Tables[0].Rows.Count > 0))
+                            {
+                                lIdPieza = listaDataSet.DataSet.Tables[0].Rows[0]["Id"].ToString();
+                                lIdViaje = listaDataSet.DataSet.Tables[0].Rows[0]["IdViaje"].ToString();
+                                lSql = string.Concat(" insert into DetallePaquetesPieza  ( IdPieza ,IdMov ,NroPaq ,	TotalPaq , ");
+                                lSql = string.Concat(lSql, " KgsPaquete ,	Estado ,	fechaRegistro ,		NroPiezas , idviaje,");
+                                lSql = string.Concat(lSql, " 		KgsReales  ,IdSucursal ,KgsNorma353) Values (");
+                                lSql = string.Concat(lSql, lIdPieza, ",", iDMov, ",", i, ",", lNroPaquetes, ",'", lKgsPaquete, "','',getdate(),", iNroPiezas, ",");
+                                lSql = string.Concat(lSql, lIdViaje, ",'", lKgsPaquete.ToString(), "',14,'", Math.Round((lKgsPaquete * 1 / 100), 2).ToString().Replace(",", "."), "')");
+                                lDAl.ListarAyudaSql(lSql);
+                            }
+
+                        }
+                    }
+                
+
+                }
+
+
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)

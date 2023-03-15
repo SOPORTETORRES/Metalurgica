@@ -210,7 +210,7 @@ namespace Metalurgica.Controls
                         DataTable dataTable = listaDataSet.DataSet.Tables[0];
                         if (dataTable.Rows.Count > 0)
                         {
-                            lPesoEtiqueta = lcom.Val(dataTable.Rows[0]["PesoPaquete"].ToString());
+                            lPesoEtiqueta = lcom.Val(dataTable.Rows[0]["kgsReales"].ToString());
                             lDiam = int.Parse(dataTable.Rows[0]["Diametro"].ToString());
                             // A los Kilos Solicitados le agregamos la Tolerancia definida
                             if (lcom.Val(lToleranciaSMP) > 0)
@@ -285,7 +285,7 @@ namespace Metalurgica.Controls
             bool lEtiquetaImpresa = true ;Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();string lTipoSucursal = "";
-            Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = ""; string lSucursalReferencia = "";
+            Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient();  string lSucursalReferencia = "";
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable(); string lDiam = "";
 
             string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; string lCuerpoMsg = "";
@@ -350,7 +350,7 @@ namespace Metalurgica.Controls
                     {
                         //pasos   1.- Identificar el díametro de la etiqueta leida
                        
-                        string lMaq = mUserLog.IdMaquina.ToString();string lWheres = "";
+                        string lMaq = mUserLog.IdMaquina.ToString();
                         //2.- Obtener los diametros permitidos por maquina.
                         //lWheres = string.Concat(" MAQ_NRO=",lMaq , " and diametro='",lDiam ,"'");
                         //DataView lVista = new DataView(mTblDiametrosMaq, lWheres, "", DataViewRowState.CurrentRows);
@@ -528,7 +528,7 @@ namespace Metalurgica.Controls
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.Pieza pieza = new WsOperacion.Pieza(); int lIdUser = 0;
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
-            string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun();
+             Clases.ClsComun lCom = new Clases.ClsComun();
             pieza.Colada = iColada;
             pieza.Etiqueta = iPieza;
             pieza.Estado = "O40";
@@ -620,7 +620,9 @@ namespace Metalurgica.Controls
                     if (PaqueteEstaProducido(listaDataSet.DataSet.Tables[0].Copy()) == false)
                     {
                         DataTable dataTable = listaDataSet.DataSet.Tables[0];
-                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString())- double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
+                        // lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString())- double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
+                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["KgsReales"].ToString()) ;
+
                         lPiezasPaq = (int)listaDataSet.DataSet.Tables[0].Rows[0]["PiezasPaq"];
                         mLog = string.Concat(mLog, "PesoEtiqueta:", lPesoEtiqueta);
                         if (lObligacionColada.Equals("S"))
@@ -649,7 +651,9 @@ namespace Metalurgica.Controls
                                         {
                                             if ((mEtiqueta_Qr.Errors == ""))
                                             {
-                                                lSaldoEtiqueta = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos) - int.Parse(lPesoEtiqueta.ToString());
+                                                //lTmp = Math.Round(lPesoEtiqueta.ToString(), 0);
+                                                //lPesoEtiqueta = lCom.Val(lPesoEtiqueta.ToString());
+                                                lSaldoEtiqueta = mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos -  int.Parse(lPesoEtiqueta.ToString());
                                                 //lKgsVinc = lSaldoEtiqueta;
                                                 lKgsVinc = (mEtiqueta_Qr.PesoBulto - mEtiqueta_Qr.KgsProducidos);
                                                 lKgsSaldo = (int)lPesoEtiqueta - lKgsVinc;
@@ -762,7 +766,7 @@ namespace Metalurgica.Controls
         private bool ValidaColadaPieza_LAN()
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-            bool lPuedeContinuar = true; double lPesoEtiqueta = 0; int lPiezasPaq = 0;  string lSql = "";
+            bool lPuedeContinuar = true; double lPesoEtiqueta = 0; int lPiezasPaq = 0;
             int lKgsVinc = 0; int lKgsSaldo = 0; string lColadasOK = "N"; string lTramaQr = "";DataTable lTbl = new DataTable();
             int lSaldoEtiqueta = 0; Clases.ClsComun lCom = new Clases.ClsComun();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string diametro = "";
@@ -780,7 +784,7 @@ namespace Metalurgica.Controls
                     if (PaqueteEstaProducido(lTbl.Copy()) == false)
                     {
                         DataTable dataTable = lTbl;
-                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                        lPesoEtiqueta = double.Parse(dataTable.Rows[0]["KgsReales"].ToString());
                         lPiezasPaq = (int) dataTable.Rows[0]["PiezasPaq"];
                         mLog = string.Concat(mLog, "PesoEtiqueta:", lPesoEtiqueta);
                         if (lObligacionColada.Equals("S"))
@@ -1407,7 +1411,9 @@ namespace Metalurgica.Controls
                                         dataTable = listaDataSet.DataSet.Tables[0];
                                         if (dataTable.Rows.Count > 0)
                                         {
-                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString())- double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
+                                            //lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString()) - double.Parse(dataTable.Rows[0]["KgsNorma353"].ToString());
+
+                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["kgsReales"].ToString());
                                         }
                                         int lPiezasPaq = (int)listaDataSet.DataSet.Tables[0].Rows[0]["PiezasPaq"];
 
@@ -1561,7 +1567,7 @@ namespace Metalurgica.Controls
                                     dataTable = mTblPieza; // listaDataSet.DataSet.Tables[0];
                                         if (dataTable.Rows.Count > 0)
                                         {
-                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["PesoPaquete"].ToString());
+                                            lPesoEtiqueta = double.Parse(dataTable.Rows[0]["kgsReales"].ToString());
                                         }
                                         int lPiezasPaq = (int) dataTable.Rows[0]["PiezasPaq"];
 
@@ -1862,6 +1868,13 @@ namespace Metalurgica.Controls
                         Btn_CheckList.Visible = false;
                         Btn_Desbloquea.Visible = true;
 
+                        Btn_Despunte.Visible = false;
+                        groupBox3.Visible = false;
+                        groupBox4.Visible = false;
+                        groupBox5.Visible = false;
+                        lbl_calidadAcero .Visible = false;
+                        Lbl_tipo .Visible = false;
+
                         this.Refresh();
                     }
                     else
@@ -1890,6 +1903,12 @@ namespace Metalurgica.Controls
                             }
 
                             Btn_Desbloquea.Visible = true;
+                            Btn_Despunte.Visible = false;
+                            groupBox3.Visible = false;
+                            groupBox4.Visible = false;
+                            groupBox5.Visible = false;
+                            lbl_calidadAcero.Visible = false;
+                            Lbl_tipo.Visible = false;
                             this.Refresh();
                         }
                         else
@@ -1904,6 +1923,14 @@ namespace Metalurgica.Controls
                             Chk_MultiplesColadas.Enabled = true;
                             groupBox2.Visible = true ;
                             Btn_CheckList.Visible = true;
+
+                            Btn_Despunte.Visible = true;
+                            groupBox3.Visible = true;
+                            groupBox4.Visible = true;
+                            groupBox5.Visible = true;
+                            lbl_calidadAcero.Visible = true;
+                            Lbl_tipo.Visible = true;
+
                         }
                     }
                 }
@@ -1918,6 +1945,11 @@ namespace Metalurgica.Controls
                     Chk_MultiplesColadas.Enabled = true;
                     groupBox2.Visible = true;
                     Btn_CheckList.Visible = true;
+
+                    Btn_Despunte.Visible = true;
+                    groupBox3.Visible = true;
+                    groupBox4.Visible = true;
+                    groupBox5.Visible = true;
                 }
             }
             catch (Exception exc)
@@ -2155,6 +2187,8 @@ namespace Metalurgica.Controls
                 mEstadistica = new DataTable();
                 mEstadistica.Columns.Add("IdPaquete", Type.GetType("System.String"));
                 mEstadistica.Columns.Add("Duracion", Type.GetType("System.String"));
+
+                TM_proceme.Enabled = true;
             }
                       
             catch (Exception exc)
@@ -2227,7 +2261,7 @@ namespace Metalurgica.Controls
             {
                 Maquinas.NotificaAveria lFrm = new Maquinas.NotificaAveria();
                 lFrm.IniciaForm(mUserLog);
-                lFrm.ShowDialog();
+                lFrm.ShowDialog(); 
             }
 
 
@@ -2330,7 +2364,7 @@ namespace Metalurgica.Controls
 
         private void ProcesaColadaOriginal()
         {
-            DataTable dt = new DataTable(); int lTmp = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+            DataTable dt = new DataTable();  Clases.ClsComun lCom = new Clases.ClsComun();  //int lTmp = 0;
             if (!txtEtiquetaColada.Text.Trim().Equals(""))
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -2485,31 +2519,56 @@ namespace Metalurgica.Controls
                         {
                             if (mEtiqueta_Qr.Id > 0)
                             {
-                                mIdEtiquetaColada = mEtiqueta_Qr.Id.ToString();    // el Id de la etiqueta Aza
-                                                                                   //ValidaColadaEnProduccion
-                                lSaldoColada = (lCom.Val(mEtiqueta_Qr.PesoBulto.ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
-                                Lbl_SaldoKilosColada.Text = lSaldoColada.ToString();
-                                Lbl_KgsProd.Text = mEtiqueta_Qr.KgsProducidos.ToString();
-                                lblColada.Text = mEtiqueta_Qr.Lote.ToString();
-                                lblDiametro.Text = mEtiqueta_Qr.Diam.ToString();
-                                lblLargo.Text = mEtiqueta_Qr.Largo.ToString();
-                                lblKilos.Text = mEtiqueta_Qr.PesoBulto.ToString();
-                                lbl_calidadAcero.Text = String.Concat("Calidad: ", mEtiqueta_Qr.CalidadAcero.ToString());
-                                Lbl_tipo.Text = String.Concat("Es Soldable: ", mEtiqueta_Qr.EsSoldable.ToString());
-                                txtEtiquetaColada.Tag = mIdEtiquetaColada;
+                                if (mIdSucursal == "17")
+                                    mIdSucursal = "4";
 
-                                if (lSaldoColada < 1)
-                                {
-                                    MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    //txtEtiquetaPieza.Enabled = false;
-                                   // tlbNuevo_Click(null, null);
-                                
+                                if (mEtiqueta_Qr.IdSucursal .Equals (  mIdSucursal.ToString ()))
+                                    {
+                                    if ((mEtiqueta_Qr.TipoProduccion.ToUpper().Equals("P")) && (mTipoMP_Maq == mEtiqueta_Qr.TipoMaterial))
+                                    {
+                                        mIdEtiquetaColada = mEtiqueta_Qr.Id.ToString();    // el Id de la etiqueta Aza
+                                                                                           //ValidaColadaEnProduccion
+                                        lSaldoColada = (lCom.Val(mEtiqueta_Qr.PesoBulto.ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
+                                        Lbl_SaldoKilosColada.Text = lSaldoColada.ToString();
+                                        Lbl_KgsProd.Text = mEtiqueta_Qr.KgsProducidos.ToString();
+                                        lblColada.Text = mEtiqueta_Qr.Lote.ToString();
+                                        lblDiametro.Text = mEtiqueta_Qr.Diam.ToString();
+                                        lblLargo.Text = mEtiqueta_Qr.Largo.ToString();
+                                        lblKilos.Text = mEtiqueta_Qr.PesoBulto.ToString();
+                                        lbl_calidadAcero.Text = String.Concat("Calidad: ", mEtiqueta_Qr.CalidadAcero.ToString());
+                                        Lbl_tipo.Text = String.Concat("Es Soldable: ", mEtiqueta_Qr.EsSoldable.ToString());
+                                        txtEtiquetaColada.Tag = mIdEtiquetaColada;
+
+                                        if (lSaldoColada < 1)
+                                        {
+                                            MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            //txtEtiquetaPieza.Enabled = false;
+                                            // tlbNuevo_Click(null, null);
+
+                                        }
+                                        else
+                                        {
+                                            txtEtiquetaPieza.Enabled = true;
+                                            txtEtiquetaPieza.Focus();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("EL Tipo de Material No corresponde al tipo de Máquina ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        txtEtiquetaColada.Text = "";
+                                        txtEtiquetaColada.Focus();
+                                    }
+
+
+
                                 }
                                 else
                                 {
-                                    txtEtiquetaPieza.Enabled = true;
-                                    txtEtiquetaPieza.Focus();
+                                    MessageBox.Show("La sucursal de la Colada es Diferente a la Sucursal del TOTEM, Revisar", "Avisos Sistema");
+                                    txtEtiquetaColada.Text = "";
+                                    txtEtiquetaColada.Focus();
                                 }
+                               
                             }
                             else
                             {
@@ -2730,7 +2789,7 @@ namespace Metalurgica.Controls
 
         private void CtlProduccion_Load(object sender, EventArgs e)
         {
-            mTipoColada =     ConfigurationManager.AppSettings["TipoColada"].ToString();
+            mTipoColada =  ConfigurationManager.AppSettings["TipoColada"].ToString();
             mIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
         }
 
@@ -2941,7 +3000,9 @@ namespace Metalurgica.Controls
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (EvaluaTimer==true )
+         
+                
+                if (EvaluaTimer==true )
             {
                 EvaluaTimer = false;
                VerificaChequeoMaquina();
@@ -2959,11 +3020,11 @@ namespace Metalurgica.Controls
             
             if (lVerificaCheck.ToUpper() .Equals ("S"))
             {
-                lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString());
+                lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString(), mUserLog.Iduser .ToString());
 
                 if (lRes.ToString().ToUpper().Equals("S"))
                 {
-                    MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción. Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
+                    MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción, si no lo hace el equipo se bloqueara.  Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
                     Maquinas.CheckList lForm = new Maquinas.CheckList();
                     lForm.IniciaForm(mUserLog);
                     lForm.ShowDialog();
@@ -3273,6 +3334,11 @@ namespace Metalurgica.Controls
         {
             Dtg_estadistica.DataSource = mEstadistica;
             panel7.Visible = true;
+
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
 
         }
     }

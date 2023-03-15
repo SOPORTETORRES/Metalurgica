@@ -15,7 +15,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>F:\T_O\CubiGest Fase2\Desarrollo\Publicacion\Metalurgia\</PublishUrl>
+    <PublishUrl>C:\TMP\Publicaciones\Metalurgia\Vista Clara\Produccion\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,13 +25,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://www.ssingest.cl/Publicaciones/</InstallUrl>
+    <InstallUrl>http://192.168.1.195/Publicaciones/Metalurgia/Produccion/VistaClara/</InstallUrl>
     <TargetCulture>es-CL</TargetCulture>
-    <ProductName>Cubigest</ProductName>
-    <PublisherName>Soluciones de Software para Ingenieria y Gestion</PublisherName>
+    <ProductName>Modulo de Producción</ProductName>
+    <PublisherName>Departamento de T.I.</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -74,6 +74,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Metalurgica.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonLibrary2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -982,7 +988,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="bin\Debug.rarssss" />
-    <None Include="bin\Debug\Metalurgica.exe.config" />
+    <None Include="bin\Debug\Metalurgica.exe.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="bin\Metalurgia%2877%29.rars" />
     <None Include="bin\Metalurgia.rars" />
     <None Include="bin\Release\Metalurgica.exe.config" />
@@ -1009,6 +1017,7 @@
       <DependentUpon>DtsInformes.xsd</DependentUpon>
     </None>
     <None Include="Metalurgica_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Bodega_Acopio.datasource" />
     <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Bodega_MP.datasource" />
     <None Include="Properties\DataSources\Integracion_INET.Px_Operacion.Despacho_Camion.datasource" />

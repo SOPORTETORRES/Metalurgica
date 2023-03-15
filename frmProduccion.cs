@@ -241,7 +241,7 @@ namespace Metalurgica
 
         private void txtEtiquetaColada_Validating(object sender, CancelEventArgs e)
         {
-            DataTable dt = new DataTable(); int lTmp = 0;
+            DataTable dt = new DataTable();
             if (!txtEtiquetaColada.Text.Trim().Equals(""))
             { 
                 Cursor.Current = Cursors.WaitCursor;

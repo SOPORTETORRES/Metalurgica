@@ -48,7 +48,7 @@ namespace Metalurgica.Pruebas
         {
             Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient(); string lSql = "";
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
-            int i = 0; string lTurno = ""; string lTmp = ""; string lHoraStr = "";
+            int i = 0; string lTurno = ""; string lHoraStr = "";
             DateTime lFecha = DateTime.Now; int lHora = 0; string lId = "";int lCon = 0;
 
             lSql = " Select Count(1)  from  LOG_PIEZA_PRODUCCION where  year(log_fecha)=2018 and LOG_TURNO is null";

@@ -62,6 +62,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Tx_Mecanico = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.Btn_IngRepuesto = new System.Windows.Forms.Button();
             this.Gr_Supervisor = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.Tx_Supervisor = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.Btn_IngRepuestos = new System.Windows.Forms.Button();
             this.Btn_Grabar = new System.Windows.Forms.Button();
             this.Btn_Limpiar = new System.Windows.Forms.Button();
             this.Btn_Salir = new System.Windows.Forms.Button();
@@ -297,7 +297,6 @@
             // 
             this.GB_Reparacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GB_Reparacion.Controls.Add(this.Btn_IngRepuestos);
             this.GB_Reparacion.Controls.Add(this.Tx_IdSolucion);
             this.GB_Reparacion.Controls.Add(this.label11);
             this.GB_Reparacion.Controls.Add(this.Rb_RepDetenida);
@@ -313,7 +312,7 @@
             this.GB_Reparacion.Enabled = false;
             this.GB_Reparacion.Location = new System.Drawing.Point(9, 204);
             this.GB_Reparacion.Name = "GB_Reparacion";
-            this.GB_Reparacion.Size = new System.Drawing.Size(938, 253);
+            this.GB_Reparacion.Size = new System.Drawing.Size(982, 253);
             this.GB_Reparacion.TabIndex = 16;
             this.GB_Reparacion.TabStop = false;
             this.GB_Reparacion.Text = "Datos de la Reparación";
@@ -375,7 +374,7 @@
             this.Tx_ReparacionAveria.Multiline = true;
             this.Tx_ReparacionAveria.Name = "Tx_ReparacionAveria";
             this.Tx_ReparacionAveria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Tx_ReparacionAveria.Size = new System.Drawing.Size(908, 46);
+            this.Tx_ReparacionAveria.Size = new System.Drawing.Size(952, 46);
             this.Tx_ReparacionAveria.TabIndex = 17;
             // 
             // label9
@@ -434,6 +433,22 @@
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Operador a Cargo";
+            // 
+            // Btn_IngRepuesto
+            // 
+            this.Btn_IngRepuesto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_IngRepuesto.Enabled = false;
+            this.Btn_IngRepuesto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_IngRepuesto.ImageIndex = 2;
+            this.Btn_IngRepuesto.ImageList = this.imageList1;
+            this.Btn_IngRepuesto.Location = new System.Drawing.Point(916, 83);
+            this.Btn_IngRepuesto.Name = "Btn_IngRepuesto";
+            this.Btn_IngRepuesto.Size = new System.Drawing.Size(67, 56);
+            this.Btn_IngRepuesto.TabIndex = 23;
+            this.Btn_IngRepuesto.Text = "Ingresa Repuestos";
+            this.Btn_IngRepuesto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Btn_IngRepuesto.UseVisualStyleBackColor = true;
+            this.Btn_IngRepuesto.Click += new System.EventHandler(this.Btn_IngRepuestos_Click);
             // 
             // Gr_Supervisor
             // 
@@ -574,30 +589,15 @@
             this.label16.TabIndex = 2;
             this.label16.Text = "Operador a Cargo";
             // 
-            // Btn_IngRepuestos
-            // 
-            this.Btn_IngRepuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_IngRepuestos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Btn_IngRepuestos.ImageIndex = 2;
-            this.Btn_IngRepuestos.ImageList = this.imageList1;
-            this.Btn_IngRepuestos.Location = new System.Drawing.Point(857, 0);
-            this.Btn_IngRepuestos.Name = "Btn_IngRepuestos";
-            this.Btn_IngRepuestos.Size = new System.Drawing.Size(75, 56);
-            this.Btn_IngRepuestos.TabIndex = 23;
-            this.Btn_IngRepuestos.Text = "Ingresa Repuestos";
-            this.Btn_IngRepuestos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.Btn_IngRepuestos.UseVisualStyleBackColor = true;
-            this.Btn_IngRepuestos.Click += new System.EventHandler(this.Btn_IngRepuestos_Click);
-            // 
             // Btn_Grabar
             // 
             this.Btn_Grabar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Btn_Grabar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Btn_Grabar.ImageIndex = 0;
             this.Btn_Grabar.ImageList = this.imageList1;
-            this.Btn_Grabar.Location = new System.Drawing.Point(867, 6);
+            this.Btn_Grabar.Location = new System.Drawing.Point(846, 6);
             this.Btn_Grabar.Name = "Btn_Grabar";
-            this.Btn_Grabar.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Grabar.Size = new System.Drawing.Size(63, 56);
             this.Btn_Grabar.TabIndex = 13;
             this.Btn_Grabar.Text = "&Grabar";
             this.Btn_Grabar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -610,9 +610,9 @@
             this.Btn_Limpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Btn_Limpiar.ImageIndex = 6;
             this.Btn_Limpiar.ImageList = this.imageList1;
-            this.Btn_Limpiar.Location = new System.Drawing.Point(867, 68);
+            this.Btn_Limpiar.Location = new System.Drawing.Point(920, 5);
             this.Btn_Limpiar.Name = "Btn_Limpiar";
-            this.Btn_Limpiar.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Limpiar.Size = new System.Drawing.Size(64, 56);
             this.Btn_Limpiar.TabIndex = 14;
             this.Btn_Limpiar.Text = "&Limpiar";
             this.Btn_Limpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -625,9 +625,9 @@
             this.Btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Btn_Salir.ImageIndex = 5;
             this.Btn_Salir.ImageList = this.imageList1;
-            this.Btn_Salir.Location = new System.Drawing.Point(867, 130);
+            this.Btn_Salir.Location = new System.Drawing.Point(847, 83);
             this.Btn_Salir.Name = "Btn_Salir";
-            this.Btn_Salir.Size = new System.Drawing.Size(75, 56);
+            this.Btn_Salir.Size = new System.Drawing.Size(63, 56);
             this.Btn_Salir.TabIndex = 15;
             this.Btn_Salir.Text = "&Salir";
             this.Btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -638,8 +638,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(953, 741);
+            this.ClientSize = new System.Drawing.Size(997, 719);
             this.ControlBox = false;
+            this.Controls.Add(this.Btn_IngRepuesto);
             this.Controls.Add(this.Gr_Supervisor);
             this.Controls.Add(this.GB_Reparacion);
             this.Controls.Add(this.groupBox1);
@@ -715,6 +716,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox Tx_Supervisor;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button Btn_IngRepuestos;
+        private System.Windows.Forms.Button Btn_IngRepuesto;
     }
 }

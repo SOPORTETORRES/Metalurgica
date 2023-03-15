@@ -246,9 +246,9 @@ namespace Metalurgica.MultiMaquina
 
         public void IniciaFormulario( CurrentUser iUserLog)
         {
-            mUserLog = iUserLog;
             CargarMaquinas();
             ctlProduccion1.IniciaFormulario(iUserLog);
+            mUserLog = iUserLog;
         }
 
         #endregion

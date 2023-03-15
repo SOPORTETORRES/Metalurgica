@@ -698,7 +698,6 @@
             // 
             // Btn_BasculaMovil
             // 
-            this.Btn_BasculaMovil.Enabled = false;
             this.Btn_BasculaMovil.Location = new System.Drawing.Point(221, 63);
             this.Btn_BasculaMovil.Name = "Btn_BasculaMovil";
             this.Btn_BasculaMovil.Size = new System.Drawing.Size(141, 40);

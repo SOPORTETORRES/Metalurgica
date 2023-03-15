@@ -27,7 +27,7 @@ namespace Metalurgica.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;Use" +
-            "r ID=informat;Password=centauro")]
+            "r ID=informat;Password= 12345")]
         public string CubigestConnectionString {
             get {
                 return ((string)(this["CubigestConnectionString"]));
@@ -38,7 +38,7 @@ namespace Metalurgica.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.192;Initial Catalog=Cubigest;Persist Security Info=True;Use" +
-            "r ID=cubigest;Password=cubiplop")]
+            "r ID=cubigest;Password=654321")]
         public string CubigestConnectionString1 {
             get {
                 return ((string)(this["CubigestConnectionString1"]));

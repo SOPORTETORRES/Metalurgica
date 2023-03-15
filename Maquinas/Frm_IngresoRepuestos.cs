@@ -16,6 +16,7 @@ namespace Metalurgica.Maquinas
         private string mIdMecanico = "";
         private string midSucursal = "";
         private string midMaquina = "";
+        private string mItemGasto = "";
         private DataTable mTblRespuestosMaq = new DataTable();
         public Frm_IngresoRepuestos()
         {
@@ -49,7 +50,7 @@ namespace Metalurgica.Maquinas
                     if (lPuedeSeguir == true)
                     {
                         Lbl_NomnreRep.Text = lTbl.Rows[0]["Item"].ToString();
-                        Tx_PU.Text = lCom.Val(lTbl.Rows[0]["Valor"].ToString()).ToString("N0");
+                        Tx_PU.Text = lCom.Val(lTbl.Rows[0]["Valor"].ToString().Replace (".","")).ToString("N0");
                     }
                     else
                     {
@@ -87,13 +88,17 @@ namespace Metalurgica.Maquinas
             lb_Averia.Text = mtextoAveria;
             Lbl_IdAveria.Text = idAveria;
 
-            string sql = string.Concat("SP_CRUD_Repuestos  13,'','',' ' ,'','','','','', '','','", idMaquina,"','','' ");
+            string sql = string.Concat("SP_CRUD_Repuestos  13,'','',' ' ,'','','','','', '','','", idAveria, "','','' ");
             Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
             DataTable lTbl = new DataTable();
             lDts = lDal.ObtenerDatos(sql);
 
             if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
-                         lbl_Maquina.Text = lDts.Tables[0].Rows[0]["Maq_Nombre"].ToString();
+            {
+                lbl_Maquina.Text = lDts.Tables[0].Rows[0]["Maq_Nombre"].ToString();
+                mItemGasto = lDts.Tables[0].Rows[0]["MAQ_ITEM_GASTO"].ToString();
+            }
+                         
 
             sql = string.Concat("SP_CRUD_Repuestos  14,'", idSucursal,"','',' ' ,'','','','','', '','','','','' ");
             lDts = lDal.ObtenerDatos(sql);
@@ -142,6 +147,7 @@ namespace Metalurgica.Maquinas
         private void GrabarDatos() //(string IdRepuesto, int iCantidad)
         {
             int i = 0; string lSql = "";string IdRepuesto=""; string iCantidad = "";    string iPrecioUnitario = "";
+            string Codigo = ""; string iPU = "";  Clases.ClsComun lCom = new Clases.ClsComun(); string lIdrepuestosAverias = "0";
             Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
             if (Dgt_Datos.Rows.Count > 1)
             {
@@ -154,15 +160,95 @@ namespace Metalurgica.Maquinas
                         iPrecioUnitario = Dgt_Datos.Rows[i].Cells["PU"].Value.ToString().Replace(".", "");
                         lSql = "  Insert into repuestosAverias (IdAveria,IdRepuesto,Cantidad,FechaRegistro,IdUsuario,Estado,IdSucursal, IdMaquina ,PrecioUnitario)  ";
                         lSql = string.Concat(lSql, "  Values (", mIdAveria, ",", IdRepuesto, ",", iCantidad, ", Getdate(),");
-                        lSql = string.Concat(lSql, mIdMecanico, ",'Inicial',", midSucursal, ",", midMaquina, ",", iPrecioUnitario, ")");
+                        lSql = string.Concat(lSql, mIdMecanico, ",'Inicial',", midSucursal, ",", midMaquina, ",", iPrecioUnitario, ")  select @@identity ");
 
-                        lDal.ObtenerDatos(lSql);
+                        lDts= lDal.ObtenerDatos(lSql);
+
+                        if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                        {
+                            if (lCom.Val(lDts.Tables[0].Rows[0][0].ToString()) >0)
+                            {
+                                lIdrepuestosAverias = lDts.Tables[0].Rows[0][0].ToString();
+                                Codigo = IdRepuesto.ToString();
+                                iCantidad = iCantidad.ToString();
+                                iPU = iPrecioUnitario.ToString();
+
+                                integraRepuesto(Codigo, iCantidad, iPU, lbl_NombreMecanico.Text, lbl_Maquina.Text, mItemGasto, lIdrepuestosAverias, mIdAveria.ToString ());
+
+                            }
+                        }
                     }
                 }
                 mTblRespuestosMaq.Clear();
+                // Se debe verificar si hay errores despues de la Integracion, de haber errore hay que enviar un correo con el detalle
+                //Se debe enviar correo con el error a jarias - scampos - Lgallardo  -  Carlos Vázquez.
+                VerificaIntegracionINET(mIdAveria.ToString());
+
             }
         }
 
+
+        private void VerificaIntegracionINET(string iIdAveria)
+        {
+            //si hay error en la integracion se debe enviar un correo informando del error
+            Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet(); string lSql = "";
+            Clases.ClsComun lCom = new Clases.ClsComun(); DataTable lTbl = new DataTable(); int i = 0;
+            string lRes = "";Boolean lHayError = false;string lTitulo = ""; string lResp = "";
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+
+            try
+            {
+
+                lSql = string.Concat("SP_CRUD_Repuestos 18,'','',' ' ,'','','','','', '','','", iIdAveria, "','','' ");
+                lDts = lDal.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    lTbl = lDts.Tables[0].Copy();
+
+                    lRes = String.Concat(" Señores:  ", "  <br> ", "  <br> ");
+                    lRes = String.Concat(lRes, " Se ha intentado integrar con INET los repuestos utilizados de  una notificación de Averia", "  <br> ", "  <br> ");
+                    lRes = String.Concat(lRes, " Pero la Integracion No ha sido Satisfactoria, se han generado los siguientes errores:  ", "  <br> ");
+                    lRes = String.Concat(lRes, " ID Averia          :", iIdAveria, "  <br> ");
+                    lRes = String.Concat(lRes, " Motivo averia      :", lTbl.Rows[0]["TextoIncidencia"].ToString(), "  <br> ");
+                    lRes = String.Concat(lRes, " Maquina Afectada   :", lTbl.Rows[0]["Maq_nombre"].ToString(), "  <br> ");
+                    lRes = String.Concat(lRes, " Fecha Notificacion :", lTbl.Rows[0]["FechaRegistro"].ToString(), "  <br> ", "  <br> ");
+                }
+
+                lRes = String.Concat(lRes, "  <br> ", " Detalle de los Repuestos con error al Integrar con INET ", "  <br> ");
+                lSql = string.Concat("SP_CRUD_Repuestos 17,'','',' ' ,'','','','','', '','','", iIdAveria, "','','' ");
+                lDts = lDal.ObtenerDatos(lSql);
+                if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
+                {
+                    lTbl = lDts.Tables[0].Copy();
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        if (lTbl.Rows[i]["EstadoEnvio"].ToString().ToUpper().Equals("ERR"))
+                        {
+                            lResp = lTbl.Rows[i]["Xml_Respuesta"].ToString().Replace("&amp;gt;", "");
+                            lResp = lResp.ToString().Replace("&amp;lt;", "");
+                            lRes = String.Concat(lRes, " Repuesto : ", lTbl.Rows[i]["Item"].ToString(), "  <br> ");
+                            lRes = String.Concat(lRes, " Cantidad : ", lTbl.Rows[i]["Cantidad"].ToString(), "  <br> ");
+                            lRes = String.Concat(lRes, " Error  : ", lResp, "  <br> ");
+                            lHayError = true;
+                        }
+                        lRes = String.Concat(lRes, "  <br> ");
+                    }
+
+                    lRes = String.Concat(lRes, "Este mail ha sido enviado de forma automática por el sistema,  FAVOR NO CONTESTAR A ESTA CASILLA DE CORREO", "  <br> ");
+                }
+                if (lHayError) // si hay error debemos enviar el correo
+                {
+                    lTitulo = "Notificación  de error en la Integración de Repuestos con INET ";
+                    lPx.EnviaNotificacionesEnviaMsgDeNotificacion("", lRes, -2100, lTitulo);
+
+                }
+            }
+            catch (Exception iex)
+            {
+
+            }
+
+        }
 
         private void CalculaTotales( )
         {
@@ -184,7 +270,7 @@ namespace Metalurgica.Maquinas
         {
             Int64 lSubTotal = 0; Clases.ClsComun lCom = new Clases.ClsComun();int i = 0;
             DataRow lFila = mTblRespuestosMaq.NewRow(); DataView lVista = null;string lWheres = "";
-            Int64 lTmp = 0;
+           
 
             lWheres = string .Concat ("IdRepuesto='",txt_Repuesto .Text ,"'")  ;
             lVista = new DataView(mTblRespuestosMaq, lWheres, "", DataViewRowState.CurrentRows);
@@ -263,12 +349,13 @@ namespace Metalurgica.Maquinas
 
         private void Btn_Salir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
         private void Btn_Grabar_Click(object sender, EventArgs e)
         {
             GrabarDatos();
+            this.Close();
         }
 
         private void Btn_Eliminar_Click(object sender, EventArgs e)
@@ -297,23 +384,28 @@ namespace Metalurgica.Maquinas
 
         private void Btn_INET_Click(object sender, EventArgs e)
         {
-            string Codigo = "";string idMecanico = ""; string iNombreMaquina = "";
-            string iCantidad = ""; string iPU = "";
-            if (this.Dgt_Datos .Rows.Count > 0)
-            {
-                Codigo = Dgt_Datos.Rows[0].Cells["IdRepuesto"].Value.ToString();
-                iCantidad = Dgt_Datos.Rows[0].Cells["cantidad"].Value.ToString();
-                iPU = Dgt_Datos.Rows[0].Cells["PU"].Value.ToString();
-                idMecanico = lbl_NombreMecanico.Text ;
-                iNombreMaquina = lbl_Maquina.Text;
-                integraRepuesto(Codigo,iCantidad ,iPU, idMecanico, iNombreMaquina);
+            //string Codigo = "";string idMecanico = ""; string iNombreMaquina = "";
+            //string iCantidad = ""; string iPU = "";
+            //if (this.Dgt_Datos .Rows.Count > 0)
+            //{
+            //    try
+            //    {
+            //        Codigo = Dgt_Datos.Rows[0].Cells["IdRepuesto"].Value.ToString();
+            //        iCantidad = Dgt_Datos.Rows[0].Cells["NroUnidades"].Value.ToString();
+            //        iPU = Dgt_Datos.Rows[0].Cells["PU"].Value.ToString();
+            //        idMecanico = lbl_NombreMecanico.Text;
+            //        iNombreMaquina = lbl_Maquina.Text;
+            //        integraRepuesto(Codigo, iCantidad, iPU, idMecanico, iNombreMaquina, mItemGasto);
+            //    }
+            //    catch (Exception iEx)
+            //    {
+            //    }
 
-
-            }
+            //}
 
         }
 
-        private Integracion_INET.Tipo_InvocaWS integraRepuesto(string codigo, string iCantidad, string iPU, string glosa1, string glosa2)
+        private Integracion_INET.Tipo_InvocaWS integraRepuesto(string codigo, string iCantidad, string iPU, string glosa1, string glosa2, string iItemGasto, string iIdRepuestoAveria, string iIdAveria)
         {
             Integracion_INET.Tipo_InvocaWS lRes = new Integracion_INET.Tipo_InvocaWS();
             Integracion_INET.MovExistencias mov = new Integracion_INET.MovExistencias();
@@ -323,33 +415,58 @@ namespace Metalurgica.Maquinas
             Px_MovExistenciasINET.wsmovexiallSoapPortClient lPxMovEx = new Px_MovExistenciasINET.wsmovexiallSoapPortClient(); //Servicio web de Inet
             Px_MovExistenciasINET.ExecuteRequest lObjEntradaMov = new Px_MovExistenciasINET.ExecuteRequest(); //OBJETO INET
             Px_MovExistenciasINET.ExecuteResponse lResMovEx = new Px_MovExistenciasINET.ExecuteResponse();
-
-            Integracion_INET.Cls_LN Ln = new Integracion_INET.Cls_LN();
-            //(idRepuesto As String, iCantidad As String, iPU As String, iGlosa1 As String, iGlosa2 As String)
-            string iXml = Ln.CreaXmlConsumoRepuestos_INET_VistaClara(codigo, iCantidad, iPU, glosa1, glosa2);
-            string resultadoWS = "";
-
-            lObjEntradaMov.Intrasnporte = Ln.CreaXmlEntradaProductosTErminados_INET(mov);//Esto genera un XML
-            lRes.XML_Enviado = lObjEntradaMov.Intrasnporte;
-            lRes.URL_WS = lPxMovEx.Endpoint.ListenUri.AbsoluteUri;//Con esto guardamos el url del servicio web
-            lResMovEx.Outtansporte = lPxMovEx.Execute(lObjEntradaMov.Intrasnporte);//Ejecutar el serivico web de inet
-            System.IO.StringWriter strDataXml = new System.IO.StringWriter();
-
-
-            System.Xml.Serialization.XmlSerializer lXmlSal = new System.Xml.Serialization.XmlSerializer(lResMovEx.Outtansporte.GetType());
-            lXmlSal.Serialize(strDataXml, lResMovEx.Outtansporte);
-            lRes.XML_Respuesta = strDataXml.ToString();//Guardamos lo que recibimos
-
-            if (lRes.XML_Respuesta.ToUpper().IndexOf("OK") > -1)
+            string resultadoWS = ""; Clases.ClsComun lCom = new Clases.ClsComun();// StringBuilder strDataXml = new StringBuilder();
+            string lSql = ""; WsCrud.CrudSoapClient lDAl = new WsCrud.CrudSoapClient(); WsCrud.ListaDataSet lDts = new WsCrud.ListaDataSet();
+            string lMovNumDoc = "";
+            try
             {
-                resultadoWS = "OK";
+
+                Integracion_INET.Cls_LN Ln = new Integracion_INET.Cls_LN();
+                //(idRepuesto As String, iCantidad As String, iPU As String, iGlosa1 As String, iGlosa2 As String)
+                string iXml = Ln.CreaXmlConsumoRepuestos_INET_VistaClara(codigo, iCantidad, iPU, glosa1, glosa2, iItemGasto);
+                lMovNumDoc = Ln.ObtenerCampo_MovNumDoc().ToString ();
+
+                lObjEntradaMov.Intrasnporte = iXml; // Ln.CreaXmlEntradaProductosTErminados_INET(mov);//Esto genera un XML
+                lRes.XML_Enviado = lObjEntradaMov.Intrasnporte;
+                lRes.URL_WS = lPxMovEx.Endpoint.ListenUri.AbsoluteUri;//Con esto guardamos el url del servicio web
+                lResMovEx.Outtansporte = lPxMovEx.Execute(lObjEntradaMov.Intrasnporte);//Ejecutar el serivico web de inet
+                System.IO.StringWriter strDataXml = new System.IO.StringWriter();
+
+
+                System.Xml.Serialization.XmlSerializer lXmlSal = new System.Xml.Serialization.XmlSerializer(lResMovEx.Outtansporte.GetType());
+
+                lXmlSal.Serialize(strDataXml, lResMovEx.Outtansporte);
+                lRes.XML_Respuesta = strDataXml.ToString();//Guardamos lo que recibimos
+
+                if (lRes.XML_Respuesta.ToUpper().IndexOf("OK") > -1)
+                {
+                    resultadoWS = "OK";
+                   
+                }
+                else
+                {
+                    resultadoWS = "ERR";
+                }
+                lRes.XML_Respuesta = lRes.XML_Respuesta.Replace("&amp;lt;", "<");
+                lRes.XML_Respuesta = lRes.XML_Respuesta.Replace("&amp;gt;", ">");
             }
-            else
+            catch (Exception iex)
             {
-                resultadoWS = "ERR";
+                lRes.Err = String.Concat(iex.Message.ToString(), " - ", iex.StackTrace.ToString());
+                lRes.XML_Respuesta = iex.Message.ToString();
             }
-            lRes.XML_Respuesta = lRes.XML_Respuesta.Replace("&lt;", "<");
-            lRes.XML_Respuesta = lRes.XML_Respuesta.Replace("&gt;", ">");
+            finally
+            {
+                
+                lSql = string.Concat("exec SP_CRUD_LOG_WS_INET 1,", lRes.Id.ToString(), ",", iIdAveria.ToString());
+                lSql = string.Concat(lSql, ",'", lRes.PatenteCamion, "',", iIdRepuestoAveria,", '", lRes.XML_Enviado.Replace("'", "''"), "',");
+                lSql = string.Concat(lSql, "'", lRes.XML_Respuesta, "','", lRes.URL_WS, "','IntegracionRepuestos',", lMovNumDoc);
+                lSql = string.Concat(lSql, ",'", resultadoWS, "'");
+                lDts = lDAl.ListarAyudaSql(lSql);
+                if ((lDts.DataSet.Tables.Count > 0) && (lDts.DataSet.Tables[0].Rows.Count > 0))
+                    lRes.Id = lCom .Val(lDts.DataSet.Tables[0].Rows[0][0].ToString());
+                
+            }
             return lRes;
         }
 

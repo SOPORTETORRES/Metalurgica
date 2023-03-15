@@ -339,7 +339,8 @@ namespace Metalurgica.ProduccionExterna
 
         private void GrabarDatos()
         {
-            string lTx = ""; int i = 0; WsOperacion.ListaDataSet lListDts = new WsOperacion.ListaDataSet();
+           // string lTx = "";
+            int i = 0; WsOperacion.ListaDataSet lListDts = new WsOperacion.ListaDataSet();
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             DataTable lTbl = new DataTable(); DataRow lfila = null; DataSet lDts = new DataSet();
             if (Dtg_Etiquetas.Rows.Count == 0)

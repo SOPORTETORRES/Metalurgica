@@ -84,7 +84,7 @@ namespace Metalurgica.SolicitudMP
         public void IniciaFormulario(string lUsuario, CurrentUser iObjUsuario)
         {
             
-            string lTxTurno = "";
+            //string lTxTurno = "";
             mUserLog = iObjUsuario;
             mUsuarioActivo = lUsuario;
             Lbl_Msg.Text = Lbl_Msg.Text.Replace("@User", lUsuario);

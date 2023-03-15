@@ -86,7 +86,7 @@
             // Lbl_IdAveria
             // 
             this.Lbl_IdAveria.AutoSize = true;
-            this.Lbl_IdAveria.Location = new System.Drawing.Point(719, 75);
+            this.Lbl_IdAveria.Location = new System.Drawing.Point(727, 95);
             this.Lbl_IdAveria.Name = "Lbl_IdAveria";
             this.Lbl_IdAveria.Size = new System.Drawing.Size(16, 13);
             this.Lbl_IdAveria.TabIndex = 10;
@@ -95,7 +95,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(697, 75);
+            this.label4.Location = new System.Drawing.Point(705, 95);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(16, 13);
             this.label4.TabIndex = 9;
@@ -104,7 +104,7 @@
             // lbl_TotalCosto
             // 
             this.lbl_TotalCosto.AutoSize = true;
-            this.lbl_TotalCosto.Location = new System.Drawing.Point(145, 110);
+            this.lbl_TotalCosto.Location = new System.Drawing.Point(145, 119);
             this.lbl_TotalCosto.Name = "lbl_TotalCosto";
             this.lbl_TotalCosto.Size = new System.Drawing.Size(119, 13);
             this.lbl_TotalCosto.TabIndex = 8;
@@ -113,7 +113,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 111);
+            this.label11.Location = new System.Drawing.Point(9, 119);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(119, 13);
             this.label11.TabIndex = 7;
@@ -122,7 +122,7 @@
             // lbl_Sucursal
             // 
             this.lbl_Sucursal.AutoSize = true;
-            this.lbl_Sucursal.Location = new System.Drawing.Point(584, 75);
+            this.lbl_Sucursal.Location = new System.Drawing.Point(592, 94);
             this.lbl_Sucursal.Name = "lbl_Sucursal";
             this.lbl_Sucursal.Size = new System.Drawing.Size(48, 13);
             this.lbl_Sucursal.TabIndex = 6;
@@ -131,7 +131,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(530, 75);
+            this.label10.Location = new System.Drawing.Point(538, 94);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 13);
             this.label10.TabIndex = 5;
@@ -140,7 +140,7 @@
             // lbl_NombreMecanico
             // 
             this.lbl_NombreMecanico.AutoSize = true;
-            this.lbl_NombreMecanico.Location = new System.Drawing.Point(374, 75);
+            this.lbl_NombreMecanico.Location = new System.Drawing.Point(382, 96);
             this.lbl_NombreMecanico.Name = "lbl_NombreMecanico";
             this.lbl_NombreMecanico.Size = new System.Drawing.Size(94, 13);
             this.lbl_NombreMecanico.TabIndex = 4;
@@ -149,7 +149,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(274, 75);
+            this.label9.Location = new System.Drawing.Point(282, 96);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 3;
@@ -158,7 +158,7 @@
             // lbl_Maquina
             // 
             this.lbl_Maquina.AutoSize = true;
-            this.lbl_Maquina.Location = new System.Drawing.Point(108, 75);
+            this.lbl_Maquina.Location = new System.Drawing.Point(116, 94);
             this.lbl_Maquina.Name = "lbl_Maquina";
             this.lbl_Maquina.Size = new System.Drawing.Size(101, 13);
             this.lbl_Maquina.TabIndex = 2;
@@ -167,7 +167,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1, 75);
+            this.label8.Location = new System.Drawing.Point(9, 94);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(101, 13);
             this.label8.TabIndex = 1;
@@ -180,7 +180,7 @@
             this.lb_Averia.ForeColor = System.Drawing.Color.Red;
             this.lb_Averia.Location = new System.Drawing.Point(7, 20);
             this.lb_Averia.Name = "lb_Averia";
-            this.lb_Averia.Size = new System.Drawing.Size(760, 39);
+            this.lb_Averia.Size = new System.Drawing.Size(760, 69);
             this.lb_Averia.TabIndex = 0;
             this.lb_Averia.Text = "label4";
             // 
@@ -247,7 +247,7 @@
             this.Btn_Agregar.ImageList = this.ImageList1;
             this.Btn_Agregar.Location = new System.Drawing.Point(625, 159);
             this.Btn_Agregar.Name = "Btn_Agregar";
-            this.Btn_Agregar.Size = new System.Drawing.Size(67, 51);
+            this.Btn_Agregar.Size = new System.Drawing.Size(81, 51);
             this.Btn_Agregar.TabIndex = 19;
             this.Btn_Agregar.Text = "Agregar";
             this.Btn_Agregar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -303,9 +303,9 @@
             // Btn_Eliminar
             // 
             this.Btn_Eliminar.ImageIndex = 3;
-            this.Btn_Eliminar.Location = new System.Drawing.Point(714, 159);
+            this.Btn_Eliminar.Location = new System.Drawing.Point(719, 159);
             this.Btn_Eliminar.Name = "Btn_Eliminar";
-            this.Btn_Eliminar.Size = new System.Drawing.Size(67, 51);
+            this.Btn_Eliminar.Size = new System.Drawing.Size(81, 51);
             this.Btn_Eliminar.TabIndex = 23;
             this.Btn_Eliminar.Text = "Eliminar";
             this.Btn_Eliminar.UseVisualStyleBackColor = true;
@@ -318,7 +318,7 @@
             this.Btn_Grabar.ImageList = this.ImageList1;
             this.Btn_Grabar.Location = new System.Drawing.Point(817, 19);
             this.Btn_Grabar.Name = "Btn_Grabar";
-            this.Btn_Grabar.Size = new System.Drawing.Size(67, 51);
+            this.Btn_Grabar.Size = new System.Drawing.Size(81, 51);
             this.Btn_Grabar.TabIndex = 24;
             this.Btn_Grabar.Text = "Grabar";
             this.Btn_Grabar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -327,12 +327,13 @@
             // 
             // Btn_Salir
             // 
+            this.Btn_Salir.Enabled = false;
             this.Btn_Salir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Btn_Salir.ImageIndex = 4;
             this.Btn_Salir.ImageList = this.ImageList1;
-            this.Btn_Salir.Location = new System.Drawing.Point(817, 87);
+            this.Btn_Salir.Location = new System.Drawing.Point(817, 82);
             this.Btn_Salir.Name = "Btn_Salir";
-            this.Btn_Salir.Size = new System.Drawing.Size(67, 51);
+            this.Btn_Salir.Size = new System.Drawing.Size(81, 51);
             this.Btn_Salir.TabIndex = 25;
             this.Btn_Salir.Text = "Salir";
             this.Btn_Salir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -350,13 +351,17 @@
             // 
             // Btn_INET
             // 
-            this.Btn_INET.ImageIndex = 3;
-            this.Btn_INET.Location = new System.Drawing.Point(817, 154);
+            this.Btn_INET.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_INET.ImageIndex = 7;
+            this.Btn_INET.ImageList = this.ImageList1;
+            this.Btn_INET.Location = new System.Drawing.Point(817, 149);
             this.Btn_INET.Name = "Btn_INET";
-            this.Btn_INET.Size = new System.Drawing.Size(67, 51);
+            this.Btn_INET.Size = new System.Drawing.Size(81, 51);
             this.Btn_INET.TabIndex = 27;
             this.Btn_INET.Text = "Integrar INET";
+            this.Btn_INET.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Btn_INET.UseVisualStyleBackColor = true;
+            this.Btn_INET.Visible = false;
             this.Btn_INET.Click += new System.EventHandler(this.Btn_INET_Click);
             // 
             // Frm_IngresoRepuestos
@@ -364,6 +369,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(925, 482);
+            this.ControlBox = false;
             this.Controls.Add(this.Btn_INET);
             this.Controls.Add(this.Tx_CodSeleccionado);
             this.Controls.Add(this.Btn_Salir);
@@ -380,6 +386,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Frm_IngresoRepuestos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_IngresoRepuestos";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

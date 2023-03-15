@@ -384,6 +384,7 @@
             this.Name = "Frm_VinculaQR";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formulario de Vinculación Etiquetas QR y T.O.";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_VinculaQR_FormClosing);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dtg_Resultado)).EndInit();
             this.ResumeLayout(false);

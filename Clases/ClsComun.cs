@@ -855,6 +855,10 @@ namespace Metalurgica.Clases
             try
             {
                 lIdSucursal = OBtenerIdSucursal().ToString();
+                if (lIdSucursal == "17")
+                    lIdSucursal = "4";
+
+
                 WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
                 lDts = lPx.Obtener_MP();
                 if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
@@ -1231,7 +1235,7 @@ namespace Metalurgica.Clases
         {
             Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); DataSet lDts = new DataSet();
             int i = 0; string lTblHtml = ""; DataTable lTbl = new DataTable(); Clases.ClsComun lCom = new Clases.ClsComun();
-            string lFuente = ""; string lUrl = "";
+            string lFuente = ""; //string lUrl = "";
 
 
 
@@ -1389,9 +1393,6 @@ namespace Metalurgica.Clases
                 lXML = String.Concat(lXML, "  	  </SDT_MOVEXISTENCIASALL.MOVIMIENTO.DET_MOVTO>", Environment.NewLine);
                 lXML = String.Concat(lXML, "</DETALLE> ", Environment.NewLine);
             }
-
-
-
             lXML = String.Concat(lXML, "<MOVVALTOT>", iObj.Movvaltot.ToString(), "</MOVVALTOT> ", Environment.NewLine);
             lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL.MOVIMIENTO> ", Environment.NewLine);
             lXML = String.Concat(lXML, "</SDT_MOVEXISTENCIASALL> ", Environment.NewLine);
