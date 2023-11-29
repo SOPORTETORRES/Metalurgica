@@ -38,6 +38,64 @@ namespace Metalurgica.Clases
             return lSq;
         }
 
+        public string ObtenerSqlPesoBruto(string iPatente, string iFecha)
+        {
+            string lSq = ""; string lFechaIni = string.Concat(iFecha, " 00:00:00");
+            string lFechaFin = string.Concat(iFecha, " 23:59:59");
+            string[] lPartes = null; string lDia = ""; string lMes = ""; string lYear = "";
+
+
+            lPartes = iFecha.Split(new Char[] { '/' });
+            if (lPartes.Length == 1)
+            {
+                lPartes = iFecha.Split(new Char[] { '-' });
+            }
+
+            if (lPartes.Length > 0)
+            {
+                lDia = lPartes[0].ToString(); lMes = lPartes[1].ToString();
+                lYear = lPartes[2].ToString();
+                lSq = string.Concat(" select  top 1 *  from correlativos where patente='", iPatente, "'  and PesoTara>0 ");
+                //lSq = string.Concat(lSq, " and (Fecha BETWEEN #", lFechaIni, "# AND #", lFechaFin, "#) ");
+                lSq = string.Concat(lSq, " and pesoBruto>0 and  DatePart('yyyy', Fecha)=", lYear, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
+                lSq = string.Concat(lSq, "  order by correlativo desc ");
+            }
+
+
+            return lSq;
+        }
+
+        public string ObtenerSqlTaraInicial( string iFecha)
+        {
+            string lSq = ""; string lFechaIni = string.Concat(iFecha, " 00:00:00");
+            string lFechaFin = string.Concat(iFecha, " 23:59:59");
+            string[] lPartes = null; string lDia = ""; string lMes = ""; string lYear = "";
+
+
+            lPartes = iFecha.Split(new Char[] { '/' });
+            if (lPartes.Length == 1)
+            {
+                lPartes = iFecha.Split(new Char[] { '-' });
+            }
+
+            if (lPartes.Length > 0)
+            {
+                lDia = lPartes[0].ToString(); lMes = lPartes[1].ToString();
+                lYear = lPartes[2].ToString();
+                lSq = string.Concat(" select  top 1 *  from correlativos where   PesoTara=0 ");
+                //lSq = string.Concat(lSq, " and (Fecha BETWEEN #", lFechaIni, "# AND #", lFechaFin, "#) ");
+                lSq = string.Concat(lSq, " and pesoBruto>0 and  DatePart('yyyy', Fecha)=", lYear, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
+                lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
+                lSq = string.Concat(lSq, "  order by correlativo desc ");
+            }
+
+
+            return lSq;
+        }
+
         public string ObtenerSqlPesoBrutoPorFecha(string iPatente, string iFecha)
         {
             string lSq = ""; string lFechaIni = string.Concat(iFecha, " 00:00:00");

@@ -231,7 +231,7 @@
             // 
             this.stsStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlsEstado});
-            this.stsStatusStrip.Location = new System.Drawing.Point(0, 472);
+            this.stsStatusStrip.Location = new System.Drawing.Point(0, 670);
             this.stsStatusStrip.Name = "stsStatusStrip";
             this.stsStatusStrip.Size = new System.Drawing.Size(1370, 22);
             this.stsStatusStrip.TabIndex = 25;
@@ -805,7 +805,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 269);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1370, 203);
+            this.panel2.Size = new System.Drawing.Size(1370, 401);
             this.panel2.TabIndex = 27;
             // 
             // dgvEtiquetasPiezas
@@ -819,7 +819,7 @@
             this.dgvEtiquetasPiezas.Name = "dgvEtiquetasPiezas";
             this.dgvEtiquetasPiezas.ReadOnly = true;
             this.dgvEtiquetasPiezas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1370, 143);
+            this.dgvEtiquetasPiezas.Size = new System.Drawing.Size(1370, 341);
             this.dgvEtiquetasPiezas.TabIndex = 1;
             this.dgvEtiquetasPiezas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEtiquetasPiezas_CellClick);
             // 
@@ -901,7 +901,7 @@
             // 
             this.panel3.Controls.Add(this.lblCantidadEtiquetasPiezas);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 173);
+            this.panel3.Location = new System.Drawing.Point(0, 371);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1370, 30);
             this.panel3.TabIndex = 6;
@@ -938,7 +938,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 494);
+            this.ClientSize = new System.Drawing.Size(1370, 692);
             this.ControlBox = false;
             this.Controls.Add(this.Btn_imprime);
             this.Controls.Add(this.panel2);

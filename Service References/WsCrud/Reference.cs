@@ -32,6 +32,10 @@ namespace Metalurgica.WsCrud {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsCrud.Bodega ObtenerBodega(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://www.Ssingest.cl/GrabarMP_TOSOL_CyD", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        Metalurgica.WsCrud.Recepcion_Tosol_CD GrabarMP_TOSOL_CyD(Metalurgica.WsCrud.Recepcion_Tosol_CD iObj);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://www.Ssingest.cl/GuardarCamion", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         Metalurgica.WsCrud.Camion GuardarCamion(Metalurgica.WsCrud.Camion camion);
@@ -74,7 +78,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -176,7 +180,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -264,7 +268,7 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -352,7 +356,281 @@ namespace Metalurgica.WsCrud {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.Ssingest.cl/")]
+    public partial class DetalleRecepcion_Tosol_CD : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int idRecepcionITField;
+        
+        private string codigoITField;
+        
+        private int idPaqueteField;
+        
+        private string etiquetaField;
+        
+        private int nroPiezasField;
+        
+        private int diametroField;
+        
+        private double kgsEtiquetaField;
+        
+        private string piezaField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int idRecepcionIT {
+            get {
+                return this.idRecepcionITField;
+            }
+            set {
+                this.idRecepcionITField = value;
+                this.RaisePropertyChanged("idRecepcionIT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string CodigoIT {
+            get {
+                return this.codigoITField;
+            }
+            set {
+                this.codigoITField = value;
+                this.RaisePropertyChanged("CodigoIT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public int idPaquete {
+            get {
+                return this.idPaqueteField;
+            }
+            set {
+                this.idPaqueteField = value;
+                this.RaisePropertyChanged("idPaquete");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string Etiqueta {
+            get {
+                return this.etiquetaField;
+            }
+            set {
+                this.etiquetaField = value;
+                this.RaisePropertyChanged("Etiqueta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int NroPiezas {
+            get {
+                return this.nroPiezasField;
+            }
+            set {
+                this.nroPiezasField = value;
+                this.RaisePropertyChanged("NroPiezas");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public int Diametro {
+            get {
+                return this.diametroField;
+            }
+            set {
+                this.diametroField = value;
+                this.RaisePropertyChanged("Diametro");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public double KgsEtiqueta {
+            get {
+                return this.kgsEtiquetaField;
+            }
+            set {
+                this.kgsEtiquetaField = value;
+                this.RaisePropertyChanged("KgsEtiqueta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string Pieza {
+            get {
+                return this.piezaField;
+            }
+            set {
+                this.piezaField = value;
+                this.RaisePropertyChanged("Pieza");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.Ssingest.cl/")]
+    public partial class Recepcion_Tosol_CD : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int idSucursalField;
+        
+        private string nroGDEField;
+        
+        private string fecha_GDEField;
+        
+        private string idUsuarioGrabaField;
+        
+        private string kgsGDEField;
+        
+        private string errorsField;
+        
+        private DetalleRecepcion_Tosol_CD[] lListaPiezasField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int idSucursal {
+            get {
+                return this.idSucursalField;
+            }
+            set {
+                this.idSucursalField = value;
+                this.RaisePropertyChanged("idSucursal");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string NroGDE {
+            get {
+                return this.nroGDEField;
+            }
+            set {
+                this.nroGDEField = value;
+                this.RaisePropertyChanged("NroGDE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string Fecha_GDE {
+            get {
+                return this.fecha_GDEField;
+            }
+            set {
+                this.fecha_GDEField = value;
+                this.RaisePropertyChanged("Fecha_GDE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string IdUsuarioGraba {
+            get {
+                return this.idUsuarioGrabaField;
+            }
+            set {
+                this.idUsuarioGrabaField = value;
+                this.RaisePropertyChanged("IdUsuarioGraba");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string KgsGDE {
+            get {
+                return this.kgsGDEField;
+            }
+            set {
+                this.kgsGDEField = value;
+                this.RaisePropertyChanged("KgsGDE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string Errors {
+            get {
+                return this.errorsField;
+            }
+            set {
+                this.errorsField = value;
+                this.RaisePropertyChanged("Errors");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Order=7)]
+        public DetalleRecepcion_Tosol_CD[] lListaPiezas {
+            get {
+                return this.lListaPiezasField;
+            }
+            set {
+                this.lListaPiezasField = value;
+                this.RaisePropertyChanged("lListaPiezas");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9037.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -466,6 +744,10 @@ namespace Metalurgica.WsCrud {
         
         public Metalurgica.WsCrud.Bodega ObtenerBodega(int id) {
             return base.Channel.ObtenerBodega(id);
+        }
+        
+        public Metalurgica.WsCrud.Recepcion_Tosol_CD GrabarMP_TOSOL_CyD(Metalurgica.WsCrud.Recepcion_Tosol_CD iObj) {
+            return base.Channel.GrabarMP_TOSOL_CyD(iObj);
         }
         
         public Metalurgica.WsCrud.Camion GuardarCamion(Metalurgica.WsCrud.Camion camion) {

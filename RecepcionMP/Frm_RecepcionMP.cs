@@ -18,6 +18,8 @@ namespace Metalurgica.RecepcionMP
         DataTable mTBlCodigosIntercambio = new DataTable();
         DataTable mTolRecepcion_MP = new DataTable();
         private CurrentUser mUserLog = new CurrentUser();
+        private string mEmpresa = "";
+        public  string mTipoRecepcion = "";
 
         public Frm_RecepcionMP()
         {
@@ -38,9 +40,12 @@ namespace Metalurgica.RecepcionMP
                 Cursor.Current = Cursors.WaitCursor;
                 try
                 {
-                    
 
-                    ProcesaColada(Tx_EtiquetaAza.Text);
+                    if (mEmpresa == "TO")
+                        ProcesaColada(Tx_EtiquetaAza.Text);
+                    else
+                        ProcesaEtiqueta_TO(Tx_EtiquetaAza.Text);
+
 
                     Tx_EtiquetaAza.Text = "";
                     Tx_EtiquetaAza.Focus();
@@ -60,7 +65,7 @@ namespace Metalurgica.RecepcionMP
         private void RevisaEnOC(WsOperacion.TipoEtiquetaAza iEtiqueta )
         {
             int i = 0;string lMaterial = "";string lPar = ""; int lKgsRecep = 0;Clases.ClsComun lCom = new Clases.ClsComun();
-            string[] lPartes = null;DataView lVista = null;int lKgsSol = 0;int lRecep = 0;string lTipo = "";
+        DataView lVista = null;int lKgsSol = 0;string lTipo = "";
             string lEsSoldable = "";
 
             try
@@ -140,9 +145,9 @@ namespace Metalurgica.RecepcionMP
 
         private void RevisaEnOC_PorTablaDeCodigo(WsOperacion.TipoEtiquetaAza iEtiqueta)
         {
-            int i = 0; string lMaterial = ""; string lPar = ""; int lKgsRecep = 0; Clases.ClsComun lCom = new Clases.ClsComun();
-            string[] lPartes = null; DataView lVista = null; int lKgsSol = 0; int lRecep = 0; string lTipo = "";DataView lVistaCod = null;
-            string lEsSoldable = "";string lCodTO = "";
+            string lPar = ""; int lKgsRecep = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+        DataView lVista = null; int lKgsSol = 0;DataView lVistaCod = null;
+        string lCodTO = "";
 
             try
             {
@@ -270,6 +275,65 @@ namespace Metalurgica.RecepcionMP
 
         }
 
+        private void RefescaGrilla_TOSOL()
+        {
+            int i = 0; double  lTotalRecep = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+            DataRow lFila = null; DataView lVista = null;
+
+            try
+            {
+                for (i = 0; i < mTblDatos.Rows.Count; i++)
+                {
+                    if (mTblDatos.Rows[i]["Etiqueta"].ToString().ToUpper() != "TOTALES")
+                    {
+                        //lTotalKgsOC = lTotalKgsOC + lCom.Val(mTblDatos.Rows[i]["Kilos OC"].ToString());
+                        lTotalRecep = lTotalRecep + Convert.ToDouble  (mTblDatos.Rows[i]["KgsRecibido"].ToString());
+                        //lTotal_a_Recep = lTotal_a_Recep + lCom.Val(mTblDatos.Rows[i][4].ToString());
+
+                        if (lTotalRecep < 0)
+                            lTotalRecep = 0;
+                    }
+                }
+                lVista = new DataView(mTblDatos, "Etiqueta='TOTALES'", "", DataViewRowState.CurrentRows);
+                if (lVista.Count == 0)
+                {
+                    lFila = mTblDatos.NewRow();
+                    //lFila["Kilos OC"] = lTotalKgsOC;
+                    lFila["KgsRecibido"] = lTotalRecep;
+                    //lFila[4] = lTotal_a_Recep;  ''
+                    lFila["Etiqueta"] = "TOTALES";
+                    mTblDatos.Rows.Add(lFila);
+                }
+                else
+                {
+                    lVista[0]["KgsRecibido"] = Math.Round(lTotalRecep, 0); // lTotalKgsOC;
+                    //lVista[0][5] = lTotalRecep;
+                    //lVista[0][4] = lTotal_a_Recep;
+                }
+
+                Font lFuente = new Font("Arial", 12, FontStyle.Bold);
+                for (i = 0; i < this.Dtg_Etiquetas.Rows.Count - 2; i++)
+                {
+                    Dtg_Etiquetas.Rows[i].Cells["KgsRecibido"].Style.BackColor = Color.Black;
+                    Dtg_Etiquetas.Rows[i].Cells["KgsRecibido"].Style.ForeColor = Color.White;
+                    Dtg_Etiquetas.Rows[i].Cells["KgsRecibido"].Style.Font = lFuente;
+                }
+                if (Dtg_Etiquetas.Rows.Count > 0)
+                {
+                    Dtg_Etiquetas.Rows[Dtg_Etiquetas.Rows.Count-2].Cells["KgsRecibido"].Style.BackColor = Color.Black;
+                    Dtg_Etiquetas.Rows[Dtg_Etiquetas.Rows.Count - 2].Cells["KgsRecibido"].Style.ForeColor = Color.White;
+                    Dtg_Etiquetas.Rows[Dtg_Etiquetas.Rows.Count - 2].Cells["KgsRecibido"].Style.Font = lFuente;
+                }
+
+            }
+            catch (Exception iEx)
+            {
+                MessageBox.Show("Se ha producido el siguiente error: " + iEx.Message.ToString());
+            }
+
+        }
+
+
         private Boolean EtiquetaEstaProcesada(WsOperacion.TipoEtiquetaAza lEt)
         {
             Boolean lRes = false; string lSql = "  "; Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient();
@@ -334,6 +398,85 @@ namespace Metalurgica.RecepcionMP
             }
         }
 
+        private void ProcesaEtiqueta_TO(string iTx)
+        {
+            WsOperacion.TipoEtiquetaAza lEt = new WsOperacion.TipoEtiquetaAza();   int i = 0;        Clases.ClsComun lCom = new Clases.ClsComun();
+            WsOperacion.OperacionSoapClient lDal = new WsOperacion.OperacionSoapClient();            DataTable lTblDatos = new DataTable(); string lSucursal = "";
+
+            double lKgsRecep = 0;// Clases.ClsComun lCom = new Clases.ClsComun();
+            DataView lVista = null; double lKgsRecepcionados = 0; 
+
+
+                lSucursal = new Clases.ClsComun().OBtenerSucursal().ToString();
+                if (Dtg_Etiquetas.Rows.Count > 0)
+                {
+                   
+                    lVista = new DataView(mTblDatos, string.Concat("Id=", iTx, ""), "", DataViewRowState.CurrentRows);
+                    if (lVista.Count > 0)
+                    {
+                        //  verificamos que la etiqueta no haya sido pistoleada
+                        if (lVista[0]["IdEtiqueta_TO"].ToString().Trim ().Length  == 0)
+                        {
+                            lKgsRecep = Convert.ToDouble(lVista[0]["KgsPaquete"].ToString());
+                            lVista[0]["KgsRecibido"] = lKgsRecep;
+                             lKgsRecepcionados = lKgsRecepcionados + lKgsRecep;                                         
+                            lVista[0]["IdEtiqueta_TO"] = iTx ;
+                             Btn_grabar.Enabled = true;
+                        }
+                    }
+
+                lKgsRecepcionados = 0;
+                if (lVista.Count > 0)
+                {
+                    for (i = 0; i < Dtg_Etiquetas.Rows.Count - 1; i++)
+                    {
+                        lKgsRecepcionados = lKgsRecepcionados + Convert.ToDouble(Dtg_Etiquetas.Rows[i].Cells["KgsRecibido"].Value.ToString());
+                    }
+                    Dtg_Etiquetas.Rows[Dtg_Etiquetas.Rows.Count - 2].Cells["KgsRecibido"].Value = Math.Round(lKgsRecepcionados, 0);
+                    RefescaGrilla_TOSOL();
+                }
+                
+                //else
+                //{
+                //    lVistaCod = new DataView(mTBlCodigosIntercambio, string.Concat("PAr1='", iEtiqueta.Codigo, "'"), "", DataViewRowState.CurrentRows);
+                //    if (lVistaCod.Count > 0)
+                //    //for (i = 0; i < mTblDatos.Rows.Count - 1; i++)
+                //    {
+                //        lCodTO = lVistaCod[0]["Par2"].ToString();
+                //        lVista = new DataView(mTblDatos, string.Concat(" Codigo='", lCodTO, "'"), "", DataViewRowState.CurrentRows);
+                //        if (lVista.Count > 0)
+                //        {
+                //            lKgsSol = lCom.Val(lVista[0]["Kilos Oc"].ToString());
+                //            lPar = lVista[0]["IdEtiquetaAZA"].ToString();
+
+                //            lKgsRecep = lCom.Val(lVista[0]["Kilos recibidos"].ToString());
+                //            if (lKgsRecep > 0)
+                //                lKgsRecep = lKgsRecep + lCom.Val(iEtiqueta.PesoBulto.ToString()) + lCom.Val(lVista[0][4].ToString());
+                //            else
+                //                lKgsRecep = lCom.Val(iEtiqueta.PesoBulto.ToString());
+
+
+                //            lKgsSol = lCom.Val(lVista[0]["Kilos OC"].ToString());
+
+                //            lVista[0]["Kilos Pendientes"] = (lKgsSol - lKgsRecep).ToString();
+                //            lVista[0][4] = lCom.Val(lVista[0][4].ToString()) + lCom.Val(iEtiqueta.PesoBulto.ToString());
+                //            lVista[0]["IdEtiquetaAza"] = string.Concat(lVista[0]["IdEtiquetaAza"].ToString(), iEtiqueta.Id, "-");
+                //            Btn_grabar.Enabled = true;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("El Código leido, No esta en la Base de datos, Avisar a Logistica ", "Avisos Sistema");
+                //    }
+                //}
+
+                //}
+                //else
+                //    MessageBox.Show(" La etiqueta ya fue recepcionada, ", " Error en el sistema ", MessageBoxButtons.OK);
+
+            }
+        }
+
         private void AgregaEtiqueta(WsOperacion.TipoEtiquetaAza lEt_AZA)
         {
             DataRow lFila = mTblDatos.NewRow();
@@ -356,8 +499,10 @@ namespace Metalurgica.RecepcionMP
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
             string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
             int lIndexSel = 0; int i = 0;
 
+            mEmpresa = "TO";
             lDts = lPx.Obtener_MP();
             if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
             {
@@ -370,10 +515,12 @@ namespace Metalurgica.RecepcionMP
                     lTbl = lDts.DataSet.Tables["Sucursales"].Copy();
                     for (i = 0; i < lTbl.Rows.Count; i++)
                     {
+                        //if (lTbl.Rows[i]["Id"].ToString().ToUpper().Equals(lIdSucursal.ToUpper()))
                         if (lTbl.Rows[i]["Sucursal"].ToString().ToUpper().Equals(lSucursal.ToUpper()))
                         {
                             lIndexSel = i;
                         }
+
                     }
 
 
@@ -405,9 +552,155 @@ namespace Metalurgica.RecepcionMP
 
             Tx_EtiquetaAza.Enabled = false;
         }
+
+        private void IniciaFormulario_MP_TOSOL_Aza()
+        {
+            //Cargamos las materias Primas 
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+            string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            int lIndexSel = 0; int i = 0;
+
+            mEmpresa = "TOSOL";
+            lDts = lPx.Obtener_MP();
+            if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+            {
+                if (lDts.DataSet.Tables.Count == 4)
+                {
+                    mTBlMP = lDts.DataSet.Tables["MP"].Copy();
+                    mTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
+                    mTolRecepcion_MP = lDts.DataSet.Tables["ToleranciaRecepcion_MP"].Copy();
+
+                    lTbl = lDts.DataSet.Tables["Sucursales"].Copy();
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        //if (lTbl.Rows[i]["Id"].ToString().ToUpper().Equals(lIdSucursal.ToUpper()))
+                        if (mEmpresa == "TO")
+                        {
+                            if (lTbl.Rows[i]["Sucursal"].ToString().ToUpper().Equals(lSucursal.ToUpper()))
+                            {
+                                lIndexSel = i;
+                            }
+                        }
+                        else
+                        {
+                            lIndexSel = lTbl.Rows.Count - 1;
+                        }
+                        
+
+                    }
+
+
+                    new Forms().comboBoxFill(Cmb_Sucursal, lTbl, "Id", "Sucursal", lIndexSel);
+
+
+                    if (mTolRecepcion_MP.Rows.Count > 0)
+                        Tx_tolerancia.Text = mTolRecepcion_MP.Rows[0]["Par1"].ToString();
+
+                    Tx_tolerancia.ReadOnly = true;
+                    Btn_GrabaTol.Visible = false;
+                    Gr_autorizacion.Visible = false;
+
+                }
+
+            }
+
+            mTblDatos = new DataTable();
+            mTblDatos.Columns.Add("Lote", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("FechaFabricacion", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Bulto", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Producto", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Codigo", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("PesoBulto", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Diam", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Largo", Type.GetType("System.String"));
+
+            Dtg_Etiquetas.DataSource = mTblDatos;
+
+            Tx_EtiquetaAza.Enabled = false;
+        }
+
+        private void IniciaFormulario_MP_TO()
+        {
+            //Cargamos las materias Primas 
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+            string lSucursal = ConfigurationManager.AppSettings["Sucursal"].ToString();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            int lIndexSel = 0; int i = 0;
+
+
+
+            mEmpresa = "TOSOL";
+            label3.Visible = false;
+            Tx_OC.Visible = false;
+            label4.Text = " Trama Etiqueta TO ";
+            groupBox2.Text = "";
+
+            lDts = lPx.Obtener_MP();
+            if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+            {
+                if (lDts.DataSet.Tables.Count == 4)
+                {
+                    mTBlMP = lDts.DataSet.Tables["MP"].Copy();
+                    mTBlCodigosIntercambio = lDts.DataSet.Tables["Codigos_Intercambio"].Copy();
+                    mTolRecepcion_MP = lDts.DataSet.Tables["ToleranciaRecepcion_MP"].Copy();
+
+                    lTbl = lDts.DataSet.Tables["Sucursales"].Copy();
+                    for (i = 0; i < lTbl.Rows.Count; i++)
+                    {
+                        if (lTbl.Rows[i]["Sucursal"].ToString().ToUpper().Equals("QUILICURA"))
+                        {
+                            lIndexSel = i;
+                        }
+
+                    }
+
+
+                    new Forms().comboBoxFill(Cmb_Sucursal, lTbl, "Id", "Sucursal", lIndexSel);
+
+
+                    if (mTolRecepcion_MP.Rows.Count > 0)
+                        Tx_tolerancia.Text = mTolRecepcion_MP.Rows[0]["Par1"].ToString();
+
+                    Tx_tolerancia.ReadOnly = true;
+                    Btn_GrabaTol.Visible = false;
+                    Gr_autorizacion.Visible = false;
+
+                    Cmb_Sucursal.Enabled = false;
+                }
+
+            }
+
+            mTblDatos = new DataTable();
+            mTblDatos.Columns.Add("It", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Etiqueta", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("NroPiezas", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Pieza", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("Diámetro", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("KgEtiqueta", Type.GetType("System.String"));
+            mTblDatos.Columns.Add("KgRecibidos", Type.GetType("System.String"));
+            
+
+            Dtg_Etiquetas.DataSource = mTblDatos;
+
+            Tx_EtiquetaAza.Enabled = false;
+        }
+
         private void Frm_RecepcionMP_Load(object sender, EventArgs e)
         {
-            IniciaFormulario();
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            if (lIdSucursal.ToString().Equals("7"))
+            {
+                if (mTipoRecepcion=="TOCD" )
+                        IniciaFormulario_MP_TO();
+                else 
+                    IniciaFormulario_MP_TOSOL_Aza();
+            }                
+            else
+                IniciaFormulario();
+
         }
 
         private void Tx_OC_Validating(object sender, CancelEventArgs e)
@@ -432,9 +725,26 @@ namespace Metalurgica.RecepcionMP
         {
             WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
-            int i = 0;   Clases.ClsComun lCom = new Clases.ClsComun();Boolean lRes = true;
+              Clases.ClsComun lCom = new Clases.ClsComun();Boolean lRes = true;
 
             lDts = lPx.VerificaNroGuiaDespacho(iNroGuia);
+            if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+            {
+                lTbl = lDts.DataSet.Tables[0].Copy();
+                if (lTbl.Rows.Count > 0)
+                    lRes = false;
+            }
+
+            return lRes;
+        }
+
+        private Boolean VerificaGuiaDespacho_IT_MP(string iNroGuia)
+        {
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+           Clases.ClsComun lCom = new Clases.ClsComun(); Boolean lRes = true;
+
+            lDts = lPx.VerificaNroGuiaDespacho_MP_IT(iNroGuia);
             if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
             {
                 lTbl = lDts.DataSet.Tables[0].Copy();
@@ -485,6 +795,39 @@ namespace Metalurgica.RecepcionMP
         }
 
 
+
+        private void CargaDatos_GDE_TO(string lNroGDE)
+        {
+            WsOperacion.OperacionSoapClient lPx = new WsOperacion.OperacionSoapClient();
+            WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet(); DataTable lTbl = new DataTable();
+            Clases.ClsComun lCom = new Clases.ClsComun();
+
+            Dtg_Etiquetas.DataSource = null;
+            lDts = lPx.OBtener_MP_de_TO(lNroGDE);
+            if ((lDts.MensajeError.Trim().Length == 0) && (lDts.DataSet.Tables.Count > 0))
+            {
+                lTbl = lDts.DataSet.Tables[0].Copy();
+                lTbl.Columns.Add("IdEtiqueta_TO", Type.GetType("System.String"));
+                mTblDatos = lTbl.Copy();
+
+                Dtg_Etiquetas.DataSource = mTblDatos;
+                Dtg_Etiquetas.Columns["NroGuiaINET"].Visible = false;
+
+
+                Dtg_Etiquetas.Columns["Codigo"].Width = 70;
+                Dtg_Etiquetas.Columns["NroPiezas"].Width = 70;
+                Dtg_Etiquetas.Columns["Diametro"].Width = 70;
+                Dtg_Etiquetas.Columns["Etiqueta"].Width = 130;
+                Dtg_Etiquetas.Columns["Correlativo"].Width = 100;
+                //Dtg_Etiquetas.Columns[6].Width = 110;
+
+
+            }
+
+        }
+
+
+
         private void Dtg_Etiquetas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int iFila = e.RowIndex;
@@ -498,7 +841,7 @@ namespace Metalurgica.RecepcionMP
             //ImprimirQR.Form1 lFrm = new ImprimirQR.Form1();
             //lFrm.IniciaForm("");
             //lFrm.ShowDialog(this);
-            string lEt_TX = ""; string lProducto = "";
+            //string lEt_TX = ""; string lProducto = "";
 
 
             //lProducto = string.Concat("HORMIGON ", Tx_diametro.Text, "mm ", Tx_largo.Text, "m  A630-420H (N)");
@@ -509,7 +852,11 @@ namespace Metalurgica.RecepcionMP
 
         private void Btn_grabar_Click(object sender, EventArgs e)
         {
-            PersistirDatos();
+            if (mEmpresa == "TO")
+                PersistirDatos();
+            else
+                PersistirDatos_TOSOL_TO();
+            // GrabarMP_TOSOL_CyD wsCrud
 
         }
 
@@ -519,22 +866,70 @@ namespace Metalurgica.RecepcionMP
             Clases.ClsComun lCom = new Clases.ClsComun();
             string lMsg = "";Boolean lRes = true;
 
-            if (lCom.Val(Tx_GuiaDesp.Text) < 1)
+            if (mEmpresa.ToUpper().ToString().Equals("TO"))
             {
-                lRes = false;
-                lMsg = string.Concat(" Debe Indicar el Nro de Guia de despacho ", Environment .NewLine );
-            }
-            if (lCom.Val(Tx_TotalKgsGD .Text) < 1)
-            {
-                lRes = false;
-                lMsg = string.Concat(" Debe Indicar el Peso  según la Guía de Despacho ", Environment.NewLine);
-            }
+                if (lCom.Val(Tx_GuiaDesp.Text) < 1)
+                {
+                    lRes = false;
+                    lMsg = string.Concat(" Debe Indicar el Nro de Guia de despacho ", Environment.NewLine);
+                }
+                if (lCom.Val(Tx_TotalKgsGD.Text) < 1)
+                {
+                    lRes = false;
+                    lMsg = string.Concat(" Debe Indicar el Peso  según la Guía de Despacho ", Environment.NewLine);
+                }
 
-            if (lCom.Val(Tx_OC .Text) < 1)
-            {
-                lRes = false;
-                lMsg = string .Concat (lMsg , " Debe Indicar el Nro de Orden de Compra ", Environment.NewLine);
+                if (lCom.Val(Tx_OC.Text) < 1)
+                {
+                    lRes = false;
+                    lMsg = string.Concat(lMsg, " Debe Indicar el Nro de Orden de Compra ", Environment.NewLine);
+                }
+                DataView lVista = null; int lTotalIng = 0;
+                lVista = new DataView(mTblDatos, "Descripcion='TOTALES'", "", DataViewRowState.CurrentRows);
+                if (lVista.Count == 0)
+                {
+                    lTotalIng = 0;
+                }
+                else
+                {
+                    lTotalIng = lCom.Val(lVista[0][4].ToString());
+                }
+
+                // if (lTotalIng!=lCom.Val(Tx_TotalKgsGD.Text))
+                if (Math.Abs(lTotalIng - lCom.Val(Tx_TotalKgsGD.Text)) > (lCom.Val(Tx_tolerancia.Text) + 1))
+                {
+                    lRes = false;
+                    lMsg = string.Concat(lMsg, " La suma de las etiquetas Leidas es distinto a los kilos de la guia de despacho", Environment.NewLine);
+                }
             }
+            else
+            {
+                if (mTipoRecepcion.ToUpper().Equals("TOCD"))  // TOSOL recepciona Materia Prima (corte y doblado)  desde TO
+                {
+                    DataView lVista = null; int lTotalIng = 0;
+                    lVista = new DataView(mTblDatos, "Etiqueta='TOTALES'", "", DataViewRowState.CurrentRows);
+                    if (lVista.Count == 0)
+                    {
+                        lTotalIng = 0;
+                    }
+                    else
+                    {
+                        lTotalIng = lCom.Val(lVista[0]["KgsRecibido"].ToString());
+                    }
+
+                    // if (lTotalIng!=lCom.Val(Tx_TotalKgsGD.Text))
+                    if (Math.Abs(lTotalIng - lCom.Val(Tx_TotalKgsGD.Text)) > (lCom.Val(Tx_tolerancia.Text) + 1))
+                    {
+                        lRes = false;
+                        lMsg = string.Concat(lMsg, " La suma de las etiquetas Leidas es distinto a los kilos de la guia de despacho", Environment.NewLine);
+                    }
+                }
+                else  // TOSOL recepciona Materia Prima envidada desde TO
+                {
+
+                }
+            }
+         
 
             //Revisamos el detalle
             if (Dtg_Etiquetas.Rows.Count == 0)
@@ -546,23 +941,7 @@ namespace Metalurgica.RecepcionMP
           
 
             // revisamos que el peso de la GD es igual a lo pistoleado.
-            DataView lVista = null;int lTotalIng = 0;
-            lVista = new DataView(mTblDatos, "Descripcion='TOTALES'", "", DataViewRowState.CurrentRows);
-            if (lVista.Count == 0)
-            {
-                lTotalIng = 0;
-            }
-            else
-            {
-                lTotalIng = lCom.Val(lVista[0][4].ToString());
-            }
-
-            // if (lTotalIng!=lCom.Val(Tx_TotalKgsGD.Text))
-            if (Math.Abs (lTotalIng- lCom.Val(Tx_TotalKgsGD.Text))>(lCom.Val (Tx_tolerancia .Text )+1))
-            {
-                lRes = false;
-                lMsg = string.Concat(lMsg, " La suma de las etiquetas Leidas es distinto a los kilos de la guia de despacho", Environment.NewLine);
-            }
+          
 
             if (lMsg.Length > 0)
             {
@@ -570,6 +949,89 @@ namespace Metalurgica.RecepcionMP
                 Btn_Nueva_Click(null, null);
             }
             return lRes;
+
+        }
+        private WsCrud.Recepcion_Tosol_CD CargarObj_TO_CD()
+        {
+            WsCrud.Recepcion_Tosol_CD   lObj = new WsCrud.Recepcion_Tosol_CD (); Clases.ClsComun lCom = new Clases.ClsComun();
+            WsCrud.DetalleRecepcion_Tosol_CD lObjDet = new WsCrud.DetalleRecepcion_Tosol_CD();
+         DataTable lTblFinal = new DataTable();
+            //List<WsCrud.DetalleRecepcion_Tosol_CD> lLista = new List<WsCrud.DetalleRecepcion_Tosol_CD>();
+            WsCrud.DetalleRecepcion_Tosol_CD[] lLista;
+
+            int i = 0;  string IdEtiqueta = "";
+            //lPartes = lPar.Split(new Char[] { '-' });
+
+            try
+            {
+                lObj.Fecha_GDE = Dtp_Fecha.Value.ToShortDateString();
+                lObj.IdUsuarioGraba = lCom.Val(mUserLog.Iduser.ToString()).ToString();  //; // 1;
+                lObj.NroGDE = lCom.Val(Tx_GuiaDesp.Text).ToString();
+                lObj.KgsGDE = lCom.Val(Tx_TotalKgsGD.Text).ToString();
+                lObj.idSucursal = lCom.Val(Cmb_Sucursal.SelectedValue.ToString());
+
+                //mTblDatos.Rows
+                lTblFinal = mTblDatos.GetChanges();
+        
+                //  for (i = 0; i < Dtg_Etiquetas.Rows.Count; i++)
+                //  obtenemos el nro de etiquetas leidas
+                //for (i = 0; i < lTblFinal.Rows.Count; i++)
+                //{
+                //    IdEtiqueta = lTblFinal.Rows[i]["IdEtiqueta_TO"].ToString();
+                //    lNroDetalle = lNroDetalle + lPartes.Length - 1;
+
+                //}
+                WsCrud.DetalleRecepcion_Tosol_CD lDetalle = new WsCrud.DetalleRecepcion_Tosol_CD();
+
+                lLista = new WsCrud.DetalleRecepcion_Tosol_CD[lTblFinal.Rows.Count - 1];
+
+                for (i = 0; i < lTblFinal.Rows.Count-1; i++)
+                {
+                    IdEtiqueta = lTblFinal.Rows[i]["IdEtiqueta_TO"].ToString();
+                    lDetalle = new WsCrud.DetalleRecepcion_Tosol_CD();
+                    lDetalle.idPaquete = Convert.ToInt32(IdEtiqueta);
+                    lDetalle.idRecepcionIT = 0;
+                    lDetalle.KgsEtiqueta = Convert.ToDouble(lTblFinal.Rows[i]["KgsPaquete"].ToString());
+                    lDetalle.NroPiezas = Convert.ToInt32(lTblFinal.Rows[i]["NroPiezas"].ToString());
+                    lDetalle.Pieza = lTblFinal.Rows[i]["Correlativo"].ToString();
+                    lDetalle.CodigoIT  = lTblFinal.Rows[i]["Codigo"].ToString();
+                    lDetalle.Etiqueta  = lTblFinal.Rows[i]["Etiqueta"].ToString();
+                    lDetalle.Diametro  = Convert.ToInt16 (lTblFinal.Rows[i]["diametro"].ToString());
+
+                    lLista[i] = lDetalle;
+                 //   lLista.Add(lDetalle);
+                    //lObj.lListaPiezas.
+
+                    //for (j = 0; j < lPartes.Length; j++)
+                    //{
+                    //    if (lPartes[j].ToString().Length > 0)
+                    //    {
+                    //        lObjDet = new WsOperacion.Detalle_Recepcion_MP();
+                    //        lObjDet.CodMaterial = lTblFinal.Rows[i]["Codigo"].ToString().Trim();
+                    //        lObjDet.IdEtiquetaAza = lPartes[j].ToString();
+                    //        lObjDet.IdRecepcionMP = 0;
+                    //        lObjDet.Kgs = lCom.Val(lTblFinal.Rows[i]["Kilos Oc"].ToString().Trim());
+                    //        lObjDet.FechaEntrega_OC = lTblFinal.Rows[i]["Fecha de entrega"].ToString();
+
+                    //        lDetalle[lCont] = lObjDet;
+                    //        lCont = lCont + 1;
+                    //    }
+                    //}
+                    //lObj.Detalle =(Metalurgica.) lDetalle;
+
+
+                }
+                lObj.lListaPiezas = lLista; 
+                //if (lCont > 0)
+                //{
+                //    lObj.Detalle = lDetalle;
+                //    lCont = 0;
+                //}
+            }
+            catch (Exception iEx)
+            {
+            }
+            return lObj;
 
         }
 
@@ -646,7 +1108,7 @@ namespace Metalurgica.RecepcionMP
 
             //List<WsOperacion.Detalle_Recepcion_MP> lDetalle = new List<WsOperacion.Detalle_Recepcion_MP>() ;
 
-            int i = 0; int j = 0; string[] lPartes = null;
+            int i = 0; 
             //lPartes = lPar.Split(new Char[] { '-' });
 
             try
@@ -745,6 +1207,43 @@ namespace Metalurgica.RecepcionMP
             }
         }
 
+        private void PersistirDatos_TOSOL_TO()
+        {
+            // Se deben Peristir los datos.
+            //SP_CRUD_Recepcion_MP
+            WsCrud.CrudSoapClient lPx = new WsCrud.CrudSoapClient();
+            WsCrud.Recepcion_Tosol_CD lObj = new WsCrud.Recepcion_Tosol_CD();
+
+
+
+            if (ValidarDatosAntesDeGrabar() == true)
+            {
+                // GrabarMP_TOSOL_CyD
+                if (mTipoRecepcion == "TO")
+                    PersistirDatos();
+                else
+                {
+                    lObj = CargarObj_TO_CD();
+                    lObj = lPx.GrabarMP_TOSOL_CyD(lObj);
+                    
+                    //    //Se debe diferenciar el mensaje al usuario:
+                    //    //1.- si el total de la guia es igual a suma de los kilos pistoleados el mensaje es:
+                    MessageBox.Show("Los datos  se han grabado correctamente ", "Avisos sistema ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    //2.- Si permite grabar con Tolerancia, el mensaje debe ser:
+                    //    //  ATENCIÓN !!!   Los datos  se han grabado con una tolerancia de xxx (seria la diferencia en valor absoluto) kilos
+                    //    //MessageBox.Show( mensaje anterior,"Avisos sistema ",MessageBoxButtons.OK ,MessageBoxIcon.Warning  );
+
+                    mTblDatos.Clear();
+                    Btn_Nueva_Click(null, null);
+                    Btn_grabar.Enabled = false;
+                    //}
+                }
+
+
+            }
+        }
+
+
         private Boolean ValidaDatos()
         {
             Boolean lRes = true ;string lTx = "";
@@ -755,7 +1254,8 @@ namespace Metalurgica.RecepcionMP
                 lTx = string.Concat(" Debe Indicar el Número de la Guía de Despacho -  ", Environment.NewLine);
                 lRes = false;
             }
-            if (lCom.EsNumero(Tx_OC.Text) == false)
+
+            if ((mEmpresa=="TO") && (lCom.EsNumero(Tx_OC.Text) == false))
             {
                 lTx = string .Concat (  lTx, " Debe Indicar el Número de Orden de Compra - ", Environment.NewLine);
                 lRes = false;
@@ -827,7 +1327,7 @@ namespace Metalurgica.RecepcionMP
             Tx_clave.Text = "";
             Btn_grabar.Enabled = true;
             // Debemos eliminar las etiquetasAza si no se grabaron.
-            if (mTblDatos.Rows.Count > 0)
+            if ((mTblDatos.Rows.Count > 0) && (mEmpresa =="TO"))
             {
                                 EliminaDatosTemporales();
                             }
@@ -865,6 +1365,25 @@ namespace Metalurgica.RecepcionMP
                 Cursor.Current = Cursors.WaitCursor;
                 try
                 {
+                    switch (mEmpresa )
+                    {
+                        case "TO":
+                            if (VerificaGuiaDespacho(Tx_GuiaDesp.Text) == false)
+                            {
+                                MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
+                                Btn_Nueva_Click(null, null);
+                            }
+                            break;
+                        case "TOSOL":
+                            if (VerificaGuiaDespacho_IT_MP(Tx_GuiaDesp.Text) == false)
+                            {
+                                MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
+                                Btn_Nueva_Click(null, null);
+                            }
+                                       //CargaDatosEtiquetas_TO();
+
+                            break;                        
+                    }
                     if (VerificaGuiaDespacho(Tx_GuiaDesp.Text ) == false)
                     {
                         MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
@@ -889,6 +1408,26 @@ namespace Metalurgica.RecepcionMP
 
         }
 
+        private void CargaDatosEtiquetas_TO()
+        {
+
+            if (!Tx_GuiaDesp .Text.Trim().Equals(""))
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    CargaDatos_GDE_TO(Tx_GuiaDesp .Text );
+                    RefescaGrilla_TOSOL();
+              //      RefescaGrilla();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                    Cursor.Current = Cursors.Default;
+            }
+
+        }
 
         private WsOperacion.TipoEtiquetaAza   ProcesaColada_MAsiva(string iTx)
         {

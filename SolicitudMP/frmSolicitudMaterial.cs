@@ -243,7 +243,7 @@ namespace Metalurgica
 
         private void txtProducto_KeyUp(object sender, KeyEventArgs e)
         {
-            string lProdSel = ""; string lIdMaquina = mUserLog.IdMaquina.ToString();
+           string lIdMaquina = mUserLog.IdMaquina.ToString();
             CommonHelp.frmHelp frmHelp = new CommonHelp.frmHelp();
 
             if (e.KeyCode == Keys.F1)

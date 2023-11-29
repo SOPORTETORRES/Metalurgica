@@ -179,8 +179,8 @@ namespace Metalurgica
 
         private void tlbGuardar_Click(object sender, EventArgs e)
         {
-            string mensaje = validarControlesRequeridos(); string lEtiColada="";
-            string lIdObra = ""; int idDespacho = 0; DataTable lTbl = new DataTable(); DataRow lFila = null;
+            string mensaje = validarControlesRequeridos(); 
+            string lIdObra = "";  DataTable lTbl = new DataTable(); DataRow lFila = null;
             string lOpcionUSer = ""; string lEstado = ""; DataTable lTblViajes = new DataTable();DataSet lDtsDatos = new DataSet();
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion();
@@ -274,10 +274,12 @@ namespace Metalurgica
                             }
                         }
                         lDtsDatos.Tables.Add(lTblViajes);
-                        despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
-                        
-                        //despacho_Camion.Id = Obtener_IdDespacho();
+                        // Version antes de grabar cada lectura de etiqueta
                         //despacho_Camion = wsOperacion.GuardarDespachoCamion(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
+
+                        // Nueva Version grabar cada lectura de etiqueta
+                        despacho_Camion.Id = Obtener_IdDespacho();
+                        despacho_Camion = wsOperacion.GuardarDespachoCamion_V2(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
 
                         //Invocamos el metodo que revisa los bloqueos
                         wsOperacion.RevisaRN(lIdObra);
@@ -285,7 +287,7 @@ namespace Metalurgica
                         //Generamos el documento en PDF.
 
 
-                        ImprimeDocs(despacho_Camion.Id.ToString ());
+                       // ImprimeDocs(despacho_Camion.Id.ToString ());
 
                         //    //***************************************
                         tlbNuevo_Click(sender, e);
@@ -338,7 +340,7 @@ namespace Metalurgica
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
 
-            bool lRes = false; string lCodigoViaje = "";
+           string lCodigoViaje = "";
             char[] delimiterChars = { ',', '\t' };
             int i = 0;
             string[] words = lCodViajes.Split(delimiterChars);
@@ -501,7 +503,7 @@ namespace Metalurgica
 
         private DataTable  ObtenerTblPaquete(string iIdPaquete)
         {
-            string lRes = "";
+           
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             DataTable lTbl = new DataTable();
@@ -551,10 +553,8 @@ namespace Metalurgica
             string lValidaPiezaProducida = ConfigurationManager.AppSettings["ValidaPaqueteProducido"].ToString().ToUpper ();
             string lPaqueteLiberado = ""; Boolean lPuedeSeguir = true; string lMgs = "";Clases.ClsComun lCom = new Clases.ClsComun();
             string[] split = null    ;//iEtiquetas.ToString().Split(new Char[] { '|' });
-            string lValidaLiberacionDespacho = ""; // ConfigurationManager.AppSettings["ValidaLiberacionDespacho"].ToString().ToUpper();
             WsOperacion.Despacho_Camion despacho_Camion = new WsOperacion.Despacho_Camion(); DataTable lTbl = new DataTable(); DataRow lFila = null;
-            DataTable lTblViajes = new DataTable(); DataSet lDtsDatos = new DataSet(); string lEstado = "";
-            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
+            DataTable lTblViajes = new DataTable(); DataSet lDtsDatos = new DataSet();            WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
 
             DataTable lTblPaquete = new DataTable();
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
@@ -682,8 +682,8 @@ namespace Metalurgica
                                 
                                         lDtsDatos.Tables.Add(lTbl);
                                         //**********************Requerimieto Leo *******************
-                                        //despacho_Camion = wsOperacion.RegistraEtiqueta_Cargada(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
-                                        //mIdDespachoCamion = despacho_Camion.Id;
+                                        despacho_Camion = wsOperacion.RegistraEtiqueta_Cargada(despacho_Camion, Program.currentUser.ComputerName, lDtsDatos);
+                                        mIdDespachoCamion = despacho_Camion.Id;
                                         //****************************************************************************
                                         lVista[0]["Estado1"] = "POK";
                                         lVista[0]["Estado2"] = lEstadoPaquete;
@@ -766,7 +766,8 @@ namespace Metalurgica
                 }
             }
 
-
+            if (lRes == 0)
+                lRes = mIdDespachoCamion;
 
             return lRes;
         }
@@ -1398,7 +1399,7 @@ namespace Metalurgica
         {
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            Clases.ClsComun iCom = new Clases.ClsComun(); int i = 0;int k =0;
+            Clases.ClsComun iCom = new Clases.ClsComun(); int k =0;
             int lNroPiezas = 0; int lTotalKgs = 0; int lTotalPaq = 0; string lCodigo = "";
             DataTable lTbl = new DataTable(); int lTmp =0;
 
@@ -1672,7 +1673,7 @@ namespace Metalurgica
         {
             WsCrud.CrudSoapClient wsOperacion = new WsCrud.CrudSoapClient();
             WsCrud.ListaDataSet listaDataSet = new WsCrud.ListaDataSet();
-            Clases.ClsComun iCom = new Clases.ClsComun(); int i = 0; int k = 0;
+            Clases.ClsComun iCom = new Clases.ClsComun();  int k = 0;
             int lNroPiezas = 0; int lTotalKgs = 0; int lTotalPaq = 0; string lCodigo = "";
             string lSql = "";
 

@@ -419,7 +419,7 @@ namespace Metalurgica
 
             Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            string lSql = ""; string lMsg = ""; Btn_Desbloquea.Visible = false ;
+            string lSql = "";   Btn_Desbloquea.Visible = false ;
             try
             {
                 listaDataSet.MensajeError = "";

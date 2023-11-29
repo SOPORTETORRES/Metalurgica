@@ -110,7 +110,7 @@ namespace Metalurgica
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0; TreeNode lNodo = null;
             DataSet lDts = new DataSet(); string lSql = ""; DataTable lTbl = new DataTable(); string lTmp = "";
             DataTable lTbl2 = new DataTable(); int j = 0; string lStrLlave = ""; string lPatente = "";
-            TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0; string lPar1 = "";
+            TreeNode lNodo2 = null; int lKilos = 0; DataView lVista = null; int k = 0;
             //string lEmpresa = "";
 
             lSql = string.Concat(" SP_Consultas_FacturacionPorCamion 1,'", lSucursalTO, "','','','','','',''");
@@ -627,7 +627,7 @@ namespace Metalurgica
         private DtsInformes CargaDatosPortada_ViajeSaldo(string iViaje)
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
-            ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
+            ArrayList lIdsPiezas = new ArrayList(); 
            DataSet lDtsTmp = new DataSet();
             DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
       
@@ -1020,7 +1020,7 @@ namespace Metalurgica
             }
             //Revisamos las listas y solo dejamos las 
            // string lViajes = ""; string lDespachos = "";
-            string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            string lOC_Tmp = "";  int j = 0;
             DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
 
             lTbl = CreaCampo(lTbl);

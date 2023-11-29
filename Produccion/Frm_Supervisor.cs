@@ -128,7 +128,7 @@ namespace Metalurgica.Produccion
         {
             Ws_TO.Ws_ToSoapClient lDal = new Ws_TO.Ws_ToSoapClient();
             string lSql = String.Concat(" SP_ConsultasInformes  20, '", itipo, "',' ','','',''");
-            DataSet lDts = new DataSet(); DataTable lTbl = new DataTable(); int i = 0;
+            DataSet lDts = new DataSet(); DataTable lTbl = new DataTable(); 
             try
             {
                 lDts = lDal.ObtenerDatos(lSql);
@@ -211,7 +211,7 @@ namespace Metalurgica.Produccion
         {
             DataSet lDts = new DataSet(); Clases.ClsComun lCom = new Clases.ClsComun();
             Ws_TO.Ws_ToSoapClient lDAl = new Ws_TO.Ws_ToSoapClient();string lIdAutorizacion = "";
-            string lRes = ""; string lSql = "";
+            string lSql = "";
 
             lSql= " insert  into  AprobacionesSupervisor ( Supervisor, Obs, IdUserGraba, MailEnviado,IdQr) Values ('";
             lSql = string.Concat(lSql,  mNombreSup   , "','" , Tx_Obs .Text ,"',", lCom .Val (mUser .Iduser ),",'N',", mIdQr ,")");

@@ -885,6 +885,7 @@
             this.tlbGuardar.Name = "tlbGuardar";
             this.tlbGuardar.Size = new System.Drawing.Size(69, 22);
             this.tlbGuardar.Text = "Guardar";
+            this.tlbGuardar.Click += new System.EventHandler(this.tlbGuardar_Click);
             // 
             // tlbEliminar
             // 
@@ -999,7 +1000,8 @@
             // 
             // TM_proceme
             // 
-            this.TM_proceme.Interval = 1800000;
+            this.TM_proceme.Enabled = true;
+            this.TM_proceme.Interval = 180000;
             this.TM_proceme.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Btn_Estadistica

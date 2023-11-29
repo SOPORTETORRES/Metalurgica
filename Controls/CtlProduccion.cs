@@ -288,7 +288,7 @@ namespace Metalurgica.Controls
             Ws_TO.Ws_ToSoap lPx = new Ws_TO.Ws_ToSoapClient();  string lSucursalReferencia = "";
             DataSet lDts = new DataSet(); DataTable lTbl = new DataTable(); string lDiam = "";
 
-            string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; string lCuerpoMsg = "";
+            string lMsg = "Esta etiqueta no ha sido impresa, avisar a su jefe"; 
             //80  verifica la sucursal por la it
             //listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(80, txtEtiquetaPieza.Text, "", "", "", "");
 
@@ -471,7 +471,16 @@ namespace Metalurgica.Controls
                             case "A630":
                                 //Al hacer la IT, puede ser A630, SE PUEDE ACEPTAR   A630 Y A630S(POR DEFECTO)
                                 //Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.
-                                if (mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440"))
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440"))|| (mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440-280H")))
+                                {
+                                    lEtiquetaImpresa = false;
+                                    lmsg = " Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.";
+                                }
+                                break;
+                            case "A630-420H":
+                                //Al hacer la IT, puede ser A630, SE PUEDE ACEPTAR   A630 Y A630S(POR DEFECTO)
+                                //Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440")) || (mEtiqueta_Qr.CalidadAcero.ToString().Equals("A440-280H")))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A630(normal) con materia prima A440.";
@@ -480,7 +489,7 @@ namespace Metalurgica.Controls
                             case "A440":
                                 //A440, SOLO A440   Se intenta producir una etiqueta que exige a440 con materia prima
                                 // A630(normal)  A630S(Soldable).
-                                if (mEtiqueta_Qr.CalidadAcero.ToString() != "A440")
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() != "A440")|| (mEtiqueta_Qr.CalidadAcero.ToString() != "A440-280H"))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A440 con materia prima  A630(normal)  A630S(Soldable)";
@@ -491,7 +500,18 @@ namespace Metalurgica.Controls
                                 //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
                                 //A630(normal)  A440.
 
-                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630")  || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440"))
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630")  || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() != "A440-280H"))
+                                {
+                                    lEtiquetaImpresa = false;
+                                    lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";
+                                }
+                                break;
+                            case "A630-420HS":
+                                // A630S SOLO A630S
+                                //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
+                                //A630(normal)  A440.
+
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() != "A440-280H"))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";
@@ -1376,7 +1396,7 @@ namespace Metalurgica.Controls
             string lObligacionColada = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString().ToUpper();
             //'ValidaColadaEnProduccion'
             WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
-            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); string iDiam = "";
+            WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet(); 
       
 
             if (!txtEtiquetaPieza.Text.Trim().Equals(""))
@@ -1832,7 +1852,7 @@ namespace Metalurgica.Controls
 
             Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            string lSql = ""; string lMsg = ""; Btn_Desbloquea.Visible = false;
+            string lSql = ""; Btn_Desbloquea.Visible = false;
             try
             {
                 listaDataSet.MensajeError = "";
@@ -1970,7 +1990,7 @@ namespace Metalurgica.Controls
 
             Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient();
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            string lSql = ""; string lMsg = ""; Btn_Desbloquea.Visible = false;
+            string lSql = "";  Btn_Desbloquea.Visible = false;
             try
             {
                 listaDataSet.MensajeError = "";
@@ -2845,7 +2865,7 @@ namespace Metalurgica.Controls
 
         private void tlbSalir_Click(object sender, EventArgs e)
         {
-            string lMsg = "";
+             
             //1.-Revisamos en el archivo de configuracion si tiene habilitado la validacion de SMP
             // 1.5.- Si la maquina esta con notificación de averias debe poder salir sin problemas
             string mlValidarSolictud_MP = ConfigurationManager.AppSettings["TipoColada"].ToString();
@@ -3020,16 +3040,20 @@ namespace Metalurgica.Controls
             
             if (lVerificaCheck.ToUpper() .Equals ("S"))
             {
+                if (mUserLog.IdMaquina > 0)
+                {
+                    //mUserLog.DescripcionMaq =btn_
                 lRes = lWs.VerificaChequeo(mUserLog.IdMaquina.ToString(), mUserLog.Iduser .ToString());
 
                 if (lRes.ToString().ToUpper().Equals("S"))
                 {
                     MessageBox.Show("Debe Realizar Chequeo de Máquina, para poder seguir registrando la Producción, si no lo hace el equipo se bloqueara.  Por favor Responda el Cuestionario", "Avisos Sistema", MessageBoxButtons.OK);
                     Maquinas.CheckList lForm = new Maquinas.CheckList();
+
                     lForm.IniciaForm(mUserLog);
                     lForm.ShowDialog();
                 }
-
+                }
             }
 
 
@@ -3338,6 +3362,11 @@ namespace Metalurgica.Controls
         }
 
         private void timer2_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tlbGuardar_Click(object sender, EventArgs e)
         {
 
         }

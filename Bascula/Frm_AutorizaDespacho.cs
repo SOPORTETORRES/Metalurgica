@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -49,7 +50,9 @@ namespace Metalurgica.Bascula
             WsOperacion.OperacionSoapClient lWs = new WsOperacion.OperacionSoapClient();
             WsOperacion.ListaDataSet lDts = new WsOperacion.ListaDataSet();
             DataTable lTbl = new DataTable(); DataRow lFila = null;
-            lDts = lWs.ObtenerSupervisores();
+            string lCodSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+
+            lDts = lWs.ObtenerSupervisoresPorsucursal(lCodSucursal);
             if ((lDts.DataSet.Tables.Count > 0) && (lDts.DataSet.Tables[0].Rows.Count > 0))
             {
                 lTbl = lDts.DataSet.Tables[0].Copy();
@@ -99,7 +102,7 @@ namespace Metalurgica.Bascula
                 lMsg = " Debe ingresar  una clave valida para poder grabar";
                 lPuedeGrabar = false;
             }
-            if (Tx_Obs.Text.Trim().Length == 5)
+            if (Tx_Obs.Text.Trim().Length < 5)
             {
                 lMsg = " Debe ingresar  una Observación de minimo 5 caracteres,  para poder grabar";
                 lPuedeGrabar = false;
@@ -113,14 +116,18 @@ namespace Metalurgica.Bascula
 
             if (lPuedeGrabar == true)
             {
-                if (ValidarUsuario(Cmb_Supervisor .SelectedValue.ToString () ,Tx_Clave .Text ) == true)
+                if (ValidarUsuario(Cmb_Supervisor.SelectedValue.ToString(), Tx_Clave.Text) == true)
                 {
                     DatosGrabados = true;
-                    lUserAutoriza=Cmb_Supervisor.SelectedValue.ToString();
+                    lUserAutoriza = Cmb_Supervisor.SelectedValue.ToString();
                     AppDomain.CurrentDomain.SetData("UserAutoriza", lUserAutoriza);
                     AppDomain.CurrentDomain.SetData("ObsUserAutoriza", Tx_Obs.Text);
                     this.Close();
 
+                }
+                else
+                {
+                    MessageBox.Show("La clave ingresada NO es correcta", "Avisos Sistema", MessageBoxButtons.OK);
                 }
                
 
@@ -133,5 +140,19 @@ namespace Metalurgica.Bascula
             
         }
 
+        private void Frm_AutorizaDespacho_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_Grabar_Click_1(object sender, EventArgs e)
+        {
+            Grabar();
+        }
+
+        private void Btn_salir_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

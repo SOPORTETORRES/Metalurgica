@@ -592,7 +592,7 @@ namespace Metalurgica
 
         //'Seteamos la impresora
                 PaperSize TamañoPersonal = new PaperSize ();
-                int Ancho = 900; int Alto = 2000; int i = 0;
+               // int Ancho = 900; int Alto = 2000; int i = 0;
         //Dim Ancho As Short = 900
         //Dim Alto As Short = 2000, i As Integer = 0
 
@@ -1201,6 +1201,15 @@ namespace Metalurgica
 
             RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
             lFrm.Inicia(mUserLog);
+            lFrm.ShowDialog();
+
+        }
+
+        private void Btn_RecepcionMP_TO_Click(object sender, EventArgs e)
+        {
+            RecepcionMP.Frm_RecepcionMP lFrm = new RecepcionMP.Frm_RecepcionMP();
+            lFrm.Inicia(mUserLog);
+            lFrm.mTipoRecepcion = "TOCD";
             lFrm.ShowDialog();
 
         }

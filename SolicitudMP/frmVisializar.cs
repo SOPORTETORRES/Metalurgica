@@ -21,7 +21,7 @@ namespace Metalurgica.SolicitudMP
 
         private void PintaGrilla()
         {
-        int i = 0;int lProd = 0;Clases.ClsComun lCom = new Clases.ClsComun();
+        int i = 0;Clases.ClsComun lCom = new Clases.ClsComun();
             for (i = 0; i < Dtg_Datos.RowCount-1; i++)
             {
                 if (lCom.Val (Dtg_Datos.Rows[i].Cells["producido"].Value.ToString()) == 100)

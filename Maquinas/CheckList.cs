@@ -430,7 +430,7 @@ namespace Metalurgica.Maquinas
             Lbl_Fecha.Text = lFecha;
             Lbl_Hora .Text = lHora ;
             Lbl_Turno .Text = lTurno ;
-
+            mTipoMaq = "PR";
             switch (iUsuario.IdMaquina )
             {
                 case 7:   //  Estibadoras
@@ -1109,9 +1109,12 @@ namespace Metalurgica.Maquinas
                         lMsg = string.Concat(lMsg, ". Pero no se ha podido enviar Correo de Notificación ");
                     }
                 }
-                MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
+                //MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //this.Close();
             }
+
+            MessageBox.Show(lMsg, " Avisos Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            this.Close();
         }
 
 
@@ -1287,7 +1290,7 @@ namespace Metalurgica.Maquinas
 
         private string ObtenerCuerpoMail(DataTable lTbl, string iMaquina , string iUsuario)
         {
-            string lRes = ""; int i = 0; string lFecha = ""; string lNomMaq = ""; string lUser = "";
+          string lFecha = ""; string lNomMaq = ""; string lUser = "";
             string Body = "";
             try
             {

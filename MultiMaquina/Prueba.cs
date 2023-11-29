@@ -222,6 +222,7 @@ namespace Metalurgica.MultiMaquina
                 Btn_UsuarioActiva.Text = string.Concat(  mUserLog.Login , "-", lIdUser);
                 mUserLog.Iduser = lIdUser;
                 mUserLog.IdMaquina = int.Parse(Btn_MaquinaActiva.Tag.ToString());
+                mUserLog.DescripcionMaq  = mNombre_MaqSel;
                 ctlProduccion1.IniciaFormulario(mUserLog);
 
                 ctlProduccion1.CargaUsuarioActual(mUserLog);
@@ -288,6 +289,7 @@ namespace Metalurgica.MultiMaquina
                 Btn_MaquinaActiva.Text = String.Concat(Btn_Maquina1.Text, " - ", Btn_Maquina1.Tag.ToString());
                 mIdMaqSel = Btn_Maquina1.Tag.ToString();
                 mNombre_MaqSel = Btn_Maquina1.Text;
+                mUserLog.DescripcionMaq = Btn_Maquina1.Text;
                 Btn_MaquinaActiva.Tag = Btn_Maquina1.Tag;
                 HabilitaControlParaLectura(true);
                 CargarMaquinas();

@@ -413,6 +413,50 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarDespachoCamion_V2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="despacho_Camion" type="tns:Despacho_Camion" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iDtsDatos">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDespachoCamion_V2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDespachoCamion_V2Result" type="tns:Despacho_Camion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosCorreo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdDPesaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDatosCorreoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDatosCorreoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarDespachoPiezaCamion">
         <s:complexType>
           <s:sequence>
@@ -781,6 +825,34 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="VerificaNroGuiaDespachoResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaNroGuiaDespacho_MP_IT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdNroGuia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaNroGuiaDespacho_MP_ITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificaNroGuiaDespacho_MP_ITResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OBtener_MP_de_TO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdNroGuia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OBtener_MP_de_TOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OBtener_MP_de_TOResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1180,6 +1252,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerSupervisoresResult" type="tns:ListaDataSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerSupervisoresPorsucursal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iSucursal" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerSupervisoresPorsucursalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerSupervisoresPorsucursalResult" type="tns:ListaDataSet" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2376,6 +2462,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="KgsCuartones" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UsuarioAutoriza" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ObsAutorizacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KgsAlambre" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GrabarDatosPesajeCamionResponse">
@@ -2855,6 +2942,18 @@
   <wsdl:message name="GuardarDespachoCamionSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarDespachoCamionResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarDespachoCamion_V2SoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoCamion_V2" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDespachoCamion_V2SoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDespachoCamion_V2Response" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosCorreoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosCorreo" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDatosCorreoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosCorreoResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarDespachoPiezaCamionSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDespachoPiezaCamion" />
   </wsdl:message>
@@ -2980,6 +3079,18 @@
   </wsdl:message>
   <wsdl:message name="VerificaNroGuiaDespachoSoapOut">
     <wsdl:part name="parameters" element="tns:VerificaNroGuiaDespachoResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificaNroGuiaDespacho_MP_ITSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificaNroGuiaDespacho_MP_IT" />
+  </wsdl:message>
+  <wsdl:message name="VerificaNroGuiaDespacho_MP_ITSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificaNroGuiaDespacho_MP_ITResponse" />
+  </wsdl:message>
+  <wsdl:message name="OBtener_MP_de_TOSoapIn">
+    <wsdl:part name="parameters" element="tns:OBtener_MP_de_TO" />
+  </wsdl:message>
+  <wsdl:message name="OBtener_MP_de_TOSoapOut">
+    <wsdl:part name="parameters" element="tns:OBtener_MP_de_TOResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerDetalleProduccionPorColadaSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDetalleProduccionPorColada" />
@@ -3118,6 +3229,12 @@
   </wsdl:message>
   <wsdl:message name="ObtenerSupervisoresSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerSupervisoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerSupervisoresPorsucursalSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerSupervisoresPorsucursal" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerSupervisoresPorsucursalSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerSupervisoresPorsucursalResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerDatosParaEnvioMailSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerDatosParaEnvioMail" />
@@ -3742,6 +3859,14 @@
       <wsdl:input message="tns:GuardarDespachoCamionSoapIn" />
       <wsdl:output message="tns:GuardarDespachoCamionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion_V2">
+      <wsdl:input message="tns:GuardarDespachoCamion_V2SoapIn" />
+      <wsdl:output message="tns:GuardarDespachoCamion_V2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosCorreo">
+      <wsdl:input message="tns:ObtenerDatosCorreoSoapIn" />
+      <wsdl:output message="tns:ObtenerDatosCorreoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoPiezaCamion">
       <wsdl:input message="tns:GuardarDespachoPiezaCamionSoapIn" />
       <wsdl:output message="tns:GuardarDespachoPiezaCamionSoapOut" />
@@ -3825,6 +3950,14 @@
     <wsdl:operation name="VerificaNroGuiaDespacho">
       <wsdl:input message="tns:VerificaNroGuiaDespachoSoapIn" />
       <wsdl:output message="tns:VerificaNroGuiaDespachoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho_MP_IT">
+      <wsdl:input message="tns:VerificaNroGuiaDespacho_MP_ITSoapIn" />
+      <wsdl:output message="tns:VerificaNroGuiaDespacho_MP_ITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OBtener_MP_de_TO">
+      <wsdl:input message="tns:OBtener_MP_de_TOSoapIn" />
+      <wsdl:output message="tns:OBtener_MP_de_TOSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerDetalleProduccionPorColada">
       <wsdl:input message="tns:ObtenerDetalleProduccionPorColadaSoapIn" />
@@ -3917,6 +4050,10 @@
     <wsdl:operation name="ObtenerSupervisores">
       <wsdl:input message="tns:ObtenerSupervisoresSoapIn" />
       <wsdl:output message="tns:ObtenerSupervisoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisoresPorsucursal">
+      <wsdl:input message="tns:ObtenerSupervisoresPorsucursalSoapIn" />
+      <wsdl:output message="tns:ObtenerSupervisoresPorsucursalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosParaEnvioMail">
       <wsdl:input message="tns:ObtenerDatosParaEnvioMailSoapIn" />
@@ -4456,6 +4593,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion_V2">
+      <soap:operation soapAction="http://tempuri.org/GuardarDespachoCamion_V2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosCorreo">
+      <soap:operation soapAction="http://tempuri.org/ObtenerDatosCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoPiezaCamion">
       <soap:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
       <wsdl:input>
@@ -4638,6 +4793,24 @@
     </wsdl:operation>
     <wsdl:operation name="VerificaNroGuiaDespacho">
       <soap:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho_MP_IT">
+      <soap:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho_MP_IT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OBtener_MP_de_TO">
+      <soap:operation soapAction="http://tempuri.org/OBtener_MP_de_TO" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4845,6 +5018,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSupervisores">
       <soap:operation soapAction="http://tempuri.org/ObtenerSupervisores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisoresPorsucursal">
+      <soap:operation soapAction="http://tempuri.org/ObtenerSupervisoresPorsucursal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5845,6 +6027,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarDespachoCamion_V2">
+      <soap12:operation soapAction="http://tempuri.org/GuardarDespachoCamion_V2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosCorreo">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerDatosCorreo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDespachoPiezaCamion">
       <soap12:operation soapAction="http://tempuri.org/GuardarDespachoPiezaCamion" style="document" />
       <wsdl:input>
@@ -6027,6 +6227,24 @@
     </wsdl:operation>
     <wsdl:operation name="VerificaNroGuiaDespacho">
       <soap12:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaNroGuiaDespacho_MP_IT">
+      <soap12:operation soapAction="http://tempuri.org/VerificaNroGuiaDespacho_MP_IT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OBtener_MP_de_TO">
+      <soap12:operation soapAction="http://tempuri.org/OBtener_MP_de_TO" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -6234,6 +6452,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSupervisores">
       <soap12:operation soapAction="http://tempuri.org/ObtenerSupervisores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSupervisoresPorsucursal">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerSupervisoresPorsucursal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

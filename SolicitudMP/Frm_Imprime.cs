@@ -92,7 +92,7 @@ namespace Metalurgica.SolicitudMP
         private DtsInformes CargaDatosPortada_ViajeSaldo(string iViaje)
         {
             Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); int i = 0;
-            ArrayList lIdsPiezas = new ArrayList(); string lRes = "";
+            ArrayList lIdsPiezas = new ArrayList(); 
             DataSet lDtsTmp = new DataSet();
             DtsInformes dtsPl = new DtsInformes(); string iIdIt = ""; string iIdObra = "";
 

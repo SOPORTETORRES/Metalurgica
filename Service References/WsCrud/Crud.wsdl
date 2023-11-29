@@ -86,6 +86,50 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GrabarMP_TOSOL_CyD">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="iObj" type="tns:Recepcion_Tosol_CD" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Recepcion_Tosol_CD">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idSucursal" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NroGDE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_GDE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdUsuarioGraba" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KgsGDE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lListaPiezas" type="tns:ArrayOfDetalleRecepcion_Tosol_CD" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDetalleRecepcion_Tosol_CD">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetalleRecepcion_Tosol_CD" nillable="true" type="tns:DetalleRecepcion_Tosol_CD" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DetalleRecepcion_Tosol_CD">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idRecepcionIT" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoIT" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idPaquete" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etiqueta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NroPiezas" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Diametro" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KgsEtiqueta" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pieza" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GrabarMP_TOSOL_CyDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabarMP_TOSOL_CyDResult" type="tns:Recepcion_Tosol_CD" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarCamion">
         <s:complexType>
           <s:sequence>
@@ -269,6 +313,12 @@
   <wsdl:message name="ObtenerBodegaSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerBodegaResponse" />
   </wsdl:message>
+  <wsdl:message name="GrabarMP_TOSOL_CyDSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabarMP_TOSOL_CyD" />
+  </wsdl:message>
+  <wsdl:message name="GrabarMP_TOSOL_CyDSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabarMP_TOSOL_CyDResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCamionSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCamion" />
   </wsdl:message>
@@ -346,6 +396,10 @@
       <wsdl:input message="tns:ObtenerBodegaSoapIn" />
       <wsdl:output message="tns:ObtenerBodegaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GrabarMP_TOSOL_CyD">
+      <wsdl:input message="tns:GrabarMP_TOSOL_CyDSoapIn" />
+      <wsdl:output message="tns:GrabarMP_TOSOL_CyDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCamion">
       <wsdl:input message="tns:GuardarCamionSoapIn" />
       <wsdl:output message="tns:GuardarCamionSoapOut" />
@@ -418,6 +472,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBodega">
       <soap:operation soapAction="http://www.Ssingest.cl/ObtenerBodega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarMP_TOSOL_CyD">
+      <soap:operation soapAction="http://www.Ssingest.cl/GrabarMP_TOSOL_CyD" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -547,6 +610,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerBodega">
       <soap12:operation soapAction="http://www.Ssingest.cl/ObtenerBodega" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarMP_TOSOL_CyD">
+      <soap12:operation soapAction="http://www.Ssingest.cl/GrabarMP_TOSOL_CyD" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

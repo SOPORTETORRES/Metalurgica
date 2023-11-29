@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="M7WnWXkcamI5oxfxvkiCJfOviVw=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="sLxliDebYlqf/WdEeHv3xb+5me8=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="CrudSoap1">
       <properties>
@@ -112,7 +112,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="CrudSoap1" contract="WsCrud.CrudSoap" bindingType="basicHttpBinding" address="http://localhost:55038/WS/Crud.asmx" bindingConfiguration="CrudSoap1">
+    <endpoint name="CrudSoap" contract="WsCrud.CrudSoap" bindingType="basicHttpBinding" address="http://localhost:55038/WS/Crud.asmx" bindingConfiguration="CrudSoap1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:55038/WS/Crud.asmx</serializedValue>
@@ -187,7 +187,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>CrudSoap1</serializedValue>
+          <serializedValue>CrudSoap</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

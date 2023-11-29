@@ -66,8 +66,8 @@ namespace Metalurgica
         {
             string lRes = ""; DataTable lTblINET = new DataTable();  DataRow iROw = null;
             string lSql = ""; Clases.ClsComun lCom = new Clases.ClsComun(); string lFechaMov = "";
-            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0;  
-            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); string inet_msg = "", email_msg = "";
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0;
+            Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); string inet_msg = "";
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
             string lGlosa1 = ""; string lGlosa2 = "";
 
@@ -80,6 +80,10 @@ namespace Metalurgica
                 lFechaMov = lFechaMov.Replace("/", "-");
                 //Debemos saber que  sucursal esta haciendo la invocaión
                 int lIdSucursal = lCom.OBtenerIdSucursal();
+
+                if (lIdSucursal == 17)
+                    lIdSucursal = 4;
+
                 string lIdDetalle = "0"; DataSet lDtsTmp = new DataSet();
 
                 //Por cada Fila son 2 Integraciones 1.- Producido 2.- Despuente si lo hay.
@@ -90,7 +94,7 @@ namespace Metalurgica
                     lTblFinal = ObtenerTablaINET();
                     lTblINET = ObtenerTablaINET();
                     iROw = lTblINET.NewRow();
-                    iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString();
+                    iROw["Codigo"] = iFila.Cells["CodMaterial"].Value.ToString().ToUpper ();
                     iROw["Cantidad"] = lCom.Val(iFila.Cells["KgsProducidos"].Value.ToString());
                     iROw["FechaMov"] = lFechaMov;
                     lGlosa1 = string.Concat(Program.currentUser.Login, " - ", lCom.ObtenerInicioFIn_Turno(Program.currentUser.IdTotem.ToString()));
@@ -412,17 +416,16 @@ namespace Metalurgica
 
         private void Guardar_Version_QR()
         {
-            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient(); int i = 0; string lIds_SMP = "";
+            Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();
             Ws_TO.Objeto_WsINET lObjINET = new Ws_TO.Objeto_WsINET(); ArrayList lLista = new ArrayList();
             Integracion_INET.Tipo_InvocaWS lRespuestaWS_INET = new Integracion_INET.Tipo_InvocaWS();
-            int lIdDetalleSM = 0;
-
+         
             int counter = 0;
-            string inet_msg = "", email_msg = "", newLine = Environment.NewLine, tab = "\t";
+            string   newLine = Environment.NewLine;
 
-            string lCodigo = ""; string lCantidad = ""; string lFechaMov = ""; string lGlosa1 = ""; string lGlosa2 = "";
+           
 
-            DataTable lTblINET = new DataTable(); DataRow iFila = null;
+            DataTable lTblINET = new DataTable(); 
             lTblINET.Columns.Add("Codigo", Type.GetType(("System.String")));
             lTblINET.Columns.Add("Cantidad", Type.GetType(("System.String")));
             lTblINET.Columns.Add("FechaMov", Type.GetType(("System.String")));
@@ -439,7 +442,7 @@ namespace Metalurgica
                 {
                     WsOperacion.OperacionSoapClient wsOperacion = new WsOperacion.OperacionSoapClient();
                     WsOperacion.Solicitud_Material_Detalle solicitud_Material_Detalle = new WsOperacion.Solicitud_Material_Detalle();
-                    int lKgsProd = 0; Clases.ClsComun lCom = new Clases.ClsComun();
+                    Clases.ClsComun lCom = new Clases.ClsComun();
                     counter = 0;
                     foreach (DataGridViewRow row in dgvProductos.Rows)
                     {
@@ -447,9 +450,7 @@ namespace Metalurgica
                         {
                             if (((bool)row.Cells[COLUMNNAME_MARCA].Value == true)) // && (!row.Cells["ES_RECUPERADO"].Value.ToString().Equals("S")))
                             {
-                                inet_msg = "";
-
-                                IntegracionInet(row);
+                                  IntegracionInet(row);
                                 System.Threading.Thread.Sleep(1000);
                             }
                         }
@@ -493,7 +494,7 @@ namespace Metalurgica
         private DataTable ObtenerDatosIntegracionINET(DataTable iTblOrigen)
         {
             DataTable lTblFinal = new DataTable(); int i = 0; int k = 0;
-            string lCodigo = ""; DataView lVista1 = null; string lTmp = "";
+           DataView lVista1 = null; string lTmp = "";
             int iCanTotal = 0; Clases.ClsComun lCom = new Clases.ClsComun();
             DataRow lFilaFinal = null; string lCodigoPr = "";
             string[] lPartes = null; //iTextNodo.Split(new Char[] { '\\' });
@@ -727,7 +728,7 @@ namespace Metalurgica
 
         public  string  CreaXmlEntradaProductosTErminados_INET(Integracion_INET.MovExistencias  iObj)
     {
-            String lRes="";int i=0;
+            String lRes="";
         //Dim lRes As String, lEntDoc As New Tipo_EntDoc, i As Integer = 0
         //Dim lDetDoc As New Tipo_DetDoc, lResumenDoc As New Tipo_ResumenDoc
         String lXML   = "";String lRes1   = "";String  lXmlFinal   = "";
@@ -991,7 +992,7 @@ namespace Metalurgica
         private DataTable ObtenerTablaFinal(DataTable iOrigen)
         {
             DataTable lTblFinal = new DataTable();DataRow lFila = null;Clases.ClsComun lCom = new Clases.ClsComun();
-            string lProd = "";int i = 0; DataView lVista = null;string lWhere = "";
+            int i = 0; DataView lVista = null;string lWhere = "";
 
 
             lTblFinal.Columns.Add("CodMaterial", Type.GetType("System.String"));
@@ -1057,7 +1058,7 @@ namespace Metalurgica
         private DataTable ObtenerTablaFinal_desde_El_Detalle(DataTable iOrigen)
         {
             DataTable lTblFinal = new DataTable(); DataRow lFila = null; Clases.ClsComun lCom = new Clases.ClsComun();
-            string lProd = ""; int i = 0; DataView lVista = null; string lWhere = "";
+             int i = 0; DataView lVista = null; string lWhere = "";
             DataTable lTblTmp = new DataTable();
 
             lTblFinal.Columns.Add("CodMaterial", Type.GetType("System.String"));

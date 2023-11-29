@@ -705,7 +705,7 @@ namespace Metalurgica.Bascula
                    
             }
             //Revisamos las listas y solo dejamos las 
-            string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            string lOC_Tmp = "";  int j = 0;
             DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
 
             lTbl = CreaCampo(lTbl);
@@ -904,7 +904,7 @@ namespace Metalurgica.Bascula
             }
             //Revisamos las listas y solo dejamos las 
             //string lViajes = ""; string lDespachos = "";
-            string lOC_Tmp = ""; string lOC = ""; int j = 0;
+            string lOC_Tmp = "";  int j = 0;
             DataTable lTbl = new DataTable(); DataRow lFila = null; DataView lVista = null;
 
             lTbl = CreaCampo(lTbl);

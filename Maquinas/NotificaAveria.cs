@@ -95,7 +95,7 @@ namespace Metalurgica.Maquinas
         {
             Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient(); string lIdSolAveria = "";
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            string lSql = ""; string lMsg = ""; string lEstadoMaq = "";
+            string lSql = "";  string lEstadoMaq = "";
             DataTable lTbl = new DataTable(); DateTime lFechaRegistro;
             try
             {
@@ -826,7 +826,7 @@ namespace Metalurgica.Maquinas
 
         private void GrabaSolucionAveria()
         {
-            string lTipoNot = ""; int idListadistribucion = 0;string lSolicitaRepuestos = "";
+             int idListadistribucion = 0;string lSolicitaRepuestos = "";
             try
             {
                 if (DatosOKParaGrabar("SA") == true)
@@ -1146,7 +1146,7 @@ namespace Metalurgica.Maquinas
         {
             Ws_TO.Ws_ToSoapClient ldal = new Ws_TO.Ws_ToSoapClient(); string lIdSolAveria = "";
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
-            string lSql = ""; string lMsg = ""; string lEstadoMaq = "";
+            string lSql = "";  string lEstadoMaq = "";
             DataTable lTbl = new DataTable(); DateTime lFechaRegistro;
             try
             {

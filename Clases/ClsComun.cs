@@ -514,7 +514,7 @@ namespace Metalurgica.Clases
         public string  ObtenerPesoConectores(string idPaquete)
         {
             DataTable lTbl = new DataTable(); DataSet lDts = new DataSet(); string lSql = "";
-            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient(); string lRes = ""; int NroConectores = 0;
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
             double lPesoConectores = 0; int i = 0;
 
             lSql = string.Concat(" [SP_ConsultasGenerales]  124,", idPaquete, ",'','','',''");
@@ -608,7 +608,7 @@ namespace Metalurgica.Clases
         {
 
             DataTable lTbl = new DataTable(); string lError = "";
-            string lPath = ConfigurationManager.AppSettings["PathDBRomana"].ToString(); int i = 0;
+            string lPath = ConfigurationManager.AppSettings["PathDBRomana"].ToString();
             string lCnnstr = string.Concat(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=", lPath);
             //@"Provider=Microsoft.ACE.OLEDB.12.0;  Data Source=D:\BDPROBANDO2007.accdb;Persist Security Info=False";
             OleDbConnection lCnn = new OleDbConnection(lCnnstr);
@@ -657,7 +657,7 @@ namespace Metalurgica.Clases
 
         public string ObtenerTotalDespachadoSinFacturar(DataView iVista, string iTipo)
         {
-            string lRes = "";int i = 0;
+           int i = 0;
             double  ltotal = 0;
             if (iVista != null)
             { 
@@ -751,10 +751,10 @@ namespace Metalurgica.Clases
         public string  ObtenerSoldable(string iTx)
         {
             char[] delimiterChars = { ' ' }; string[] words = iTx.Split(delimiterChars);
-            string lTmp = words[3].ToString(); int lRes = 1; string lAux = "";
+            string lTmp = words[3].ToString(); 
             string lResultado = "";
 
-            char[] lChar = { 'H' }; string[] lparte;
+            char[] lChar = { 'H' }; 
 
             //para el caso.  ROLLO HORMIGON 16mm A630-420H
             if (words.Length == 4)
@@ -1317,7 +1317,7 @@ namespace Metalurgica.Clases
         {
             Ws_TO.Ws_ToSoapClient lPX = new Ws_TO.Ws_ToSoapClient();  
               string lTblHtml = "";   Clases.ClsComun lCom = new Clases.ClsComun();
-            string lFuente = ""; string lFecha = string.Concat(DateTime.Now.ToShortDateString(), " ", DateTime.Now.ToShortTimeString());
+             string lFecha = string.Concat(DateTime.Now.ToShortDateString(), " ", DateTime.Now.ToShortTimeString());
 
         lTblHtml = string.Concat("<b> Estimados Supervisores : </b>  <br>");
 
@@ -1417,9 +1417,7 @@ namespace Metalurgica.Clases
             Integracion_INET.MovExistencias lRes = new Integracion_INET.MovExistencias();
             Integracion_INET.MovExistenciasAll lExAll = new Integracion_INET.MovExistenciasAll();
             Integracion_INET.MovExistenciasDet lExDet = new Integracion_INET.MovExistenciasDet();
-            int i = 0;
-
-
+            
             // 'Secuencia del detalle
 
             lRes.ExistenciasDet.DMONUMSEC = iObjINET.DetalleMov[0].Dmonumsec;// Dmonumsec; //"1";
@@ -1510,7 +1508,7 @@ namespace Metalurgica.Clases
 
             iTextSharp.text.Document oPdfDoc = new iTextSharp.text.Document(); int i = 0; string sFromFilePath = "";
             PdfWriter oPdfWriter = PdfWriter.GetInstance(oPdfDoc, new FileStream(sOutFilePath, FileMode.Create));
-            int iPageCount = GetPageCount(sFolderPath);int lCont = 1;
+            int iPageCount = GetPageCount(sFolderPath);
             if ((iPageCount > 0) && (bOutputfileAlreadyExists == false))
             {
                 string[] oFiles = Directory.GetFiles(sFolderPath);
@@ -1543,7 +1541,7 @@ namespace Metalurgica.Clases
                     { 
                     FileInfo oFileInfo = new FileInfo(sFromFilePath);
                     string sExt = PadExt(oFileInfo.Extension);
-                    string sFileType = "PDF";
+              
 
                     try
                     {
