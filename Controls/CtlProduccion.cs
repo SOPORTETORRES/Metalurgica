@@ -97,7 +97,9 @@ namespace Metalurgica.Controls
             }
         }
 
-
+        /// <summary>
+        /// Ajusta las columnas de la grilla
+        /// </summary>
         private void AjustaColumnaGrilla()
         {
             if (this.dgvEtiquetasPiezas.DataSource != null)
