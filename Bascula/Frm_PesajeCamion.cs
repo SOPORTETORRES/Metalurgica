@@ -1164,6 +1164,7 @@ namespace Metalurgica.Bascula
                 lObjCam.Id = mIdPesajeCamion;
                 lObjCam.Patente = Cmb_PatenteCamion.SelectedValue.ToString();
                 lObjCam.PesoTara = int.Parse(Tx_taraCamion.Text);
+
                 lObjCam.PesoBruto = int.Parse(Tx_PesoBrutoCamion.Text); ;
                 lObjCam.IdUserPesoBruto = int.Parse(mUserLog.Iduser);
                 lObjCam.Estado = "PesoCarga";
@@ -1245,6 +1246,7 @@ namespace Metalurgica.Bascula
             //    //CargaGrillaTiempos();
             //   // Btn_VerDetalle_Click(null, null);
             //}
+            ObtenerCamionesEnPlanta();
             CargaPatentes();
             Lbl_Msg.Visible = false;
 
@@ -2410,8 +2412,8 @@ namespace Metalurgica.Bascula
 
                     // 16/11/2023 definicion entregada por lgallardo
                     //(Peso neto bascula (kg)  -  Peso fierro real utilizado (kg))/Peso neto bascula (kg) 
-
-                    lPorcentaje = ((lTmp / lTotalKgs) - 1) * 100;
+                    lPesoNetoCamion = int.Parse (Tx_PesoNetoCamion.Text);
+                    lPorcentaje = ((lTmp / lPesoNetoCamion) ) * 100;
                     lFila["Concepto"] = "Porcentaje fierro báscula/real  (%)"; lFila["Valor"] = Math.Round(lPorcentaje, 2); lTblRVC.Rows.Add(lFila);
 
                     Dtg_RVC.DataSource = lTblRVC;
@@ -2675,7 +2677,8 @@ namespace Metalurgica.Bascula
                 RPB.Columns.Add("Concepto");
                 RPB.Columns.Add("Valor");
                 lFila = RPB.NewRow();
-                lTotalKgs = Convert.ToDecimal ( Dtg_RFC_.Rows[3].Cells["Valor"].Value.ToString());
+                //lTotalKgs=
+                lTotalKgs = Convert.ToDecimal ( this.Dtg_RVC.Rows[1].Cells["Valor"].Value.ToString());
                 lFila["Concepto"] = "Peso bruto báscula (kg)"; lFila["Valor"] = lTotalKgs; RPB.Rows.Add(lFila);
                 lFila = RPB.NewRow();
                 lFila["Concepto"] = "Peso de cuartones (kg)"; lFila["Valor"] = Tx_KilosCuartones.Text  ; RPB.Rows.Add(lFila);

@@ -14,6 +14,7 @@ namespace Metalurgica.Controls
     {
         private CurrentUser mUserLog = new CurrentUser();
         private Boolean EvaluaTimer = true;
+
         private const string COLUMNNAME_ETIQUETA_PIEZA = "ETIQUETA_PIEZA";
         private const string COLUMNNAME_PIE_ESTADO = "PIE_ESTADO";
         private const string COLUMNNAME_ESTADO = "ESTADO";
