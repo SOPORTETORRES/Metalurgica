@@ -2112,6 +2112,7 @@ namespace Metalurgica.Controls
 
         public void IniciaFormulario(CurrentUser iUserLog)
         {
+            string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
 
             try
             {
@@ -2142,7 +2143,7 @@ namespace Metalurgica.Controls
                 VerificaEstadoMaquina(mUserLog.IdMaquina.ToString());
                 //CArgamos los diametros permitidos por maquina, para posteriores validaciones
                 mSoloDiamPermitidos = ConfigurationManager.AppSettings["SoloDiametrosPermitidos"].ToString();
-                string lIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+                
                 if (mSoloDiamPermitidos.ToUpper().Equals("S"))
                 {
                     listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(84, lIdSucursal, "", "", "", "");
@@ -2209,6 +2210,11 @@ namespace Metalurgica.Controls
                 mEstadistica = new DataTable();
                 mEstadistica.Columns.Add("IdPaquete", Type.GetType("System.String"));
                 mEstadistica.Columns.Add("Duracion", Type.GetType("System.String"));
+
+                if (lIdSucursal == "7")
+                    GR_MP.Visible = true; 
+                else
+                    GR_MP.Visible = false ;
 
                 TM_proceme.Enabled = true;
             }

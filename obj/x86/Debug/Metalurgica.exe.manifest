@@ -282,14 +282,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="2074112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Metalurgica.exe" size="2074624">
       <assemblyIdentity name="Metalurgica" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>NmKBXYtn0sjNjeYB7q5uFjAMhp8=</dsig:DigestValue>
+        <dsig:DigestValue>AC7EpAlNVCUZ16Y+GVcPsmPUvx4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -434,22 +434,22 @@
       <dsig:DigestValue>9UF3lVXCk2ERqxrvvIT0wodbVPo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.exe" size="2074112">
+  <file name="bin\Debug\Metalurgica.exe" size="2074624">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>H5W9bdtAVUGG9/f0lm/7E4cBkSM=</dsig:DigestValue>
+      <dsig:DigestValue>AC7EpAlNVCUZ16Y+GVcPsmPUvx4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="bin\Debug\Metalurgica.pdb" size="3012096">
+  <file name="bin\Debug\Metalurgica.pdb" size="3022336">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>uuMMRIMjwo9oEFP49xCDkzaRKFE=</dsig:DigestValue>
+      <dsig:DigestValue>8vDzjRURzFPeFDBi5CFJNdBVTFg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Metalurgica.exe.config" size="9206">

@@ -115,6 +115,9 @@
             this.Btn_Estadistica = new System.Windows.Forms.Button();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.GR_MP = new System.Windows.Forms.GroupBox();
+            this.Rb_Aza = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -135,6 +138,7 @@
             this.groupBox2.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
+            this.GR_MP.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -406,7 +410,9 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.GR_MP);
             this.groupBox1.Controls.Add(this.groupBox5);
+            this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.Btn_Despunte);
@@ -414,7 +420,6 @@
             this.groupBox1.Controls.Add(this.lbl_calidadAcero);
             this.groupBox1.Controls.Add(this.Btn_CheckList);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.lbl_MsgBloqueo);
             this.groupBox1.Controls.Add(this.Btn_MtoTotem);
             this.groupBox1.Controls.Add(this.Lbl_NroEtiq);
             this.groupBox1.Controls.Add(this.label15);
@@ -519,7 +524,7 @@
             // Btn_Despunte
             // 
             this.Btn_Despunte.Enabled = false;
-            this.Btn_Despunte.Location = new System.Drawing.Point(218, 20);
+            this.Btn_Despunte.Location = new System.Drawing.Point(218, 50);
             this.Btn_Despunte.Name = "Btn_Despunte";
             this.Btn_Despunte.Size = new System.Drawing.Size(24, 23);
             this.Btn_Despunte.TabIndex = 63;
@@ -530,7 +535,7 @@
             // Lbl_tipo
             // 
             this.Lbl_tipo.AutoSize = true;
-            this.Lbl_tipo.Location = new System.Drawing.Point(546, 53);
+            this.Lbl_tipo.Location = new System.Drawing.Point(546, 83);
             this.Lbl_tipo.Name = "Lbl_tipo";
             this.Lbl_tipo.Size = new System.Drawing.Size(29, 13);
             this.Lbl_tipo.TabIndex = 62;
@@ -539,7 +544,7 @@
             // lbl_calidadAcero
             // 
             this.lbl_calidadAcero.AutoSize = true;
-            this.lbl_calidadAcero.Location = new System.Drawing.Point(456, 53);
+            this.lbl_calidadAcero.Location = new System.Drawing.Point(456, 83);
             this.lbl_calidadAcero.Name = "lbl_calidadAcero";
             this.lbl_calidadAcero.Size = new System.Drawing.Size(29, 13);
             this.lbl_calidadAcero.TabIndex = 61;
@@ -621,9 +626,9 @@
             this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
-            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(41, 75);
+            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(733, 13);
             this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
-            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(576, 21);
+            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(436, 21);
             this.lbl_MsgBloqueo.TabIndex = 55;
             this.lbl_MsgBloqueo.Text = "label13";
             this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -644,7 +649,7 @@
             this.Lbl_NroEtiq.AutoSize = true;
             this.Lbl_NroEtiq.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroEtiq.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroEtiq.Location = new System.Drawing.Point(701, 24);
+            this.Lbl_NroEtiq.Location = new System.Drawing.Point(701, 54);
             this.Lbl_NroEtiq.Name = "Lbl_NroEtiq";
             this.Lbl_NroEtiq.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroEtiq.TabIndex = 51;
@@ -653,7 +658,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(625, 24);
+            this.label15.Location = new System.Drawing.Point(625, 54);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(74, 13);
             this.label15.TabIndex = 50;
@@ -664,7 +669,7 @@
             this.Lbl_NroPiezas.AutoSize = true;
             this.Lbl_NroPiezas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_NroPiezas.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_NroPiezas.Location = new System.Drawing.Point(597, 24);
+            this.Lbl_NroPiezas.Location = new System.Drawing.Point(597, 54);
             this.Lbl_NroPiezas.Name = "Lbl_NroPiezas";
             this.Lbl_NroPiezas.Size = new System.Drawing.Size(13, 13);
             this.Lbl_NroPiezas.TabIndex = 49;
@@ -673,7 +678,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(529, 24);
+            this.label12.Location = new System.Drawing.Point(529, 54);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 13);
             this.label12.TabIndex = 48;
@@ -684,7 +689,7 @@
             this.Lbl_KgsProd.AutoSize = true;
             this.Lbl_KgsProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_KgsProd.ForeColor = System.Drawing.Color.Black;
-            this.Lbl_KgsProd.Location = new System.Drawing.Point(478, 24);
+            this.Lbl_KgsProd.Location = new System.Drawing.Point(478, 54);
             this.Lbl_KgsProd.Name = "Lbl_KgsProd";
             this.Lbl_KgsProd.Size = new System.Drawing.Size(13, 13);
             this.Lbl_KgsProd.TabIndex = 47;
@@ -693,7 +698,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(389, 24);
+            this.label8.Location = new System.Drawing.Point(389, 54);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 13);
             this.label8.TabIndex = 46;
@@ -704,7 +709,7 @@
             this.Lbl_SaldoKilosColada.AutoSize = true;
             this.Lbl_SaldoKilosColada.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_SaldoKilosColada.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_SaldoKilosColada.Location = new System.Drawing.Point(341, 24);
+            this.Lbl_SaldoKilosColada.Location = new System.Drawing.Point(341, 54);
             this.Lbl_SaldoKilosColada.Name = "Lbl_SaldoKilosColada";
             this.Lbl_SaldoKilosColada.Size = new System.Drawing.Size(14, 13);
             this.Lbl_SaldoKilosColada.TabIndex = 44;
@@ -713,7 +718,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(247, 24);
+            this.label11.Location = new System.Drawing.Point(247, 54);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(95, 13);
             this.label11.TabIndex = 43;
@@ -722,7 +727,7 @@
             // lblKilos
             // 
             this.lblKilos.AutoSize = true;
-            this.lblKilos.Location = new System.Drawing.Point(402, 53);
+            this.lblKilos.Location = new System.Drawing.Point(402, 83);
             this.lblKilos.Name = "lblKilos";
             this.lblKilos.Size = new System.Drawing.Size(13, 13);
             this.lblKilos.TabIndex = 42;
@@ -731,7 +736,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(369, 53);
+            this.label10.Location = new System.Drawing.Point(369, 83);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(29, 13);
             this.label10.TabIndex = 41;
@@ -740,7 +745,7 @@
             // lblColada
             // 
             this.lblColada.AutoSize = true;
-            this.lblColada.Location = new System.Drawing.Point(102, 53);
+            this.lblColada.Location = new System.Drawing.Point(102, 83);
             this.lblColada.Name = "lblColada";
             this.lblColada.Size = new System.Drawing.Size(10, 13);
             this.lblColada.TabIndex = 40;
@@ -749,7 +754,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(19, 53);
+            this.label9.Location = new System.Drawing.Point(19, 83);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 13);
             this.label9.TabIndex = 39;
@@ -767,7 +772,7 @@
             // lblLargo
             // 
             this.lblLargo.AutoSize = true;
-            this.lblLargo.Location = new System.Drawing.Point(326, 53);
+            this.lblLargo.Location = new System.Drawing.Point(326, 83);
             this.lblLargo.Name = "lblLargo";
             this.lblLargo.Size = new System.Drawing.Size(13, 13);
             this.lblLargo.TabIndex = 37;
@@ -776,7 +781,7 @@
             // lblDiametro
             // 
             this.lblDiametro.AutoSize = true;
-            this.lblDiametro.Location = new System.Drawing.Point(248, 53);
+            this.lblDiametro.Location = new System.Drawing.Point(248, 83);
             this.lblDiametro.Name = "lblDiametro";
             this.lblDiametro.Size = new System.Drawing.Size(13, 13);
             this.lblDiametro.TabIndex = 36;
@@ -785,7 +790,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(639, 54);
+            this.label7.Location = new System.Drawing.Point(636, 83);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 13);
             this.label7.TabIndex = 35;
@@ -794,7 +799,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(287, 54);
+            this.label6.Location = new System.Drawing.Point(287, 84);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 13);
             this.label6.TabIndex = 34;
@@ -803,7 +808,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(198, 54);
+            this.label4.Location = new System.Drawing.Point(198, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 33;
@@ -812,7 +817,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 25);
+            this.label2.Location = new System.Drawing.Point(16, 55);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 28;
@@ -820,17 +825,18 @@
             // 
             // txtObs
             // 
-            this.txtObs.Location = new System.Drawing.Point(105, 80);
+            this.txtObs.Location = new System.Drawing.Point(105, 101);
             this.txtObs.Multiline = true;
             this.txtObs.Name = "txtObs";
-            this.txtObs.Size = new System.Drawing.Size(607, 43);
+            this.txtObs.ReadOnly = true;
+            this.txtObs.Size = new System.Drawing.Size(607, 21);
             this.txtObs.TabIndex = 1;
             this.txtObs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtObs_KeyPress);
             this.txtObs.Leave += new System.EventHandler(this.txtObs_Leave);
             // 
             // txtEtiquetaColada
             // 
-            this.txtEtiquetaColada.Location = new System.Drawing.Point(104, 22);
+            this.txtEtiquetaColada.Location = new System.Drawing.Point(104, 52);
             this.txtEtiquetaColada.Name = "txtEtiquetaColada";
             this.txtEtiquetaColada.Size = new System.Drawing.Size(110, 20);
             this.txtEtiquetaColada.TabIndex = 0;
@@ -841,7 +847,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 83);
+            this.label5.Location = new System.Drawing.Point(22, 104);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 32;
@@ -1027,6 +1033,39 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // GR_MP
+            // 
+            this.GR_MP.Controls.Add(this.radioButton1);
+            this.GR_MP.Controls.Add(this.Rb_Aza);
+            this.GR_MP.Location = new System.Drawing.Point(105, 14);
+            this.GR_MP.Name = "GR_MP";
+            this.GR_MP.Size = new System.Drawing.Size(386, 35);
+            this.GR_MP.TabIndex = 67;
+            this.GR_MP.TabStop = false;
+            this.GR_MP.Text = "Tipo Materia Prima";
+            // 
+            // Rb_Aza
+            // 
+            this.Rb_Aza.AutoSize = true;
+            this.Rb_Aza.Location = new System.Drawing.Point(113, 12);
+            this.Rb_Aza.Name = "Rb_Aza";
+            this.Rb_Aza.Size = new System.Drawing.Size(74, 17);
+            this.Rb_Aza.TabIndex = 0;
+            this.Rb_Aza.TabStop = true;
+            this.Rb_Aza.Text = "Proveedor";
+            this.Rb_Aza.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(219, 12);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(98, 17);
+            this.radioButton1.TabIndex = 1;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Proveedor T.O.";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1069,6 +1108,8 @@
             this.tlsToolBar.PerformLayout();
             this.stsStatusStrip.ResumeLayout(false);
             this.stsStatusStrip.PerformLayout();
+            this.GR_MP.ResumeLayout(false);
+            this.GR_MP.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1162,5 +1203,8 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.DataGridView Dtg_estadistica;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.GroupBox GR_MP;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton Rb_Aza;
     }
 }
