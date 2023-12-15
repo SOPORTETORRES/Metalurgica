@@ -125,7 +125,8 @@ namespace Metalurgica.Controls
            
 
         }
-        private void txtEtiquetaPieza_Validating(object sender, CancelEventArgs e)
+
+        private void ProcesaEtiquetaPieza()
         {
             string lValidarColadas = ConfigurationManager.AppSettings["ValidaColadaEnProduccion"].ToString();
 
@@ -142,10 +143,10 @@ namespace Metalurgica.Controls
 
                 // Como QR reemplaza a MP
 
-                mEmpresa  = ConfigurationManager.AppSettings["Empresa"].ToString();
+                mEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
                 mTipoCnn = ConfigurationManager.AppSettings["TipoCnn"].ToString();
                 if (lValidarSolictud_MP.ToString().ToUpper().Equals("S"))
-                    // Version Anterior 11/2019 conn re etiquetado, sin etiqueta QR
+                // Version Anterior 11/2019 conn re etiquetado, sin etiqueta QR
                 {
                     lDts = lPxOp.ObtenerSolicitudesMP_PorTotem(mUserLog.IdTotem.ToString(), lFecha, mUserLog.IdMaquina.ToString(), txtEtiquetaPieza.Text);
                     if (ValidaSolicitud_MP(lDts.DataSet) == true)
@@ -158,18 +159,67 @@ namespace Metalurgica.Controls
                     if (mTipoCnn.ToUpper().ToString().Equals("LAN"))
                         RegistraProduccion_LAN();
                     else
-                         RegistraProduccion();
+                        RegistraProduccion();
                 }
                 AjustaColumnaGrilla();
 
             }
             lFechaFin = DateTime.Now;
             lbl_fin.Text = lFechaFin.ToLongDateString();
-            System.TimeSpan diff1 = lFechaFin.Subtract(lFechaIni );
+            System.TimeSpan diff1 = lFechaFin.Subtract(lFechaIni);
             Lbl_dif.Text = diff1.TotalSeconds.ToString();
             DataRow lFila = mEstadistica.NewRow();
-            lFila["IdPaquete"] = lIdPaq; lFila["Duracion"] = diff1.TotalSeconds ;
+            lFila["IdPaquete"] = lIdPaq; lFila["Duracion"] = diff1.TotalSeconds;
             mEstadistica.Rows.Add(lFila);
+        }
+
+        private void ValidaProduccionTosol(String iColadaTO, String iEtiquetaTosol)
+        {
+            Ws_TO.Ws_ToSoapClient lpx = new Ws_TO.Ws_ToSoapClient(); DataSet ldts = new DataSet(); string lsql = "";
+            DataTable ltbl = new DataTable();
+            lsql = "exec SP_CRUD_EtiquetasVinculadasTosol '',ColadaTO,EtiquetaTosol,'','','','','','','',1";
+            ldts = lpx.ObtenerDatos(lsql);
+            if ((ldts.Tables.Count > 0) && (ldts.Tables[0].Rows.Count > 0))
+            {
+                ltbl = ldts.Tables[0].Copy();
+            }
+            Boolean EtiquetaValida = true;
+
+            if (ltbl.Rows[0]["IdForma"].ToString() != listaDataSet.DataSet.Tables[0].Rows[1]["IdForma"].ToString())
+            {
+                // Los IdForma no son iguales, alertar al usuario
+                EtiquetaValida = false;
+                MessageBox.Show("La forma de la pieza no es igual", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (listaDataSet.DataSet.Tables[1].Rows[0]["Diametro"].ToString() != listaDataSet.DataSet.Tables[1].Rows[1]["Diametro"].ToString())
+            {
+                // Los Diametros no son iguales, alertar al usuario
+                EtiquetaValida = false;
+                MessageBox.Show("Los diametros de la pieza no son iguales", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (listaDataSet.DataSet.Tables[2].Rows[0]["KgsSaldo"].ToString() < listaDataSet.DataSet.Tables[2].Rows[1]["KgsSaldo"].ToString())
+            {
+                // No tengo saldo de kgs
+                EtiquetaValida = false;
+                MessageBox.Show("No hay kgs de saldo en la colada", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (EtiquetaValida == true)
+            {
+
+                //Registro la etiqueta
+            }
+        } 
+
+        private void txtEtiquetaPieza_Validating(object sender, CancelEventArgs e)
+        {
+            if (Rb_Aza.Checked == true)
+            {
+                ProcesaEtiquetaPieza();
+            } else
+            {
+                //Crearmifuncion de produccion
+                ValidaProduccionTosol();
+            }
 
         }
 
@@ -2744,12 +2794,18 @@ namespace Metalurgica.Controls
                         ProcesaColadaOriginal();
                         break;
                     case "QR":
-                        if (mTipoCnn.ToUpper().ToString().Equals("LAN"))
-                            ProcesaColadaOriginal_QR_LAN(txtEtiquetaColada.Text);
-                        else
-                            ProcesaColadaOriginal_QR(txtEtiquetaColada.Text);
+                        if (Rb_Aza.Checked == true)
+                        {
+                            if (mTipoCnn.ToUpper().ToString().Equals("LAN"))
+                                ProcesaColadaOriginal_QR_LAN(txtEtiquetaColada.Text);
+                            else
+                                ProcesaColadaOriginal_QR(txtEtiquetaColada.Text);
 
-                        txtEtiquetaColada.Enabled = false;
+                            txtEtiquetaColada.Enabled = false;
+                        } else
+                        {
+                            //Cargo datos de la colada en la Interfaz
+                        }
                         break;
                 }
 
