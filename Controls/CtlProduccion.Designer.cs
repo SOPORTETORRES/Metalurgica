@@ -55,8 +55,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GR_MP = new System.Windows.Forms.GroupBox();
+            this.RB_TO = new System.Windows.Forms.RadioButton();
+            this.Rb_Aza = new System.Windows.Forms.RadioButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.Btn_NotificaAveriaElemento = new System.Windows.Forms.Button();
+            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.Btn_NotificacionAveria = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -72,7 +76,6 @@
             this.lbl_Inicio = new System.Windows.Forms.Label();
             this.Lbl_Usuario = new System.Windows.Forms.Label();
             this.Btn_MtoMaq = new System.Windows.Forms.Button();
-            this.lbl_MsgBloqueo = new System.Windows.Forms.Label();
             this.Btn_MtoTotem = new System.Windows.Forms.Button();
             this.Lbl_NroEtiq = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -115,9 +118,6 @@
             this.Btn_Estadistica = new System.Windows.Forms.Button();
             this.ctlInformacionUsuario1 = new Metalurgica.ctlInformacionUsuario();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.GR_MP = new System.Windows.Forms.GroupBox();
-            this.Rb_Aza = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabOperaciones.SuspendLayout();
@@ -132,13 +132,13 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.GR_MP.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tlsToolBar.SuspendLayout();
             this.stsStatusStrip.SuspendLayout();
-            this.GR_MP.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -450,6 +450,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Producción";
             // 
+            // GR_MP
+            // 
+            this.GR_MP.Controls.Add(this.RB_TO);
+            this.GR_MP.Controls.Add(this.Rb_Aza);
+            this.GR_MP.Location = new System.Drawing.Point(105, 14);
+            this.GR_MP.Name = "GR_MP";
+            this.GR_MP.Size = new System.Drawing.Size(386, 35);
+            this.GR_MP.TabIndex = 67;
+            this.GR_MP.TabStop = false;
+            this.GR_MP.Text = "Tipo Materia Prima";
+            // 
+            // RB_TO
+            // 
+            this.RB_TO.AutoSize = true;
+            this.RB_TO.Location = new System.Drawing.Point(219, 12);
+            this.RB_TO.Name = "RB_TO";
+            this.RB_TO.Size = new System.Drawing.Size(98, 17);
+            this.RB_TO.TabIndex = 1;
+            this.RB_TO.TabStop = true;
+            this.RB_TO.Text = "Proveedor T.O.";
+            this.RB_TO.UseVisualStyleBackColor = true;
+            // 
+            // Rb_Aza
+            // 
+            this.Rb_Aza.AutoSize = true;
+            this.Rb_Aza.Location = new System.Drawing.Point(113, 12);
+            this.Rb_Aza.Name = "Rb_Aza";
+            this.Rb_Aza.Size = new System.Drawing.Size(74, 17);
+            this.Rb_Aza.TabIndex = 0;
+            this.Rb_Aza.TabStop = true;
+            this.Rb_Aza.Text = "Proveedor";
+            this.Rb_Aza.UseVisualStyleBackColor = true;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.Btn_NotificaAveriaElemento);
@@ -469,6 +502,19 @@
             this.Btn_NotificaAveriaElemento.Text = "Notificar Avería de Elemento";
             this.Btn_NotificaAveriaElemento.UseVisualStyleBackColor = true;
             this.Btn_NotificaAveriaElemento.Click += new System.EventHandler(this.Btn_NotificaAveriaElemento_Click);
+            // 
+            // lbl_MsgBloqueo
+            // 
+            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
+            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(733, 13);
+            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
+            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(436, 21);
+            this.lbl_MsgBloqueo.TabIndex = 55;
+            this.lbl_MsgBloqueo.Text = "label13";
+            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_MsgBloqueo.Visible = false;
             // 
             // groupBox4
             // 
@@ -620,19 +666,6 @@
             this.Btn_MtoMaq.Text = "Mto Maq";
             this.Btn_MtoMaq.UseVisualStyleBackColor = true;
             this.Btn_MtoMaq.Visible = false;
-            // 
-            // lbl_MsgBloqueo
-            // 
-            this.lbl_MsgBloqueo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.lbl_MsgBloqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_MsgBloqueo.ForeColor = System.Drawing.Color.White;
-            this.lbl_MsgBloqueo.Location = new System.Drawing.Point(733, 13);
-            this.lbl_MsgBloqueo.Name = "lbl_MsgBloqueo";
-            this.lbl_MsgBloqueo.Size = new System.Drawing.Size(436, 21);
-            this.lbl_MsgBloqueo.TabIndex = 55;
-            this.lbl_MsgBloqueo.Text = "label13";
-            this.lbl_MsgBloqueo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbl_MsgBloqueo.Visible = false;
             // 
             // Btn_MtoTotem
             // 
@@ -840,6 +873,7 @@
             this.txtEtiquetaColada.Name = "txtEtiquetaColada";
             this.txtEtiquetaColada.Size = new System.Drawing.Size(110, 20);
             this.txtEtiquetaColada.TabIndex = 0;
+            this.txtEtiquetaColada.TextChanged += new System.EventHandler(this.txtEtiquetaColada_TextChanged);
             this.txtEtiquetaColada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEtiquetaColada_KeyPress);
             this.txtEtiquetaColada.Leave += new System.EventHandler(this.txtEtiquetaColada_Leave);
             this.txtEtiquetaColada.Validating += new System.ComponentModel.CancelEventHandler(this.txtEtiquetaColada_Validating);
@@ -1033,39 +1067,6 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // GR_MP
-            // 
-            this.GR_MP.Controls.Add(this.radioButton1);
-            this.GR_MP.Controls.Add(this.Rb_Aza);
-            this.GR_MP.Location = new System.Drawing.Point(105, 14);
-            this.GR_MP.Name = "GR_MP";
-            this.GR_MP.Size = new System.Drawing.Size(386, 35);
-            this.GR_MP.TabIndex = 67;
-            this.GR_MP.TabStop = false;
-            this.GR_MP.Text = "Tipo Materia Prima";
-            // 
-            // Rb_Aza
-            // 
-            this.Rb_Aza.AutoSize = true;
-            this.Rb_Aza.Location = new System.Drawing.Point(113, 12);
-            this.Rb_Aza.Name = "Rb_Aza";
-            this.Rb_Aza.Size = new System.Drawing.Size(74, 17);
-            this.Rb_Aza.TabIndex = 0;
-            this.Rb_Aza.TabStop = true;
-            this.Rb_Aza.Text = "Proveedor";
-            this.Rb_Aza.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(219, 12);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(98, 17);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Proveedor T.O.";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // CtlProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1099,6 +1100,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.GR_MP.ResumeLayout(false);
+            this.GR_MP.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -1108,8 +1111,6 @@
             this.tlsToolBar.PerformLayout();
             this.stsStatusStrip.ResumeLayout(false);
             this.stsStatusStrip.PerformLayout();
-            this.GR_MP.ResumeLayout(false);
-            this.GR_MP.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1204,7 +1205,7 @@
         private System.Windows.Forms.DataGridView Dtg_estadistica;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.GroupBox GR_MP;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton RB_TO;
         private System.Windows.Forms.RadioButton Rb_Aza;
     }
 }
