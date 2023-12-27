@@ -224,6 +224,29 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="grabarProduccionEtiqueta_TOSOL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pieza" type="tns:Pieza" />
+            <s:element minOccurs="1" maxOccurs="1" name="maquina" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="terminal" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iCant" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUser" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iVinculaEt" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iPesoEtiqueta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroPiezas" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNroPiezasProd" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="grabarProduccionEtiqueta_TOSOLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="grabarProduccionEtiqueta_TOSOLResult" type="tns:Pieza" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="PersitirLog">
         <s:complexType>
           <s:sequence>
@@ -2894,6 +2917,12 @@
   <wsdl:message name="grabarProduccionEtiqueta_TOSoapOut">
     <wsdl:part name="parameters" element="tns:grabarProduccionEtiqueta_TOResponse" />
   </wsdl:message>
+  <wsdl:message name="grabarProduccionEtiqueta_TOSOLSoapIn">
+    <wsdl:part name="parameters" element="tns:grabarProduccionEtiqueta_TOSOL" />
+  </wsdl:message>
+  <wsdl:message name="grabarProduccionEtiqueta_TOSOLSoapOut">
+    <wsdl:part name="parameters" element="tns:grabarProduccionEtiqueta_TOSOLResponse" />
+  </wsdl:message>
   <wsdl:message name="PersitirLogSoapIn">
     <wsdl:part name="parameters" element="tns:PersitirLog" />
   </wsdl:message>
@@ -3827,6 +3856,10 @@
       <wsdl:input message="tns:grabarProduccionEtiqueta_TOSoapIn" />
       <wsdl:output message="tns:grabarProduccionEtiqueta_TOSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TOSOL">
+      <wsdl:input message="tns:grabarProduccionEtiqueta_TOSOLSoapIn" />
+      <wsdl:output message="tns:grabarProduccionEtiqueta_TOSOLSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="PersitirLog">
       <wsdl:input message="tns:PersitirLogSoapIn" />
       <wsdl:output message="tns:PersitirLogSoapOut" />
@@ -4514,6 +4547,15 @@
     </wsdl:operation>
     <wsdl:operation name="grabarProduccionEtiqueta_TO">
       <soap:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TOSOL">
+      <soap:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TOSOL" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5948,6 +5990,15 @@
     </wsdl:operation>
     <wsdl:operation name="grabarProduccionEtiqueta_TO">
       <soap12:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="grabarProduccionEtiqueta_TOSOL">
+      <soap12:operation soapAction="http://tempuri.org/grabarProduccionEtiqueta_TOSOL" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
