@@ -171,7 +171,7 @@
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Text = "Login 2.-";
             this.Shown += new System.EventHandler(this.frmLogin_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

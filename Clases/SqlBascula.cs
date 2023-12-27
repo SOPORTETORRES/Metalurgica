@@ -28,9 +28,10 @@ namespace Metalurgica.Clases
                 lYear = lPartes[2].ToString();
                 lSq = string.Concat(" select  top 1 *  from correlativos where patente='", iPatente, "'  and PesoTara=0 ");
                 //lSq = string.Concat(lSq, " and (Fecha BETWEEN #", lFechaIni, "# AND #", lFechaFin, "#) ");
-                lSq = string.Concat(lSq, " and pesoBruto>0 and  DatePart('yyyy', Fecha)=", lYear, "   ");
-                lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
-                lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
+
+                lSq = string.Concat(lSq, " and pesoBruto>0 and Fecha>#", iFecha, "#   ");
+                //lSq = string.Concat(lSq, " and  DatePart('d', Fecha)=", lDia, "   ");
+                //lSq = string.Concat(lSq, " and  DatePart('m', Fecha)=", lMes, "   ");
                 lSq = string.Concat(lSq, "  order by correlativo desc ");
             }
 

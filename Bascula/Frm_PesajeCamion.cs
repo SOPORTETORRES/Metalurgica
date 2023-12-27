@@ -378,7 +378,7 @@ namespace Metalurgica.Bascula
         {
             string lRes = ""; string lSql = ""; Clases.SqlBascula lTipoSql = new Clases.SqlBascula();
             DataTable lTbl = new DataTable(); Clases.ClsComun lDAL = new Clases.ClsComun();
-            string lFecha = Dtp_FechaActual.Value.ToShortDateString();  //DateTime.Now.ToShortDateString();
+            string lFecha = Dtp_FechaActual.Value.AddDays (-1).ToShortDateString() ;  //DateTime.Now.ToShortDateString();
 
             if (Cmb_PatenteTara.SelectedValue .ToString() .Length == 0)
             {
@@ -878,17 +878,23 @@ namespace Metalurgica.Bascula
 
         private string ObtenerTabla_Html(string iTipo, DataSet iDtsDatos)
         {
-            string lRes = ""; DataTable lTblTmp = new DataTable();
+            string lRes = ""; DataTable lTblTmp = new DataTable(); int lValorMiles = 0;
             switch (iTipo)
             {
                 case "1":
                     lTblTmp = iDtsDatos.Tables["RVC"].Copy();  
                     lRes = "  <table border='1'  width='480px'>  <tr>  <td colspan='2' align='center' >  <b> Resumen Validación de Carga </b>  </td >     </tr>   ";
                     lRes = string.Concat(lRes, "  <tr>  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' > Concepto </td >  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' align ='right'> Valor </td >       </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso fierro real utilizado (kg) </td>  <td align ='right'>",lTblTmp.Rows [0]["Valor"].ToString ()    ,"</td>   </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso neto&nbsp; báscula </td>  <td align ='right' >", lTblTmp.Rows[1]["Valor"].ToString(), "</td>  </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td bgcolor = '#E08305'>Diferencia báscula - fierro real   (kg)</td>   <td align ='right'  bgcolor = '#E08305' >  <b>  ", lTblTmp.Rows[2]["Valor"].ToString(), "  </b>  </td>  </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td bgcolor = '#E08305' >Porcentaje fierro báscula/real (%)</td>   <td align ='right' bgcolor = '#E08305'  >  <b> ", lTblTmp.Rows[3]["Valor"].ToString(), " </b> </td>  </tr>  </table>");
+                    lValorMiles = int.Parse(lTblTmp.Rows[0]["Valor"].ToString());
+                    //lRes = string.Concat(lRes, "  <tr> <td>Peso fierro real utilizado en producción (kg) </td>  <td align ='right'>",lTblTmp.Rows [0]["Valor"].ToString ()    ,"</td>   </tr> ");
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso fierro real utilizado en producción (kg) </td>  <td align ='right'>", lValorMiles.ToString ("N0") , "</td>   </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[1]["Valor"].ToString());
+                    //lRes = string.Concat(lRes, "  <tr> <td>Peso neto de fierro en  báscula </td>  <td align ='right' >", lTblTmp.Rows[1]["Valor"].ToString(), "</td>  </tr> ");
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso neto de fierro en  báscula </td>  <td align ='right' >", lValorMiles.ToString("N0"), "</td>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[2]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td bgcolor = '#E08305'>Diferencia fierro en báscula - fierro real producido   (kg)</td>   <td align ='right'  bgcolor = '#E08305' >  <b>  ", lValorMiles.ToString("N0") , "  </b>  </td>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[3]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td bgcolor = '#E08305' >Porcentaje fierro báscula/ fierro real producido (%)</td>   <td align ='right' bgcolor = '#E08305'  >  <b> ", lValorMiles.ToString("N0") , " </b> </td>  </tr>  </table>");
 
                     break;
                 case "2":
@@ -905,10 +911,14 @@ namespace Metalurgica.Bascula
                     lRes = string.Concat(lRes, "  <tr>  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' > Concepto </td >  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' align ='right'> Valor </td >       </tr> ");
 
                     lRes = string.Concat(lRes, "  <tr>  <td>  Peso fierro real utilizado (kg)  </td>    ");
-                    lRes = string.Concat(lRes, "    <td align ='right' >", lTblTmp.Rows[0]["Valor"].ToString(), "</td>    </tr> ");
-                    lRes = string.Concat(lRes, "   <tr>   <td>Peso fierro generado por desarrollo (kg)</td>    <td align ='right' >", lTblTmp.Rows[1]["Valor"].ToString(), "</td>  </tr>   ");
-                    lRes = string.Concat(lRes, "   <tr>   <td>Peso fierro por norma 353 (1%) (kg) </td>    <td align ='right' > ", lTblTmp.Rows[2]["Valor"].ToString(), "</td>  </tr>  </tr> ");
-                    lRes = string.Concat(lRes, "  <tr>    <td   >Peso fierro en GD (kg) </ td >    <td align ='right' > <b>  ", lTblTmp.Rows[3]["Valor"].ToString(), " </b>  </td>       </tr>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[0]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "    <td align ='right' >", lValorMiles.ToString("N0"), "</td>    </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[1]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "   <tr>   <td>Peso fierro generado por desarrollo (kg)</td>    <td align ='right' >", lValorMiles.ToString("N0"), "</td>  </tr>   ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[2]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "   <tr>   <td>Peso fierro por norma 353 (1%) (kg) </td>    <td align ='right' > ", lValorMiles.ToString("N0"), "</td>  </tr>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[3]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr>    <td   >Peso fierro en GD (kg) </ td >    <td align ='right' > <b>  ", lValorMiles.ToString("N0") , " </b>  </td>       </tr>  </tr> ");
                     lRes = string.Concat(lRes, "  </td> </tr>  </table>   ");
                     break;
                 // bgcolor="#E08305" 
@@ -916,11 +926,18 @@ namespace Metalurgica.Bascula
                     lTblTmp = iDtsDatos.Tables["PBR"].Copy();
                     lRes = "  <table border='1'  width='480px'>  <tr>  <td colspan='2' align='center' >  <b> Resumen Peso báscula </b>  </td >     </tr>   ";
                     lRes = string.Concat(lRes, "  <tr>  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' > Concepto </td >  <td bgcolor = '#0099FF' style = 'color: #FFFFFF' align ='right'> Valor </td >       </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso bruto báscula (kg) </td>  <td align ='right'>", lTblTmp.Rows[0]["Valor"].ToString(), "</td>   </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso de Cuartones (kg)  </td>  <td align ='right' >", lTblTmp.Rows[1]["Valor"].ToString(), "</td>  </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso de pallets   (kg)</td>   <td align ='right'>", lTblTmp.Rows[2]["Valor"].ToString(), "</td>  </tr> ");
-                    lRes = string.Concat(lRes, "  <tr> <td>Peso de alambre   (Kg)</td>   <td align ='right' >", lTblTmp.Rows[3]["Valor"].ToString(), "</td>  </tr>  ");
-                    lRes = string.Concat(lRes, "  <tr> <td >Peso neto báscula (Kg)</td>   <td align ='right'  > <b> ", lTblTmp.Rows[4]["Valor"].ToString(), " </b>  </td>  </tr>  </table>");
+                    lValorMiles = int.Parse(lTblTmp.Rows[0]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso bruto camión  (kg) </td>  <td align ='right'>", lValorMiles.ToString("N0"), "</td>   </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[1]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td>Tara camión (kg)  </td>  <td align ='right' >", lValorMiles.ToString("N0") , "</td>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[2]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso de Cuartones (kg)  </td>  <td align ='right' >", lValorMiles.ToString("N0"), "</td>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[3]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso de pallets   (kg)</td>   <td align ='right'>", lValorMiles.ToString("N0"), "</td>  </tr> ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[4]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td>Peso de alambre   (Kg)</td>   <td align ='right' >", lValorMiles.ToString("N0"), "</td>  </tr>  ");
+                    lValorMiles = int.Parse(lTblTmp.Rows[5]["Valor"].ToString());
+                    lRes = string.Concat(lRes, "  <tr> <td >Peso neto de fierro en báscula (Kg)</td>   <td align ='right'  > <b> ", lValorMiles.ToString("N0") , " </b>  </td>  </tr>  </table>");
 
                     break;
                 case "30":
@@ -1226,29 +1243,52 @@ namespace Metalurgica.Bascula
 
         private void Frm_PesajeCamion_Load(object sender, EventArgs e)
         {
+            DataRow lFila = null;
             //formateaGrillas();
             CreaEstructuraTabla();
+            try
+            {
+                Clases.SqlBascula lTipoSql = new Clases.SqlBascula(); string lSql = "";
+                Clases.ClsComun lDAL = new Clases.ClsComun(); DataTable lTbl = new DataTable();
+                string lFecha =  DateTime.Now.ToShortDateString();
 
-            Clases.SqlBascula lTipoSql = new Clases.SqlBascula(); string lSql = "";
-            Clases.ClsComun lDAL = new Clases.ClsComun(); DataTable lTbl = new DataTable();
-            string lFecha = DateTime.Now.ToShortDateString();
+                //lFecha = "08/12/2023 11:11:11";
 
-            lSql = lTipoSql.ObtenerSqlTaraInicial( lFecha);
-            lTbl = lDAL.CargaTablaRomana(lSql);
-            new Forms().comboBoxFill(Cmb_PatenteTara , lTbl, "patente", "patente", 0);
+                lSql = lTipoSql.ObtenerSqlTaraInicial(lFecha);
+                lTbl = lDAL.CargaTablaRomana(lSql);
+                if (lTbl.Rows.Count > 0)
+                {
+                   // MessageBox.Show("ENTRO");
+                    lFila = lTbl.NewRow();
+                    lFila["patente"] = "Seleccionar";
+                    lTbl.Rows.Add(lFila);
+                    new Forms().comboBoxFill(Cmb_PatenteTara, lTbl, "patente", "patente", lTbl.Rows.Count - 1);
+                }
+                else {
+                  //  MessageBox.Show(lSql);
+                }
+             
 
-            //if (lTbl.Rows.Count > 0)
-            //{
-            //    Tx_taraCamion.Text = lTbl.Rows[0]["PesoBruto"].ToString();
-            //    // Tx_IdCorrTara.Text = lTbl.Rows[0]["Correlativo"].ToString();
-            //    mIdCorrelativo = lTbl.Rows[0]["Correlativo"].ToString();
-            //   // CargaDatosPesoTaraPorPatente_PreDespacho(Cmb_PatenteCamion.SelectedValue.ToString());
-            //    //CargaGrillaTiempos();
-            //   // Btn_VerDetalle_Click(null, null);
-            //}
-            ObtenerCamionesEnPlanta();
-            CargaPatentes();
-            Lbl_Msg.Visible = false;
+
+                ObtenerCamionesEnPlanta();
+                CargaPatentes();
+
+                OcultaTabs();
+                Lbl_Msg.Visible = false;
+            }
+            catch (Exception iex)
+            {
+                MessageBox.Show(string.Concat("Ha ocurrido en siguiente error: ", iex.Message.ToString()),"Avisos sistema");
+            }
+        }
+
+        private void OcultaTabs()
+        {
+            tabControl1.TabPages.Remove(tabPage1);
+            tabControl1.TabPages.Remove(tabPage2);
+            tabControl1.TabPages.Remove(tabPage3);
+            tabControl1.TabPages.Remove(tabPage4);
+            tabControl1.TabPages.Remove(tabPage5);
 
         }
 
@@ -2517,11 +2557,14 @@ namespace Metalurgica.Bascula
             {
                 Clases.SqlBascula lTipoSql = new Clases.SqlBascula(); string lSql = "";
                 Clases.ClsComun lDAL = new Clases.ClsComun(); DataTable lTbl = new DataTable();
-                string lFecha = DateTime.Now.ToShortDateString();
+                DateTime lNewFecha = DateTime.Now.AddDays(-7);
+                string lFecha = lNewFecha.ToShortDateString();    //DateTime.Now.ToShortDateString();
                 //if (mBuscaDatosPatente == true)
                 //{
                 //    //CargaDatosPesoTaraPorPatente(Cmb_Patente.SelectedValue.ToString());
                 //}
+
+                //lFecha = "08/12/2023";
                 lSql = lTipoSql.ObtenerSqlTara(Cmb_PatenteCamion.SelectedValue.ToString (), lFecha);
                 Tx_sql.Text = lSql;
                 lTbl = lDAL.CargaTablaRomana(lSql);
@@ -2678,21 +2721,25 @@ namespace Metalurgica.Bascula
                 RPB.Columns.Add("Valor");
                 lFila = RPB.NewRow();
                 //lTotalKgs=
-                lTotalKgs = Convert.ToDecimal ( this.Dtg_RVC.Rows[1].Cells["Valor"].Value.ToString());
-                lFila["Concepto"] = "Peso bruto báscula (kg)"; lFila["Valor"] = lTotalKgs; RPB.Rows.Add(lFila);
+                    lTotalKgs = Convert.ToDecimal ( this.Dtg_RVC.Rows[1].Cells["Valor"].Value.ToString());
+                lFila["Concepto"] = "Peso bruto camión (kg)"; lFila["Valor"] = Tx_PesoBrutoCamion.Text ; RPB.Rows.Add(lFila);
                 lFila = RPB.NewRow();
-                lFila["Concepto"] = "Peso de cuartones (kg)"; lFila["Valor"] = Tx_KilosCuartones.Text  ; RPB.Rows.Add(lFila);
+                lFila["Concepto"] = "Tara camión (kg)"; lFila["Valor"] = Tx_taraCamion.Text  ; RPB.Rows.Add(lFila);
                 lFila = RPB.NewRow();
-                lFila["Concepto"] = "Peso de pallets (kg)"; lFila["Valor"] = Tx_KilosPallet.Text ; RPB.Rows.Add(lFila);
+                lFila["Concepto"] = "Peso de cuartones (kg)"; lFila["Valor"] = Tx_KilosCuartones.Text ; RPB.Rows.Add(lFila);
                 lFila = RPB.NewRow();
-                lFila["Concepto"] = "Peso de alambre (kg)"; lFila["Valor"] = Tx_alambre.Text ; RPB.Rows.Add(lFila);
-                lAux = Convert.ToInt32(Tx_KilosCuartones.Text) + Convert.ToInt32(Tx_KilosPallet.Text) + Convert.ToInt32(Tx_alambre.Text);
+                lFila["Concepto"] = "Peso de pallets (kg)"; lFila["Valor"] = Tx_KilosPallet.Text; RPB.Rows.Add(lFila);
+                lFila = RPB.NewRow();
+                lFila["Concepto"] = "Peso de alambre (kg)"; lFila["Valor"] = Tx_alambre.Text; RPB.Rows.Add(lFila);
+                
+                lAux = Convert.ToInt32(Tx_KilosCuartones.Text) + Convert.ToInt32(Tx_KilosPallet.Text) + Convert.ToInt32(Tx_alambre.Text)+ Convert.ToInt32(Tx_taraCamion.Text);
 
+                lTotalKgs = Convert.ToDecimal(Tx_PesoBrutoCamion.Text);
                 lFila = RPB.NewRow();
                 lFila["Concepto"] = "Peso neto báscula (kg)"; lFila["Valor"] = lTotalKgs-lAux; RPB.Rows.Add(lFila);
 
                 //lAux = lCom.Val(lTblRFC.Rows[0]["Valor"].ToString()) - lCom.Val(lTblRFC.Rows[1]["Valor"].ToString()) + lCom.Val(lTblRFC.Rows[2]["Valor"].ToString());
-                lAux = int.Parse(lTotalKgs.ToString()) + int.Parse(lKgsDesarrollo.ToString()) + int.Parse(lKgsNorma353.ToString());
+                //lAux = int.Parse(lTotalKgs.ToString()) + int.Parse(lKgsDesarrollo.ToString()) + int.Parse(lKgsNorma353.ToString());
                 //lFila = RPB.NewRow();
                 //lFila["Concepto"] = "Peso fierro en GD (kg)"; lFila["Valor"] = lAux; RPB.Rows.Add(lFila); // Tx_KgsCargados.Text ; 
 
@@ -2855,6 +2902,7 @@ namespace Metalurgica.Bascula
 
         private void Btn_GrabarDespacho_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (RevisaDatosAntesGrabacion_V_2() == true)
             {
                 //if (GrabarDatos_V2() == true)
@@ -2864,7 +2912,7 @@ namespace Metalurgica.Bascula
                 button2.Enabled = true;
                 //}
             }
-
+            Cursor.Current = Cursors.Default; 
             //Frm_AutorizaDespacho 
         }
 

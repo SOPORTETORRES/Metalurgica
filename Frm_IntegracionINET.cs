@@ -1000,7 +1000,7 @@ namespace Metalurgica
                         lDts = lDal.ObtenerDatos(lsql);
                         if ((lDts.Tables.Count > 0) && (lDts.Tables[0].Rows.Count > 0))
                         {
-                            if (lDts.Tables[0].Rows[0]["OC"].ToString().Equals ("0"))
+                            if ((lDts.Tables[0].Rows[0]["OC"].ToString().Equals(""))|| (lDts.Tables[0].Rows[0]["OC"].ToString().Equals ("0")))
                             {
                                 lGuiaOC = new Tipo_GuiaOC();
                                 lGuiaOC.IdIt = lDts.Tables[0].Rows[0]["IDIT"].ToString();
@@ -1029,8 +1029,8 @@ namespace Metalurgica
                 lOC_Tmp = lListas[i].OC.ToString();
                 //for (j = 0; j < lListas.Count; j++)
                 //{
-                    if (lListas[j].OC.ToString().Equals ("0"))
-                    {
+                if ((lDts.Tables[0].Rows[0]["OC"].ToString().Equals("")) || (lDts.Tables[0].Rows[0]["OC"].ToString().Equals("0")))
+                {
                         if (lOC_Tmp.IndexOf(lListas[j].OC.ToString()) > -1)
                         {
                             lVista = new DataView(lTbl, string.Concat("OC='", lListas[j].OC.ToString(), "'"), "", DataViewRowState.CurrentRows);

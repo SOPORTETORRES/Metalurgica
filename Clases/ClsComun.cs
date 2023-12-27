@@ -10,6 +10,7 @@ using System.Data.OleDb;
 using System.IO;
 using iTextSharp.text.pdf;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace Metalurgica.Clases
 {
@@ -620,6 +621,7 @@ namespace Metalurgica.Clases
             catch (Exception ex)
             {
                 lError = string.Concat("ClsDatos.CargaTablaRomana ", ex.Message.ToString(), " sql: ", lSql);
+                MessageBox.Show(lError);
             }
 
             return lTbl;

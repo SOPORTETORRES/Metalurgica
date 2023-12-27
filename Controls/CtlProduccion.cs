@@ -133,7 +133,7 @@ namespace Metalurgica.Controls
             DateTime lFechaIni = DateTime.Now; DateTime lFechaFin = DateTime.Now; string lIdPaq = txtEtiquetaPieza.Text;
             lbl_Inicio.Text = lFechaIni.ToLongDateString();
 
-            if (PuedeProducirEtiqueta() == true)
+                if (PuedeProducirEtiqueta() == true)
             {
                 //Se debe validar las producciones v/s las solicitudes de material
                 WsOperacion.OperacionSoapClient lPxOp = new WsOperacion.OperacionSoapClient();
@@ -503,7 +503,7 @@ namespace Metalurgica.Controls
                                 //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
                                 //A630(normal)  A440.
 
-                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630")  || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() != "A440-280H"))
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440-280H"))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";
@@ -514,7 +514,7 @@ namespace Metalurgica.Controls
                                 //Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima
                                 //A630(normal)  A440.
 
-                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() != "A440-280H"))
+                                if ((mEtiqueta_Qr.CalidadAcero.ToString() == "A630-420H") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A630") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440") || (mEtiqueta_Qr.CalidadAcero.ToString() == "A440-280H"))
                                 {
                                     lEtiquetaImpresa = false;
                                     lmsg = " Se intenta producir una etiqueta que exige A630S(Soldable) con materia prima  A630(normal)  ó A440(Soldable)";

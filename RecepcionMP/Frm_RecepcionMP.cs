@@ -1380,15 +1380,15 @@ namespace Metalurgica.RecepcionMP
                                 MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
                                 Btn_Nueva_Click(null, null);
                             }
-                                       //CargaDatosEtiquetas_TO();
+                                       CargaDatosEtiquetas_TO();
 
                             break;                        
                     }
-                    if (VerificaGuiaDespacho(Tx_GuiaDesp.Text ) == false)
-                    {
-                        MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
-                        Btn_Nueva_Click(null, null);
-                      }
+                    //if (VerificaGuiaDespacho(Tx_GuiaDesp.Text ) == false)
+                    //{
+                    //    MessageBox.Show(" El Número de Guía Ingresado ya se encuentra Registrado, No se puede continuar ");
+                    //    Btn_Nueva_Click(null, null);
+                    //  }
                 }
                 catch (Exception exc)
                 {
