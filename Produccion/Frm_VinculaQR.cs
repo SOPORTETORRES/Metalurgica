@@ -37,6 +37,17 @@ namespace Metalurgica.Produccion
 
         }
 
+        public void GrabarTosol(string iEt_Tosol, string iQR, string iKgsVin, int iIdMaquinaProd, int iNroPiezas)
+        {
+
+            string lSql = ""; DataSet lDts = new DataSet(); DataTable lTbl = new DataTable();
+            Ws_TO.Ws_ToSoapClient lPx = new Ws_TO.Ws_ToSoapClient();
+
+            lSql = "insert into EtiquetasVinculadasTOSOL (IdEtiquetaTosol, IdEtiquetaTO, Tipo, KgsVinculados, FechaRegistro, Estado, IdMaquinaProduce, IdDetalleProductoIntegrado, NroPiezas)";
+            lSql = string.Concat(lSql, "values(" , iEt_Tosol, ",", iQR,",'P',", iKgsVin, ", GETDATE(), 'S',", iIdMaquinaProd, ", null, ", iNroPiezas ,")");
+            lPx.ObtenerDatos(lSql);
+
+        }
 
         private void CargaGrilla(string iEt_TO)
         {
@@ -70,8 +81,13 @@ namespace Metalurgica.Produccion
             Tx_Saldo.Text = iKgsSaldo.ToString();
             Tx_Diam.Text = iDiam;
             mUserLog = iUser;
-
-            Grabar(Tx_Id.Text, iQR, iKgsVinc, mUserLog.IdMaquina);
+            if (mEmpresa == "TO")
+            {
+                Grabar(Tx_Id.Text, iQR, iKgsVinc, mUserLog.IdMaquina);
+            } else
+            {
+                GrabarTosol(Tx_Id.Text, iQR, iKgsVinc, mUserLog.IdMaquina, 15);
+            }
             CargaGrilla(Tx_Id.Text);
             Tx_etiquetaQR.Focus();
                  
@@ -120,7 +136,7 @@ namespace Metalurgica.Produccion
                     if (Tx_Diam.Text == lblDiametro.Text)
                     {
                         //grabamos y volvemos a la pantalla anterior
-                        GrabarDatos();
+                        GrabarDatosTosol();
                     }
                     else
                     {
@@ -209,7 +225,7 @@ namespace Metalurgica.Produccion
             WsOperacion.ListaDataSet listaDataSet = new WsOperacion.ListaDataSet();
             Ws_TO.Ws_ToSoapClient lpx = new Ws_TO.Ws_ToSoapClient();
             DataSet ldts = new DataSet(); string lsql = "";
-            DataTable ltbl = new DataTable();
+            DataTable lTbl = new DataTable();
             int lSaldoColada = 0;
 
             DataTable dt = new DataTable(); Clases.ClsComun lCom = new Clases.ClsComun();
@@ -223,18 +239,19 @@ namespace Metalurgica.Produccion
                     lblDiametro.Text = ".";
                     lblLargo.Text = ".";
                     mIdEtiquetaColada = iTx.ToString();   // el Id de la etiqueta Aza
-                        //ValidaColadaEnProduccion
-                        lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", iTx.ToString(), ",'','','','','','','','',2");
-                        ldts = lpx.ObtenerDatos(lsql);
-                    Lbl_SaldoKilosColada.Text = ltbl.Rows[0]["KgsSaldo"].ToString();
-                    Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
-                    lblColada.Text = iTx.ToString();
-                    lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
-                    lblLargo.Text = ltbl.Rows[0]["largo"].ToString();
-                    lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
-                    //lSaldoColada = (ltbl.Rows[0]["KgsSaldo"].ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
-                    Tx_etiquetaQR.Tag = mIdEtiquetaColada;
-
+                  //ValidaColadaEnProduccion
+                    lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", iTx.ToString(), ",'','','','','','','','',2");
+                    ldts = lpx.ObtenerDatos(lsql);
+                    if (ldts.Tables.Count > 0){
+                        lTbl = ldts.Tables[0].Copy();
+                        Lbl_SaldoKilosColada.Text = lTbl.Rows[0]["KgsSaldo"].ToString();
+                        Lbl_KgsProd.Text = lTbl.Rows[0]["KgsProducidos"].ToString();
+                        lblColada.Text = iTx.ToString();
+                        lblDiametro.Text = lTbl.Rows[0]["Diametro"].ToString();
+                        lblLargo.Text = lTbl.Rows[0]["largo"].ToString();
+                        lblKilos.Text = lTbl.Rows[0]["KgsPaquete"].ToString();
+                        lSaldoColada = (int.Parse(lTbl.Rows[0]["KgsSaldo"].ToString()) - int.Parse(Tx_Saldo.Text));
+                        Tx_etiquetaQR.Tag = mIdEtiquetaColada;
                         if (lSaldoColada < 1)
                         {
                             MessageBox.Show("La Colada ingresada ya se ha consumido en su totalidad, NO se puede vincular mas producción, Debe indicar  otra Calada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -249,6 +266,7 @@ namespace Metalurgica.Produccion
                             Tx_etiquetaQR.Text = "";
                             Tx_etiquetaQR.Focus();
                         }
+                    }
                 }
                 catch (Exception exc)
                 {
@@ -321,7 +339,65 @@ namespace Metalurgica.Produccion
             }
         }
 
-               private void txtEtiquetaColada_Validating(object sender, CancelEventArgs e)
+        private void GrabarDatosTosol()
+        {
+            int lSaldoEtiqueta = 0; int lKgsColada = 0; int lKgsVinc = 0; int i = 0;
+                lSaldoEtiqueta = int.Parse(Tx_Saldo.Text);
+                lKgsColada = int.Parse(Lbl_SaldoKilosColada.Text);
+
+                if (int.Parse(mIdEtiquetaColada) > 0)
+                {
+                    if (lSaldoEtiqueta <= lKgsColada)  //todo OK.
+                    {
+                        mTotalKgsOk = "S";
+                        lKgsVinc = lSaldoEtiqueta;
+                        GrabarTosol(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina, 16);
+                        AppDomain.CurrentDomain.SetData("KgsOK", "S");
+                        AppDomain.CurrentDomain.SetData("Colada", this.Tx_etiquetaQR.Text);
+                        this.Close();
+                    }
+
+                    else  // Hay que vincular Otra etiqueta
+                    {
+                        mTotalKgsOk = "N";
+                        lKgsVinc = lKgsColada;
+                        GrabarTosol(Tx_Id.Text, mIdEtiquetaColada, lKgsVinc.ToString(), mUserLog.IdMaquina, 16);
+                        CargaGrilla(Tx_Id.Text);
+                        Lbl_Msg.Text = string.Concat("Debe Leer otra etiqueta de colada ");
+                        // Limpiar Datos Colada
+                        Tx_etiquetaQR.Text = "";
+                        lblColada.Text = "";
+                        lblDiametro.Text = "";
+                        lblLargo.Text = "";
+                        Lbl_SaldoKilosColada.Text = "";
+                        Lbl_KgsProd.Text = "";
+                        lblColada.Text = "";
+                        lblDiametro.Text = "";
+                        lblLargo.Text = "";
+                        lblKilos.Text = "";
+                        Tx_etiquetaQR.Tag = "0";
+                        // Actualizar los Datos
+                        lKgsVinc = 0;
+                        for (i = 0; i < this.Dtg_Resultado.Rows.Count; i++)
+                        {
+                            if (Dtg_Resultado.Rows[i].Cells["KgsVinculados"].Value != null)
+                                lKgsVinc = lKgsVinc + int.Parse(Dtg_Resultado.Rows[i].Cells["KgsVinculados"].Value.ToString());
+
+                        }
+                        Tx_Vinculados.Text = lKgsVinc.ToString();
+                        lSaldoEtiqueta = int.Parse(Tx_KgsEtiqueta.Text) - lKgsVinc;
+                        Tx_Saldo.Text = lSaldoEtiqueta.ToString();
+
+                    }
+
+                }
+                else
+                    MessageBox.Show(" La etiqueta colada NO puede ser 0, revisar :  ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+
+        private void txtEtiquetaColada_Validating(object sender, CancelEventArgs e)
         {
 
 

@@ -979,7 +979,7 @@ namespace Metalurgica.Controls
                                         RegistraPiezaProducidaTosol(iColada, iEtiquetaTosol, lPiezasPaq, Program.currentUser, 10, "1", true, double.Parse(iPesoEtiqueta));
                                         MessageBox.Show("Etiqueta registrada OK!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         lPuedeContinuar = true;
-                                            mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:658)|");
+                                        mLog = string.Concat(mLog, "Con Saldo Colada:SI(L:658)|");
                                         }
                                         else
                                         {
@@ -1001,8 +1001,58 @@ namespace Metalurgica.Controls
                                             }
                                             mLog = string.Concat(mLog, "Fin Form. vinculación de Coladas(L:675)|");
 
+                                        if (lPuedeContinuar == true)
+                                        {
+                                            DataGridView dgvActiva = null; Forms forms = new Forms(); dgvActiva = dgvEtiquetasPiezas;
+                                            if (dgvActiva.DataSource == null) // if (dgvActiva.DataSource == null)
+                                            {
+                                                //mVistaPr = (DataView)dgvActiva.DataSource;
+                                                listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                                                dataTable = listaDataSet.DataSet.Tables[0];
+                                                if (dataTable.Rows.Count > 0)
+                                                {
+                                                    //dataTable.Rows[0][COLUMNNAME_ESTADO] = (tabOperaciones.SelectedIndex == 0 ? "" : cboExcepciones.SelectedValue.ToString());
+                                                    dataTable.Rows[0][COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
+                                                    dataTable.Rows[0][COLUMNNAME_ESTADO] = cboExcepciones.Text;
+                                                }
+                                                //mTotalKilos =double.Parse (dataTable.Rows[0]["Pesopaquete"].ToString ());                                            
+                                                mTblDatos = dataTable.Copy();
+                                                //dgvActiva.DataSource = dataTable;
+                                                mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
+                                                dgvActiva.DataSource = mVistaPr;
+                                                dgvActiva.Columns["Obra"].Width = 500;
+                                                txtEtiquetaPieza.Text = "";
+                                            }
+                                            else
+                                            {
+                                                listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
+                                                DataRow row = mTblDatos.NewRow();
 
-                                            MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                foreach (DataGridViewColumn column in dgvActiva.Columns)
+                                                {
+                                                    row[column.Index] = listaDataSet.DataSet.Tables[0].Rows[0][column.Index];
+                                                }
+
+                                                row[COLUMNNAME_PIE_ESTADO] = cboExcepciones.SelectedValue.ToString();
+                                                row[COLUMNNAME_ESTADO] = cboExcepciones.Text;
+                                                mTotalKilos = mTotalKilos + double.Parse(row["PesoPaquete"].ToString()) - double.Parse(row["KgsNorma353"].ToString());
+                                                //dataTable.Rows.Add(row);
+                                                mTblDatos.Rows.Add(row);
+                                                txtEtiquetaPieza.Text = "";
+                                            }
+                                            if (tabOperaciones.SelectedIndex == 0)
+                                                forms.dataGridViewHideColumns(dgvEtiquetasPiezas, new string[] { "ERR", "PIE_ESTADO", "ESTADO" });
+                                            else
+                                                forms.dataGridViewHideColumns(dgvEtiquetasPiezasExcepciones, new string[] { "ERR", "PIE_ESTADO" });
+
+                                            forms.dataGridViewAutoSizeColumnsMode(dgvEtiquetasPiezas, DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                                            //tlbEstado.Text = "Registro(s): " + dgvRecepciones.Rows.Count;
+                                            lblCantidadEtiquetasPiezas.Text = "Registro(s): " + dgvEtiquetasPiezas.Rows.Count;
+                                            lblCantidadEtiquetasPiezasExcepciones.Text = "Registro(s): " + dgvEtiquetasPiezasExcepciones.Rows.Count;
+                                            //txtEtiquetaPieza.Text = (int.Parse(txtEtiquetaPieza.Text) + 1).ToString() ;                                           
+
+                                        }
+                                        MessageBox.Show("Ya se han utilizado todos los Kilos de la etiqueta, No se puede  registrar la Producción ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                             lPuedeContinuar = false;
                                         }
                                     }
@@ -1721,7 +1771,8 @@ namespace Metalurgica.Controls
                                                     mVistaPr = new DataView(mTblDatos, "", "FechaProduccion desc", DataViewRowState.CurrentRows);
                                                     dgvActiva.DataSource = mVistaPr;
                                                     dgvActiva.Columns["Obra"].Width = 500;
-                                                }
+                                                    txtEtiquetaPieza.Text = "";
+                                            }
                                                 else
                                                 {
                                                     listaDataSet = wsOperacion.ObtenerDatosConsultaGenerica(8, txtEtiquetaPieza.Text, "", "", "", "");
@@ -2345,6 +2396,7 @@ namespace Metalurgica.Controls
             }
 
 
+
         }
 
 
@@ -2601,7 +2653,7 @@ namespace Metalurgica.Controls
                         lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
                         lblLargo.Text = ltbl.Rows[0]["Largo"].ToString();
                         Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
-                        Lbl_SaldoKilosColada.Text = ltbl.Rows[0]["KgsSaldo"].ToString();
+                        Lbl_SaldoKilosColada.Text = Math.Round(Decimal.Parse(ltbl.Rows[0]["KgsSaldo"].ToString()), 0).ToString();
                         Lbl_NroPiezas.Text = ltbl.Rows[0]["NroPiezas"].ToString();
                     }
                 }
