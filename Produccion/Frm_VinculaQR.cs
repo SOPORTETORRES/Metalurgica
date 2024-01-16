@@ -226,14 +226,17 @@ namespace Metalurgica.Produccion
                         //ValidaColadaEnProduccion
                         lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", iTx.ToString(), ",'','','','','','','','',2");
                         ldts = lpx.ObtenerDatos(lsql);
-                    Lbl_SaldoKilosColada.Text = ltbl.Rows[0]["KgsSaldo"].ToString();
-                    Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
-                    lblColada.Text = iTx.ToString();
-                    lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
-                    lblLargo.Text = ltbl.Rows[0]["largo"].ToString();
-                    lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
-                    //lSaldoColada = (ltbl.Rows[0]["KgsSaldo"].ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
-                    Tx_etiquetaQR.Tag = mIdEtiquetaColada;
+                    if ((ldts.Tables.Count > 0) && (ldts.Tables[0].Rows.Count > 0))
+                    {
+                        ltbl = ldts.Tables[0].Copy();
+                        Lbl_SaldoKilosColada.Text = ltbl.Rows[0]["KgsSaldo"].ToString();
+                        Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
+                        lblColada.Text = iTx.ToString();
+                        lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
+                        lblLargo.Text = ltbl.Rows[0]["largo"].ToString();
+                        lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
+                        //lSaldoColada = (ltbl.Rows[0]["KgsSaldo"].ToString()) - lCom.Val(mEtiqueta_Qr.KgsProducidos.ToString()));
+                        Tx_etiquetaQR.Tag = mIdEtiquetaColada;
 
                         if (lSaldoColada < 1)
                         {
@@ -249,6 +252,8 @@ namespace Metalurgica.Produccion
                             Tx_etiquetaQR.Text = "";
                             Tx_etiquetaQR.Focus();
                         }
+                    }
+                    
                 }
                 catch (Exception exc)
                 {

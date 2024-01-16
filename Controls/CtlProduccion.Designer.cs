@@ -468,13 +468,13 @@
             this.RB_TO.Name = "RB_TO";
             this.RB_TO.Size = new System.Drawing.Size(98, 17);
             this.RB_TO.TabIndex = 1;
-            this.RB_TO.TabStop = true;
             this.RB_TO.Text = "Proveedor T.O.";
             this.RB_TO.UseVisualStyleBackColor = true;
             // 
             // Rb_Aza
             // 
             this.Rb_Aza.AutoSize = true;
+            this.Rb_Aza.Checked = true;
             this.Rb_Aza.Location = new System.Drawing.Point(113, 12);
             this.Rb_Aza.Name = "Rb_Aza";
             this.Rb_Aza.Size = new System.Drawing.Size(74, 17);
