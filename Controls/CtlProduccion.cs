@@ -2646,7 +2646,7 @@ namespace Metalurgica.Controls
                     DataTable ltbl = new DataTable();
                     lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", txtEtiquetaColada.Text.ToString(), ",'','','','','','','','',2");
                     ldts = lpx.ObtenerDatos(lsql);
-                    if (ldts.Tables.Count > 0)
+                    if ((ldts.Tables.Count > 0) && (ldts.Tables[0].Rows.Count > 0))
                     {
                         ltbl = ldts.Tables[0].Copy();
                         lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
@@ -2655,6 +2655,9 @@ namespace Metalurgica.Controls
                         Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
                         Lbl_SaldoKilosColada.Text = Math.Round(Decimal.Parse(ltbl.Rows[0]["KgsSaldo"].ToString()), 0).ToString();
                         Lbl_NroPiezas.Text = ltbl.Rows[0]["NroPiezas"].ToString();
+                    } else
+                    {
+                        MessageBox.Show("Colada ingresada no existe o no ha sido recepcionada", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             } else
