@@ -2638,32 +2638,36 @@ namespace Metalurgica.Controls
         {
             //txtEtiquetaColada.Text = eliminarCaracteresEspeciales(txtEtiquetaColada.Text.Trim());
             txtEtiquetaPieza.Focus();
-            if (Rb_Aza.Checked == true ||  RB_TO.Checked == true)
+            if (mEmpresa == "7")
             {
-                if (RB_TO.Checked == true)
+                if (Rb_Aza.Checked == true || RB_TO.Checked == true)
                 {
-                    Ws_TO.Ws_ToSoapClient lpx = new Ws_TO.Ws_ToSoapClient(); DataSet ldts = new DataSet(); string lsql = "";
-                    DataTable ltbl = new DataTable();
-                    lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", txtEtiquetaColada.Text.ToString(), ",'','','','','','','','',2");
-                    ldts = lpx.ObtenerDatos(lsql);
-                    if ((ldts.Tables.Count > 0) && (ldts.Tables[0].Rows.Count > 0))
+                    if (RB_TO.Checked == true)
                     {
-                        ltbl = ldts.Tables[0].Copy();
-                        lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
-                        lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
-                        lblLargo.Text = ltbl.Rows[0]["Largo"].ToString();
-                        Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
-                        Lbl_SaldoKilosColada.Text = Math.Round(Decimal.Parse(ltbl.Rows[0]["KgsSaldo"].ToString()), 0).ToString();
-                        Lbl_NroPiezas.Text = ltbl.Rows[0]["NroPiezas"].ToString();
-                    } else
-                    {
-                        MessageBox.Show("Colada ingresada no existe o no ha sido recepcionada", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Ws_TO.Ws_ToSoapClient lpx = new Ws_TO.Ws_ToSoapClient(); DataSet ldts = new DataSet(); string lsql = "";
+                        DataTable ltbl = new DataTable();
+                        lsql = string.Concat("exec SP_CRUD_EtiquetasVinculadasTosol '',", txtEtiquetaColada.Text.ToString(), ",'','','','','','','','',2");
+                        ldts = lpx.ObtenerDatos(lsql);
+                        if ((ldts.Tables.Count > 0) && (ldts.Tables[0].Rows.Count > 0))
+                        {
+                            ltbl = ldts.Tables[0].Copy();
+                            lblDiametro.Text = ltbl.Rows[0]["Diametro"].ToString();
+                            lblKilos.Text = ltbl.Rows[0]["KgsPaquete"].ToString();
+                            lblLargo.Text = ltbl.Rows[0]["Largo"].ToString();
+                            Lbl_KgsProd.Text = ltbl.Rows[0]["KgsProducidos"].ToString();
+                            Lbl_SaldoKilosColada.Text = ltbl.Rows[0]["KgsSaldo"].ToString();
+                            Lbl_NroPiezas.Text = ltbl.Rows[0]["NroPiezas"].ToString();
+                        }
+                        else
+                            MessageBox.Show("La etiqueta de materia Prima,  NO existe, o No ha sido recepcionada ", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            } else
-            {
-                MessageBox.Show("Favor seleccionar una opcion de materia prima", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show("Favor seleccionar una opcion de materia prima", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            
            
         }
 
@@ -3145,6 +3149,7 @@ namespace Metalurgica.Controls
         {
             mTipoColada =  ConfigurationManager.AppSettings["TipoColada"].ToString();
             mIdSucursal = ConfigurationManager.AppSettings["IdSucursal"].ToString();
+            mEmpresa = ConfigurationManager.AppSettings["Empresa"].ToString();
         }
 
         private void TlbNuevaSolicitud_Click(object sender, EventArgs e)
